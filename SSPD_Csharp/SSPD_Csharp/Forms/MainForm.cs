@@ -6,15 +6,18 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SSPD_Csharp
+namespace SSPD
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
-        public Main()
+        public MainForm()
         {
             InitializeComponent();
 
             this.Shown +=new EventHandler(Main_Shown);
+
+            Config cfg = new Config();
+            cfg.ReadCFG();
 
         }
 

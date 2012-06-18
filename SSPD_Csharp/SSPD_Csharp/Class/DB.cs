@@ -4,7 +4,9 @@ using System.Text;
 
 namespace SSPD
 {
-    class ClassDB
+    class DB
     {
+
+
     }
 }

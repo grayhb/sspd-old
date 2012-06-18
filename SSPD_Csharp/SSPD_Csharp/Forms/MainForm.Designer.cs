@@ -1,6 +1,6 @@
-﻿namespace SSPD_Csharp
+﻿namespace SSPD
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// Требуется переменная конструктора.

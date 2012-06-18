@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace SSPD_Csharp
+namespace SSPD
 {
     static class Program
     {
@@ -14,7 +14,7 @@ namespace SSPD_Csharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new MainForm());
         }
     }
 }
