@@ -9,13 +9,16 @@ namespace SSPD
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            //параметры:
+            string commandline = "";
+            if (args.Length > 0) commandline = args[0].ToString();
 
             //проверяем запущено ли приложение:
-            if (System.Diagnostics.Process.GetProcessesByName(Application.ProductName).Length > 1)
+            if (System.Diagnostics.Process.GetProcessesByName(Application.ProductName).Length > 1 && commandline == "")
             {
-                MessageBox.Show("Приложение уже запущено","ССПД",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Приложение уже запущено", "ССПД", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
             else
@@ -32,7 +35,14 @@ namespace SSPD
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new MainForm());
+                    if (commandline == "")
+                    {
+                        Application.Run(new MainForm());
+                    }
+                    else if (commandline == "CFG")
+                    {
+                        Application.Run(new Cfg());
+                    }
                 }
             }
 

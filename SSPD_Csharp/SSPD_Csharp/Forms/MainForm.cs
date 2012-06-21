@@ -34,6 +34,9 @@ namespace SSPD
 
             this.Opacity = 100;
 
+            Cfg cfg = new Cfg();
+            cfg.ShowDialog();
+
         }
     }
 }
