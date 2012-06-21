@@ -13,8 +13,6 @@ namespace SSPD
          */
         public void ReadCFG()
         {
-            //заменить на путь к папке исполняемого файла
-            string path = "w:\\sspd.cfg";
             string StrPar = "";
 
             int LenStrPar = 0;
@@ -22,7 +20,7 @@ namespace SSPD
 
             byte[] fileData; //массив 
 
-            using (System.IO.FileStream fs = System.IO.File.OpenRead(path))
+            using (System.IO.FileStream fs = System.IO.File.OpenRead(Params.AppPath))
             {
                 fileData = new byte[fs.Length];
                 fs.Read(fileData, 0, (int)fs.Length);

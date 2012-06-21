@@ -6,6 +6,8 @@ namespace SSPD
 {
     static class Params
     {
+        //путь до конфига ССПД
+        public static string AppPath = Environment.CurrentDirectory + "\\sspd.cfg";
 
         //маска
         public static string Mask = "dgk";      

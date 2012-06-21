@@ -10,6 +10,8 @@ namespace SSPD
 {
     public partial class MainForm : Form
     {
+        Declarations Declarations = new Declarations();
+
         public MainForm()
         {
             InitializeComponent();
@@ -18,12 +20,20 @@ namespace SSPD
 
             Config cfg = new Config();
             cfg.ReadCFG();
-
         }
 
         private void Main_Shown(object sender, EventArgs e)
         {
+            this.CenterToScreen();
+            this.WindowState = FormWindowState.Maximized;
+            this.Text = "my";
+            
+
+            Declarations.MdiParent = this;
+            Declarations.Show();
+
             this.Opacity = 100;
+
         }
     }
 }

@@ -47,6 +47,12 @@
     <Compile Include="Class\Config.cs" />
     <Compile Include="Class\DB.cs" />
     <Compile Include="Class\Params.cs" />
+    <Compile Include="Forms\Declarations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Declarations.Designer.cs">
+      <DependentUpon>Declarations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +61,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Declarations.resx">
+      <DependentUpon>Declarations.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
