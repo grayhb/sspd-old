@@ -20,7 +20,7 @@ namespace SSPD
 
             byte[] fileData; //массив 
 
-            using (System.IO.FileStream fs = System.IO.File.OpenRead(Params.AppPath))
+            using (System.IO.FileStream fs = System.IO.File.OpenRead(Params.CfgPath))
             {
                 fileData = new byte[fs.Length];
                 fs.Read(fileData, 0, (int)fs.Length);
@@ -257,8 +257,8 @@ namespace SSPD
          */
         public string Code(string text, string password)
         {
-            string Res = "";
-            Int32 yy;
+            string Res = null;
+            Int32 yy = 0;
 
             // создаем цикличный ключ
             while (password.Length < text.Length)
@@ -268,7 +268,8 @@ namespace SSPD
 
             for (int i = 0; i <= text.Length-1; i++)
             {
-                yy = Convert.ToInt32(Convert.ToChar(text.Substring(i, 1))) + Convert.ToInt32(Convert.ToChar(password.Substring(i, 1)));
+                yy = Convert.ToInt32(Convert.ToChar(text.Substring(i, 1))) + Convert.ToInt32(Convert.ToChar(password.Substring(i, 1))) % 256;
+                Console.WriteLine(yy);
                 Res += Convert.ToChar(yy);
             }
 

@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.DataSource = new System.Windows.Forms.TextBox();
-            this.database = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.SERVERProvider = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.uid = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.pwd = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.uid = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.SERVERProvider = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.database = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DataSource = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pwdPCD = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,6 +51,8 @@
             this.DataSourcePCD = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.PasswordRead = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.UserNameRead = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.PasswordWrite = new System.Windows.Forms.TextBox();
@@ -61,8 +63,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.FTPServer = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.PasswordRead = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.PasswordReadFSO = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -119,59 +119,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры соединения с SQL-сервером";
             // 
-            // label1
+            // pwd
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Сервер";
-            // 
-            // DataSource
-            // 
-            this.DataSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.pwd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataSource.Location = new System.Drawing.Point(147, 24);
-            this.DataSource.Name = "DataSource";
-            this.DataSource.Size = new System.Drawing.Size(181, 20);
-            this.DataSource.TabIndex = 1;
+            this.pwd.Location = new System.Drawing.Point(147, 128);
+            this.pwd.Name = "pwd";
+            this.pwd.Size = new System.Drawing.Size(181, 20);
+            this.pwd.TabIndex = 9;
             // 
-            // database
+            // label5
             // 
-            this.database.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.database.Location = new System.Drawing.Point(147, 50);
-            this.database.Name = "database";
-            this.database.Size = new System.Drawing.Size(181, 20);
-            this.database.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "База данных";
-            // 
-            // SERVERProvider
-            // 
-            this.SERVERProvider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.SERVERProvider.Location = new System.Drawing.Point(147, 76);
-            this.SERVERProvider.Name = "SERVERProvider";
-            this.SERVERProvider.Size = new System.Drawing.Size(181, 20);
-            this.SERVERProvider.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 79);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Провайдер";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 131);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Пароль";
             // 
             // uid
             // 
@@ -191,23 +155,59 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Пользователь";
             // 
-            // pwd
+            // SERVERProvider
             // 
-            this.pwd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.SERVERProvider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pwd.Location = new System.Drawing.Point(147, 128);
-            this.pwd.Name = "pwd";
-            this.pwd.Size = new System.Drawing.Size(181, 20);
-            this.pwd.TabIndex = 9;
+            this.SERVERProvider.Location = new System.Drawing.Point(147, 76);
+            this.SERVERProvider.Name = "SERVERProvider";
+            this.SERVERProvider.Size = new System.Drawing.Size(181, 20);
+            this.SERVERProvider.TabIndex = 5;
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 131);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Пароль";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 79);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Провайдер";
+            // 
+            // database
+            // 
+            this.database.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.database.Location = new System.Drawing.Point(147, 50);
+            this.database.Name = "database";
+            this.database.Size = new System.Drawing.Size(181, 20);
+            this.database.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "База данных";
+            // 
+            // DataSource
+            // 
+            this.DataSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataSource.Location = new System.Drawing.Point(147, 24);
+            this.DataSource.Name = "DataSource";
+            this.DataSource.Size = new System.Drawing.Size(181, 20);
+            this.DataSource.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Сервер";
             // 
             // groupBox2
             // 
@@ -339,6 +339,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Параметры соединения с FTP-сервером (документооборот)";
             // 
+            // PasswordRead
+            // 
+            this.PasswordRead.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.PasswordRead.Location = new System.Drawing.Point(147, 154);
+            this.PasswordRead.Name = "PasswordRead";
+            this.PasswordRead.Size = new System.Drawing.Size(181, 20);
+            this.PasswordRead.TabIndex = 11;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(16, 157);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(88, 13);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Пароль (чтение)";
+            // 
             // UserNameRead
             // 
             this.UserNameRead.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -428,24 +446,6 @@
             this.label15.Size = new System.Drawing.Size(44, 13);
             this.label15.TabIndex = 0;
             this.label15.Text = "Сервер";
-            // 
-            // PasswordRead
-            // 
-            this.PasswordRead.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasswordRead.Location = new System.Drawing.Point(147, 154);
-            this.PasswordRead.Name = "PasswordRead";
-            this.PasswordRead.Size = new System.Drawing.Size(181, 20);
-            this.PasswordRead.TabIndex = 11;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(16, 157);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(88, 13);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "Пароль (чтение)";
             // 
             // groupBox4
             // 
@@ -742,6 +742,7 @@
             this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(99, 22);
             this.toolStripStatusLabel2.Text = "Сохранить [F2]";
+            this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
             // 
             // Cfg
             // 
@@ -760,7 +761,6 @@
             this.Name = "Cfg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки конфигурации ССПД";
-            this.Load += new System.EventHandler(this.Cfg_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

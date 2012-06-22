@@ -25,7 +25,7 @@ namespace SSPD
             {
                 //не запущено:
                 //проверка конфига
-                if (System.IO.File.Exists(Params.AppPath) == false)
+                if (System.IO.File.Exists(Params.CfgPath) == false)
                 {
                     MessageBox.Show("Отсутствует файл конфигурации!", "Остановка запуска", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Application.Exit();
