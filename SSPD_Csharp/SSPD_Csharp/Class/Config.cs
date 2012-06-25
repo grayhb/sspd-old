@@ -247,7 +247,7 @@ namespace SSPD
 
             Res = ascii.GetString(tmpbyte);
 
-            return (Res);
+            return Res;
         }
         //--- end ret
 
@@ -266,13 +266,17 @@ namespace SSPD
                 password += password;
             }
 
+            Encoding enc = Encoding.GetEncoding(1251);
+            byte[] arrByte = new byte[text.Length];
+
             for (int i = 0; i <= text.Length-1; i++)
             {
-                yy = Convert.ToInt32(Convert.ToChar(text.Substring(i, 1))) + Convert.ToInt32(Convert.ToChar(password.Substring(i, 1))) % 256;
-                Console.WriteLine(yy);
-                Res += Convert.ToChar(yy);
+                yy = Convert.ToInt32(enc.GetBytes(text.Substring(i, 1).ToCharArray(), 0, 1)[0]) + 256 +
+                     Convert.ToInt32(enc.GetBytes(password.Substring(i, 1).ToCharArray(), 0, 1)[0]);
+                arrByte[i] = Convert.ToByte(yy % 256 );
             }
 
+            Res = enc.GetString(arrByte, 0, arrByte.Length);
 
             return Res;
         }

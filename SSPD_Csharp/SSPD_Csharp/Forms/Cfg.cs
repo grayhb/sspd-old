@@ -21,6 +21,7 @@ namespace SSPD
             this.KeyDown +=new KeyEventHandler(Cfg_KeyDown);
 
             LoadCFG();
+
         }
 
         private void Cfg_KeyDown(object sender, KeyEventArgs e)
@@ -76,18 +77,13 @@ namespace SSPD
 
         private void SaveConfig()
         {
-            Console.WriteLine(config.Code(DataSource.Text, Params.Mask));
-            //MessageBox.Show(config.Code(DataSource.Text, Params.Mask));
-            Clipboard.SetText(config.Code(DataSource.Text, Params.Mask));
-            //•—™•— ’™œ’›£
-            return;
-
             string myCfg = null;
 
             //Параметры соединения с SQL-сервером
             myCfg = config.Code(DataSource.Text, Params.Mask);
 
-            myCfg = Convert.ToChar((90 - config.Code(database.Text, Params.Mask).Length)).ToString();
+
+            myCfg += Convert.ToChar((90 - config.Code(database.Text, Params.Mask).Length)).ToString();
             myCfg += config.Code(database.Text, Params.Mask);
 
             myCfg += Convert.ToChar((90 - config.Code(SERVERProvider.Text, Params.Mask).Length)).ToString();
@@ -175,37 +171,19 @@ namespace SSPD
 
             myCfg += Convert.ToChar((90 - config.Code(DataSource.Text, Params.Mask).Length)).ToString();
 
-            Console.WriteLine(myCfg.Substring(0, 1));
 
-            // записываем в файл побайтно начиная с позиции 55 набор байтов
-            char[] charArr = myCfg.ToCharArray();
-            Console.WriteLine(charArr.Length);
-            byte[] byteArr = new byte[charArr.Length];
+            // записываем в файл
             try
             {
-                FileStream fs = new FileStream(Params.CfgPath+".txt", FileMode.OpenOrCreate, FileAccess.Write);
-                
-                //Console.WriteLine(Convert.ToByte(charArr[0]));
-
-                //fs.Seek(0, SeekOrigin.Begin);
-                Encoder enc = Encoding.Default.GetEncoder();
-                enc.GetBytes(charArr, 0, charArr.Length, byteArr, 0, true); // перекодирование
-                fs.Write(byteArr, 0, byteArr.Length); // запись массива байт
-                fs.Dispose(); // освобождаем ресурсы
+                FileStream fs = new FileStream(Params.CfgPath, FileMode.Create, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs,Encoding.GetEncoding(1251));
+                sw.Write(myCfg);
+                sw.Close();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message); return;
             }
-
-
-
-
-            //MessageBox.Show(myCfg);
-            //Clipboard.SetText(myCfg);
-
-            //System.IO.File.WriteAllText(Params.CfgPath + "_new.txt", myCfg);
-            //System.IO.File.WriteAllBytes(
 
         }
 
