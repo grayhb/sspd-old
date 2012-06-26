@@ -49,6 +49,32 @@ namespace SSPD
         public static SFTP ServerFTPFR;
 
         /// <summary>
+        /// объявление структуры параметров пользователя
+        /// </summary>
+        public static SUser UserInfo;
+
+
+        /// <summary>
+        /// структура параметров пользователя
+        /// </summary>
+        public struct SUser
+        {
+            //параметры пользователя
+            public string ID_Worker;
+            public string ID_Post;
+            public string FIO;
+            public string RightUser;
+
+            //параметры отдела
+            public string ID_Otdel;
+            public string NBOtdel;
+
+            //параметры организации
+
+
+        }
+
+        /// <summary>
         /// структура конфигурации подключения к SQL серверу
         /// </summary>
         public struct SQLS

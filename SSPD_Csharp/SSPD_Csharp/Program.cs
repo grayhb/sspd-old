@@ -42,6 +42,10 @@ namespace SSPD
                         System.Environment.Exit(0);
                     }
 
+                    //загружаем данные пользователя
+                    Config.LoadDataUser();
+
+                    //продолжаем загрузку
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     if (commandline == "")

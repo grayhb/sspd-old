@@ -7,23 +7,23 @@ namespace SSPD
     static class Security
     {
 
+        //имена машин Администраторов/Разработчиков для исключения
+        private static string[] AdminMachineName = {   "OVIAP00-GTPSAM",
+                                            "DGK-PC",
+                                            "NOTEBOOK-51",
+                                            "TO04-GTPSAM" };
+
+
         /// <summary>
         /// проверка каталога откуда запущено приложение
         /// возвращает true если каталог соответсвтует или имя машины совпадает с исключением
         /// </summary>
         public static bool CheckStartPath()
         {
-            //имена машин Администраторов/Разработчиков
-            string[] AdminMachineName = {   "OVIAP00-GTPSAM",
-                                            "DGK-PC",
-                                            "NOTEBOOK-51",
-                                            "TO04-GTPSAM" };
-
-            //проверка имени компьютера
+            //проверка имени машины
             foreach (var MachineName in AdminMachineName)
-            {
                 if (MachineName == Environment.MachineName) return true;
-            }
+            
 
             //проверка папки - в таблице Params строка с ID_Par = 101 соответствует приложению SSPD
             var rs = DB.GetFields("SELECT Val_Par FROM Params WHERE Params.ID_Par=101");
@@ -35,6 +35,12 @@ namespace SSPD
         }
 
 
+
+
+        public static void SetLogStartApp(string AppName)
+        {
+
+        }
         
 
 

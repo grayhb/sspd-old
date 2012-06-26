@@ -7,7 +7,41 @@ namespace SSPD
     class Config
     {
         /// <summary>
-        /// Считывание конфигурации из файла
+        /// Загрузка параметров пользователя
+        /// </summary>
+        public static void LoadDataUser()
+        {
+            //имя пользователя
+            Params.UserInfo.RightUser = Environment.UserName;
+
+            //проверка на соответствие имени пользователя (для разработчиков)
+            if (Params.UserInfo.RightUser.ToUpper() == "DGK") Params.UserInfo.RightUser = "IsaevEN";
+
+            string SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker + ' ' + Workers.I_Worker AS FIO, Workers.ID_Post, Workers.ID_Otdel, Otdels.NB_Otdel AS NBOtdel"
+                            + " FROM Workers INNER JOIN"
+                            + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
+                            + " WHERE     (Workers.Fl_Rel = 0) AND (Workers.Login = '" + Params.UserInfo.RightUser + "')";
+
+            var rs = DB.GetFields(SqlStr);
+
+            if (rs.Count == 0)
+            {
+                SSPDUI.MsgEx("Не найден Ваш логин в БД!", "Остановка запуска");
+                System.Environment.Exit(0);
+            }
+
+            Params.UserInfo.ID_Worker = rs[0]["ID_Worker"].ToString();
+            Params.UserInfo.FIO = rs[0]["FIO"].ToString();
+            Params.UserInfo.ID_Post = rs[0]["ID_Post"].ToString();
+
+            Params.UserInfo.ID_Otdel = rs[0]["ID_Otdel"].ToString();
+            Params.UserInfo.NBOtdel = rs[0]["NBOtdel"].ToString();
+
+        }
+
+
+        /// <summary>
+        /// Считывание параметров конфигурации из зашифрованного файла
         /// </summary>
         public static void ReadCFG()
         {
@@ -220,7 +254,7 @@ namespace SSPD
         /// <summary>
         /// Расшифровка параметров конфигурации
         /// </summary>
-        /// <param name="fileData">массив байт</param>
+        /// <param name="fileData">массив байтов</param>
         /// <param name="BegPos">начальная позиция</param>
         /// <param name="LenParam">длина параметра</param>
         /// <param name="psw">маска (соль)</param>

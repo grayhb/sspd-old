@@ -24,19 +24,13 @@ namespace SSPD
         {
             this.CenterToScreen();
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "Система Сопровождения Проектной Деятельности ()";
+            this.Text = string.Format("Система Сопровождения Проектной Деятельности ({0})",Params.UserInfo.FIO);
             
+            //загружаем форму для вывода отчетов мониторинга
             Declarations.MdiParent = this;
             Declarations.Show();
-
+            
             this.Opacity = 100;
-
-            /*
-            DB sspdDb = new DB();
-            var DRC = sspdDb.GetFields("SELECT * FROM Otdels");
-
-            SSPDUI.MsgEx(DRC.Count.ToString(), "Количество строк в таблице Otdels");
-             */
 
         }
     }
