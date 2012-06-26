@@ -19,7 +19,7 @@ namespace SSPD
 
             InputPassword InpPass = new InputPassword();
             InpPass.ShowDialog();
-            if (InpPass.retVal == false) { Application.Exit(); }
+            if (InpPass.retVal == false) { System.Environment.Exit(0); }
 
             InitializeComponent();
             
@@ -31,13 +31,13 @@ namespace SSPD
 
         private void Cfg_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) Application.Exit();
+            if (e.KeyCode == Keys.Escape) System.Environment.Exit(0);
             if (e.KeyCode == Keys.F2) SaveConfig();
         }
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            System.Environment.Exit(0);
         }
 
         private void LoadCFG()
