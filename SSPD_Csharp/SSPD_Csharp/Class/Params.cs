@@ -6,34 +6,51 @@ namespace SSPD
 {
     static class Params
     {
-        //путь до конфига ССПД
+        /// <summary>
+        /// путь до файла с конфигурацией ССПД
+        /// </summary>
         public static string CfgPath = Environment.CurrentDirectory + "\\sspd.cfg";
 
-        //маска
+        /// <summary>
+        /// маска (solt)
+        /// </summary>
         public static string Mask = "dgk";      
 
-        //строка подключения к БД
+        /// <summary>
+        /// строка подключения к БД
+        /// </summary>
         public static string ConString;         
 
 
-        //конфиг подключения к SQL серверу (База ССПД)
+        /// <summary>
+        /// структура параметров для подключения к SQL серверу (База ССПД)
+        /// </summary>
         public static SQLS ServerSQL;
 
-        //конфиг подключения к SQL серверу (Промежуточная БД)
+        /// <summary>
+        /// структура параметров для подключения к SQL серверу (Промежуточная БД)
+        /// </summary>
         public static SQLS ServerSQLPCD;
 
 
-        //конфиг подключения к ФТП серверу (общий)
+        /// <summary>
+        /// структура параметров для подключения к ФТП серверу (общий)
+        /// </summary>
         public static SFTP ServerFTP;
 
-        //конфиг подключения к ФТП серверу (Архив скан образов проектов)
+        /// <summary>
+        /// структура параметров для подключения к ФТП серверу (Архив скан образов проектов)
+        /// </summary>
         public static SFTP ServerFTPFSO;
 
-        //конфиг подключения к ФТП серверу (Архив формата разработки проектов)
+        /// <summary>
+        /// структура параметров для подключения к ФТП серверу (Архив формата разработки проектов)
+        /// </summary>
         public static SFTP ServerFTPFR;
 
-
-        //структура конфига подключения к SQL серверу
+        /// <summary>
+        /// структура конфигурации подключения к SQL серверу
+        /// </summary>
         public struct SQLS
         {
             public string DataSource;
@@ -43,7 +60,9 @@ namespace SSPD
             public string pwd;
         }
         
-        //структура конфига подключения к ФТП серверу
+        /// <summary>
+        /// структура конфигурации подключения к ФТП серверу
+        /// </summary>
         public struct SFTP
         {
             public string Adress;
