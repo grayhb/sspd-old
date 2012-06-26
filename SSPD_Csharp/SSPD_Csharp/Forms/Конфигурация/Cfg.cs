@@ -16,6 +16,11 @@ namespace SSPD
 
         public Cfg()
         {
+
+            InputPassword InpPass = new InputPassword();
+            InpPass.ShowDialog();
+            if (InpPass.retVal == false) { Application.Exit(); }
+
             InitializeComponent();
             
             this.KeyDown +=new KeyEventHandler(Cfg_KeyDown);

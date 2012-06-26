@@ -34,8 +34,14 @@ namespace SSPD
 
             this.Opacity = 100;
 
-            Cfg cfg = new Cfg();
-            cfg.ShowDialog();
+            Cfg mycfg = new Cfg();
+            mycfg.ShowDialog();
+            /*
+            DB sspdDb = new DB();
+            var DRC = sspdDb.GetFields("SELECT * FROM Otdels");
+
+            SSPDUI.MsgEx(DRC.Count.ToString(), "Количество строк в таблице Otdels");
+             */
 
         }
     }
