@@ -6,11 +6,9 @@ namespace SSPD
 {
     class Config
     {
-
-
-        /* Процедура ReadCFG
-         * Считывание конфигурации из SSPD.cfg
-         */
+        /// <summary>
+        /// Считывание конфигурации из файла
+        /// </summary>
         public void ReadCFG()
         {
             string StrPar = "";
@@ -218,11 +216,15 @@ namespace SSPD
 
 
         }
-        //--- end ReadCFG
 
-        /* Функция ret
-         * Расшифровка параметров конфигурации
-         */
+        /// <summary>
+        /// Расшифровка параметров конфигурации
+        /// </summary>
+        /// <param name="fileData">массив байт</param>
+        /// <param name="BegPos">начальная позиция</param>
+        /// <param name="LenParam">длина параметра</param>
+        /// <param name="psw">маска (соль)</param>
+        /// <returns></returns>
         public string ret(byte[] fileData, int BegPos, int LenParam, string psw)
         {
             string Res = "";
@@ -249,12 +251,14 @@ namespace SSPD
 
             return Res;
         }
-        //--- end ret
 
 
-        /* Функция Code
-         * Шифрование параметров конфигурации
-         */
+        /// <summary>
+        /// Шифрование параметров конфигурации
+        /// </summary>
+        /// <param name="text">строка для шифрования</param>
+        /// <param name="password">маска (соль)</param>
+        /// <returns></returns>
         public string Code(string text, string password)
         {
             string Res = null;
@@ -280,8 +284,6 @@ namespace SSPD
 
             return Res;
         }
-        //--- end Code
-
 
     }
 }
