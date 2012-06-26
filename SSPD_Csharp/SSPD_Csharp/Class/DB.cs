@@ -15,7 +15,7 @@ namespace SSPD
         /// </summary>
         /// <param name="SqlQuery">SQL запрос</param>
         /// <returns></returns>
-        public DataRowCollection GetFields(string SqlQuery)
+        public static DataRowCollection GetFields(string SqlQuery)
         {
             try
             {

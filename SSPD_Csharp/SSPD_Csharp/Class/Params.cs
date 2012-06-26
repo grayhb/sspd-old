@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SSPD
 {
-    static class Params
+    class Params
     {
         /// <summary>
         /// путь до файла с конфигурацией ССПД

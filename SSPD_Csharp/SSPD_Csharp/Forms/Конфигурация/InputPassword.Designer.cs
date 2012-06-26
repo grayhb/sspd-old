@@ -33,7 +33,6 @@
             // 
             // InputPass
             // 
-            this.InputPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.InputPass.Location = new System.Drawing.Point(16, 16);
             this.InputPass.Name = "InputPass";
             this.InputPass.PasswordChar = '*';
@@ -50,11 +49,11 @@
             this.ControlBox = false;
             this.Controls.Add(this.InputPass);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.Name = "InputPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ССПД";
+            this.Text = "ССПД : Конфигуратор";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

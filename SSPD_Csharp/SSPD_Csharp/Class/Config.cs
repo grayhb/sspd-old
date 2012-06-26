@@ -9,7 +9,7 @@ namespace SSPD
         /// <summary>
         /// Считывание конфигурации из файла
         /// </summary>
-        public void ReadCFG()
+        public static void ReadCFG()
         {
             string StrPar = "";
 
@@ -225,7 +225,7 @@ namespace SSPD
         /// <param name="LenParam">длина параметра</param>
         /// <param name="psw">маска (соль)</param>
         /// <returns></returns>
-        public string ret(byte[] fileData, int BegPos, int LenParam, string psw)
+        public static string ret(byte[] fileData, int BegPos, int LenParam, string psw)
         {
             string Res = "";
             Int32 yy;
@@ -259,7 +259,7 @@ namespace SSPD
         /// <param name="text">строка для шифрования</param>
         /// <param name="password">маска (соль)</param>
         /// <returns></returns>
-        public string Code(string text, string password)
+        public static string Code(string text, string password)
         {
             string Res = null;
             Int32 yy = 0;

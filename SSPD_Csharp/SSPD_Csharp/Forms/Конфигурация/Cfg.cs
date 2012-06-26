@@ -12,7 +12,7 @@ namespace SSPD
     public partial class Cfg : Form
     {
         //класс для работы с конфигом
-        private Config config = new Config();
+        //private Config config = new Config();
 
         public Cfg()
         {
@@ -43,7 +43,7 @@ namespace SSPD
         private void LoadCFG()
         {
             //считываем параметры из конфига
-            config.ReadCFG();
+            Config.ReadCFG();
 
             DataSource.Text = Params.ServerSQL.DataSource;
             database.Text = Params.ServerSQL.database;
@@ -85,96 +85,96 @@ namespace SSPD
             string myCfg = null;
 
             //Параметры соединения с SQL-сервером
-            myCfg = config.Code(DataSource.Text, Params.Mask);
+            myCfg = Config.Code(DataSource.Text, Params.Mask);
 
 
-            myCfg += Convert.ToChar((90 - config.Code(database.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(database.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(database.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(database.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(SERVERProvider.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(SERVERProvider.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(SERVERProvider.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(SERVERProvider.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(uid.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(uid.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(uid.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(uid.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(pwd.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(pwd.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(pwd.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(pwd.Text, Params.Mask);
 
             
             //Параметры соединения с FTP-сервером (документооборот)
-            myCfg += Convert.ToChar((90 - config.Code(FTPServer.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServer.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServer.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServer.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(FTPServerPort.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServerPort.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServerPort.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServerPort.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameRead.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameRead.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameRead.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameRead.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameWrite.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameWrite.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameWrite.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameWrite.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordRead.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordRead.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordRead.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordRead.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordWrite.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordWrite.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordWrite.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordWrite.Text, Params.Mask);
 
             //Параметры соединения с SQL-сервером обмена
-            myCfg += Convert.ToChar((90 - config.Code(DataSourcePCD.Text, Params.Mask).Length)).ToString();
-            myCfg +=config.Code(DataSourcePCD.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(DataSourcePCD.Text, Params.Mask).Length)).ToString();
+            myCfg +=Config.Code(DataSourcePCD.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(databasePCD.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(databasePCD.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(databasePCD.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(databasePCD.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(SERVERProviderPCD.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(SERVERProviderPCD.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(SERVERProviderPCD.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(SERVERProviderPCD.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(uidPCD.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(uidPCD.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(uidPCD.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(uidPCD.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(pwdPCD.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(pwdPCD.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(pwdPCD.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(pwdPCD.Text, Params.Mask);
 
             //Параметры соединения с FTP-сервером (ФСО)
-            myCfg += Convert.ToChar((90 - config.Code(FTPServerFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServerFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServerFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServerFSO.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(FTPServerPortFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServerPortFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServerPortFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServerPortFSO.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameReadFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameReadFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameReadFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameReadFSO.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameWriteFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameWriteFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameWriteFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameWriteFSO.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordReadFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordReadFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordReadFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordReadFSO.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordWriteFSO.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordWriteFSO.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordWriteFSO.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordWriteFSO.Text, Params.Mask);
 
             //Параметры соединения с FTP-сервером (ФР)
-            myCfg += Convert.ToChar((90 - config.Code(FTPServerFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServerFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServerFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServerFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(FTPServerPortFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(FTPServerPortFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(FTPServerPortFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(FTPServerPortFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameReadFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameReadFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameReadFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameReadFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(UserNameWriteFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(UserNameWriteFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(UserNameWriteFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(UserNameWriteFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordReadFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordReadFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordReadFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordReadFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(PasswordWriteFR.Text, Params.Mask).Length)).ToString();
-            myCfg += config.Code(PasswordWriteFR.Text, Params.Mask);
+            myCfg += Convert.ToChar((90 - Config.Code(PasswordWriteFR.Text, Params.Mask).Length)).ToString();
+            myCfg += Config.Code(PasswordWriteFR.Text, Params.Mask);
 
-            myCfg += Convert.ToChar((90 - config.Code(DataSource.Text, Params.Mask).Length)).ToString();
+            myCfg += Convert.ToChar((90 - Config.Code(DataSource.Text, Params.Mask).Length)).ToString();
 
 
             // записываем в файл

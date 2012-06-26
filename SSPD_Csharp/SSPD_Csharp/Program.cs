@@ -32,6 +32,15 @@ namespace SSPD
                 }
                 else
                 {
+                    //загружаем параметры конфигурации
+                    Config.ReadCFG();
+
+                    //проверяем каталог запуска
+                    if (Security.CheckStartPath() == false)
+                    {
+                        SSPDUI.MsgEx("Несанкционированный запуск!", "Остановка запуска");
+                        System.Environment.Exit(0);
+                    }
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);

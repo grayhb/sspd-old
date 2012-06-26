@@ -17,25 +17,20 @@ namespace SSPD
             InitializeComponent();
 
             this.Shown +=new EventHandler(Main_Shown);
-
-            Config cfg = new Config();
-            cfg.ReadCFG();
+            
         }
 
         private void Main_Shown(object sender, EventArgs e)
         {
             this.CenterToScreen();
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "my";
+            this.Text = "Система Сопровождения Проектной Деятельности ()";
             
-
             Declarations.MdiParent = this;
             Declarations.Show();
 
             this.Opacity = 100;
 
-            Cfg mycfg = new Cfg();
-            mycfg.ShowDialog();
             /*
             DB sspdDb = new DB();
             var DRC = sspdDb.GetFields("SELECT * FROM Otdels");
