@@ -33,10 +33,11 @@
             // 
             // InputPass
             // 
-            this.InputPass.Location = new System.Drawing.Point(12, 12);
+            this.InputPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InputPass.Location = new System.Drawing.Point(16, 16);
             this.InputPass.Name = "InputPass";
             this.InputPass.PasswordChar = '*';
-            this.InputPass.Size = new System.Drawing.Size(191, 20);
+            this.InputPass.Size = new System.Drawing.Size(190, 20);
             this.InputPass.TabIndex = 0;
             this.InputPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputPass.WordWrap = false;
@@ -45,14 +46,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(215, 45);
+            this.ClientSize = new System.Drawing.Size(222, 52);
             this.ControlBox = false;
             this.Controls.Add(this.InputPass);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "InputPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "ССПД";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

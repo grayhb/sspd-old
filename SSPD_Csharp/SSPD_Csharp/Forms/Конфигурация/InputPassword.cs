@@ -18,6 +18,9 @@ namespace SSPD
             InitializeComponent();
 
             this.KeyDown +=new KeyEventHandler(InputPassword_KeyDown);
+
+            
+
         }
 
         private void InputPassword_KeyDown(object sender, KeyEventArgs e)
