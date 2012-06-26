@@ -18,8 +18,8 @@ namespace SSPD
             //проверяем запущено ли приложение:
             if (System.Diagnostics.Process.GetProcessesByName(Application.ProductName).Length > 1 && commandline == "")
             {
-                MessageBox.Show("Приложение уже запущено", "ССПД", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Application.Exit();
+                SSPDUI.MsgEx("Приложение уже запущено", "Остановка запуска");
+                System.Environment.Exit(0);
             }
             else
             {
@@ -27,8 +27,8 @@ namespace SSPD
                 //проверка конфига
                 if (System.IO.File.Exists(Params.CfgPath) == false)
                 {
-                    MessageBox.Show("Отсутствует файл конфигурации!", "Остановка запуска", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Application.Exit();
+                    SSPDUI.MsgEx("Отсутствует файл конфигурации!", "Остановка запуска");
+                    System.Environment.Exit(0);
                 }
                 else
                 {
