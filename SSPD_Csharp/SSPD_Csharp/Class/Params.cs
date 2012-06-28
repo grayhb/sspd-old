@@ -70,7 +70,9 @@ namespace SSPD
             public string NBOtdel;
 
             //параметры организации
-
+            public string ID_CurOrg;
+            public string NameCurOrg;
+            public string NameBrCurOrg;
 
         }
 

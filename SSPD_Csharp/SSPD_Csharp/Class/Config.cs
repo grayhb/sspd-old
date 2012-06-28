@@ -6,10 +6,12 @@ namespace SSPD
 {
     class Config
     {
+
         /// <summary>
         /// Загрузка параметров пользователя
         /// </summary>
-        public static void LoadDataUser()
+        /// <param name="AppName">название приложения</param>
+        public static void LoadDataUser(string AppName)
         {
             //имя пользователя
             Params.UserInfo.RightUser = Environment.UserName;
@@ -17,6 +19,7 @@ namespace SSPD
             //проверка на соответствие имени пользователя (для разработчиков)
             if (Params.UserInfo.RightUser.ToUpper() == "DGK") Params.UserInfo.RightUser = "IsaevEN";
 
+            //основные параметры:
             string SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker + ' ' + Workers.I_Worker AS FIO, Workers.ID_Post, Workers.ID_Otdel, Otdels.NB_Otdel AS NBOtdel"
                             + " FROM Workers INNER JOIN"
                             + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
@@ -37,6 +40,22 @@ namespace SSPD
             Params.UserInfo.ID_Otdel = rs[0]["ID_Otdel"].ToString();
             Params.UserInfo.NBOtdel = rs[0]["NBOtdel"].ToString();
 
+            //права пользователя:
+            Params.UserInfo.RightUser = "user";
+            SqlStr = "SELECT * FROM RUsers WHERE (((RUsers.ID_Worker)=" + Params.UserInfo.ID_Worker + ") AND ((RUsers.Application)='" + AppName + "'))";
+            rs = DB.GetFields(SqlStr);
+            if (rs.Count > 0) Params.UserInfo.RightUser = rs[0]["RightWorker"].ToString();
+           
+            //данные организации
+            SqlStr = "SELECT ID_Org, Name, Name_Br From Orgs "
+                   + "WHERE (ID_Org = (SELECT RTRIM(LTRIM(Val_Par)) AS IDO From Params WHERE (ID_Par = 10)))";
+            rs = DB.GetFields(SqlStr);
+            if (rs.Count > 0)
+            {
+                Params.UserInfo.ID_CurOrg = rs[0]["ID_Org"].ToString();
+                Params.UserInfo.NameCurOrg = rs[0]["Name"].ToString();
+                Params.UserInfo.NameBrCurOrg = rs[0]["Name_Br"].ToString();
+            }
         }
 
 

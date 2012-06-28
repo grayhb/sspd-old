@@ -32,6 +32,8 @@ namespace SSPD
             
             this.Opacity = 100;
 
+            Console.WriteLine(Application.ProductName);
+
         }
     }
 }

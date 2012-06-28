@@ -43,7 +43,7 @@ namespace SSPD
                     }
 
                     //загружаем данные пользователя
-                    Config.LoadDataUser();
+                    Config.LoadDataUser(Application.ProductName);
 
                     //продолжаем загрузку
                     Application.EnableVisualStyles();
