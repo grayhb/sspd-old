@@ -31,13 +31,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.МенюПроекты = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюПроектыСписок = new System.Windows.Forms.ToolStripMenuItem();
+            this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокРаботниковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.МенюПроекты});
+            this.МенюПроекты,
+            this.справочникиToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -62,6 +65,21 @@
             this.МенюПроектыСписок.Size = new System.Drawing.Size(154, 22);
             this.МенюПроектыСписок.Text = "Список проектов";
             this.МенюПроектыСписок.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // справочникиToolStripMenuItem
+            // 
+            this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.списокРаботниковToolStripMenuItem});
+            this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.справочникиToolStripMenuItem.Text = "Справочники";
+            // 
+            // списокРаботниковToolStripMenuItem
+            // 
+            this.списокРаботниковToolStripMenuItem.Name = "списокРаботниковToolStripMenuItem";
+            this.списокРаботниковToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.списокРаботниковToolStripMenuItem.Text = "Список работников";
+            this.списокРаботниковToolStripMenuItem.Click += new System.EventHandler(this.списокРаботниковToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -89,6 +107,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem МенюПроекты;
         private System.Windows.Forms.ToolStripMenuItem МенюПроектыСписок;
+        private System.Windows.Forms.ToolStripMenuItem справочникиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem списокРаботниковToolStripMenuItem;
     }
 }
 

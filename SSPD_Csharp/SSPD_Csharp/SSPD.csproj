@@ -49,10 +49,10 @@
     <Compile Include="Class\Security.cs" />
     <Compile Include="Class\SSPDUI.cs" />
     <Compile Include="Class\Params.cs" />
-    <Compile Include="Forms\Конфигурация\Cfg.cs">
+    <Compile Include="Forms\Cfg\Cfg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Конфигурация\Cfg.Designer.cs">
+    <Compile Include="Forms\Cfg\Cfg.Designer.cs">
       <DependentUpon>Cfg.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Declarations.cs">
@@ -67,15 +67,21 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Конфигурация\InputPassword.cs">
+    <Compile Include="Forms\Cfg\InputPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Конфигурация\InputPassword.Designer.cs">
+    <Compile Include="Forms\Cfg\InputPassword.Designer.cs">
       <DependentUpon>InputPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSprav.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSprav.Designer.cs">
+      <DependentUpon>WorkersSprav.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Конфигурация\Cfg.resx">
+    <EmbeddedResource Include="Forms\Cfg\Cfg.resx">
       <DependentUpon>Cfg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Declarations.resx">
@@ -84,8 +90,11 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Конфигурация\InputPassword.resx">
+    <EmbeddedResource Include="Forms\Cfg\InputPassword.resx">
       <DependentUpon>InputPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSprav.resx">
+      <DependentUpon>WorkersSprav.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -107,7 +116,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\no_images.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
