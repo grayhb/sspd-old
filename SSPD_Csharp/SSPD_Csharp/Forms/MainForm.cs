@@ -35,5 +35,11 @@ namespace SSPD
             Console.WriteLine(Application.ProductName);
 
         }
+
+        private void списокРаботниковToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WorkersSprav WS = new WorkersSprav();
+            WS.ShowDialog();
+        }
     }
 }

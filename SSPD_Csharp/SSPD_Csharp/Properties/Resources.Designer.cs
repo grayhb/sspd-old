@@ -59,5 +59,12 @@ namespace SSPD.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap no_images {
+            get {
+                object obj = ResourceManager.GetObject("no_images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
