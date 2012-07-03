@@ -7,9 +7,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using System.IO;
+using System.Runtime.InteropServices;
+
+
 
 namespace SSPD
 {
+
+
     public partial class WorkersSprav : Form
     {
         //флаг поиска
@@ -22,16 +27,55 @@ namespace SSPD
         public WorkersSprav()
         {
             InitializeComponent();
+            this.KeyDown +=new KeyEventHandler(WorkersSprav_KeyDown);
+            this.Shown+=new EventHandler(WorkersSprav_Shown);
             StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
+            StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
+            StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
+        }
 
+        private void WorkersSprav_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F7) searchInTree(treeSGTP);
+        }
+        
+        private void WorkersSprav_Shown(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
             CntAllWorkers = 0;
             LoadOtdels();
-            Cursor.Current = Cursors.Default;
-            StatusLabel.Text = "Всего отделов: " + treeSGTP.Nodes.Count.ToString() + "    " + 
+            
+            StatusLabel.Text = "Всего отделов: " + treeSGTP.Nodes.Count.ToString() + "    " +
                                 "Всего сотрудников: " + CntAllWorkers.ToString();
+            StrFind.Focus();
+            this.Opacity = 1;
+            Cursor.Current = Cursors.Default;
         }
 
+        /// <summary>
+        /// Событие при потери фокуса из строки поиска
+        /// </summary>
+        private void StrFind_LostFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == "")
+            {
+                StrFind.Text = Params.StrFindLabel;
+                StrFind.ForeColor = Color.DarkGray;
+            }
+        }
+
+        /// <summary>
+        /// Фокус в строке поиска
+        /// </summary>
+        private void StrFind_GotFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == Params.StrFindLabel)
+            {
+                StrFind.Text = "";
+                StrFind.ForeColor = Color.Black;
+            }
+        }
 
         /// <summary>
         /// Загрузка название отделов в дерево
@@ -61,10 +105,14 @@ namespace SSPD
 
         }
 
-
+        /// <summary>
+        /// Ловим нажатия клавиш в поле поиска
+        /// </summary>
+        /// <param name="e"></param>
         private void StrFind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) searchInTree(treeSGTP);
+            
         }
 
 
@@ -363,6 +411,9 @@ namespace SSPD
         /// <param name="StrF"></param>
         private void searchInTree(TreeView TV)
         {
+            if (treeSGTP.Nodes.Count == 0) return;
+            if (treeSGTP.SelectedNode==null) treeSGTP.SelectedNode = treeSGTP.Nodes[0];
+
             FlSearchStop = false;
             foreach(TreeNode TN in TV.Nodes) {
                 if(FlSearchStop==true) return;
@@ -386,13 +437,11 @@ namespace SSPD
                 {
                     tmpHash = (Hashtable)subTN.Tag;
                     if (tmpHash["SearchStr"].ToString().ToLower().IndexOf(StrFind.Text.ToLower())>-1 ) {
-                        if (treeSGTP.SelectedNode.Index != subTN.Index && (int)tmpHash["Index"] > IndexFind)
+                        if ((int)tmpHash["Index"] > IndexFind)
                         {
                             treeSGTP.SelectedNode = subTN;
                             subTN.EnsureVisible();
                             FlSearchStop = true;
-                            //treeSGTP.Focus();
-                            
                             IndexFind = (int)tmpHash["Index"];
                             return;
                         }

@@ -41,5 +41,11 @@ namespace SSPD
             WorkersSprav WS = new WorkersSprav();
             WS.ShowDialog();
         }
+
+        private void списокРаботниковадминистрированиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WorkersSpravEdit WSE = new WorkersSpravEdit();
+            WSE.ShowDialog();
+        }
     }
 }

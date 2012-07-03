@@ -79,6 +79,18 @@
     <Compile Include="Forms\References\WorkersSprav\WorkersSprav.Designer.cs">
       <DependentUpon>WorkersSprav.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSpravCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSpravCard.Designer.cs">
+      <DependentUpon>WorkersSpravCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSpravEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\WorkersSprav\WorkersSpravEdit.Designer.cs">
+      <DependentUpon>WorkersSpravEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Cfg\Cfg.resx">
@@ -95,6 +107,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSprav.resx">
       <DependentUpon>WorkersSprav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSpravCard.resx">
+      <DependentUpon>WorkersSpravCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSpravEdit.resx">
+      <DependentUpon>WorkersSpravEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -118,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\no_images.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\binocular-small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,47 +31,46 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkersSprav));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.treeSGTP = new System.Windows.Forms.TreeView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.StrFind = new System.Windows.Forms.TextBox();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeSGTP = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.FWorker = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.NWorker = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.PWorker = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.NOtdel = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.NPost = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Room = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.PhoneTown = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.PhoneMATS = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.PhoneInner = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.PhoneGroup = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ANamber = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.NPost = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.NOtdel = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.PWorker = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.NWorker = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.FWorker = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.IPPhoneNamber = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ANamber = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.PhoneGroup = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.PhoneInner = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.PhoneMATS = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.PhoneTown = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.StrFind = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -84,6 +83,11 @@
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -93,6 +97,22 @@
             this.menuStrip1.Size = new System.Drawing.Size(992, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // операцииToolStripMenuItem
+            // 
+            this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.закрытьToolStripMenuItem});
+            this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
+            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.операцииToolStripMenuItem.Text = "Операции";
+            // 
+            // закрытьToolStripMenuItem
+            // 
+            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
+            this.закрытьToolStripMenuItem.ShortcutKeyDisplayString = "ESC";
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.закрытьToolStripMenuItem.Text = "Закрыть";
+            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
             // 
             // treeSGTP
             // 
@@ -112,6 +132,15 @@
             this.treeSGTP.Size = new System.Drawing.Size(466, 367);
             this.treeSGTP.TabIndex = 2;
             this.treeSGTP.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSGTP_AfterSelect);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "folder-horizontal_16.png");
+            this.imageList1.Images.SetKeyName(1, "folder-horizontal-open_16.png");
+            this.imageList1.Images.SetKeyName(2, "user-white_16.png");
+            this.imageList1.Images.SetKeyName(3, "user-business-boss_16.png");
             // 
             // groupBox1
             // 
@@ -136,6 +165,126 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Основные сведения";
             // 
+            // Room
+            // 
+            this.Room.BackColor = System.Drawing.Color.White;
+            this.Room.Location = new System.Drawing.Point(91, 175);
+            this.Room.Name = "Room";
+            this.Room.ReadOnly = true;
+            this.Room.Size = new System.Drawing.Size(75, 20);
+            this.Room.TabIndex = 12;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 178);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Комната";
+            // 
+            // NPost
+            // 
+            this.NPost.BackColor = System.Drawing.Color.White;
+            this.NPost.Location = new System.Drawing.Point(91, 141);
+            this.NPost.Name = "NPost";
+            this.NPost.ReadOnly = true;
+            this.NPost.Size = new System.Drawing.Size(250, 20);
+            this.NPost.TabIndex = 10;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 144);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Должность";
+            // 
+            // NOtdel
+            // 
+            this.NOtdel.BackColor = System.Drawing.Color.White;
+            this.NOtdel.Location = new System.Drawing.Point(91, 115);
+            this.NOtdel.Name = "NOtdel";
+            this.NOtdel.ReadOnly = true;
+            this.NOtdel.Size = new System.Drawing.Size(250, 20);
+            this.NOtdel.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 118);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Отдел";
+            // 
+            // PWorker
+            // 
+            this.PWorker.BackColor = System.Drawing.Color.White;
+            this.PWorker.Location = new System.Drawing.Point(91, 72);
+            this.PWorker.Name = "PWorker";
+            this.PWorker.ReadOnly = true;
+            this.PWorker.Size = new System.Drawing.Size(250, 20);
+            this.PWorker.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Отчество";
+            // 
+            // NWorker
+            // 
+            this.NWorker.BackColor = System.Drawing.Color.White;
+            this.NWorker.Location = new System.Drawing.Point(91, 46);
+            this.NWorker.Name = "NWorker";
+            this.NWorker.ReadOnly = true;
+            this.NWorker.Size = new System.Drawing.Size(250, 20);
+            this.NWorker.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Имя";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.ErrorImage = global::SSPD.Properties.Resources.no_images;
+            this.pictureBox1.Image = global::SSPD.Properties.Resources.no_images;
+            this.pictureBox1.Location = new System.Drawing.Point(354, 20);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(131, 175);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // FWorker
+            // 
+            this.FWorker.BackColor = System.Drawing.Color.White;
+            this.FWorker.Location = new System.Drawing.Point(91, 20);
+            this.FWorker.Name = "FWorker";
+            this.FWorker.ReadOnly = true;
+            this.FWorker.Size = new System.Drawing.Size(250, 20);
+            this.FWorker.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Фамилия";
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -159,245 +308,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Сведения о рабочих телефонах";
             // 
-            // label1
+            // IPPhoneNamber
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Поиск";
+            this.IPPhoneNamber.BackColor = System.Drawing.Color.White;
+            this.IPPhoneNamber.Location = new System.Drawing.Point(155, 149);
+            this.IPPhoneNamber.Name = "IPPhoneNamber";
+            this.IPPhoneNamber.ReadOnly = true;
+            this.IPPhoneNamber.Size = new System.Drawing.Size(330, 20);
+            this.IPPhoneNamber.TabIndex = 13;
             // 
-            // button1
+            // label13
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(403, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Начать";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // StrFind
-            // 
-            this.StrFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.StrFind.Location = new System.Drawing.Point(58, 38);
-            this.StrFind.Name = "StrFind";
-            this.StrFind.Size = new System.Drawing.Size(339, 20);
-            this.StrFind.TabIndex = 7;
-            this.StrFind.TextChanged += new System.EventHandler(this.StrFind_TextChanged);
-            // 
-            // операцииToolStripMenuItem
-            // 
-            this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.закрытьToolStripMenuItem});
-            this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
-            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.операцииToolStripMenuItem.Text = "Операции";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder-horizontal_16.png");
-            this.imageList1.Images.SetKeyName(1, "folder-horizontal-open_16.png");
-            this.imageList1.Images.SetKeyName(2, "user-white_16.png");
-            this.imageList1.Images.SetKeyName(3, "user-business-boss_16.png");
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Фамилия";
-            // 
-            // FWorker
-            // 
-            this.FWorker.BackColor = System.Drawing.Color.White;
-            this.FWorker.Location = new System.Drawing.Point(91, 20);
-            this.FWorker.Name = "FWorker";
-            this.FWorker.ReadOnly = true;
-            this.FWorker.Size = new System.Drawing.Size(257, 20);
-            this.FWorker.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.ErrorImage = global::SSPD.Properties.Resources.no_images;
-            this.pictureBox1.Image = global::SSPD.Properties.Resources.no_images;
-            this.pictureBox1.Location = new System.Drawing.Point(354, 20);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(131, 175);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            // 
-            // NWorker
-            // 
-            this.NWorker.BackColor = System.Drawing.Color.White;
-            this.NWorker.Location = new System.Drawing.Point(91, 46);
-            this.NWorker.Name = "NWorker";
-            this.NWorker.ReadOnly = true;
-            this.NWorker.Size = new System.Drawing.Size(257, 20);
-            this.NWorker.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 49);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Имя";
-            // 
-            // PWorker
-            // 
-            this.PWorker.BackColor = System.Drawing.Color.White;
-            this.PWorker.Location = new System.Drawing.Point(91, 72);
-            this.PWorker.Name = "PWorker";
-            this.PWorker.ReadOnly = true;
-            this.PWorker.Size = new System.Drawing.Size(257, 20);
-            this.PWorker.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 75);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Отчество";
-            // 
-            // NOtdel
-            // 
-            this.NOtdel.BackColor = System.Drawing.Color.White;
-            this.NOtdel.Location = new System.Drawing.Point(91, 115);
-            this.NOtdel.Name = "NOtdel";
-            this.NOtdel.ReadOnly = true;
-            this.NOtdel.Size = new System.Drawing.Size(257, 20);
-            this.NOtdel.TabIndex = 8;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 118);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Отдел";
-            // 
-            // NPost
-            // 
-            this.NPost.BackColor = System.Drawing.Color.White;
-            this.NPost.Location = new System.Drawing.Point(91, 141);
-            this.NPost.Name = "NPost";
-            this.NPost.ReadOnly = true;
-            this.NPost.Size = new System.Drawing.Size(257, 20);
-            this.NPost.TabIndex = 10;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 144);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Должность";
-            // 
-            // Room
-            // 
-            this.Room.BackColor = System.Drawing.Color.White;
-            this.Room.Location = new System.Drawing.Point(91, 175);
-            this.Room.Name = "Room";
-            this.Room.ReadOnly = true;
-            this.Room.Size = new System.Drawing.Size(75, 20);
-            this.Room.TabIndex = 12;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 178);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Комната";
-            // 
-            // PhoneTown
-            // 
-            this.PhoneTown.BackColor = System.Drawing.Color.White;
-            this.PhoneTown.Location = new System.Drawing.Point(155, 19);
-            this.PhoneTown.Name = "PhoneTown";
-            this.PhoneTown.ReadOnly = true;
-            this.PhoneTown.Size = new System.Drawing.Size(330, 20);
-            this.PhoneTown.TabIndex = 3;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Телефон городской";
-            // 
-            // PhoneMATS
-            // 
-            this.PhoneMATS.BackColor = System.Drawing.Color.White;
-            this.PhoneMATS.Location = new System.Drawing.Point(155, 45);
-            this.PhoneMATS.Name = "PhoneMATS";
-            this.PhoneMATS.ReadOnly = true;
-            this.PhoneMATS.Size = new System.Drawing.Size(330, 20);
-            this.PhoneMATS.TabIndex = 5;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(85, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Телефон МАТС";
-            // 
-            // PhoneInner
-            // 
-            this.PhoneInner.BackColor = System.Drawing.Color.White;
-            this.PhoneInner.Location = new System.Drawing.Point(155, 71);
-            this.PhoneInner.Name = "PhoneInner";
-            this.PhoneInner.ReadOnly = true;
-            this.PhoneInner.Size = new System.Drawing.Size(330, 20);
-            this.PhoneInner.TabIndex = 7;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(113, 13);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "Телефон внутренний";
-            // 
-            // PhoneGroup
-            // 
-            this.PhoneGroup.BackColor = System.Drawing.Color.White;
-            this.PhoneGroup.Location = new System.Drawing.Point(155, 97);
-            this.PhoneGroup.Name = "PhoneGroup";
-            this.PhoneGroup.ReadOnly = true;
-            this.PhoneGroup.Size = new System.Drawing.Size(330, 20);
-            this.PhoneGroup.TabIndex = 9;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 100);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(91, 13);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Телефон группы";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(12, 152);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(51, 13);
+            this.label13.TabIndex = 12;
+            this.label13.Text = "IP Phone";
             // 
             // ANamber
             // 
@@ -417,35 +344,107 @@
             this.label12.TabIndex = 10;
             this.label12.Text = "Телефон мобильный";
             // 
-            // IPPhoneNamber
+            // PhoneGroup
             // 
-            this.IPPhoneNamber.BackColor = System.Drawing.Color.White;
-            this.IPPhoneNamber.Location = new System.Drawing.Point(155, 149);
-            this.IPPhoneNamber.Name = "IPPhoneNamber";
-            this.IPPhoneNamber.ReadOnly = true;
-            this.IPPhoneNamber.Size = new System.Drawing.Size(330, 20);
-            this.IPPhoneNamber.TabIndex = 13;
+            this.PhoneGroup.BackColor = System.Drawing.Color.White;
+            this.PhoneGroup.Location = new System.Drawing.Point(155, 97);
+            this.PhoneGroup.Name = "PhoneGroup";
+            this.PhoneGroup.ReadOnly = true;
+            this.PhoneGroup.Size = new System.Drawing.Size(330, 20);
+            this.PhoneGroup.TabIndex = 9;
             // 
-            // label13
+            // label11
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 152);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(51, 13);
-            this.label13.TabIndex = 12;
-            this.label13.Text = "IP Phone";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 100);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(91, 13);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "Телефон группы";
             // 
-            // StatusLabel
+            // PhoneInner
             // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.PhoneInner.BackColor = System.Drawing.Color.White;
+            this.PhoneInner.Location = new System.Drawing.Point(155, 71);
+            this.PhoneInner.Name = "PhoneInner";
+            this.PhoneInner.ReadOnly = true;
+            this.PhoneInner.Size = new System.Drawing.Size(330, 20);
+            this.PhoneInner.TabIndex = 7;
             // 
-            // закрытьToolStripMenuItem
+            // label10
             // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(113, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Телефон внутренний";
+            // 
+            // PhoneMATS
+            // 
+            this.PhoneMATS.BackColor = System.Drawing.Color.White;
+            this.PhoneMATS.Location = new System.Drawing.Point(155, 45);
+            this.PhoneMATS.Name = "PhoneMATS";
+            this.PhoneMATS.ReadOnly = true;
+            this.PhoneMATS.Size = new System.Drawing.Size(330, 20);
+            this.PhoneMATS.TabIndex = 5;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(85, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Телефон МАТС";
+            // 
+            // PhoneTown
+            // 
+            this.PhoneTown.BackColor = System.Drawing.Color.White;
+            this.PhoneTown.Location = new System.Drawing.Point(155, 19);
+            this.PhoneTown.Name = "PhoneTown";
+            this.PhoneTown.ReadOnly = true;
+            this.PhoneTown.Size = new System.Drawing.Size(330, 20);
+            this.PhoneTown.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Телефон городской";
+            // 
+            // StrFind
+            // 
+            this.StrFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.StrFind.Location = new System.Drawing.Point(12, 38);
+            this.StrFind.MaxLength = 255;
+            this.StrFind.Name = "StrFind";
+            this.StrFind.Size = new System.Drawing.Size(372, 20);
+            this.StrFind.TabIndex = 7;
+            this.StrFind.WordWrap = false;
+            this.StrFind.TextChanged += new System.EventHandler(this.StrFind_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Image = global::SSPD.Properties.Resources.binocular_small;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(390, 36);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.TabIndex = 6;
+            this.button1.TabStop = false;
+            this.button1.Text = "найти [F7]";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // WorkersSprav
             // 
@@ -454,7 +453,6 @@
             this.ClientSize = new System.Drawing.Size(992, 468);
             this.Controls.Add(this.StrFind);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeSGTP);
@@ -464,6 +462,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(729, 495);
             this.Name = "WorkersSprav";
+            this.Opacity = 0D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник работников";
@@ -473,9 +472,9 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -488,7 +487,6 @@
         private System.Windows.Forms.TreeView treeSGTP;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox StrFind;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
