@@ -53,6 +53,11 @@ namespace SSPD
         /// </summary>
         public static SUser UserInfo;
 
+        /// <summary>
+        /// подсказка в строке поиска
+        /// </summary>
+        public static string StrFindLabel = "Введите строку для поиска";
+
 
         /// <summary>
         /// структура параметров пользователя

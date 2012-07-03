@@ -60,6 +60,13 @@ namespace SSPD.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap binocular_small {
+            get {
+                object obj = ResourceManager.GetObject("binocular-small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap no_images {
             get {
                 object obj = ResourceManager.GetObject("no_images", resourceCulture);
