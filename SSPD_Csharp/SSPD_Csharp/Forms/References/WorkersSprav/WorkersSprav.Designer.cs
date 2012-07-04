@@ -463,6 +463,7 @@
             this.MinimumSize = new System.Drawing.Size(729, 495);
             this.Name = "WorkersSprav";
             this.Opacity = 0D;
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник работников";
