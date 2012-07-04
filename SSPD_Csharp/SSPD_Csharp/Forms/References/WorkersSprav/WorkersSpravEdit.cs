@@ -28,6 +28,12 @@ namespace SSPD
             StrFind.GotFocus +=new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
             DGV.Sorted+=new EventHandler(DGV_Sorted);
+            DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
+        }
+
+        private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.RowIndex!=-1) 
+                OpenWorkerCard();
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -113,6 +119,7 @@ namespace SSPD
             {
                 DGV.Rows.Add();
                 DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
+                DGVR.Tag = dr["ID_Worker"].ToString();
                 DGVR.Cells[0].Value = dr["FIO"].ToString();
                 DGVR.Cells[1].Value = dr["N_Post"].ToString();
                 DGVR.Cells[2].Value = dr["Name_Otdel"].ToString();
@@ -235,7 +242,7 @@ namespace SSPD
             {
                 foreach (DataGridViewCell DGVC in DGVR.Cells)
                 {
-                    if (odd) DGVC.Style.BackColor = Color.Gainsboro;
+                    if (odd) DGVC.Style.BackColor = Color.FromArgb(240,240,240);
                     else DGVC.Style.BackColor = Color.White;
                 }
                 if (DGVR.Visible) odd = odd == true ? false : true;
@@ -248,6 +255,16 @@ namespace SSPD
             WSC.ShowDialog();
         }
 
-        
+        private void OpenWorkerCard()
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+            WorkersSpravCard WSC = new WorkersSpravCard(DGV.SelectedRows[0].Tag.ToString());
+            WSC.ShowDialog();
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenWorkerCard();
+        }
     }
 }

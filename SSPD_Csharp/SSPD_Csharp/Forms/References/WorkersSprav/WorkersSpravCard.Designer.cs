@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,9 +36,10 @@
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.FotoDelete = new System.Windows.Forms.Button();
+            this.FotoAdd = new System.Windows.Forms.Button();
             this.IndexDP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.FotoLabel = new System.Windows.Forms.Label();
             this.Foto = new System.Windows.Forms.PictureBox();
             this.IWorker = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -102,6 +104,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -135,19 +138,21 @@
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // закрытьToolStripMenuItem
             // 
             this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
+            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -157,18 +162,19 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 68);
+            this.tabControl1.Location = new System.Drawing.Point(12, 64);
             this.tabControl1.Name = "tabControl1";
-            this.tabControl1.Padding = new System.Drawing.Point(3, 3);
+            this.tabControl1.Padding = new System.Drawing.Point(10, 3);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(660, 302);
+            this.tabControl1.Size = new System.Drawing.Size(660, 298);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.FotoDelete);
+            this.tabPage1.Controls.Add(this.FotoAdd);
             this.tabPage1.Controls.Add(this.IndexDP);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.FotoLabel);
             this.tabPage1.Controls.Add(this.Foto);
             this.tabPage1.Controls.Add(this.IWorker);
             this.tabPage1.Controls.Add(this.label7);
@@ -185,19 +191,49 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(652, 276);
+            this.tabPage1.Size = new System.Drawing.Size(652, 272);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные сведения";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // FotoDelete
+            // 
+            this.FotoDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FotoDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.FotoDelete.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FotoDelete.Location = new System.Drawing.Point(609, 22);
+            this.FotoDelete.Name = "FotoDelete";
+            this.FotoDelete.Size = new System.Drawing.Size(24, 23);
+            this.FotoDelete.TabIndex = 34;
+            this.FotoDelete.Text = " Х";
+            this.FotoDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FotoDelete.UseVisualStyleBackColor = true;
+            this.FotoDelete.Visible = false;
+            this.FotoDelete.Click += new System.EventHandler(this.FotoDelete_Click);
+            // 
+            // FotoAdd
+            // 
+            this.FotoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FotoAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.FotoAdd.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FotoAdd.Location = new System.Drawing.Point(504, 197);
+            this.FotoAdd.Name = "FotoAdd";
+            this.FotoAdd.Size = new System.Drawing.Size(130, 24);
+            this.FotoAdd.TabIndex = 32;
+            this.FotoAdd.Text = "добавить фотографию";
+            this.FotoAdd.UseVisualStyleBackColor = true;
+            this.FotoAdd.Click += new System.EventHandler(this.FotoAdd_Click);
             // 
             // IndexDP
             // 
             this.IndexDP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.IndexDP.Location = new System.Drawing.Point(386, 213);
+            this.IndexDP.MaxLength = 4;
             this.IndexDP.Name = "IndexDP";
             this.IndexDP.Size = new System.Drawing.Size(95, 20);
             this.IndexDP.TabIndex = 31;
             this.IndexDP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IndexDP.TextChanged += new System.EventHandler(this.IndexDP_TextChanged);
             // 
             // label2
             // 
@@ -210,20 +246,6 @@
             this.label2.Text = "Персональный индекс делопроизводства:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // FotoLabel
-            // 
-            this.FotoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FotoLabel.AutoSize = true;
-            this.FotoLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.FotoLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.FotoLabel.ForeColor = System.Drawing.Color.Gray;
-            this.FotoLabel.Location = new System.Drawing.Point(526, 148);
-            this.FotoLabel.Name = "FotoLabel";
-            this.FotoLabel.Size = new System.Drawing.Size(87, 39);
-            this.FotoLabel.TabIndex = 29;
-            this.FotoLabel.Text = "Двойной клик\r\n\r\nДобафить фото";
-            this.FotoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Foto
             // 
             this.Foto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -232,26 +254,25 @@
             this.Foto.Image = global::SSPD.Properties.Resources.no_images;
             this.Foto.Location = new System.Drawing.Point(504, 21);
             this.Foto.Name = "Foto";
-            this.Foto.Size = new System.Drawing.Size(131, 175);
+            this.Foto.Size = new System.Drawing.Size(130, 175);
             this.Foto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Foto.TabIndex = 28;
             this.Foto.TabStop = false;
             // 
             // IWorker
             // 
-            this.IWorker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.IWorker.BackColor = System.Drawing.Color.White;
-            this.IWorker.Location = new System.Drawing.Point(90, 99);
+            this.IWorker.Location = new System.Drawing.Point(120, 99);
+            this.IWorker.MaxLength = 4;
             this.IWorker.Name = "IWorker";
-            this.IWorker.Size = new System.Drawing.Size(95, 20);
+            this.IWorker.Size = new System.Drawing.Size(75, 20);
             this.IWorker.TabIndex = 26;
-            this.IWorker.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IWorker.TextChanged += new System.EventHandler(this.IWorker_TextChanged);
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 102);
+            this.label7.Location = new System.Drawing.Point(19, 102);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 25;
@@ -263,10 +284,11 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.Posts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Posts.FormattingEnabled = true;
-            this.Posts.Location = new System.Drawing.Point(90, 175);
+            this.Posts.Location = new System.Drawing.Point(120, 175);
             this.Posts.Name = "Posts";
-            this.Posts.Size = new System.Drawing.Size(391, 21);
+            this.Posts.Size = new System.Drawing.Size(361, 21);
             this.Posts.TabIndex = 24;
+            this.Posts.SelectedIndexChanged += new System.EventHandler(this.Posts_SelectedIndexChanged);
             // 
             // Otdel
             // 
@@ -274,10 +296,11 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.Otdel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Otdel.FormattingEnabled = true;
-            this.Otdel.Location = new System.Drawing.Point(90, 148);
+            this.Otdel.Location = new System.Drawing.Point(120, 148);
             this.Otdel.Name = "Otdel";
-            this.Otdel.Size = new System.Drawing.Size(391, 21);
+            this.Otdel.Size = new System.Drawing.Size(361, 21);
             this.Otdel.TabIndex = 23;
+            this.Otdel.SelectedIndexChanged += new System.EventHandler(this.Otdel_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -302,15 +325,17 @@
             this.PWorker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.PWorker.BackColor = System.Drawing.Color.White;
-            this.PWorker.Location = new System.Drawing.Point(90, 73);
+            this.PWorker.Location = new System.Drawing.Point(120, 73);
+            this.PWorker.MaxLength = 20;
             this.PWorker.Name = "PWorker";
-            this.PWorker.Size = new System.Drawing.Size(391, 20);
+            this.PWorker.Size = new System.Drawing.Size(361, 20);
             this.PWorker.TabIndex = 19;
+            this.PWorker.TextChanged += new System.EventHandler(this.PWorker_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 76);
+            this.label4.Location = new System.Drawing.Point(19, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 18;
@@ -321,10 +346,12 @@
             this.NWorker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.NWorker.BackColor = System.Drawing.Color.White;
-            this.NWorker.Location = new System.Drawing.Point(90, 47);
+            this.NWorker.Location = new System.Drawing.Point(120, 47);
+            this.NWorker.MaxLength = 20;
             this.NWorker.Name = "NWorker";
-            this.NWorker.Size = new System.Drawing.Size(391, 20);
+            this.NWorker.Size = new System.Drawing.Size(361, 20);
             this.NWorker.TabIndex = 17;
+            this.NWorker.TextChanged += new System.EventHandler(this.NWorker_TextChanged);
             // 
             // label3
             // 
@@ -340,10 +367,12 @@
             this.FWorker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.FWorker.BackColor = System.Drawing.Color.White;
-            this.FWorker.Location = new System.Drawing.Point(90, 21);
+            this.FWorker.Location = new System.Drawing.Point(120, 21);
+            this.FWorker.MaxLength = 30;
             this.FWorker.Name = "FWorker";
-            this.FWorker.Size = new System.Drawing.Size(391, 20);
+            this.FWorker.Size = new System.Drawing.Size(361, 20);
             this.FWorker.TabIndex = 14;
+            this.FWorker.TextChanged += new System.EventHandler(this.FWorker_TextChanged);
             // 
             // label8
             // 
@@ -398,7 +427,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(652, 276);
+            this.tabPage2.Size = new System.Drawing.Size(652, 272);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Телефоны";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -800,7 +829,7 @@
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(652, 276);
+            this.tabPage3.Size = new System.Drawing.Size(652, 272);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Сеть, Интернет";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -808,10 +837,11 @@
             // Login
             // 
             this.Login.Location = new System.Drawing.Point(67, 21);
+            this.Login.MaxLength = 50;
             this.Login.Name = "Login";
             this.Login.Size = new System.Drawing.Size(185, 20);
             this.Login.TabIndex = 1;
-            this.Login.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Login.TextChanged += new System.EventHandler(this.Login_TextChanged);
             // 
             // label1
             // 
@@ -853,6 +883,7 @@
             this.Status.Margin = new System.Windows.Forms.Padding(1, 0, 10, 0);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(121, 21);
+            this.Status.Click += new System.EventHandler(this.Status_Click);
             // 
             // toolStripLabel2
             // 
@@ -865,10 +896,12 @@
             // ID_Worker
             // 
             this.ID_Worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ID_Worker.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ID_Worker.Enabled = false;
             this.ID_Worker.Margin = new System.Windows.Forms.Padding(10, 0, 1, 0);
             this.ID_Worker.Name = "ID_Worker";
             this.ID_Worker.ReadOnly = true;
-            this.ID_Worker.Size = new System.Drawing.Size(100, 21);
+            this.ID_Worker.Size = new System.Drawing.Size(75, 21);
             this.ID_Worker.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // statusStrip1
@@ -877,10 +910,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 376);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(684, 25);
-            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -895,6 +927,7 @@
             this.toolStripStatusLabel1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(95, 22);
             this.toolStripStatusLabel1.Text = "Закрыть [ESC]";
+            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
             // toolStripStatusLabel2
             // 
@@ -907,17 +940,17 @@
             this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(99, 22);
             this.toolStripStatusLabel2.Text = "Сохранить [F2]";
+            this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
             // 
             // WorkersSpravCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 401);
+            this.ClientSize = new System.Drawing.Size(684, 397);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -974,7 +1007,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox FWorker;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label FotoLabel;
         private System.Windows.Forms.PictureBox Foto;
         private System.Windows.Forms.TextBox IndexDP;
         private System.Windows.Forms.Label label2;
@@ -1021,5 +1053,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.Button FotoAdd;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button FotoDelete;
     }
 }
