@@ -16,6 +16,10 @@ namespace SSPD
             //имя пользователя
             Params.UserInfo.RightUser = Environment.UserName;
 
+            ///вход под пользователем:
+            Params.UserInfo.RightUser = "RyabcevaMV";
+
+
             //проверка на соответствие имени пользователя (для разработчиков)
             if (Params.UserInfo.RightUser.ToUpper() == "DGK") Params.UserInfo.RightUser = "IsaevEN";
 

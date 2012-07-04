@@ -15,9 +15,11 @@ namespace SSPD
         public MainForm()
         {
             InitializeComponent();
-
+            //события:
             this.Shown +=new EventHandler(Main_Shown);
-            
+
+            //надстройки формы:
+            GetRightUser();
         }
 
         private void Main_Shown(object sender, EventArgs e)
@@ -31,10 +33,35 @@ namespace SSPD
             Declarations.Show();
             
             this.Opacity = 100;
+            
+        }
 
-            Console.WriteLine(Application.ProductName);
+        /// <summary>
+        /// Настройка отображения пользовательских модулей
+        /// </summary>
+        private void GetRightUser()
+        {
+            string RightUser = Params.UserInfo.RightUser;
+
+            //закрываем все модули если входит не администратор
+            if (RightUser.ToUpper() != "ADMIN")
+            {
+                //[список работников]:
+                МенюСписокРаботниковАдминистрирование.Visible = false;
+            }
+
+
+            //Кадры
+            if (RightUser.ToUpper() == "ADMINKADR")
+            {
+                //[список работников]:
+                МенюСписокРаботниковАдминистрирование.Visible = true;
+            }
+
+
 
         }
+
 
         private void списокРаботниковToolStripMenuItem_Click(object sender, EventArgs e)
         {
