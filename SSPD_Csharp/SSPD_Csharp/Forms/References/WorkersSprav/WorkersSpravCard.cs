@@ -12,7 +12,7 @@ namespace SSPD
     public partial class WorkersSpravCard : Form
     {
         //ID сотрудника
-        private string IDW = "";
+        public string IDW = "";
         //флаг успешного сохранения данных
         public bool FlSave = false;
 
@@ -32,12 +32,17 @@ namespace SSPD
             this.KeyDown +=new KeyEventHandler(WorkersSpravCard_KeyDown);
             Foto.MouseDoubleClick +=new MouseEventHandler(Foto_MouseDoubleClick);
             //----
+            if (IDWorker != null) IDW = IDWorker;
+        }
+
+
+        private void WorkersSpravCard_Load(object sender, EventArgs e)
+        {
 
             //сохраняем закладки в массив
             myTabPage = new TabPage[tabControl1.TabPages.Count];
             for (int i = 0; i < tabControl1.TabPages.Count; i++)
                 myTabPage[i] = tabControl1.TabPages[i];
-
 
             //Должности
             LoadNPost();
@@ -46,9 +51,8 @@ namespace SSPD
             //Статусы
             SetStatus();
 
-            if (IDWorker != null)
+            if (IDW != null)
             { //редактирование карточки
-                IDW = IDWorker;
                 //статус
                 LoadStatus();
                 //основные сведения
@@ -67,16 +71,16 @@ namespace SSPD
                     //сеть
                     LoadNetSettings();
                 }
-
+                this.Enabled = false;
                 //фото
                 ViewFoto();
-
+                this.Enabled = true;
                 doSaveDetails = false;
                 doSaveFoto = false;
                 doSavePhones = false;
 
             }
-            else 
+            else
             { // новый сотрудник
                 ID_WorkerLabel.Visible = false;
                 ID_Worker.Visible = false;
@@ -87,17 +91,15 @@ namespace SSPD
             } 
         }
 
+        /// <summary>
+        /// Ловим нажатия клавиш
+        /// </summary>
         private void WorkersSpravCard_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.Escape) this.Close(); 
             if (e.KeyCode == Keys.F2) SaveCard();
         }
 
-
-        private void Foto_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            SetFoto();
-        }
 
         /// <summary>
         /// Сохранение всех данных сотрудника
@@ -108,10 +110,8 @@ namespace SSPD
 
             Dictionary<string, string> DataSet;
 
-            
             if (doSaveDetails == true)
             {   //основные данные:
-                this.Text = "Сохранение основных данных";
                 DataSet = new Dictionary<string, string>();
                 DataSet.Add("F_Worker", FWorker.Text);
                 DataSet.Add("N_Worker", NWorker.Text);
@@ -447,10 +447,8 @@ namespace SSPD
 
             try
             {
-                using (FileStream outStream = File.Open(TempFile, FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    outStream.Write(arrByte, 0, arrByte.Length);
-                }
+                 FileStream outStream = File.Open(TempFile, FileMode.Create, FileAccess.Write, FileShare.None);
+                 outStream.Write(arrByte, 0, arrByte.Length);
             }
             catch (FileLoadException ex)
             {
@@ -562,6 +560,11 @@ namespace SSPD
             FotoAdd.Text = "добавить фотографию";
             FotoDelete.Visible = false;
             doSaveFoto = true;
+        }
+
+        private void Foto_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SetFoto();
         }
 
 

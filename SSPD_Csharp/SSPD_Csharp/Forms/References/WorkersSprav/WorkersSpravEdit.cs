@@ -20,7 +20,9 @@ namespace SSPD
         public WorkersSpravEdit()
         {
             InitializeComponent();
-            this.Shown +=new EventHandler(WorkersSpravEdit_Shown);
+
+            //обработка событий:
+            this.Load +=new EventHandler(WorkersSpravEdit_Load);
             this.SizeChanged += new EventHandler(WorkersSpravEdit_SizeChanged);
             this.KeyDown +=new KeyEventHandler(WorkersSpravEdit_KeyDown);
             StrFind.TextChanged +=new EventHandler(StrFind_TextChanged);
@@ -29,6 +31,14 @@ namespace SSPD
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
             DGV.Sorted+=new EventHandler(DGV_Sorted);
             DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
+        }
+
+        private void WorkersSpravEdit_Load(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            LoadWorkers();
+            StrFind.Focus();
+            Cursor.Current = Cursors.Default;
         }
 
         private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
@@ -77,16 +87,7 @@ namespace SSPD
             else if (e.KeyCode == Keys.Enter) SearchInDGV();
         }
 
-        private void WorkersSpravEdit_Shown(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            LoadWorkers();
-            
-            Application.DoEvents();
-            this.Opacity = 1;
-            StrFind.Focus();
-            Cursor.Current = Cursors.Default;
-        }
+
 
         private void WorkersSpravEdit_SizeChanged(object sender, EventArgs e)
         {
@@ -260,6 +261,26 @@ namespace SSPD
             if (DGV.SelectedRows.Count == 0) return;
             WorkersSpravCard WSC = new WorkersSpravCard(DGV.SelectedRows[0].Tag.ToString());
             WSC.ShowDialog();
+            if (WSC.FlSave == true)
+            {
+                string SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker + ' ' + Workers.N_Worker +  ISNULL(' ' + Workers.P_Worker, '') AS FIO, Posts.N_Post, Otdels.Name_Otdel,"
+                + " Workers.Fl_Rel, "
+                + " CASE Workers.Fl_Rel WHEN 1 THEN 'Уволен' WHEN 2 THEN 'Командировка' WHEN 3 THEN 'Отпуск' WHEN 4 THEN 'Больничный' WHEN 5 THEN 'Декрет' WHEN 6 THEN 'Прочее ДО' ELSE '' END AS Status"
+                + " FROM Workers INNER JOIN"
+                + " Posts ON Workers.ID_Post = Posts.ID_Post INNER JOIN"
+                + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
+                + " WHERE Workers.ID_Worker = " + WSC.IDW;
+                var rs = DB.GetFields(SqlStr);
+                if (rs.Count == 0) return;
+                
+                DataGridViewRow DGVR = DGV.SelectedRows[0];
+                DataRow dr = rs[0];
+                DGVR.Tag = dr["ID_Worker"].ToString();
+                DGVR.Cells[0].Value = dr["FIO"].ToString();
+                DGVR.Cells[1].Value = dr["N_Post"].ToString();
+                DGVR.Cells[2].Value = dr["Name_Otdel"].ToString();
+                DGVR.Cells[3].Value = dr["Status"].ToString();
+            }
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)

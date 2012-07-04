@@ -35,6 +35,9 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>dgk32.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -139,6 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\binocular-small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dgk32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\References\Phones\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
