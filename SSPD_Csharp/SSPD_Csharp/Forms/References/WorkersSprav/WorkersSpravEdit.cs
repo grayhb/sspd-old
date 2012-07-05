@@ -25,10 +25,10 @@ namespace SSPD
             this.Load +=new EventHandler(WorkersSpravEdit_Load);
             this.SizeChanged += new EventHandler(WorkersSpravEdit_SizeChanged);
             this.KeyDown +=new KeyEventHandler(WorkersSpravEdit_KeyDown);
-            StrFind.TextChanged +=new EventHandler(StrFind_TextChanged);
             StatusFilter.SelectedIndexChanged +=new EventHandler(StatusFilter_SelectedIndexChanged);
             StrFind.GotFocus +=new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
+            StrFind.TextChanged += new EventHandler(StrFind_TextChanged);
             DGV.Sorted+=new EventHandler(DGV_Sorted);
             DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
         }
@@ -48,7 +48,7 @@ namespace SSPD
 
         private void DGV_Sorted(object sender, EventArgs e)
         {
-            SetBgRowInDGV();
+            SSPDUI.SetBgRowInDGV(DGV);
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -69,9 +69,9 @@ namespace SSPD
             }
         }
 
-        private void StatusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void StrFind_KeyDown(object sender, KeyEventArgs e)
         {
-            doFilter(StatusFilter.Text);
+            if (e.KeyCode == Keys.Enter) SearchInDGV();
         }
 
         private void StrFind_TextChanged(object sender, EventArgs e)
@@ -79,14 +79,17 @@ namespace SSPD
             IndexFind = -1;
         }
 
+        private void StatusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            doFilter(StatusFilter.Text);
+        }
+
+
         private void WorkersSpravEdit_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F7) SearchInDGV();
             if (e.KeyCode == Keys.Escape) this.Close();
-            if (StrFind.Focused == false) StrFind.Focus();
-            else if (e.KeyCode == Keys.Enter) SearchInDGV();
         }
-
 
 
         private void WorkersSpravEdit_SizeChanged(object sender, EventArgs e)
@@ -133,7 +136,7 @@ namespace SSPD
             //меняем размер столбцов
             WorkersSpravEdit_SizeChanged(null, null);
             //красим строки
-            SetBgRowInDGV();
+            SSPDUI.SetBgRowInDGV(DGV);
         }
 
         /// <summary>
@@ -143,13 +146,14 @@ namespace SSPD
         {
             if (StrFind.Text.Length == 0) return;
             FlSearchStop = false;
+            if (IndexFind != DGV.CurrentRow.Index) IndexFind = -1;
             foreach (DataGridViewRow DGVR in DGV.Rows)
             {
                 if (FlSearchStop == true) return;
                 foreach (DataGridViewCell DGVC in DGVR.Cells)
                 {
                     if (FlSearchStop == true) return;
-                    if (DGVC.Value.ToString().ToLower().IndexOf(StrFind.Text.ToLower()) > -1 && DGVR.Index > IndexFind && DGVR.Visible==true)
+                    if (DGVC.Value != null && DGVC.Value.ToString().ToLower().IndexOf(StrFind.Text.ToLower()) > -1 && DGVR.Index > IndexFind && DGVR.Visible == true)
                     {
                         DGV.ClearSelection();
                         DGVC.Selected = true;
@@ -225,7 +229,7 @@ namespace SSPD
             //меняем размер столбцов
             WorkersSpravEdit_SizeChanged(null, null);
             //красим строки
-            SetBgRowInDGV();
+            SSPDUI.SetBgRowInDGV(DGV);
 
             //выделяем первую видимую строку в гриде
             DGV.ClearSelection();
@@ -233,22 +237,7 @@ namespace SSPD
             DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Selected = true;
         }
 
-        /// <summary>
-        /// Заливаем четные строки
-        /// </summary>
-        private void SetBgRowInDGV()
-        {
-            bool odd = false;
-            foreach (DataGridViewRow DGVR in DGV.Rows)
-            {
-                foreach (DataGridViewCell DGVC in DGVR.Cells)
-                {
-                    if (odd) DGVC.Style.BackColor = Color.FromArgb(240,240,240);
-                    else DGVC.Style.BackColor = Color.White;
-                }
-                if (DGVR.Visible) odd = odd == true ? false : true;
-            }
-        }
+
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -281,11 +270,37 @@ namespace SSPD
                 DGVR.Cells[2].Value = dr["Name_Otdel"].ToString();
                 DGVR.Cells[3].Value = dr["Status"].ToString();
             }
+            WSC.Dispose();
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenWorkerCard();
         }
+
+        private void DGV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (DGV.Rows.Count == 0)
+                return;
+            else if (e.KeyCode == Keys.Home)
+            {
+                DGV.ClearSelection();
+                DGV.Rows[0].Selected = true;
+                DGV.Rows[0].Cells[0].Selected = true;
+            }
+            else if (e.KeyCode == Keys.End)
+            {
+                DGV.ClearSelection();
+                DGV.Rows[DGV.Rows.Count - 1].Selected = true;
+                DGV.Rows[DGV.Rows.Count - 1].Cells[0].Selected = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                OpenWorkerCard();
+                e.Handled = true;
+            }
+        }
+
+
     }
 }

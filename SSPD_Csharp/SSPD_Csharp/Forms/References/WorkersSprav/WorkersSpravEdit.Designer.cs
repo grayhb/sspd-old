@@ -148,6 +148,7 @@
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV.Size = new System.Drawing.Size(952, 434);
             this.DGV.TabIndex = 2;
+            this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
             // 
             // Column1
             // 
@@ -202,6 +203,7 @@
             this.StrFind.Name = "StrFind";
             this.StrFind.Size = new System.Drawing.Size(300, 23);
             this.StrFind.Text = "Введите строку для поиска";
+            this.StrFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StrFind_KeyDown);
             // 
             // toolStripButton1
             // 

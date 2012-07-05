@@ -117,35 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>127, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="FotoDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAArpJREFUOE+Fk2tI
-        k1EYx49NgrJACSIh0oF3cHPq2PKSGXMXt3esTFfqSmxqEnYxNCoS2yZeo7RIEvoaGH7LqYl9iUBwlgRC
-        kPaljzZ3ebfXdOr+nfddyYwuD/zO5Tn/8z/nOXBiKnunvKHtcPxWmBASQ/kV4AdCsxOxdH1vrMgnEu1J
-        2JEauybAAXBTvkWxQsfR8Ou8ztjlhLn/NTk/MC1Ayh0TNA2s0uPcFE98ArxJYrBSKQInShA0MOCqa7Fx
-        ySroyu3UoC/KQOeYRJg/mW5eOZIItywbHk0xvJV6+OrOwX/ZCralBVzLdUGn+5PBFl+CKAbu/HR4ThfB
-        Z9WDvVEN9k4jArZWBBx3wd1qx+ZPg6q+aWJ+MCNAdLQE3sBz9AA8xjz4mjVg75kR6GtC8Ekb1p7ZsDYy
-        gPWeDsFAS/UVA2+IafAdYYZmIwb8gld2GL76YrCdlQg+rkdw0Ay2owTehiyslh2CJ4kgRHWq7hloh+bI
-        V3UKWdZmUgN75AZ+VTLYNh1YuxoBuwSBfvqI3RL427PgrRXDp4gTDAofurBclkYWDTLykZFHDPhgjen0
-        wbJp3RkIDueCe6lE8Lmc1k9zzalY0qTBVZqBhVMUrRQfDPKnC0YFb+AUDHzHD8JrigPbmojgIzHWRjPB
-        jaSC6xRjqSoTSzVqoOcq0N8K9F7DlwtqvDfIh4nONi4Y8Ndbp3yPgp/z+dnCVIRv1SDcbsb2zbNCj9sW
-        uMrzQBhH5Ab/CldBEjD1YrdkehRzWhlIRbfTz9AydPdfQdu5G43NiZO9b7FYmoItawlCdUVYtxQI/WZD
-        Keb1+cJnkeaarlzMMTTW/o7E0FSTrm80O9X5zs8mOTYsSoQsCqH/dEaJcVXOWORDEBJH2f8X9tF88qRK
-        MjbPKOBilJinjJfJxmj+2K7v+p8JL86LQtj8A2HWQhBQtYYjAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>445, 17</value>
-  </metadata>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>236, 17</value>
-  </metadata>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>335, 17</value>
+    <value>17, 17</value>
   </metadata>
 </root>

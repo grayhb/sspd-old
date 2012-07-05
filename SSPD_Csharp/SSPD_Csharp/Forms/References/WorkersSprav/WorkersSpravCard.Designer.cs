@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkersSpravCard));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,7 +37,7 @@
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.FotoDelete = new System.Windows.Forms.Button();
+            this.FotoDelete = new System.Windows.Forms.Label();
             this.FotoAdd = new System.Windows.Forms.Button();
             this.IndexDP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -199,22 +200,21 @@
             // FotoDelete
             // 
             this.FotoDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FotoDelete.BackColor = System.Drawing.Color.WhiteSmoke;
             this.FotoDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FotoDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.FotoDelete.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FotoDelete.Location = new System.Drawing.Point(610, 21);
+            this.FotoDelete.Image = ((System.Drawing.Image)(resources.GetObject("FotoDelete.Image")));
+            this.FotoDelete.Location = new System.Drawing.Point(612, 23);
             this.FotoDelete.Name = "FotoDelete";
-            this.FotoDelete.Size = new System.Drawing.Size(24, 23);
-            this.FotoDelete.TabIndex = 34;
-            this.FotoDelete.Text = " Х";
-            this.FotoDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.FotoDelete.UseVisualStyleBackColor = true;
+            this.FotoDelete.Size = new System.Drawing.Size(20, 20);
+            this.FotoDelete.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.FotoDelete, "Удалить фоторгафию сотрудника");
             this.FotoDelete.Visible = false;
             this.FotoDelete.Click += new System.EventHandler(this.FotoDelete_Click);
             // 
             // FotoAdd
             // 
             this.FotoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FotoAdd.BackColor = System.Drawing.Color.WhiteSmoke;
             this.FotoAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FotoAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.FotoAdd.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -223,7 +223,7 @@
             this.FotoAdd.Size = new System.Drawing.Size(130, 24);
             this.FotoAdd.TabIndex = 32;
             this.FotoAdd.Text = "добавить фотографию";
-            this.FotoAdd.UseVisualStyleBackColor = true;
+            this.FotoAdd.UseVisualStyleBackColor = false;
             this.FotoAdd.Click += new System.EventHandler(this.FotoAdd_Click);
             // 
             // IndexDP
@@ -970,6 +970,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Карточка работника";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WorkersSpravCard_FormClosing);
             this.Load += new System.EventHandler(this.WorkersSpravCard_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1067,6 +1068,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button FotoAdd;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button FotoDelete;
+        private System.Windows.Forms.Label FotoDelete;
     }
 }

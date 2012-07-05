@@ -51,7 +51,7 @@ namespace SSPD
             //Статусы
             SetStatus();
 
-            if (IDW != null)
+            if (IDW != "")
             { //редактирование карточки
                 //статус
                 LoadStatus();
@@ -71,14 +71,12 @@ namespace SSPD
                     //сеть
                     LoadNetSettings();
                 }
-                this.Enabled = false;
-                //фото
+
                 ViewFoto();
-                this.Enabled = true;
+
                 doSaveDetails = false;
                 doSaveFoto = false;
                 doSavePhones = false;
-
             }
             else
             { // новый сотрудник
@@ -91,9 +89,6 @@ namespace SSPD
             } 
         }
 
-        /// <summary>
-        /// Ловим нажатия клавиш
-        /// </summary>
         private void WorkersSpravCard_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close(); 
@@ -101,9 +96,6 @@ namespace SSPD
         }
 
 
-        /// <summary>
-        /// Сохранение всех данных сотрудника
-        /// </summary>
         private void SaveCard()
         {
             if (CheckFields() == false) return;
@@ -176,28 +168,34 @@ namespace SSPD
 
 
             //фотография
-            if (doSaveFoto == true && Foto.Image != Foto.ErrorImage)
+            if (doSaveFoto == true)
             {
-                if (Foto.Image == Foto.ErrorImage)
+                if (Foto.Image==Foto.ErrorImage)
                 {
                     DB.DeleteRow("WorkersPhoto", "ID_Worker = " + IDW);
                 }
                 else
                 {
-                    byte[] FotoByteArray = File.ReadAllBytes(Foto.ImageLocation);
+                    byte[] imageArray;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        //сохраняем изображение в массив байтов
+                        Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        imageArray = ms.ToArray();
+                    }
 
                     var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
                     if (rs.Count > 0)
                     {
                         //обновление
-                        DB.SetByteField(FotoByteArray, "WorkersPhoto", "Photo_Worker", "ID_Worker = " + IDW);
+                        DB.SetByteField(imageArray, "WorkersPhoto", "Photo_Worker", "ID_Worker = " + IDW);
                     }
                     else
                     {
                         //создание
                         DataSet = new Dictionary<string, string>();
                         DataSet.Add("ID_Worker", IDW);
-                        DB.InsertByteRow(DataSet, FotoByteArray, "Photo_Worker", "WorkersPhoto");
+                        DB.InsertByteRow(DataSet, imageArray, "Photo_Worker", "WorkersPhoto");
                     }
                 }
             }
@@ -438,28 +436,19 @@ namespace SSPD
         /// </summary>
         private void ViewFoto()
         {
+            FotoDelete.Visible = false;
             var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
             if (rs.Count == 0) return;
             DataRow dr = rs[0];
             var arrByte = (byte[])dr["Photo_Worker"];
 
-            string TempFile = Path.GetTempPath() + IDW + "_foto.tmp";
-
-            try
+            using (MemoryStream ms = new MemoryStream(arrByte, 0, arrByte.Length))
             {
-                 FileStream outStream = File.Open(TempFile, FileMode.Create, FileAccess.Write, FileShare.None);
-                 outStream.Write(arrByte, 0, arrByte.Length);
+                ms.Write(arrByte, 0, arrByte.Length);
+                Foto.Image = Image.FromStream(ms, true);
+                FotoAdd.Text = "изменить фотографию";
+                FotoDelete.Visible = true;
             }
-            catch (FileLoadException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-
-            Bitmap tmp_image2 = new Bitmap(TempFile);
-            Foto.Image = tmp_image2;
-            FotoAdd.Text = "изменить фотографию";
-            FotoDelete.Visible = true;
         }
 
 
@@ -474,7 +463,12 @@ namespace SSPD
             OFD.Filter = "Изображение JPG (размер 175х130)|*.jpg;*.jpeg";
             if (OFD.ShowDialog() == DialogResult.OK)
             {
-                Foto.ImageLocation = OFD.FileName;
+                //превью:
+                Image image = Image.FromFile(OFD.FileName);
+                Image thumb = image.GetThumbnailImage(260, 350, () => false, IntPtr.Zero);
+                thumb.Save(Path.ChangeExtension(OFD.FileName, "thumb"));
+
+                Foto.Image = thumb;
                 FotoAdd.Text = "изменить фотографию";
                 FotoDelete.Visible = true;
                 doSaveFoto = true;
@@ -557,6 +551,7 @@ namespace SSPD
         {
             if (MessageBox.Show("Удалить фотографию сотрудника?", "Удаление фотографии", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) return;
             Foto.Image = Foto.ErrorImage;
+            Foto.ImageLocation = null;
             FotoAdd.Text = "добавить фотографию";
             FotoDelete.Visible = false;
             doSaveFoto = true;
@@ -566,6 +561,14 @@ namespace SSPD
         {
             SetFoto();
         }
+
+        private void WorkersSpravCard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Foto.Image = null;
+            Foto.ImageLocation = null;
+            Application.DoEvents();
+        }
+
 
 
     }

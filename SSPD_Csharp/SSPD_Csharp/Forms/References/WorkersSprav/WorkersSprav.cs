@@ -356,46 +356,18 @@ namespace SSPD
         /// <param name="IDW">ID работника</param>
         private void ViewFoto(string IDW)
         {
-            string TempFile = Path.GetTempPath() + IDW + "_foto.tmp";
-            //если фотография уже есть
-            if (File.Exists(TempFile))
-            {
-                Bitmap tmp_image1 = new Bitmap(TempFile);
-                pictureBox1.Image = tmp_image1;
-                return;
-            }
-
-            //фотографии нет - грузим
-            pictureBox1.Image = null;
-            pictureBox1.Invalidate(); 
-
             var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
-            if (rs.Count == 0)
+            if (rs.Count > 0)
             {
-                pictureBox1.Image = pictureBox1.ErrorImage;
-                return;
-            }
-
-            DataRow dr = rs[0];
-            
-            var arrByte = (byte[])dr["Photo_Worker"];
-
-            try
-            {
-                using (FileStream outStream = File.Open(TempFile, FileMode.Create, FileAccess.Write, FileShare.None))
+                var arrByte = (byte[])rs[0]["Photo_Worker"];
+                using (MemoryStream ms = new MemoryStream(arrByte, 0, arrByte.Length))
                 {
-                    outStream.Write(arrByte, 0, arrByte.Length);
+                    ms.Write(arrByte, 0, arrByte.Length);
+                    pictureBox1.Image = Image.FromStream(ms, true);
                 }
             }
-            catch (FileLoadException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return;
-            }
-
-            Bitmap tmp_image2 = new Bitmap(TempFile);
-            pictureBox1.Image = tmp_image2;
-
+            else
+                pictureBox1.Image = pictureBox1.ErrorImage;
         }
 
         // Поиск в дереве

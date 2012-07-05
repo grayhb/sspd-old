@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 
 namespace SSPD
@@ -40,6 +41,23 @@ namespace SSPD
         {
             if (caption == "" || caption == null) caption = "Остановка операции";
             MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        /// <summary>
+        /// Заливаем четные строки в DataGridView
+        /// </summary>
+        public static void SetBgRowInDGV(DataGridView DGV)
+        {
+            bool odd = false;
+            foreach (DataGridViewRow DGVR in DGV.Rows)
+            {
+                foreach (DataGridViewCell DGVC in DGVR.Cells)
+                {
+                    if (odd) DGVC.Style.BackColor = Color.FromArgb(240, 240, 240);
+                    else DGVC.Style.BackColor = Color.White;
+                }
+                if (DGVR.Visible) odd = odd == true ? false : true;
+            }
         }
 
 

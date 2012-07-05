@@ -48,6 +48,8 @@ namespace SSPD
             {
                 //[список работников]:
                 МенюСписокРаботниковАдминистрирование.Visible = false;
+
+                МенюСправочникСИМКарт.Visible = false;
             }
 
 
@@ -73,6 +75,12 @@ namespace SSPD
         {
             WorkersSpravEdit WSE = new WorkersSpravEdit();
             WSE.ShowDialog();
+        }
+
+        private void МенюСправочникСИМКарт_Click(object sender, EventArgs e)
+        {
+            PhoneSIMList PSIML = new PhoneSIMList(false);
+            PSIML.ShowDialog();
         }
     }
 }
