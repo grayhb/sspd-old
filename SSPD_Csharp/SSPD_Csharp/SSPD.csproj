@@ -76,6 +76,18 @@
     <Compile Include="Forms\Cfg\InputPassword.Designer.cs">
       <DependentUpon>InputPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\References\Phones\PhoneSIMCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\Phones\PhoneSIMCard.Designer.cs">
+      <DependentUpon>PhoneSIMCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\References\Phones\PhoneSIMList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\Phones\PhoneSIMList.Designer.cs">
+      <DependentUpon>PhoneSIMList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\References\WorkersSprav\WorkersSprav.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +119,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cfg\InputPassword.resx">
       <DependentUpon>InputPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\Phones\PhoneSIMCard.resx">
+      <DependentUpon>PhoneSIMCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\Phones\PhoneSIMList.resx">
+      <DependentUpon>PhoneSIMList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSprav.resx">
       <DependentUpon>WorkersSprav.cs</DependentUpon>
@@ -146,9 +164,7 @@
   <ItemGroup>
     <Content Include="dgk32.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\References\Phones\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
