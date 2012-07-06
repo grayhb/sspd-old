@@ -143,6 +143,18 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
+
+        private void GetSIM()
+        {
+            if (DGV.Rows.Count == 0) return;
+            if (ReadOnly == true)
+            {
+                SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
+                this.Close();
+            }
+            else EditSIM();
+        }
+
         private void DGV_Sorted(object sender, EventArgs e)
         {
             //красим строки
@@ -153,13 +165,7 @@ namespace SSPD
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (DGV.Rows.Count == 0) return;
-                if (ReadOnly == true)
-                {
-                    SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
-                    this.Close();
-                }
-                else EditSIM();
+                GetSIM();
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
@@ -245,6 +251,16 @@ namespace SSPD
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DelSIM();
+        }
+
+        private void выбратьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetSIM();
+        }
+
+        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        {
+            GetSIM();
         }
 
     }
