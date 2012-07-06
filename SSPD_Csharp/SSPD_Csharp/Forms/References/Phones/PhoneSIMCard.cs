@@ -11,9 +11,11 @@ namespace SSPD
     public partial class PhoneSIMCard : Form
     {
         public bool FlSave = false;
+        public Dictionary<string, string> SIM = null;
 
         private bool EditMode;
         private string ID_SIM;
+
 
         public PhoneSIMCard(bool FlEdit, string IDSIM)
         {
@@ -44,14 +46,61 @@ namespace SSPD
             PUK2.Text = rs[0]["PUK2"].ToString();
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        private void SaveSIM()
         {
+            if (NSim.Text.Trim().Length == 0)
+            {
+                SSPDUI.MsgEx("Не указан уникальный номер SIM-карты!", "Остановка сохранения");
+                NSim.Focus();
+                return;
+            }
+
+            if (ANamber.Text.Trim().Length == 0)
+            {
+                SSPDUI.MsgEx("Не указан абонентный номер!", "Остановка сохранения");
+                ANamber.Focus();
+                return;
+            }
+
+            Dictionary<string, string> DataSet = new Dictionary<string, string>();;
+            DataSet.Add("NSim", NSim.Text.Trim());
+            DataSet.Add("ANamber", ANamber.Text.Trim());
+            DataSet.Add("PIN1", PIN1.Text.Trim());
+            DataSet.Add("PIN2", PIN2.Text.Trim());
+            DataSet.Add("PUK1", PUK1.Text.Trim());
+            DataSet.Add("PUK2", PUK2.Text.Trim());
+
+            if (EditMode == true)
+            {
+                DB.SetFields(DataSet, "PhoneSIM", "ID_Sim = " + ID_SIM);
+                SIM = DataSet;
+            }
+            else
+            {
+                var rs = DB.GetFields("SELECT Isnull(MAX(ID_Sim),0) + 1 AS NewID From PhoneSIM");
+                ID_SIM = rs[0]["NewID"].ToString();
+                DataSet.Add("ID_Sim", ID_SIM);
+                DB.InsertRow(DataSet, "PhoneSIM");
+            }
+
+            FlSave = true;
             this.Close();
         }
 
         private void PhoneSIMCard_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F2) SaveSIM();
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        {
+            SaveSIM();
         }
     }
 }

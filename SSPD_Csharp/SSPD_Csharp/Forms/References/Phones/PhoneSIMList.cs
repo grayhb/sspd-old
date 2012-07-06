@@ -11,6 +11,8 @@ namespace SSPD
     public partial class PhoneSIMList : Form
     {
 
+        public string SelectedIDSIM; 
+
         private bool ReadOnly;
 
         /// <summary>
@@ -145,6 +147,7 @@ namespace SSPD
         {
             PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
             SimCard.ShowDialog();
+            if (SimCard.FlSave == true) LoadSIMList();
         }
 
         private void EditSIM()
@@ -152,6 +155,25 @@ namespace SSPD
             if (DGV.Rows.Count == 0) return;
             PhoneSIMCard SimCard = new PhoneSIMCard(true, DGV.CurrentRow.Tag.ToString());
             SimCard.ShowDialog();
+            if (SimCard.FlSave == true && SimCard.SIM!= null)
+            {
+                DGV.CurrentRow.Cells[0].Value = SimCard.SIM["ANamber"];
+                DGV.CurrentRow.Cells[1].Value = SimCard.SIM["NSim"];
+                DGV.CurrentRow.Cells[2].Value = SimCard.SIM["PIN1"];
+                DGV.CurrentRow.Cells[3].Value = SimCard.SIM["PIN2"];
+                DGV.CurrentRow.Cells[4].Value = SimCard.SIM["PUK1"];
+                DGV.CurrentRow.Cells[5].Value = SimCard.SIM["PUK2"];
+            }
+        }
+
+        private void DelSIM()
+        {
+            if (MessageBox.Show("Удалить номер " + DGV.CurrentRow.Cells[0].Value.ToString() + "?", "Удаление карты SIM",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
+
+            DB.DeleteRow("PhoneSim", "ID_Sim = " + DGV.CurrentRow.Tag.ToString());
+            DGV.Rows.RemoveAt(DGV.CurrentRow.Index);
+            SSPDUI.SetBgRowInDGV(DGV);
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -164,8 +186,16 @@ namespace SSPD
         {
             if (e.KeyCode == Keys.Enter)
             {
+                if (DGV.Rows.Count == 0) return;
+                if (ReadOnly == true)
+                {
+                    SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
+                    this.Close();
+                }
+                else EditSIM();
                 e.Handled = true;
             }
+            else if (e.KeyCode == Keys.Escape) this.Close();
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -237,6 +267,21 @@ namespace SSPD
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
             EditSIM();
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditSIM();
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+            DelSIM();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DelSIM();
         }
 
     }
