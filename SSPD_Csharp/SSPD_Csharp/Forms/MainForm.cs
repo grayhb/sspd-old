@@ -82,5 +82,11 @@ namespace SSPD
             PhoneSIMList PSIML = new PhoneSIMList(false);
             PSIML.ShowDialog();
         }
+
+        private void справочникМобильныхТелефоновToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PhoneApList PAL = new PhoneApList(false);
+            PAL.ShowDialog();
+        }
     }
 }

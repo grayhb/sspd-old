@@ -61,5 +61,34 @@ namespace SSPD
         }
 
 
+        public static void SearchInDGV(DataGridView DGV, string StrFind, int IndexFind)
+        {
+            if (StrFind.Length == 0) return;
+            bool FlSearchStop = false;
+            if (IndexFind != DGV.CurrentRow.Index) IndexFind = -1;
+            foreach (DataGridViewRow DGVR in DGV.Rows)
+            {
+                if (FlSearchStop == true) return;
+                foreach (DataGridViewCell DGVC in DGVR.Cells)
+                {
+                    if (FlSearchStop == true) return;
+                    if (DGVC.Value != null && DGVC.Value.ToString().ToLower().IndexOf(StrFind.ToLower()) > -1 && DGVR.Index > IndexFind && DGVR.Visible == true)
+                    {
+                        DGV.ClearSelection();
+                        DGVC.Selected = true;
+                        DGVR.Selected = true;
+                        FlSearchStop = true;
+                        IndexFind = DGVR.Index;
+                        return;
+                    }
+                }
+            }
+
+            //не найдено, и поиск начат с середины, повторяем поиск с первой позиции
+            if (IndexFind > -1) { IndexFind = -1; SearchInDGV(DGV, StrFind, IndexFind); }
+
+        }
+
+
     }
 }

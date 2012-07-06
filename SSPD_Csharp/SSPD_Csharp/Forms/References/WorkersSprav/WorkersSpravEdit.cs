@@ -11,12 +11,6 @@ namespace SSPD
     public partial class WorkersSpravEdit : Form
     {
 
-        //флаг поиска
-        private bool FlSearchStop = true;
-        //индекс последнего найденного работника
-        private int IndexFind = -1;
-
-
         public WorkersSpravEdit()
         {
             InitializeComponent();
@@ -28,7 +22,6 @@ namespace SSPD
             StatusFilter.SelectedIndexChanged +=new EventHandler(StatusFilter_SelectedIndexChanged);
             StrFind.GotFocus +=new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
-            StrFind.TextChanged += new EventHandler(StrFind_TextChanged);
             DGV.Sorted+=new EventHandler(DGV_Sorted);
             DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
         }
@@ -71,12 +64,7 @@ namespace SSPD
 
         private void StrFind_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) SearchInDGV();
-        }
-
-        private void StrFind_TextChanged(object sender, EventArgs e)
-        {
-            IndexFind = -1;
+            if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
         private void StatusFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,7 +75,7 @@ namespace SSPD
 
         private void WorkersSpravEdit_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F7) SearchInDGV();
+            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
             if (e.KeyCode == Keys.Escape) this.Close();
         }
 
@@ -142,38 +130,14 @@ namespace SSPD
         /// <summary>
         /// Поиск по всем ячейкам грида
         /// </summary>
-        private void SearchInDGV()
-        {
-            if (StrFind.Text.Length == 0) return;
-            FlSearchStop = false;
-            if (IndexFind != DGV.CurrentRow.Index) IndexFind = -1;
-            foreach (DataGridViewRow DGVR in DGV.Rows)
-            {
-                if (FlSearchStop == true) return;
-                foreach (DataGridViewCell DGVC in DGVR.Cells)
-                {
-                    if (FlSearchStop == true) return;
-                    if (DGVC.Value != null && DGVC.Value.ToString().ToLower().IndexOf(StrFind.Text.ToLower()) > -1 && DGVR.Index > IndexFind && DGVR.Visible == true)
-                    {
-                        DGV.ClearSelection();
-                        DGVC.Selected = true;
-                        DGVR.Selected = true;
-                        FlSearchStop = true;
-                        IndexFind = DGVR.Index;
-                        return;
-                    }
-                }
-            }
+        //private void SearchInDGV()
+        //{
 
-            //не найдено, и поиск начат с середины, повторяем поиск с первой позиции
-            if (IndexFind > -1) { IndexFind = -1; SearchInDGV(); }
-
-        }
+        //}
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            FlSearchStop = false;
-            SearchInDGV();
+            SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
