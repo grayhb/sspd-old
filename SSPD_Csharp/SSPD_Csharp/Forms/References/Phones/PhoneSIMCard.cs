@@ -73,7 +73,6 @@ namespace SSPD
             if (EditMode == true)
             {
                 DB.SetFields(DataSet, "PhoneSIM", "ID_Sim = " + ID_SIM);
-                SIM = DataSet;
             }
             else
             {
@@ -82,7 +81,7 @@ namespace SSPD
                 DataSet.Add("ID_Sim", ID_SIM);
                 DB.InsertRow(DataSet, "PhoneSIM");
             }
-
+            SIM = DataSet;
             FlSave = true;
             this.Close();
         }

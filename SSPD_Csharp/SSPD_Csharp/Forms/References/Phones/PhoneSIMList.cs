@@ -114,7 +114,20 @@ namespace SSPD
         {
             PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
             SimCard.ShowDialog();
-            if (SimCard.FlSave == true) LoadSIMList();
+            if (SimCard.FlSave == true && SimCard.SIM != null)
+            {
+                DGV.Rows.Add();
+                DGV.ClearSelection();
+                DGV.Rows[DGV.Rows.Count - 1].Selected = true;
+                DGV.Rows[DGV.Rows.Count - 1].Cells[0].Selected = true;
+                DGV.CurrentRow.Tag = SimCard.SIM["ID_Sim"];
+                DGV.CurrentRow.Cells[0].Value = SimCard.SIM["ANamber"];
+                DGV.CurrentRow.Cells[1].Value = SimCard.SIM["NSim"];
+                DGV.CurrentRow.Cells[2].Value = SimCard.SIM["PIN1"];
+                DGV.CurrentRow.Cells[3].Value = SimCard.SIM["PIN2"];
+                DGV.CurrentRow.Cells[4].Value = SimCard.SIM["PUK1"];
+                DGV.CurrentRow.Cells[5].Value = SimCard.SIM["PUK2"];
+            }
         }
 
         private void EditSIM()
@@ -147,12 +160,8 @@ namespace SSPD
         private void GetSIM()
         {
             if (DGV.Rows.Count == 0) return;
-            if (ReadOnly == true)
-            {
-                SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
-                this.Close();
-            }
-            else EditSIM();
+            SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
+            this.Close();
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -165,7 +174,9 @@ namespace SSPD
         {
             if (e.KeyCode == Keys.Enter)
             {
-                GetSIM();
+                if (ReadOnly == true)
+                    GetSIM();
+                else EditSIM();
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
@@ -230,7 +241,9 @@ namespace SSPD
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            EditSIM();
+            if (ReadOnly == true)
+                GetSIM();
+            else EditSIM();
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
@@ -262,6 +275,7 @@ namespace SSPD
         {
             GetSIM();
         }
+
 
     }
 }
