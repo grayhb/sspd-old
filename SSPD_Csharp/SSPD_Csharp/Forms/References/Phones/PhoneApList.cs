@@ -8,15 +8,16 @@ using System.Windows.Forms;
 
 namespace SSPD
 {
-    public partial class PhoneSIMList : Form
+    public partial class PhoneApList : Form
     {
 
-        public string SelectedIDSIM; 
+        public string SelectedIDAN;
+        public string SelectedAN; 
 
         private bool ReadOnly;
 
 
-        public PhoneSIMList(bool FlRead)
+        public PhoneApList(bool FlRead)
         {
             InitializeComponent();
 
@@ -50,59 +51,57 @@ namespace SSPD
             if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
         }
 
-        private void PhoneSIMList_Load(object sender, EventArgs e)
+        private void PhoneApList_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            LoadSIMList();
+            LoadDataList();
             Cursor.Current = Cursors.Default;
         }
 
 
-        private void LoadSIMList()
+        private void LoadDataList()
         {
             string SqlStr ="";
             if (ReadOnly == false) {
-                SqlStr = "SELECT PhoneSim.ID_Sim, PhoneSim.NSim, PhoneSim.ANamber, PhoneSim.PIN1, PhoneSim.PIN2, PhoneSim.PUK1, PhoneSim.PUK2,"
-                + " DERIVEDTBL.DateTimeInp , DERIVEDTBL.DateTimeOut, DERIVEDTBL.FIO, DERIVEDTBL.NB_Otdel, DERIVEDTBL.TUse"
-                + " FROM PhoneSim LEFT OUTER JOIN"
-                + " (SELECT ISNULL(PhoneMov.DateTimeInp, 1) AS DateTimeInp, PhoneMov.DateTimeOut, Workers.F_Worker + ' ' + Workers.I_Worker AS FIO,"
-                + " Otdels.NB_Otdel , PhoneMov.TUse, PhoneMov.ID_Sim"
-                + " FROM PhoneMov INNER JOIN"
+                SqlStr = "SELECT     PhoneAp.ID_PA, PhoneAp.Inv, PhoneAp.IMEI, PhoneAp.Label, DERIVEDTBL.DateTimeInp, DERIVEDTBL.DateTimeOut, DERIVEDTBL.FIO,"
+                + " DERIVEDTBL.NB_Otdel , DERIVEDTBL.TUse"
+                + " FROM         PhoneAp LEFT OUTER JOIN"
+                + " (SELECT     PhoneMov.ID_PA, ISNULL(PhoneMov.DateTimeInp, 1) AS DateTimeInp, PhoneMov.DateTimeOut,"
+                + " Workers.F_Worker + ' ' + Workers.I_Worker AS FIO, Otdels.NB_Otdel, PhoneMov.TUse"
+                + " FROM          PhoneMov INNER JOIN"
                 + " Workers ON PhoneMov.ID_Worker = Workers.ID_Worker INNER JOIN"
                 + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
-                + " WHERE (PhoneMov.DateTimeInp IS NULL)) DERIVEDTBL ON PhoneSim.ID_Sim = DERIVEDTBL.ID_Sim";
+                + " WHERE      (PhoneMov.DateTimeInp IS NULL)) DERIVEDTBL ON PhoneAp.ID_PA = DERIVEDTBL.ID_PA";
             } else {
-                SqlStr = "SELECT PhoneSim.ID_Sim, PhoneSim.NSim, PhoneSim.ANamber, PhoneSim.PIN1, PhoneSim.PIN2, PhoneSim.PUK1, PhoneSim.PUK2,"
-                + " DERIVEDTBL.DateTimeInp"
-                + " FROM         PhoneSim LEFT OUTER JOIN"
-                + " (SELECT     ID_Sim, isnull(DateTimeInp, 1) AS DateTimeInp"
+                SqlStr = "SELECT PhoneAp.ID_PA, PhoneAp.Inv, PhoneAp.IMEI, PhoneAp.Label"
+                + " FROM PhoneAp LEFT OUTER JOIN"
+                + " (SELECT     ID_PA, isnull(DateTimeInp, 1) AS DateTimeInp"
                 + " From PhoneMov"
-                + " WHERE      (DateTimeInp IS NULL)) DERIVEDTBL ON PhoneSim.ID_Sim = DERIVEDTBL.ID_Sim"
-                + " WHERE     (DERIVEDTBL.DateTimeInp IS NULL)";
+                + " WHERE      (DateTimeInp IS NULL)) DERIVEDTBL ON PhoneAp.ID_PA = DERIVEDTBL.ID_PA"
+                + " Where (DERIVEDTBL.DateTimeInp Is Null)";
             }
-            var rs = DB.GetFields(SqlStr);
+            var rs = DB.GetFields(SqlStr + " ORDER BY PhoneAp.IMEI DESC");
             if (rs.Count == 0) return;
 
             DataGridViewRow DGVR;
             DGV.Rows.Clear();
+            
 
             foreach (DataRow dr in rs)
             {
                 DGV.Rows.Add();
                 DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
-                DGVR.Tag = dr["ID_Sim"].ToString();
-                DGVR.Cells[0].Value = dr["ANamber"].ToString();
-                DGVR.Cells[1].Value = dr["NSim"].ToString();
-                DGVR.Cells[2].Value = dr["PIN1"].ToString();
-                DGVR.Cells[3].Value = dr["PIN2"].ToString();
-                DGVR.Cells[4].Value = dr["PUK1"].ToString();
-                DGVR.Cells[5].Value = dr["PUK2"].ToString();
+
+                DGVR.Tag = dr["ID_PA"].ToString();
+                DGVR.Cells[0].Value = dr["IMEI"].ToString();
+                DGVR.Cells[1].Value = dr["Inv"].ToString();
+                DGVR.Cells[2].Value = dr["Label"].ToString();
                 if (ReadOnly == false && dr["DateTimeOut"].ToString().Length >0 )
                 {
-                    DGVR.Cells[6].Value = "Выдана ";
-                    DGVR.Cells[6].Value += dr["TUse"].ToString() == "0" ? "во временное пользование " : "в постоянное пользование ";
-                    DGVR.Cells[6].Value += string.Format ("{0:dd-MM-yyyy hh:mm}",Convert.ToDateTime (dr["DateTimeOut"].ToString()));
-                    DGVR.Cells[6].Value += ". Пользователь - " + dr["FIO"].ToString() + " (" + dr["NB_Otdel"].ToString() + ")";
+                    DGVR.Cells[3].Value = "Выдан ";
+                    DGVR.Cells[3].Value += dr["TUse"].ToString() == "0" ? "во временное пользование " : "в постоянное пользование ";
+                    DGVR.Cells[3].Value += string.Format ("{0:dd-MM-yyyy hh:mm}",Convert.ToDateTime (dr["DateTimeOut"].ToString()));
+                    DGVR.Cells[3].Value += ". Пользователь - " + dr["FIO"].ToString() + " (" + dr["NB_Otdel"].ToString() + ")";
                 }
             }
 
@@ -110,17 +109,18 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
-        private void AddNewSIM()
+
+        private void AddNewItem()
         {
-            PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
-            SimCard.ShowDialog();
-            if (SimCard.FlSave == true) LoadSIMList();
+            //PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
+            //SimCard.ShowDialog();
+            //if (SimCard.FlSave == true) LoadDataList();
         }
 
-        private void EditSIM()
+        private void EditItem()
         {
             if (DGV.Rows.Count == 0) return;
-            PhoneSIMCard SimCard = new PhoneSIMCard(true, DGV.CurrentRow.Tag.ToString());
+            /*PhoneSIMCard SimCard = new PhoneSIMCard(true, DGV.CurrentRow.Tag.ToString());
             SimCard.ShowDialog();
             if (SimCard.FlSave == true && SimCard.SIM!= null)
             {
@@ -131,16 +131,18 @@ namespace SSPD
                 DGV.CurrentRow.Cells[4].Value = SimCard.SIM["PUK1"];
                 DGV.CurrentRow.Cells[5].Value = SimCard.SIM["PUK2"];
             }
+             * */
         }
 
-        private void DelSIM()
+        private void DelItem()
         {
             if (MessageBox.Show("Удалить номер " + DGV.CurrentRow.Cells[0].Value.ToString() + "?", "Удаление карты SIM",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
 
-            DB.DeleteRow("PhoneSim", "ID_Sim = " + DGV.CurrentRow.Tag.ToString());
+            /*DB.DeleteRow("PhoneSim", "ID_Sim = " + DGV.CurrentRow.Tag.ToString());
             DGV.Rows.RemoveAt(DGV.CurrentRow.Index);
             SSPDUI.SetBgRowInDGV(DGV);
+             * */
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -156,10 +158,10 @@ namespace SSPD
                 if (DGV.Rows.Count == 0) return;
                 if (ReadOnly == true)
                 {
-                    SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
+                    SelectedIDAN = DGV.CurrentRow.Tag.ToString();
                     this.Close();
                 }
-                else EditSIM();
+                else EditItem();
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
@@ -192,7 +194,7 @@ namespace SSPD
         private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-            if (e.KeyCode == Keys.Insert) AddNewSIM();
+            if (e.KeyCode == Keys.Insert) AddNewItem();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,38 +215,38 @@ namespace SSPD
 
         private void toolStripStatusLabel2_Click(object sender, EventArgs e)
         {
-            AddNewSIM();
+            AddNewItem();
         }
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddNewSIM();
+            AddNewItem();
         }
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            EditSIM();
+            EditItem();
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
-            EditSIM();
+            EditItem();
         }
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EditSIM();
+            EditItem();
         }
 
         private void toolStripStatusLabel4_Click(object sender, EventArgs e)
         {
-            DelSIM();
+            DelItem();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DelSIM();
+            DelItem();
         }
 
     }
