@@ -76,6 +76,12 @@
     <Compile Include="Forms\Cfg\InputPassword.Designer.cs">
       <DependentUpon>InputPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\References\Phones\PhoneApCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\Phones\PhoneApCard.Designer.cs">
+      <DependentUpon>PhoneApCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\References\Phones\PhoneSIMCard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cfg\InputPassword.resx">
       <DependentUpon>InputPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\Phones\PhoneApCard.resx">
+      <DependentUpon>PhoneApCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\Phones\PhoneSIMCard.resx">
       <DependentUpon>PhoneSIMCard.cs</DependentUpon>

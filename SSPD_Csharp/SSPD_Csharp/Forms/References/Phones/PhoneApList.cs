@@ -112,37 +112,49 @@ namespace SSPD
 
         private void AddNewItem()
         {
-            //PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
-            //SimCard.ShowDialog();
-            //if (SimCard.FlSave == true) LoadDataList();
+            PhoneApCard PAC = new PhoneApCard(false, null);
+            PAC.ShowDialog();
+            if (PAC.FlSave == true && PAC.GetData != null)
+            {
+                DGV.Rows.Add();
+                DGV.ClearSelection();
+                DGV.Rows[DGV.Rows.Count-1].Selected =true;
+                DGV.Rows[DGV.Rows.Count - 1].Cells[0].Selected = true;
+                DGV.CurrentRow.Tag = PAC.GetData["ID_PA"];
+                DGV.CurrentRow.Cells[0].Value = PAC.GetData["IMEI"];
+                DGV.CurrentRow.Cells[1].Value = PAC.GetData["Inv"];
+                DGV.CurrentRow.Cells[2].Value = PAC.GetData["Label"];
+            }
         }
 
         private void EditItem()
         {
             if (DGV.Rows.Count == 0) return;
-            /*PhoneSIMCard SimCard = new PhoneSIMCard(true, DGV.CurrentRow.Tag.ToString());
-            SimCard.ShowDialog();
-            if (SimCard.FlSave == true && SimCard.SIM!= null)
+            PhoneApCard PAC = new PhoneApCard(true, DGV.CurrentRow.Tag.ToString());
+            PAC.ShowDialog();
+            if (PAC.FlSave == true && PAC.GetData != null)
             {
-                DGV.CurrentRow.Cells[0].Value = SimCard.SIM["ANamber"];
-                DGV.CurrentRow.Cells[1].Value = SimCard.SIM["NSim"];
-                DGV.CurrentRow.Cells[2].Value = SimCard.SIM["PIN1"];
-                DGV.CurrentRow.Cells[3].Value = SimCard.SIM["PIN2"];
-                DGV.CurrentRow.Cells[4].Value = SimCard.SIM["PUK1"];
-                DGV.CurrentRow.Cells[5].Value = SimCard.SIM["PUK2"];
+                DGV.CurrentRow.Cells[0].Value = PAC.GetData["IMEI"];
+                DGV.CurrentRow.Cells[1].Value = PAC.GetData["Inv"];
+                DGV.CurrentRow.Cells[2].Value = PAC.GetData["Label"];
             }
-             * */
         }
 
         private void DelItem()
         {
-            if (MessageBox.Show("Удалить номер " + DGV.CurrentRow.Cells[0].Value.ToString() + "?", "Удаление карты SIM",
+            if (MessageBox.Show("Удалить аппарат - " + DGV.CurrentRow.Cells[2].Value.ToString() + "?", "Удаление аппарата",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
 
-            /*DB.DeleteRow("PhoneSim", "ID_Sim = " + DGV.CurrentRow.Tag.ToString());
+            DB.DeleteRow("PhoneAp", "ID_PA = " + DGV.CurrentRow.Tag.ToString());
             DGV.Rows.RemoveAt(DGV.CurrentRow.Index);
             SSPDUI.SetBgRowInDGV(DGV);
-             * */
+        }
+
+        private void SelectItem()
+        {
+            SelectedIDAN = DGV.CurrentRow.Tag.ToString();
+            SelectedAN = DGV.CurrentRow.Cells[2].Value.ToString() + "(IEMI " + DGV.CurrentRow.Cells[0].Value.ToString() + ")";
+            this.Close();
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -157,10 +169,7 @@ namespace SSPD
             {
                 if (DGV.Rows.Count == 0) return;
                 if (ReadOnly == true)
-                {
-                    SelectedIDAN = DGV.CurrentRow.Tag.ToString();
-                    this.Close();
-                }
+                    SelectItem();
                 else EditItem();
                 e.Handled = true;
             }
@@ -226,7 +235,9 @@ namespace SSPD
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
-            EditItem();
+            if (ReadOnly == true)
+                SelectItem();
+            else EditItem();
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
