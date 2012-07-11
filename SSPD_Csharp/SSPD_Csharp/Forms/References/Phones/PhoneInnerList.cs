@@ -8,22 +8,25 @@ using System.Windows.Forms;
 
 namespace SSPD
 {
-    public partial class PhoneApList : Form
+    public partial class PhoneInnerList : Form
     {
-
-        public string SelectedIDAN;
-        public string SelectedAN; 
 
         private bool ReadOnly;
 
+        public string SelPhoneInner = "";
+        public string SelPhoneTown = "";
+        public string SelPhoneMATS = "";
+        public string SelPhoneGroup = "";
+        public string SelRoom = "";
 
-        public PhoneApList(bool FlRead)
+        public PhoneInnerList(bool FlRead)
         {
             InitializeComponent();
 
+
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
-            StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
+            StrFind.KeyDown += new KeyEventHandler(StrFind_KeyDown);
 
             ReadOnly = FlRead;
 
@@ -48,56 +51,38 @@ namespace SSPD
                 toolStripSeparator1.Visible = false;
             }
 
-            if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
-
             LoadDataList();
+
         }
 
 
         private void LoadDataList()
         {
-            string SqlStr ="";
-            if (ReadOnly == false) {
-                SqlStr = "SELECT     PhoneAp.ID_PA, PhoneAp.Inv, PhoneAp.IMEI, PhoneAp.Label, DERIVEDTBL.DateTimeInp, DERIVEDTBL.DateTimeOut, DERIVEDTBL.FIO,"
-                + " DERIVEDTBL.NB_Otdel , DERIVEDTBL.TUse"
-                + " FROM         PhoneAp LEFT OUTER JOIN"
-                + " (SELECT     PhoneMov.ID_PA, ISNULL(PhoneMov.DateTimeInp, 1) AS DateTimeInp, PhoneMov.DateTimeOut,"
-                + " Workers.F_Worker + ' ' + Workers.I_Worker AS FIO, Otdels.NB_Otdel, PhoneMov.TUse"
-                + " FROM          PhoneMov INNER JOIN"
-                + " Workers ON PhoneMov.ID_Worker = Workers.ID_Worker INNER JOIN"
-                + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
-                + " WHERE      (PhoneMov.DateTimeInp IS NULL)) DERIVEDTBL ON PhoneAp.ID_PA = DERIVEDTBL.ID_PA";
-            } else {
-                SqlStr = "SELECT PhoneAp.ID_PA, PhoneAp.Inv, PhoneAp.IMEI, PhoneAp.Label"
-                + " FROM PhoneAp LEFT OUTER JOIN"
-                + " (SELECT     ID_PA, isnull(DateTimeInp, 1) AS DateTimeInp"
-                + " From PhoneMov"
-                + " WHERE      (DateTimeInp IS NULL)) DERIVEDTBL ON PhoneAp.ID_PA = DERIVEDTBL.ID_PA"
-                + " Where (DERIVEDTBL.DateTimeInp Is Null)";
-            }
-            var rs = DB.GetFields(SqlStr + " ORDER BY PhoneAp.IMEI DESC");
+            string SqlStr = "";
+            SqlStr = "SELECT PhoneInner.ID_PInner, PhoneInner.NamberPInner, PhoneTown.NamberPTown, PhoneMATS.NamberPMATS, PhoneGroup.NamberGroup, PhoneInner.Room"
+                    + " FROM PhoneInner LEFT OUTER JOIN"
+                    + " PhoneGroup ON PhoneInner.ID_PGroup = PhoneGroup.ID_PGroup LEFT OUTER JOIN"
+                    + " PhoneMATS ON PhoneInner.ID_PMATS = PhoneMATS.ID_PMATS LEFT OUTER JOIN"
+                    + " PhoneTown ON PhoneInner.ID_PTown = PhoneTown.ID_PTown";
+
+            var rs = DB.GetFields(SqlStr + " ORDER BY PhoneInner.ID_PInner DESC");
             if (rs.Count == 0) return;
 
             DataGridViewRow DGVR;
             DGV.Rows.Clear();
-            
+
 
             foreach (DataRow dr in rs)
             {
                 DGV.Rows.Add();
                 DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
 
-                DGVR.Tag = dr["ID_PA"].ToString();
-                DGVR.Cells[0].Value = dr["IMEI"].ToString();
-                DGVR.Cells[1].Value = dr["Inv"].ToString();
-                DGVR.Cells[2].Value = dr["Label"].ToString();
-                if (ReadOnly == false && dr["DateTimeOut"].ToString().Length >0 )
-                {
-                    DGVR.Cells[3].Value = "Выдан ";
-                    DGVR.Cells[3].Value += dr["TUse"].ToString() == "0" ? "во временное пользование " : "в постоянное пользование ";
-                    DGVR.Cells[3].Value += string.Format ("{0:dd-MM-yyyy hh:mm}",Convert.ToDateTime (dr["DateTimeOut"].ToString()));
-                    DGVR.Cells[3].Value += ". Пользователь - " + dr["FIO"].ToString() + " (" + dr["NB_Otdel"].ToString() + ")";
-                }
+                DGVR.Tag = dr["ID_PInner"].ToString();
+                DGVR.Cells[0].Value = dr["NamberPInner"].ToString();
+                DGVR.Cells[1].Value = dr["NamberPTown"].ToString();
+                DGVR.Cells[2].Value = dr["NamberPMATS"].ToString();
+                DGVR.Cells[3].Value = dr["NamberGroup"].ToString();
+                DGVR.Cells[4].Value = dr["Room"].ToString();
             }
 
             //красим строки
@@ -107,48 +92,70 @@ namespace SSPD
 
         private void AddNewItem()
         {
-            PhoneApCard PAC = new PhoneApCard(false, null);
-            PAC.ShowDialog();
-            if (PAC.FlSave == true && PAC.GetData != null)
+            PhoneInnerCard PIC = new PhoneInnerCard(false, "");
+            PIC.ShowDialog();
+            if (PIC.FlSave == true && PIC.GetData != null)
             {
                 DGV.Rows.Add();
                 DGV.ClearSelection();
-                DGV.Rows[DGV.Rows.Count-1].Selected =true;
+                DGV.Rows[DGV.Rows.Count - 1].Selected = true;
                 DGV.Rows[DGV.Rows.Count - 1].Cells[0].Selected = true;
-                DGV.CurrentRow.Tag = PAC.GetData["ID_PA"];
-                DGV.CurrentRow.Cells[0].Value = PAC.GetData["IMEI"];
-                DGV.CurrentRow.Cells[1].Value = PAC.GetData["Inv"];
-                DGV.CurrentRow.Cells[2].Value = PAC.GetData["Label"];
+                DGV.Rows[DGV.Rows.Count - 1].Tag = PIC.GetData["ID_PInner"];
+                DGV.Rows[DGV.Rows.Count - 1].Cells[0].Value = PIC.GetData["NamberPInner"];
+                DGV.Rows[DGV.Rows.Count - 1].Cells[1].Value = PIC.GetData["NamberPTown"];
+                DGV.Rows[DGV.Rows.Count - 1].Cells[2].Value = PIC.GetData["NamberPMATS"];
+                DGV.Rows[DGV.Rows.Count - 1].Cells[3].Value = PIC.GetData["NamberGroup"];
+                DGV.Rows[DGV.Rows.Count - 1].Cells[4].Value = PIC.GetData["Room"];
             }
         }
 
         private void EditItem()
         {
             if (DGV.Rows.Count == 0) return;
-            PhoneApCard PAC = new PhoneApCard(true, DGV.CurrentRow.Tag.ToString());
-            PAC.ShowDialog();
-            if (PAC.FlSave == true && PAC.GetData != null)
+            PhoneInnerCard PIC = new PhoneInnerCard(true, DGV.CurrentRow.Tag.ToString());
+            PIC.ShowDialog();
+            if (PIC.FlSave == true && PIC.GetData != null)
             {
-                DGV.CurrentRow.Cells[0].Value = PAC.GetData["IMEI"];
-                DGV.CurrentRow.Cells[1].Value = PAC.GetData["Inv"];
-                DGV.CurrentRow.Cells[2].Value = PAC.GetData["Label"];
+                DGV.CurrentRow.Cells[1].Value = PIC.GetData["NamberPTown"];
+                DGV.CurrentRow.Cells[2].Value = PIC.GetData["NamberPMATS"];
+                DGV.CurrentRow.Cells[3].Value = PIC.GetData["NamberGroup"];
+                DGV.CurrentRow.Cells[4].Value = PIC.GetData["Room"];
             }
         }
 
         private void DelItem()
         {
-            if (MessageBox.Show("Удалить аппарат - " + DGV.CurrentRow.Cells[2].Value.ToString() + "?", "Удаление аппарата",
+            if (MessageBox.Show("Удалить номер - " + DGV.CurrentRow.Cells[0].Value.ToString() + "?", "Удаление записи",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
 
-            DB.DeleteRow("PhoneAp", "ID_PA = " + DGV.CurrentRow.Tag.ToString());
+            var rs = DB.GetFields("SELECT COUNT(*) AS MaxRec From WorkersExt WHERE PhoneInner = " + DGV.CurrentRow.Tag.ToString());
+            if ((int)rs[0]["MaxRec"] > 0)
+            {
+                rs = DB.GetFields("SELECT COUNT(*) AS MaxRec From WorkersExt WHERE Room IS NULL AND PhoneInner = " + DGV.CurrentRow.Tag.ToString());
+                if ((int)rs[0]["MaxRec"] > 0)
+                {
+                    DB.DeleteRow("WorkersExt", "Room IS NULL AND PhoneInner = " + DGV.CurrentRow.Tag.ToString());
+                }
+                else
+                {
+                    Dictionary<string, string> DataSet = new Dictionary<string, string>();
+                    DataSet.Add("PhoneInner", "");
+                    DB.SetFields(DataSet, "WorkersExt", "PhoneInner = " + DGV.CurrentRow.Tag.ToString());
+                }
+            }
+
+            DB.DeleteRow("PhoneInner", "ID_PInner = " + DGV.CurrentRow.Tag.ToString());
             DGV.Rows.RemoveAt(DGV.CurrentRow.Index);
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
         private void SelectItem()
         {
-            SelectedIDAN = DGV.CurrentRow.Tag.ToString();
-            SelectedAN = DGV.CurrentRow.Cells[2].Value.ToString() + "(IEMI " + DGV.CurrentRow.Cells[0].Value.ToString() + ")";
+            SelPhoneInner = DGV.CurrentRow.Cells[0].Value.ToString();
+            SelPhoneTown = DGV.CurrentRow.Cells[1].Value.ToString();
+            SelPhoneMATS = DGV.CurrentRow.Cells[2].Value.ToString();
+            SelPhoneGroup = DGV.CurrentRow.Cells[3].Value.ToString();
+            SelRoom = DGV.CurrentRow.Cells[4].Value.ToString();
             this.Close();
         }
 
@@ -195,7 +202,7 @@ namespace SSPD
         }
 
 
-        private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
+        private void PhoneInnerList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
             if (e.KeyCode == Keys.Insert) AddNewItem();

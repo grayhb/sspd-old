@@ -92,14 +92,14 @@ namespace SSPD
             if (e.KeyCode == Keys.F2) SaveSIM();
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             SaveSIM();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

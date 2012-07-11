@@ -168,7 +168,7 @@
             // Room
             // 
             this.Room.BackColor = System.Drawing.Color.White;
-            this.Room.Location = new System.Drawing.Point(91, 175);
+            this.Room.Location = new System.Drawing.Point(81, 175);
             this.Room.Name = "Room";
             this.Room.ReadOnly = true;
             this.Room.Size = new System.Drawing.Size(75, 20);
@@ -177,7 +177,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 178);
+            this.label7.Location = new System.Drawing.Point(24, 178);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
             this.label7.TabIndex = 11;
@@ -186,16 +186,16 @@
             // NPost
             // 
             this.NPost.BackColor = System.Drawing.Color.White;
-            this.NPost.Location = new System.Drawing.Point(91, 141);
+            this.NPost.Location = new System.Drawing.Point(81, 141);
             this.NPost.Name = "NPost";
             this.NPost.ReadOnly = true;
-            this.NPost.Size = new System.Drawing.Size(250, 20);
+            this.NPost.Size = new System.Drawing.Size(263, 20);
             this.NPost.TabIndex = 10;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 144);
+            this.label6.Location = new System.Drawing.Point(10, 144);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 9;
@@ -204,16 +204,16 @@
             // NOtdel
             // 
             this.NOtdel.BackColor = System.Drawing.Color.White;
-            this.NOtdel.Location = new System.Drawing.Point(91, 115);
+            this.NOtdel.Location = new System.Drawing.Point(81, 115);
             this.NOtdel.Name = "NOtdel";
             this.NOtdel.ReadOnly = true;
-            this.NOtdel.Size = new System.Drawing.Size(250, 20);
+            this.NOtdel.Size = new System.Drawing.Size(263, 20);
             this.NOtdel.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 118);
+            this.label5.Location = new System.Drawing.Point(37, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 7;
@@ -222,16 +222,16 @@
             // PWorker
             // 
             this.PWorker.BackColor = System.Drawing.Color.White;
-            this.PWorker.Location = new System.Drawing.Point(91, 72);
+            this.PWorker.Location = new System.Drawing.Point(81, 72);
             this.PWorker.Name = "PWorker";
             this.PWorker.ReadOnly = true;
-            this.PWorker.Size = new System.Drawing.Size(250, 20);
+            this.PWorker.Size = new System.Drawing.Size(263, 20);
             this.PWorker.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 75);
+            this.label4.Location = new System.Drawing.Point(21, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 5;
@@ -240,16 +240,16 @@
             // NWorker
             // 
             this.NWorker.BackColor = System.Drawing.Color.White;
-            this.NWorker.Location = new System.Drawing.Point(91, 46);
+            this.NWorker.Location = new System.Drawing.Point(81, 46);
             this.NWorker.Name = "NWorker";
             this.NWorker.ReadOnly = true;
-            this.NWorker.Size = new System.Drawing.Size(250, 20);
+            this.NWorker.Size = new System.Drawing.Size(263, 20);
             this.NWorker.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 49);
+            this.label3.Location = new System.Drawing.Point(46, 49);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 3;
@@ -270,16 +270,16 @@
             // FWorker
             // 
             this.FWorker.BackColor = System.Drawing.Color.White;
-            this.FWorker.Location = new System.Drawing.Point(91, 20);
+            this.FWorker.Location = new System.Drawing.Point(81, 20);
             this.FWorker.Name = "FWorker";
             this.FWorker.ReadOnly = true;
-            this.FWorker.Size = new System.Drawing.Size(250, 20);
+            this.FWorker.Size = new System.Drawing.Size(263, 20);
             this.FWorker.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 23);
+            this.label2.Location = new System.Drawing.Point(19, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 0;
@@ -311,16 +311,16 @@
             // IPPhoneNamber
             // 
             this.IPPhoneNamber.BackColor = System.Drawing.Color.White;
-            this.IPPhoneNamber.Location = new System.Drawing.Point(155, 149);
+            this.IPPhoneNamber.Location = new System.Drawing.Point(132, 152);
             this.IPPhoneNamber.Name = "IPPhoneNamber";
             this.IPPhoneNamber.ReadOnly = true;
-            this.IPPhoneNamber.Size = new System.Drawing.Size(330, 20);
+            this.IPPhoneNamber.Size = new System.Drawing.Size(352, 20);
             this.IPPhoneNamber.TabIndex = 13;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 152);
+            this.label13.Location = new System.Drawing.Point(75, 155);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 13);
             this.label13.TabIndex = 12;
@@ -329,16 +329,16 @@
             // ANamber
             // 
             this.ANamber.BackColor = System.Drawing.Color.White;
-            this.ANamber.Location = new System.Drawing.Point(155, 123);
+            this.ANamber.Location = new System.Drawing.Point(132, 126);
             this.ANamber.Name = "ANamber";
             this.ANamber.ReadOnly = true;
-            this.ANamber.Size = new System.Drawing.Size(330, 20);
+            this.ANamber.Size = new System.Drawing.Size(352, 20);
             this.ANamber.TabIndex = 11;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 126);
+            this.label12.Location = new System.Drawing.Point(13, 129);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(113, 13);
             this.label12.TabIndex = 10;
@@ -347,16 +347,16 @@
             // PhoneGroup
             // 
             this.PhoneGroup.BackColor = System.Drawing.Color.White;
-            this.PhoneGroup.Location = new System.Drawing.Point(155, 97);
+            this.PhoneGroup.Location = new System.Drawing.Point(132, 100);
             this.PhoneGroup.Name = "PhoneGroup";
             this.PhoneGroup.ReadOnly = true;
-            this.PhoneGroup.Size = new System.Drawing.Size(330, 20);
+            this.PhoneGroup.Size = new System.Drawing.Size(352, 20);
             this.PhoneGroup.TabIndex = 9;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 100);
+            this.label11.Location = new System.Drawing.Point(35, 103);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 13);
             this.label11.TabIndex = 8;
@@ -365,16 +365,16 @@
             // PhoneInner
             // 
             this.PhoneInner.BackColor = System.Drawing.Color.White;
-            this.PhoneInner.Location = new System.Drawing.Point(155, 71);
+            this.PhoneInner.Location = new System.Drawing.Point(132, 74);
             this.PhoneInner.Name = "PhoneInner";
             this.PhoneInner.ReadOnly = true;
-            this.PhoneInner.Size = new System.Drawing.Size(330, 20);
+            this.PhoneInner.Size = new System.Drawing.Size(352, 20);
             this.PhoneInner.TabIndex = 7;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 74);
+            this.label10.Location = new System.Drawing.Point(13, 77);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(113, 13);
             this.label10.TabIndex = 6;
@@ -383,16 +383,16 @@
             // PhoneMATS
             // 
             this.PhoneMATS.BackColor = System.Drawing.Color.White;
-            this.PhoneMATS.Location = new System.Drawing.Point(155, 45);
+            this.PhoneMATS.Location = new System.Drawing.Point(132, 48);
             this.PhoneMATS.Name = "PhoneMATS";
             this.PhoneMATS.ReadOnly = true;
-            this.PhoneMATS.Size = new System.Drawing.Size(330, 20);
+            this.PhoneMATS.Size = new System.Drawing.Size(352, 20);
             this.PhoneMATS.TabIndex = 5;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 48);
+            this.label9.Location = new System.Drawing.Point(41, 51);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(85, 13);
             this.label9.TabIndex = 4;
@@ -401,16 +401,16 @@
             // PhoneTown
             // 
             this.PhoneTown.BackColor = System.Drawing.Color.White;
-            this.PhoneTown.Location = new System.Drawing.Point(155, 19);
+            this.PhoneTown.Location = new System.Drawing.Point(132, 22);
             this.PhoneTown.Name = "PhoneTown";
             this.PhoneTown.ReadOnly = true;
-            this.PhoneTown.Size = new System.Drawing.Size(330, 20);
+            this.PhoneTown.Size = new System.Drawing.Size(352, 20);
             this.PhoneTown.TabIndex = 3;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 22);
+            this.label8.Location = new System.Drawing.Point(18, 25);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 13);
             this.label8.TabIndex = 2;
@@ -434,6 +434,7 @@
             this.button1.BackColor = System.Drawing.SystemColors.Control;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button1.Image = global::SSPD.Properties.Resources.binocular_small;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.Location = new System.Drawing.Point(390, 36);

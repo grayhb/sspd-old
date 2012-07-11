@@ -367,7 +367,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Список SIM-карт";
-            this.Load += new System.EventHandler(this.PhoneSIMList_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PhoneSIMList_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.menuStrip1.ResumeLayout(false);

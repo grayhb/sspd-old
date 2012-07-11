@@ -124,19 +124,14 @@
   <data name="FotoDelete.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAArpJREFUOE+Fk2tI
-        k1EYx49NgrJACSIh0oF3cHPq2PKSGXMXt3esTFfqSmxqEnYxNCoS2yZeo7RIEvoaGH7LqYl9iUBwlgRC
-        kPaljzZ3ebfXdOr+nfddyYwuD/zO5Tn/8z/nOXBiKnunvKHtcPxWmBASQ/kV4AdCsxOxdH1vrMgnEu1J
-        2JEauybAAXBTvkWxQsfR8Ou8ztjlhLn/NTk/MC1Ayh0TNA2s0uPcFE98ArxJYrBSKQInShA0MOCqa7Fx
-        ySroyu3UoC/KQOeYRJg/mW5eOZIItywbHk0xvJV6+OrOwX/ZCralBVzLdUGn+5PBFl+CKAbu/HR4ThfB
-        Z9WDvVEN9k4jArZWBBx3wd1qx+ZPg6q+aWJ+MCNAdLQE3sBz9AA8xjz4mjVg75kR6GtC8Ekb1p7ZsDYy
-        gPWeDsFAS/UVA2+IafAdYYZmIwb8gld2GL76YrCdlQg+rkdw0Ay2owTehiyslh2CJ4kgRHWq7hloh+bI
-        V3UKWdZmUgN75AZ+VTLYNh1YuxoBuwSBfvqI3RL427PgrRXDp4gTDAofurBclkYWDTLykZFHDPhgjen0
-        wbJp3RkIDueCe6lE8Lmc1k9zzalY0qTBVZqBhVMUrRQfDPKnC0YFb+AUDHzHD8JrigPbmojgIzHWRjPB
-        jaSC6xRjqSoTSzVqoOcq0N8K9F7DlwtqvDfIh4nONi4Y8Ndbp3yPgp/z+dnCVIRv1SDcbsb2zbNCj9sW
-        uMrzQBhH5Ab/CldBEjD1YrdkehRzWhlIRbfTz9AydPdfQdu5G43NiZO9b7FYmoItawlCdUVYtxQI/WZD
-        Keb1+cJnkeaarlzMMTTW/o7E0FSTrm80O9X5zs8mOTYsSoQsCqH/dEaJcVXOWORDEBJH2f8X9tF88qRK
-        MjbPKOBilJinjJfJxmj+2K7v+p8JL86LQtj8A2HWQhBQtYYjAAAAAElFTkSuQmCC
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEQAA
+        CxEBf2RfkQAAAUxJREFUOE/Fk0FKw0AUhudOOYI7dSf0AHoH3XgAEYSAYAQFI0IpBGtrqdSFgpJQStCF
+        IZIUQS2YmE3SQCNRAs95E2dIa9SiCwc+Jv9j/n/eTBhC/n2oqgp/gaA5TdNfgd5PAYe9PnxHcbMvA46C
+        FLa7FszMzjP2bu4Baxg8VUDTf4HFlVWQJImB31ibOqD1NIKl5TxA0zTA8TB6YwFZljGNszhCkiTA0boO
+        tB6HsHNxBY3mMVsMhLDp7jka047j5JcYhqGgemlBox/Aei03x9TMKdMswPd9wf7ZNawd1GFuoQLtzikL
+        GdCQSbAuOrBtOzZN00M2qm1vs34e73Z6gNwOAhZi0RAOatr1q7gDwzA8PClH13XPdV2IovzMBjVPMtaB
+        oiixLMssBGfUmI7jhJo5ZVq8xWIHvEhrW2iqffyFMv3jY+YmnHFxUeOm7/qInCZcLS+2AAAAAElFTkSu
+        QmCC
 </value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

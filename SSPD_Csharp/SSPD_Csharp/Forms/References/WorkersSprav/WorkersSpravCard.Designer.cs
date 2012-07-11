@@ -218,6 +218,7 @@
             this.FotoAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FotoAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.FotoAdd.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FotoAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.FotoAdd.Location = new System.Drawing.Point(504, 197);
             this.FotoAdd.Name = "FotoAdd";
             this.FotoAdd.Size = new System.Drawing.Size(130, 24);
@@ -274,7 +275,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(19, 102);
+            this.label7.Location = new System.Drawing.Point(55, 102);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 25;
@@ -307,7 +308,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 178);
+            this.label6.Location = new System.Drawing.Point(49, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 22;
@@ -316,7 +317,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 151);
+            this.label5.Location = new System.Drawing.Point(76, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 20;
@@ -337,7 +338,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 76);
+            this.label4.Location = new System.Drawing.Point(60, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 18;
@@ -358,7 +359,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 50);
+            this.label3.Location = new System.Drawing.Point(85, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 16;
@@ -379,7 +380,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 24);
+            this.label8.Location = new System.Drawing.Point(58, 23);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 13;
@@ -904,7 +905,7 @@
             // ID_Worker
             // 
             this.ID_Worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ID_Worker.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ID_Worker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ID_Worker.Enabled = false;
             this.ID_Worker.Margin = new System.Windows.Forms.Padding(10, 0, 1, 0);
             this.ID_Worker.Name = "ID_Worker";
