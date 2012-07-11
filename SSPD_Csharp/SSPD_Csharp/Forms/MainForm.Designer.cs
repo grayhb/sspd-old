@@ -37,6 +37,7 @@
             this.МенюСписокРаботниковАдминистрирование = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюСправочникСИМКарт = new System.Windows.Forms.ToolStripMenuItem();
             this.справочникМобильныхТелефоновToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справочникТелефонныхТочекToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +78,8 @@
             this.списокРаботниковToolStripMenuItem,
             this.МенюСписокРаботниковАдминистрирование,
             this.МенюСправочникСИМКарт,
-            this.справочникМобильныхТелефоновToolStripMenuItem});
+            this.справочникМобильныхТелефоновToolStripMenuItem,
+            this.справочникТелефонныхТочекToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -109,6 +111,13 @@
             this.справочникМобильныхТелефоновToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
             this.справочникМобильныхТелефоновToolStripMenuItem.Text = "Справочник мобильных телефонов";
             this.справочникМобильныхТелефоновToolStripMenuItem.Click += new System.EventHandler(this.справочникМобильныхТелефоновToolStripMenuItem_Click);
+            // 
+            // справочникТелефонныхТочекToolStripMenuItem
+            // 
+            this.справочникТелефонныхТочекToolStripMenuItem.Name = "справочникТелефонныхТочекToolStripMenuItem";
+            this.справочникТелефонныхТочекToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
+            this.справочникТелефонныхТочекToolStripMenuItem.Text = "Справочник телефонных точек";
+            this.справочникТелефонныхТочекToolStripMenuItem.Click += new System.EventHandler(this.справочникТелефонныхТочекToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -142,6 +151,7 @@
         private System.Windows.Forms.ToolStripMenuItem МенюСписокРаботниковАдминистрирование;
         private System.Windows.Forms.ToolStripMenuItem МенюСправочникСИМКарт;
         private System.Windows.Forms.ToolStripMenuItem справочникМобильныхТелефоновToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem справочникТелефонныхТочекToolStripMenuItem;
     }
 }
 

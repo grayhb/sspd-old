@@ -87,20 +87,20 @@ namespace SSPD
             this.Close();
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void PhoneApCard_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.F2) SaveData();
         }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             SaveData();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

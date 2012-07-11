@@ -88,5 +88,11 @@ namespace SSPD
             PhoneApList PAL = new PhoneApList(false);
             PAL.ShowDialog();
         }
+
+        private void справочникТелефонныхТочекToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PhoneInnerList PIL = new PhoneInnerList(false);
+            PIL.ShowDialog();
+        }
     }
 }

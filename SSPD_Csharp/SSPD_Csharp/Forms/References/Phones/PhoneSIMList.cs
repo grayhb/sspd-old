@@ -48,13 +48,8 @@ namespace SSPD
             }
 
             if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
-        }
 
-        private void PhoneSIMList_Load(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
             LoadSIMList();
-            Cursor.Current = Cursors.Default;
         }
 
 

@@ -28,63 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.IMEI = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Inv = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Label = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.statusStrip1.SuspendLayout();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.LineSeparatorBottom = new System.Windows.Forms.PictureBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
             this.SuspendLayout();
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.AutoSize = false;
-            this.statusStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 111);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(416, 25);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 11;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(95, 22);
-            this.toolStripStatusLabel1.Text = "Закрыть [ESC]";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(94, 22);
-            this.toolStripStatusLabel2.Text = "Сохранить [F2]";
-            this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
             // 
             // IMEI
             // 
-            this.IMEI.Location = new System.Drawing.Point(146, 19);
+            this.IMEI.Location = new System.Drawing.Point(129, 12);
             this.IMEI.MaxLength = 20;
             this.IMEI.Name = "IMEI";
             this.IMEI.Size = new System.Drawing.Size(251, 20);
@@ -93,15 +51,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "IMEI аппарата";
+            this.label1.Text = "IMEI аппарата:";
             // 
             // Inv
             // 
-            this.Inv.Location = new System.Drawing.Point(146, 45);
+            this.Inv.Location = new System.Drawing.Point(129, 38);
             this.Inv.MaxLength = 10;
             this.Inv.Name = "Inv";
             this.Inv.Size = new System.Drawing.Size(251, 20);
@@ -110,15 +68,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 48);
+            this.label2.Location = new System.Drawing.Point(12, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
+            this.label2.Size = new System.Drawing.Size(114, 13);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Инвентарный номер";
+            this.label2.Text = "Инвентарный номер:";
             // 
             // Label
             // 
-            this.Label.Location = new System.Drawing.Point(146, 71);
+            this.Label.Location = new System.Drawing.Point(129, 64);
             this.Label.MaxLength = 20;
             this.Label.Name = "Label";
             this.Label.Size = new System.Drawing.Size(251, 20);
@@ -127,24 +85,63 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 74);
+            this.label3.Location = new System.Drawing.Point(12, 67);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
+            this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Марка аппарата";
+            this.label3.Text = "Марка аппарата:";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonSave.Location = new System.Drawing.Point(224, 103);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 25;
+            this.buttonSave.Text = "ОК";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // LineSeparatorBottom
+            // 
+            this.LineSeparatorBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.LineSeparatorBottom.BackgroundImage = global::SSPD.Properties.Resources.LineSeparator;
+            this.LineSeparatorBottom.Location = new System.Drawing.Point(12, 93);
+            this.LineSeparatorBottom.Name = "LineSeparatorBottom";
+            this.LineSeparatorBottom.Size = new System.Drawing.Size(368, 2);
+            this.LineSeparatorBottom.TabIndex = 26;
+            this.LineSeparatorBottom.TabStop = false;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.buttonCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonCancel.Location = new System.Drawing.Point(305, 103);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 27;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // PhoneApCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 136);
+            this.ClientSize = new System.Drawing.Size(392, 138);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.LineSeparatorBottom);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.Label);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Inv);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.IMEI);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -153,8 +150,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " ";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PhoneApCard_KeyDown);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,14 +158,14 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.TextBox IMEI;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Inv;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox Label;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.PictureBox LineSeparatorBottom;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
