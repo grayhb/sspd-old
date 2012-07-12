@@ -136,6 +136,7 @@ namespace SSPD
                     ID_WorkerLabel.Visible = true;
                     return;
                 }
+                doSaveDetails = false;
             }
 
             if (doSavePhones == true)
@@ -164,6 +165,7 @@ namespace SSPD
                     DataSet.Add("IPPhoneNamber", IPPhoneNamber.Tag.ToString());
                     DB.InsertRow(DataSet, "WorkersExt");
                 }
+                doSavePhones = false;
             }
 
 
@@ -198,6 +200,7 @@ namespace SSPD
                         DB.InsertByteRow(DataSet, imageArray, "Photo_Worker", "WorkersPhoto");
                     }
                 }
+                doSaveFoto = false;
             }
 
             FlSave = true;
@@ -564,9 +567,78 @@ namespace SSPD
 
         private void WorkersSpravCard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Foto.Image = null;
-            Foto.ImageLocation = null;
-            Application.DoEvents();
+            if (doSaveDetails == true || doSaveFoto == true || doSavePhones == true)
+            {
+                if (MessageBox.Show("Сохранить изменения?", "Карточка работника", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    SaveCard();
+                    this.Close();
+                }
+            }
+        }
+
+        private void AddPhoneInner_Click(object sender, EventArgs e)
+        {
+            PhoneInnerList PIL = new PhoneInnerList(true);
+            PIL.ShowDialog();
+            if (PIL.SelID != "")
+            {
+                  PhoneInnerM.Tag = PIL.SelID;
+                  PhoneInnerM.Text  = PIL.SelPhoneInner;
+                  PhoneTownM.Text  = PIL.SelPhoneTown;
+                  PhoneMATSM.Text  = PIL.SelPhoneMATS;
+                  PhoneGroupM.Text = PIL.SelPhoneGroup;
+            }
+        }
+
+
+        private void DelPhoneInn_Click(object sender, EventArgs e)
+        {
+            PhoneInnerM.Tag = 0;
+            PhoneInnerM.Text = "";
+            PhoneTownM.Text = "";
+            PhoneMATSM.Text = "";
+            PhoneGroupM.Text = "";
+        }
+
+        private void DelPhoneInnerA_Click(object sender, EventArgs e)
+        {
+            PhoneInnerA.Tag = 0;
+            PhoneInnerA.Text = "";
+            PhoneTownA.Text = "";
+            PhoneMATSA.Text = "";
+            PhoneGroupA.Text = "";
+        }
+
+        private void AddPhoneInnerA_Click(object sender, EventArgs e)
+        {
+            PhoneInnerList PIL = new PhoneInnerList(true);
+            PIL.ShowDialog();
+            if (PIL.SelID != "")
+            {
+                PhoneInnerA.Tag = PIL.SelID;
+                PhoneInnerA.Text = PIL.SelPhoneInner;
+                PhoneTownA.Text = PIL.SelPhoneTown;
+                PhoneMATSA.Text = PIL.SelPhoneMATS;
+                PhoneGroupA.Text = PIL.SelPhoneGroup;
+            }
+        }
+
+        private void DelIPPhone_Click(object sender, EventArgs e)
+        {
+            IPPhoneNamber.Tag = 0;
+            IPPhoneNamber.Text  = "";
+        }
+
+        private void AddIPPhone_Click(object sender, EventArgs e)
+        {
+            PhoneIPList PIPL = new PhoneIPList();
+            PIPL.ShowDialog();
+            if (PIPL.SelIDIPPhone.Length > 0)
+            {
+                IPPhoneNamber.Tag = PIPL.SelIDIPPhone;
+                IPPhoneNamber.Text = PIPL.SelIPPhone;
+            }
         }
 
 

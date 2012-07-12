@@ -94,5 +94,11 @@ namespace SSPD
             PhoneInnerList PIL = new PhoneInnerList(false);
             PIL.ShowDialog();
         }
+
+        private void справочникIPНомеровToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PhoneIPList PIPL = new PhoneIPList();
+            PIPL.ShowDialog();
+        }
     }
 }

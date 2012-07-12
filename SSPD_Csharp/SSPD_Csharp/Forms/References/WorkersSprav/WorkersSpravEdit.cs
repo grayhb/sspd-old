@@ -16,7 +16,6 @@ namespace SSPD
             InitializeComponent();
 
             //обработка событий:
-            this.Load +=new EventHandler(WorkersSpravEdit_Load);
             this.SizeChanged += new EventHandler(WorkersSpravEdit_SizeChanged);
             this.KeyDown +=new KeyEventHandler(WorkersSpravEdit_KeyDown);
             StatusFilter.SelectedIndexChanged +=new EventHandler(StatusFilter_SelectedIndexChanged);
@@ -24,14 +23,9 @@ namespace SSPD
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
             DGV.Sorted+=new EventHandler(DGV_Sorted);
             DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
-        }
 
-        private void WorkersSpravEdit_Load(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
             LoadWorkers();
             StrFind.Focus();
-            Cursor.Current = Cursors.Default;
         }
 
         private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
@@ -126,14 +120,6 @@ namespace SSPD
             //красим строки
             SSPDUI.SetBgRowInDGV(DGV);
         }
-
-        /// <summary>
-        /// Поиск по всем ячейкам грида
-        /// </summary>
-        //private void SearchInDGV()
-        //{
-
-        //}
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
