@@ -13,6 +13,7 @@ namespace SSPD
 
         private bool ReadOnly;
 
+        public string SelID = "";
         public string SelPhoneInner = "";
         public string SelPhoneTown = "";
         public string SelPhoneMATS = "";
@@ -151,6 +152,7 @@ namespace SSPD
 
         private void SelectItem()
         {
+            SelID = DGV.CurrentRow.Tag.ToString();
             SelPhoneInner = DGV.CurrentRow.Cells[0].Value.ToString();
             SelPhoneTown = DGV.CurrentRow.Cells[1].Value.ToString();
             SelPhoneMATS = DGV.CurrentRow.Cells[2].Value.ToString();

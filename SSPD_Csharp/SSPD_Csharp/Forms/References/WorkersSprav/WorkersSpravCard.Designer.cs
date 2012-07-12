@@ -62,9 +62,9 @@
             this.label38 = new System.Windows.Forms.Label();
             this.ANamber = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.AddIPPhone = new System.Windows.Forms.Button();
             this.IPPhoneNamber = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.DelIPPhone = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.InputCrossMATSA = new System.Windows.Forms.Label();
             this.InputCrossTownA = new System.Windows.Forms.Label();
@@ -72,9 +72,9 @@
             this.ATSCrossTownA = new System.Windows.Forms.Label();
             this.PhoneGroupA = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.AddPhoneInnerA = new System.Windows.Forms.Button();
             this.PhoneInnerA = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.DelPhoneInnerA = new System.Windows.Forms.Button();
             this.PhoneMATSA = new System.Windows.Forms.Label();
             this.PhoneTownA = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@
             this.ATSCrossTownM = new System.Windows.Forms.Label();
             this.PhoneGroupM = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddPhoneInner = new System.Windows.Forms.Button();
             this.PhoneInnerM = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.PhoneMATSM = new System.Windows.Forms.Label();
@@ -275,7 +275,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(55, 102);
+            this.label7.Location = new System.Drawing.Point(21, 102);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 25;
@@ -308,7 +308,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 178);
+            this.label6.Location = new System.Drawing.Point(21, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 13);
             this.label6.TabIndex = 22;
@@ -317,7 +317,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(76, 151);
+            this.label5.Location = new System.Drawing.Point(21, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 20;
@@ -338,7 +338,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(60, 76);
+            this.label4.Location = new System.Drawing.Point(21, 76);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 18;
@@ -359,7 +359,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(85, 50);
+            this.label3.Location = new System.Drawing.Point(21, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 16;
@@ -380,7 +380,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(58, 23);
+            this.label8.Location = new System.Drawing.Point(21, 28);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 13;
@@ -395,9 +395,9 @@
             this.tabPage2.Controls.Add(this.label38);
             this.tabPage2.Controls.Add(this.ANamber);
             this.tabPage2.Controls.Add(this.label36);
-            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.AddIPPhone);
             this.tabPage2.Controls.Add(this.IPPhoneNamber);
-            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.DelIPPhone);
             this.tabPage2.Controls.Add(this.label34);
             this.tabPage2.Controls.Add(this.InputCrossMATSA);
             this.tabPage2.Controls.Add(this.InputCrossTownA);
@@ -405,9 +405,9 @@
             this.tabPage2.Controls.Add(this.ATSCrossTownA);
             this.tabPage2.Controls.Add(this.PhoneGroupA);
             this.tabPage2.Controls.Add(this.label26);
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.AddPhoneInnerA);
             this.tabPage2.Controls.Add(this.PhoneInnerA);
-            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.DelPhoneInnerA);
             this.tabPage2.Controls.Add(this.PhoneMATSA);
             this.tabPage2.Controls.Add(this.PhoneTownA);
             this.tabPage2.Controls.Add(this.label30);
@@ -419,7 +419,7 @@
             this.tabPage2.Controls.Add(this.ATSCrossTownM);
             this.tabPage2.Controls.Add(this.PhoneGroupM);
             this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.AddPhoneInner);
             this.tabPage2.Controls.Add(this.PhoneInnerM);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(this.PhoneMATSM);
@@ -497,19 +497,20 @@
             this.label36.TabIndex = 39;
             this.label36.Text = "Телефон мобильный";
             // 
-            // button5
+            // AddIPPhone
             // 
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(274, 204);
-            this.button5.Margin = new System.Windows.Forms.Padding(0);
-            this.button5.Name = "button5";
-            this.button5.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button5.Size = new System.Drawing.Size(23, 23);
-            this.button5.TabIndex = 38;
-            this.button5.Text = "+";
-            this.button5.UseVisualStyleBackColor = true;
+            this.AddIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AddIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddIPPhone.Location = new System.Drawing.Point(274, 204);
+            this.AddIPPhone.Margin = new System.Windows.Forms.Padding(0);
+            this.AddIPPhone.Name = "AddIPPhone";
+            this.AddIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.AddIPPhone.Size = new System.Drawing.Size(23, 23);
+            this.AddIPPhone.TabIndex = 38;
+            this.AddIPPhone.Text = "+";
+            this.AddIPPhone.UseVisualStyleBackColor = true;
+            this.AddIPPhone.Click += new System.EventHandler(this.AddIPPhone_Click);
             // 
             // IPPhoneNamber
             // 
@@ -521,19 +522,20 @@
             this.IPPhoneNamber.TabIndex = 37;
             this.IPPhoneNamber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button6
+            // DelIPPhone
             // 
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.Location = new System.Drawing.Point(299, 204);
-            this.button6.Margin = new System.Windows.Forms.Padding(0);
-            this.button6.Name = "button6";
-            this.button6.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button6.Size = new System.Drawing.Size(23, 23);
-            this.button6.TabIndex = 36;
-            this.button6.Text = "-";
-            this.button6.UseVisualStyleBackColor = true;
+            this.DelIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DelIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.DelIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DelIPPhone.Location = new System.Drawing.Point(299, 204);
+            this.DelIPPhone.Margin = new System.Windows.Forms.Padding(0);
+            this.DelIPPhone.Name = "DelIPPhone";
+            this.DelIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.DelIPPhone.Size = new System.Drawing.Size(23, 23);
+            this.DelIPPhone.TabIndex = 36;
+            this.DelIPPhone.Text = "-";
+            this.DelIPPhone.UseVisualStyleBackColor = true;
+            this.DelIPPhone.Click += new System.EventHandler(this.DelIPPhone_Click);
             // 
             // label34
             // 
@@ -603,19 +605,20 @@
             this.label26.TabIndex = 29;
             this.label26.Text = "Телефон группы (основной)";
             // 
-            // button2
+            // AddPhoneInnerA
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(274, 110);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button2.Size = new System.Drawing.Size(23, 23);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "+";
-            this.button2.UseVisualStyleBackColor = true;
+            this.AddPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AddPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddPhoneInnerA.Location = new System.Drawing.Point(274, 110);
+            this.AddPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
+            this.AddPhoneInnerA.Name = "AddPhoneInnerA";
+            this.AddPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.AddPhoneInnerA.Size = new System.Drawing.Size(23, 23);
+            this.AddPhoneInnerA.TabIndex = 28;
+            this.AddPhoneInnerA.Text = "+";
+            this.AddPhoneInnerA.UseVisualStyleBackColor = true;
+            this.AddPhoneInnerA.Click += new System.EventHandler(this.AddPhoneInnerA_Click);
             // 
             // PhoneInnerA
             // 
@@ -627,19 +630,20 @@
             this.PhoneInnerA.TabIndex = 27;
             this.PhoneInnerA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button4
+            // DelPhoneInnerA
             // 
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(299, 110);
-            this.button4.Margin = new System.Windows.Forms.Padding(0);
-            this.button4.Name = "button4";
-            this.button4.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button4.Size = new System.Drawing.Size(23, 23);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "-";
-            this.button4.UseVisualStyleBackColor = true;
+            this.DelPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DelPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.DelPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DelPhoneInnerA.Location = new System.Drawing.Point(299, 110);
+            this.DelPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
+            this.DelPhoneInnerA.Name = "DelPhoneInnerA";
+            this.DelPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.DelPhoneInnerA.Size = new System.Drawing.Size(23, 23);
+            this.DelPhoneInnerA.TabIndex = 26;
+            this.DelPhoneInnerA.Text = "-";
+            this.DelPhoneInnerA.UseVisualStyleBackColor = true;
+            this.DelPhoneInnerA.Click += new System.EventHandler(this.DelPhoneInnerA_Click);
             // 
             // PhoneMATSA
             // 
@@ -747,19 +751,20 @@
             this.label16.TabIndex = 15;
             this.label16.Text = "Телефон группы (основной)";
             // 
-            // button1
+            // AddPhoneInner
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(274, 19);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddPhoneInner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddPhoneInner.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AddPhoneInner.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddPhoneInner.Location = new System.Drawing.Point(274, 19);
+            this.AddPhoneInner.Margin = new System.Windows.Forms.Padding(0);
+            this.AddPhoneInner.Name = "AddPhoneInner";
+            this.AddPhoneInner.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.AddPhoneInner.Size = new System.Drawing.Size(23, 23);
+            this.AddPhoneInner.TabIndex = 14;
+            this.AddPhoneInner.Text = "+";
+            this.AddPhoneInner.UseVisualStyleBackColor = true;
+            this.AddPhoneInner.Click += new System.EventHandler(this.AddPhoneInner_Click);
             // 
             // PhoneInnerM
             // 
@@ -784,6 +789,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "-";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.DelPhoneInn_Click);
             // 
             // PhoneMATSM
             // 
@@ -1029,7 +1035,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddPhoneInner;
         private System.Windows.Forms.Label PhoneInnerM;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label InputCrossMATSM;
@@ -1045,9 +1051,9 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label ANamber;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button AddIPPhone;
         private System.Windows.Forms.Label IPPhoneNamber;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button DelIPPhone;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label InputCrossMATSA;
         private System.Windows.Forms.Label InputCrossTownA;
@@ -1055,9 +1061,9 @@
         private System.Windows.Forms.Label ATSCrossTownA;
         private System.Windows.Forms.Label PhoneGroupA;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button AddPhoneInnerA;
         private System.Windows.Forms.Label PhoneInnerA;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button DelPhoneInnerA;
         private System.Windows.Forms.Label PhoneMATSA;
         private System.Windows.Forms.Label PhoneTownA;
         private System.Windows.Forms.Label label30;
