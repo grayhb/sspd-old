@@ -24,6 +24,9 @@ namespace SSPD
         //количество работников
         private int CntAllWorkers;
 
+        //данные всех сотрудников
+        private DataRowCollection DRCWorkers;
+
         public WorkersSprav()
         {
             InitializeComponent();
@@ -32,6 +35,8 @@ namespace SSPD
             StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
+
+            LoadAllWorkers();
         }
 
         private void WorkersSprav_KeyDown(object sender, KeyEventArgs e)
@@ -78,6 +83,45 @@ namespace SSPD
         }
 
         /// <summary>
+        /// Ловим нажатия клавиш в поле поиска
+        /// </summary>
+        /// <param name="e"></param>
+        private void StrFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) searchInTree(treeSGTP);
+        }
+
+
+        /// <summary>
+        /// Загрузка всех данных сотрудников
+        /// </summary>
+        private void LoadAllWorkers()
+        {
+            string SqlStr = "SELECT dbo.Workers.F_Worker + ' ' + dbo.Workers.I_Worker AS FIO, Workers.ID_Otdel, Workers.ID_Worker, Workers.F_Worker, Workers.N_Worker, Workers.P_Worker, Otdels.NB_Otdel, Otdels.Name_Otdel, Posts.N_Post,";
+            SqlStr += " PhoneInner.NamberPInner, PhoneTown.NamberPTown, PhoneMATS.NamberPMATS, PhoneGroup.NamberGroup,";
+            SqlStr += " PhoneInner_1.NamberPInner AS NamberPInnerAdd, PhoneInner_1.ID_PTown, PhoneTown_1.NamberPTown AS NamberPTownAdd,";
+            SqlStr += " PhoneMATS_1.NamberPMATS AS NamberPMATSAdd, PhoneGroup_1.NamberGroup AS NamberGroupAdd, PhoneInner.Room,";
+            SqlStr += " PhoneInner_1.Room AS RoomAdd, PhoneIP.IPPhoneNamber, dbo.Workers.ID_Post";
+            SqlStr += " FROM PhoneIP RIGHT OUTER JOIN";
+            SqlStr += " WorkersExt ON PhoneIP.ID_IPPhone = WorkersExt.ID_IPPhone LEFT OUTER JOIN";
+            SqlStr += " PhoneInner PhoneInner_1 LEFT OUTER JOIN";
+            SqlStr += " PhoneGroup PhoneGroup_1 ON PhoneInner_1.ID_PGroup = PhoneGroup_1.ID_PGroup LEFT OUTER JOIN";
+            SqlStr += " PhoneMATS PhoneMATS_1 ON PhoneInner_1.ID_PMATS = PhoneMATS_1.ID_PMATS LEFT OUTER JOIN";
+            SqlStr += " PhoneTown PhoneTown_1 ON PhoneInner_1.ID_PTown = PhoneTown_1.ID_PTown ON";
+            SqlStr += " WorkersExt.PhoneInnerAdd = PhoneInner_1.ID_PInner LEFT OUTER JOIN";
+            SqlStr += " PhoneInner LEFT OUTER JOIN";
+            SqlStr += " PhoneGroup ON PhoneInner.ID_PGroup = PhoneGroup.ID_PGroup LEFT OUTER JOIN";
+            SqlStr += " PhoneMATS ON PhoneInner.ID_PMATS = PhoneMATS.ID_PMATS LEFT OUTER JOIN";
+            SqlStr += " PhoneTown ON PhoneInner.ID_PTown = PhoneTown.ID_PTown ON WorkersExt.PhoneInner = PhoneInner.ID_PInner RIGHT OUTER JOIN";
+            SqlStr += " Workers INNER JOIN";
+            SqlStr += " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel INNER JOIN";
+            SqlStr += " Posts ON Workers.ID_Post = Posts.ID_Post ON WorkersExt.ID_Worker = Workers.ID_Worker";
+            SqlStr += " WHERE Workers.Fl_Rel = 0 and Workers.ID_Worker <> 1";
+            DRCWorkers= DB.GetFields(SqlStr);
+        }
+
+
+        /// <summary>
         /// Загрузка название отделов в дерево
         /// </summary>
         private void LoadOtdels()
@@ -105,15 +149,6 @@ namespace SSPD
 
         }
 
-        /// <summary>
-        /// Ловим нажатия клавиш в поле поиска
-        /// </summary>
-        /// <param name="e"></param>
-        private void StrFind_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) searchInTree(treeSGTP);
-            
-        }
 
 
         /// <summary>
@@ -125,82 +160,61 @@ namespace SSPD
         /// <param name="NBOtdel">сокращенное название отдела</param>
         private void LoadWorkers(string IDO, TreeNode TN, string IDPostHead, string NBOtdel)
         {
-
-            string SqlStr = " SELECT dbo.Workers.ID_Worker, dbo.Workers.F_Worker, dbo.Workers.N_Worker, dbo.Workers.P_Worker, dbo.Posts.N_Post, dbo.PhoneInner.NamberPInner, "
-            + " dbo.PhoneTown.NamberPTown, dbo.PhoneMATS.NamberPMATS, dbo.PhoneGroup.NamberGroup, PhoneInner_1.NamberPInner AS NamberPInnerAdd, "
-            + " PhoneInner_1.ID_PTown, PhoneTown_1.NamberPTown AS NamberPTownAdd, PhoneMATS_1.NamberPMATS AS NamberPMATSAdd, "
-            + " PhoneGroup_1.NamberGroup AS NamberGroupAdd, dbo.PhoneInner.Room, PhoneInner_1.Room AS RoomAdd, dbo.PhoneIP.IPPhoneNamber, "
-            + " dbo.Workers.F_Worker + ' ' + dbo.Workers.I_Worker AS FIO, dbo.Workers.ID_Post "
-            + " FROM          dbo.PhoneIP RIGHT OUTER JOIN"
-            + " dbo.WorkersExt ON dbo.PhoneIP.ID_IPPhone = dbo.WorkersExt.ID_IPPhone LEFT OUTER JOIN"
-            + " dbo.PhoneInner PhoneInner_1 LEFT OUTER JOIN"
-            + " dbo.PhoneGroup PhoneGroup_1 ON PhoneInner_1.ID_PGroup = PhoneGroup_1.ID_PGroup LEFT OUTER JOIN"
-            + " dbo.PhoneMATS PhoneMATS_1 ON PhoneInner_1.ID_PMATS = PhoneMATS_1.ID_PMATS LEFT OUTER JOIN"
-            + " dbo.PhoneTown PhoneTown_1 ON PhoneInner_1.ID_PTown = PhoneTown_1.ID_PTown ON "
-            + " dbo.WorkersExt.PhoneInnerAdd = PhoneInner_1.ID_PInner LEFT OUTER JOIN"
-            + " dbo.PhoneInner LEFT OUTER JOIN"
-            + " dbo.PhoneGroup ON dbo.PhoneInner.ID_PGroup = dbo.PhoneGroup.ID_PGroup LEFT OUTER JOIN"
-            + " dbo.PhoneMATS ON dbo.PhoneInner.ID_PMATS = dbo.PhoneMATS.ID_PMATS LEFT OUTER JOIN"
-            + " dbo.PhoneTown ON dbo.PhoneInner.ID_PTown = dbo.PhoneTown.ID_PTown ON "
-            + " dbo.WorkersExt.PhoneInner = dbo.PhoneInner.ID_PInner RIGHT OUTER JOIN"
-            + " dbo.Workers INNER JOIN"
-            + " dbo.Posts ON dbo.Workers.ID_Post = dbo.Posts.ID_Post ON dbo.WorkersExt.ID_Worker = dbo.Workers.ID_Worker"
-            + " WHERE Workers.Fl_Rel = 0 and Workers.ID_Worker <> 1 and Workers.ID_Otdel = " + IDO;
-
             TreeNode subTN = new TreeNode();
             Hashtable HT;
-            var rs = DB.GetFields(SqlStr);
-
-            foreach (DataRow dr in rs)
+            foreach (DataRow dr in DRCWorkers)
             {
-                subTN = new TreeNode();
-                subTN.Text = dr["FIO"].ToString() + " - " + dr["N_Post"].ToString();
-                subTN.ImageIndex = 2;
-                subTN.SelectedImageIndex = 2;
-                //параметры для поиска:
-                HT = new Hashtable();
-                HT.Add("ID_Worker", dr["ID_Worker"].ToString());
-                HT.Add("ID_Post", dr["ID_Post"].ToString());
-                HT.Add("SearchStr","");
+                if (dr["ID_Otdel"].ToString() == IDO)
+                {
+                    subTN = new TreeNode();
+                    subTN.Text = dr["FIO"].ToString() + " - " + dr["N_Post"].ToString();
+                    subTN.ImageIndex = 2;
+                    subTN.SelectedImageIndex = 2;
+                    //параметры для поиска:
+                    HT = new Hashtable();
+                    HT.Add("ID_Worker", dr["ID_Worker"].ToString());
+                    HT.Add("ID_Post", dr["ID_Post"].ToString());
+                    HT.Add("SearchStr", "");
 
-                HT["SearchStr"] += dr["F_Worker"].ToString() + " ";
-                HT["SearchStr"] += dr["N_Worker"].ToString() + " ";
-                HT["SearchStr"] += dr["P_Worker"].ToString() + " ";
-                HT["SearchStr"] += dr["N_Post"].ToString() + " ";
-                HT["SearchStr"] += NBOtdel + " ";
+                    HT["SearchStr"] += dr["F_Worker"].ToString() + " ";
+                    HT["SearchStr"] += dr["N_Worker"].ToString() + " ";
+                    HT["SearchStr"] += dr["P_Worker"].ToString() + " ";
+                    HT["SearchStr"] += dr["N_Post"].ToString() + " ";
+                    HT["SearchStr"] += NBOtdel + " ";
 
-                if (dr["Room"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["Room"].ToString() + " ";
-                else if (dr["RoomAdd"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["RoomAdd"].ToString() + " ";
+                    if (dr["Room"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["Room"].ToString() + " ";
+                    else if (dr["RoomAdd"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["RoomAdd"].ToString() + " ";
 
 
-                //Телефоны
-                if (dr["NamberPTown"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPTown"].ToString() + " ";
-                else if (dr["NamberPTownAdd"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPTownAdd"].ToString() + " ";
+                    //Телефоны
+                    if (dr["NamberPTown"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPTown"].ToString() + " ";
+                    else if (dr["NamberPTownAdd"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPTownAdd"].ToString() + " ";
 
-                if (dr["NamberPMATS"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPMATS"].ToString() + " ";
-                else if (dr["NamberPMATSAdd"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPMATSAdd"].ToString() + " ";
+                    if (dr["NamberPMATS"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPMATS"].ToString() + " ";
+                    else if (dr["NamberPMATSAdd"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPMATSAdd"].ToString() + " ";
 
-                if (dr["NamberPInner"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPInner"].ToString() + " ";
-                else if (dr["NamberPInnerAdd"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberPInnerAdd"].ToString() + " ";
+                    if (dr["NamberPInner"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPInner"].ToString() + " ";
+                    else if (dr["NamberPInnerAdd"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberPInnerAdd"].ToString() + " ";
 
-                if (dr["NamberGroup"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberGroup"].ToString() + " ";
-                else if (dr["NamberGroupAdd"].ToString().Length > 0)
-                    HT["SearchStr"] += dr["NamberGroupAdd"].ToString() + " ";
+                    if (dr["NamberGroup"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberGroup"].ToString() + " ";
+                    else if (dr["NamberGroupAdd"].ToString().Length > 0)
+                        HT["SearchStr"] += dr["NamberGroupAdd"].ToString() + " ";
 
-                CntAllWorkers++;
-                HT.Add("Index", CntAllWorkers);
+                    CntAllWorkers++;
+                    HT.Add("Index", CntAllWorkers);
 
-                subTN.Tag = HT;
-                TN.Nodes.Add(subTN);
+                    subTN.Tag = HT;
+                    TN.Nodes.Add(subTN);
+                }
             }
 
             //ищем руководителя и ставим его первым
@@ -248,7 +262,6 @@ namespace SSPD
 
                 TN.Nodes.Add(subTN);
             }
-
         }
 
         /// <summary>
@@ -271,32 +284,17 @@ namespace SSPD
         private void LoadWorkerDetail(string IDW)
         {
             string SqlStr = "";
-            SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker, Workers.N_Worker, Workers.P_Worker, Otdels.NB_Otdel, Otdels.Name_Otdel, Posts.N_Post,";
-            SqlStr += " PhoneInner.NamberPInner, PhoneTown.NamberPTown, PhoneMATS.NamberPMATS, PhoneGroup.NamberGroup,";
-            SqlStr += " PhoneInner_1.NamberPInner AS NamberPInnerAdd, PhoneInner_1.ID_PTown, PhoneTown_1.NamberPTown AS NamberPTownAdd,";
-            SqlStr += " PhoneMATS_1.NamberPMATS AS NamberPMATSAdd, PhoneGroup_1.NamberGroup AS NamberGroupAdd, PhoneInner.Room,";
-            SqlStr += " PhoneInner_1.Room AS RoomAdd, PhoneIP.IPPhoneNamber";
-            SqlStr += " FROM PhoneIP RIGHT OUTER JOIN";
-            SqlStr += " WorkersExt ON PhoneIP.ID_IPPhone = WorkersExt.ID_IPPhone LEFT OUTER JOIN";
-            SqlStr += " PhoneInner PhoneInner_1 LEFT OUTER JOIN";
-            SqlStr += " PhoneGroup PhoneGroup_1 ON PhoneInner_1.ID_PGroup = PhoneGroup_1.ID_PGroup LEFT OUTER JOIN";
-            SqlStr += " PhoneMATS PhoneMATS_1 ON PhoneInner_1.ID_PMATS = PhoneMATS_1.ID_PMATS LEFT OUTER JOIN";
-            SqlStr += " PhoneTown PhoneTown_1 ON PhoneInner_1.ID_PTown = PhoneTown_1.ID_PTown ON";
-            SqlStr += " WorkersExt.PhoneInnerAdd = PhoneInner_1.ID_PInner LEFT OUTER JOIN";
-            SqlStr += " PhoneInner LEFT OUTER JOIN";
-            SqlStr += " PhoneGroup ON PhoneInner.ID_PGroup = PhoneGroup.ID_PGroup LEFT OUTER JOIN";
-            SqlStr += " PhoneMATS ON PhoneInner.ID_PMATS = PhoneMATS.ID_PMATS LEFT OUTER JOIN";
-            SqlStr += " PhoneTown ON PhoneInner.ID_PTown = PhoneTown.ID_PTown ON WorkersExt.PhoneInner = PhoneInner.ID_PInner RIGHT OUTER JOIN";
-            SqlStr += " Workers INNER JOIN";
-            SqlStr += " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel INNER JOIN";
-            SqlStr += " Posts ON Workers.ID_Post = Posts.ID_Post ON WorkersExt.ID_Worker = Workers.ID_Worker";
-            SqlStr += " Where (Workers.ID_Worker = " + IDW + ")";
-
-            var rs = DB.GetFields(SqlStr);
-            if (rs.Count == 0) return;
-
-            DataRow dr = rs[0];
-
+            DataRowCollection rs = null;
+            DataRow dr = null;
+            foreach (DataRow tmpdr in DRCWorkers)
+            {
+                if (tmpdr["ID_Worker"].ToString() == IDW)
+                {
+                    dr = tmpdr;
+                    break;
+                }
+            }
+            
             //Основные сведения
             FWorker.Text = dr["F_Worker"].ToString();
             NWorker.Text = dr["N_Worker"].ToString();
@@ -363,11 +361,11 @@ namespace SSPD
                 using (MemoryStream ms = new MemoryStream(arrByte, 0, arrByte.Length))
                 {
                     ms.Write(arrByte, 0, arrByte.Length);
-                    pictureBox1.Image = Image.FromStream(ms, true);
+                    Foto.Image = Image.FromStream(ms, true);
                 }
             }
             else
-                pictureBox1.Image = pictureBox1.ErrorImage;
+                Foto.Image = Foto.ErrorImage;
         }
 
         // Поиск в дереве
@@ -380,7 +378,6 @@ namespace SSPD
         /// Цикл по нодам дерева
         /// </summary>
         /// <param name="TV"></param>
-        /// <param name="StrF"></param>
         private void searchInTree(TreeView TV)
         {
             if (treeSGTP.Nodes.Count == 0) return;
@@ -399,6 +396,10 @@ namespace SSPD
             }
         }
 
+        /// <summary>
+        /// Поиск по данным сотрудника
+        /// </summary>
+        /// <param name="TN">Нода сотрудника</param>
         private void searchInTreeNode(TreeNode TN){
             Hashtable tmpHash;
             foreach (TreeNode subTN in TN.Nodes)

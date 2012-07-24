@@ -38,7 +38,6 @@
             this.МенюСправочникСИМКарт = new System.Windows.Forms.ToolStripMenuItem();
             this.справочникМобильныхТелефоновToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справочникТелефонныхТочекToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справочникIPНомеровToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,8 +79,7 @@
             this.МенюСписокРаботниковАдминистрирование,
             this.МенюСправочникСИМКарт,
             this.справочникМобильныхТелефоновToolStripMenuItem,
-            this.справочникТелефонныхТочекToolStripMenuItem,
-            this.справочникIPНомеровToolStripMenuItem});
+            this.справочникТелефонныхТочекToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -121,13 +119,6 @@
             this.справочникТелефонныхТочекToolStripMenuItem.Text = "Справочник телефонных точек";
             this.справочникТелефонныхТочекToolStripMenuItem.Click += new System.EventHandler(this.справочникТелефонныхТочекToolStripMenuItem_Click);
             // 
-            // справочникIPНомеровToolStripMenuItem
-            // 
-            this.справочникIPНомеровToolStripMenuItem.Name = "справочникIPНомеровToolStripMenuItem";
-            this.справочникIPНомеровToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
-            this.справочникIPНомеровToolStripMenuItem.Text = "Справочник IP номеров";
-            this.справочникIPНомеровToolStripMenuItem.Click += new System.EventHandler(this.справочникIPНомеровToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,7 +152,6 @@
         private System.Windows.Forms.ToolStripMenuItem МенюСправочникСИМКарт;
         private System.Windows.Forms.ToolStripMenuItem справочникМобильныхТелефоновToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справочникТелефонныхТочекToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem справочникIPНомеровToolStripMenuItem;
     }
 }
 

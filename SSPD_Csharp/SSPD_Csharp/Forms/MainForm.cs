@@ -33,7 +33,7 @@ namespace SSPD
             Declarations.Show();
             
             this.Opacity = 100;
-            
+
         }
 
         /// <summary>
@@ -100,5 +100,6 @@ namespace SSPD
             PhoneIPList PIPL = new PhoneIPList();
             PIPL.ShowDialog();
         }
+
     }
 }

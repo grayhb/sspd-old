@@ -132,7 +132,6 @@ namespace SSPD
                 SqlValues += string.Format("'{0}'",kvp.Value);
             }
             SqlStr += SqlColumns + ") " + SqlValues + ")";
-            Console.WriteLine(SqlStr);
             OleDbConnection Conn = new OleDbConnection("Provider=SQLOLEDB;" + Params.ConString);
             OleDbCommand dbCommand = new OleDbCommand(SqlStr, Conn);
             Conn.Open();

@@ -142,27 +142,33 @@ namespace SSPD
             if (doSavePhones == true)
             {   //телефоны:
                 //если имеются данные о выбранном IP Phone у других сотрудников, очищаем
-                if (IPPhoneNamber.Tag.ToString().Length > 0)
+                if (IPPhoneNamber.Tag != null)
                 {
-                    DataSet = new Dictionary<string, string>();
-                    DataSet.Add("ID_IPPhone", "");
-                    DB.SetFields(DataSet, "WorkersExt", "ID_IPPhone = " + IPPhoneNamber.Tag.ToString());
+                    if (IPPhoneNamber.Tag.ToString() != "0")
+                    {
+                        DataSet = new Dictionary<string, string>();
+                        DataSet.Add("ID_IPPhone", "");
+                        DB.SetFields(DataSet, "WorkersExt", "ID_IPPhone = " + IPPhoneNamber.Tag.ToString());
+                    }
                 }
                 //удаление записи сотрудника из таблицы WorkersExt
                 DB.DeleteRow("WorkersExt", "ID_Worker = " + IDW);
                 //сохраняем данные телефонов
-                if (PhoneInnerM.Tag.ToString().Length > 0 || PhoneInnerA.Tag.ToString().Length > 0 || IPPhoneNamber.Tag.ToString().Length > 0)
+                if (PhoneInnerM.Tag != null || PhoneInnerA.Tag != null || IPPhoneNamber.Tag != null)
                 {
                     DataSet = new Dictionary<string, string>();
                     DataSet.Add("ID_Worker", IDW);
-                    if (PhoneInnerM.Tag.ToString().Length == 0)
-                        DataSet.Add("PhoneInner", PhoneInnerA.Tag.ToString());
+
+                    if (PhoneInnerM.Tag == null)
+                    {
+                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInner", PhoneInnerA.Tag.ToString());
+                    }
                     else
                     {
-                        DataSet.Add("PhoneInner", PhoneInnerM.Tag.ToString());
-                        DataSet.Add("PhoneInnerAdd", PhoneInnerA.Tag.ToString());
+                        if (PhoneInnerM.Tag != null) DataSet.Add("PhoneInner", PhoneInnerM.Tag.ToString());
+                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInnerAdd", PhoneInnerA.Tag.ToString());
                     }
-                    DataSet.Add("IPPhoneNamber", IPPhoneNamber.Tag.ToString());
+                    if (IPPhoneNamber.Tag != null) DataSet.Add("ID_IPPhone", IPPhoneNamber.Tag.ToString());
                     DB.InsertRow(DataSet, "WorkersExt");
                 }
                 doSavePhones = false;
@@ -588,6 +594,7 @@ namespace SSPD
                   PhoneTownM.Text  = PIL.SelPhoneTown;
                   PhoneMATSM.Text  = PIL.SelPhoneMATS;
                   PhoneGroupM.Text = PIL.SelPhoneGroup;
+                  doSavePhones = true;
             }
         }
 
@@ -599,6 +606,7 @@ namespace SSPD
             PhoneTownM.Text = "";
             PhoneMATSM.Text = "";
             PhoneGroupM.Text = "";
+            doSavePhones = true;
         }
 
         private void DelPhoneInnerA_Click(object sender, EventArgs e)
@@ -608,6 +616,7 @@ namespace SSPD
             PhoneTownA.Text = "";
             PhoneMATSA.Text = "";
             PhoneGroupA.Text = "";
+            doSavePhones = true;
         }
 
         private void AddPhoneInnerA_Click(object sender, EventArgs e)
@@ -621,13 +630,15 @@ namespace SSPD
                 PhoneTownA.Text = PIL.SelPhoneTown;
                 PhoneMATSA.Text = PIL.SelPhoneMATS;
                 PhoneGroupA.Text = PIL.SelPhoneGroup;
+                doSavePhones = true;
             }
         }
 
         private void DelIPPhone_Click(object sender, EventArgs e)
         {
-            IPPhoneNamber.Tag = 0;
+            IPPhoneNamber.Tag = "";
             IPPhoneNamber.Text  = "";
+            doSavePhones = true;
         }
 
         private void AddIPPhone_Click(object sender, EventArgs e)
@@ -638,6 +649,7 @@ namespace SSPD
             {
                 IPPhoneNamber.Tag = PIPL.SelIDIPPhone;
                 IPPhoneNamber.Text = PIPL.SelIPPhone;
+                doSavePhones = true;
             }
         }
 
