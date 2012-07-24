@@ -29,8 +29,17 @@ namespace SSPD
             this.Text = string.Format("Система Сопровождения Проектной Деятельности ({0})",Params.UserInfo.FIO);
             
             //загружаем форму для вывода отчетов мониторинга
-            Declarations.MdiParent = this;
-            Declarations.Show();
+            //Declarations.MdiParent = this;
+            //Declarations.Show();
+
+            foreach(Control ctl in this.Controls) 
+            {
+                if (ctl is MdiClient == true )  {
+                    ctl.BackColor = this.BackColor;
+                    break;
+                }
+            }
+
             
             this.Opacity = 100;
 
@@ -60,45 +69,129 @@ namespace SSPD
                 МенюСписокРаботниковАдминистрирование.Visible = true;
             }
 
+        }
 
-
+        private bool CheckOpenForm(string FName)
+        {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.Name == FName)
+                {
+                    f.WindowState = FormWindowState.Normal;
+                    f.Activate();
+                    return false;
+                }
+            }
+            return true;
         }
 
 
         private void списокРаботниковToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WorkersSprav WS = new WorkersSprav();
-            WS.ShowDialog();
+            if (CheckOpenForm(WS.Name))
+            {
+                WS.ShowInTaskbar = true;
+                WS.MdiParent = this;
+                WS.Show();
+            }
         }
 
         private void списокРаботниковадминистрированиеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WorkersSpravEdit WSE = new WorkersSpravEdit();
-            WSE.ShowDialog();
+            if (CheckOpenForm(WSE.Name))
+            {
+                WSE.ShowInTaskbar = true;
+                WSE.MdiParent = this;
+                WSE.Show();
+            }
         }
 
         private void МенюСправочникСИМКарт_Click(object sender, EventArgs e)
         {
             PhoneSIMList PSIML = new PhoneSIMList(false);
-            PSIML.ShowDialog();
+            if (CheckOpenForm(PSIML.Name))
+            {
+                PSIML.MdiParent = this;
+                PSIML.Show();
+            }
         }
 
         private void справочникМобильныхТелефоновToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneApList PAL = new PhoneApList(false);
-            PAL.ShowDialog();
+            if (CheckOpenForm(PAL.Name))
+            {
+                PAL.MdiParent = this;
+                PAL.Show();
+            }
         }
 
         private void справочникТелефонныхТочекToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneInnerList PIL = new PhoneInnerList(false);
-            PIL.ShowDialog();
+            if (CheckOpenForm(PIL.Name))
+            {
+                PIL.MdiParent = this;
+                PIL.Show();
+            }
         }
 
         private void справочникIPНомеровToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneIPList PIPL = new PhoneIPList();
-            PIPL.ShowDialog();
+            if (CheckOpenForm(PIPL.Name))
+            {
+                PIPL.MdiParent = this;
+                PIPL.Show();
+            }
+        }
+
+        private void MenuListObjKTN_Click(object sender, EventArgs e)
+        {
+            SSPD.ObjectsTN.List ListKTN = new SSPD.ObjectsTN.List();
+            if (CheckOpenForm(ListKTN.Name))
+            {
+                ListKTN.MdiParent = this;
+                ListKTN.Show();
+            }
+        }
+
+        private void каскадомToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void вертикальноToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void горизонтальноToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void свернутьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form tmpFrm in this.MdiChildren)
+                tmpFrm.WindowState = FormWindowState.Minimized;
+        }
+
+        private void развернутьВсеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form tmpFrm in this.MdiChildren)
+                tmpFrm.WindowState = FormWindowState.Normal ;
+        }
+
+        private void закрытьВсеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form tmpFrm in this.MdiChildren)
+            {
+                tmpFrm.Close();
+                tmpFrm.Dispose();
+            }
         }
 
     }

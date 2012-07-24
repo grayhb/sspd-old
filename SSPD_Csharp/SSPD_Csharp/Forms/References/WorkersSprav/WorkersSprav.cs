@@ -35,7 +35,7 @@ namespace SSPD
             StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
-
+            
             LoadAllWorkers();
         }
 
