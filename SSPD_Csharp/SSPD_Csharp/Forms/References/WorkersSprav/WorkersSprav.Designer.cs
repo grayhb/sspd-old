@@ -48,7 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.NWorker = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Foto = new System.Windows.Forms.PictureBox();
             this.FWorker = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -69,7 +69,7 @@
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Foto)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,7 +155,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.NWorker);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.Foto);
             this.groupBox1.Controls.Add(this.FWorker);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(484, 31);
@@ -255,17 +255,17 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Имя";
             // 
-            // pictureBox1
+            // Foto
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.ErrorImage = global::SSPD.Properties.Resources.no_images;
-            this.pictureBox1.Image = global::SSPD.Properties.Resources.no_images;
-            this.pictureBox1.Location = new System.Drawing.Point(354, 20);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(130, 175);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.Foto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Foto.ErrorImage = global::SSPD.Properties.Resources.no_images;
+            this.Foto.Image = global::SSPD.Properties.Resources.no_images;
+            this.Foto.Location = new System.Drawing.Point(354, 20);
+            this.Foto.Name = "Foto";
+            this.Foto.Size = new System.Drawing.Size(130, 175);
+            this.Foto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Foto.TabIndex = 2;
+            this.Foto.TabStop = false;
             // 
             // FWorker
             // 
@@ -474,7 +474,7 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Foto)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -503,7 +503,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox NWorker;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox Foto;
         private System.Windows.Forms.TextBox FWorker;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox IPPhoneNamber;
