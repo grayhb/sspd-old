@@ -331,7 +331,7 @@
             this.Name = "PhoneInnerList";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Список внутренних абонентов";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PhoneInnerList_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
