@@ -60,7 +60,12 @@ namespace SSPD
             }
         }
 
-
+        /// <summary>
+        /// Поиск в дата гриде
+        /// </summary>
+        /// <param name="DGV">Дата грид</param>
+        /// <param name="StrFind">Строка поиска</param>
+        /// <param name="IndexFind">Индекс выбранной строки</param>
         public static void SearchInDGV(DataGridView DGV, string StrFind, int IndexFind)
         {
             if (StrFind.Length == 0) return;
@@ -83,12 +88,11 @@ namespace SSPD
                     }
                 }
             }
-
             //не найдено, и поиск начат с середины, повторяем поиск с первой позиции
             if (IndexFind > -1) { IndexFind = -1; SearchInDGV(DGV, StrFind, IndexFind); }
-
         }
 
 
     }
+    
 }

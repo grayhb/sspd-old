@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SSPD
 {
+
     class Config
     {
 
