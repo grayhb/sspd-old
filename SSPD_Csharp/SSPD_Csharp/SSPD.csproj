@@ -82,6 +82,12 @@
     <Compile Include="Forms\Cfg\InputPassword.Designer.cs">
       <DependentUpon>InputPassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\References\ObjectsTN\EditCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\References\ObjectsTN\EditCard.Designer.cs">
+      <DependentUpon>EditCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\References\ObjectsTN\List.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,12 @@
     <Compile Include="Forms\References\WorkersSprav\WorkersSpravEdit.Designer.cs">
       <DependentUpon>WorkersSpravEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Select\Orgs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Select\Orgs.Designer.cs">
+      <DependentUpon>Orgs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Cfg\Cfg.resx">
@@ -164,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Cfg\InputPassword.resx">
       <DependentUpon>InputPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\ObjectsTN\EditCard.resx">
+      <DependentUpon>EditCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\References\ObjectsTN\List.resx">
+      <DependentUpon>List.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\Phones\PhoneApCard.resx">
       <DependentUpon>PhoneApCard.cs</DependentUpon>
@@ -194,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\WorkersSprav\WorkersSpravEdit.resx">
       <DependentUpon>WorkersSpravEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Select\Orgs.resx">
+      <DependentUpon>Orgs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

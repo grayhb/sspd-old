@@ -31,12 +31,25 @@ namespace SSPD
         {
             InitializeComponent();
             this.KeyDown +=new KeyEventHandler(WorkersSprav_KeyDown);
-            this.Shown+=new EventHandler(WorkersSprav_Shown);
             StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
+
             
+        }
+
+        private void WorkersSprav_Load(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
             LoadAllWorkers();
+            CntAllWorkers = 0;
+            LoadOtdels();
+
+            StatusLabel.Text = "Всего отделов: " + treeSGTP.Nodes.Count.ToString() + "    " +
+                                "Всего сотрудников: " + CntAllWorkers.ToString();
+            StrFind.Focus();
+            this.Opacity = 1;
+            Cursor.Current = Cursors.Default;
         }
 
         private void WorkersSprav_KeyDown(object sender, KeyEventArgs e)
@@ -45,18 +58,6 @@ namespace SSPD
             if (e.KeyCode == Keys.F7) searchInTree(treeSGTP);
         }
         
-        private void WorkersSprav_Shown(object sender, EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            CntAllWorkers = 0;
-            LoadOtdels();
-            
-            StatusLabel.Text = "Всего отделов: " + treeSGTP.Nodes.Count.ToString() + "    " +
-                                "Всего сотрудников: " + CntAllWorkers.ToString();
-            StrFind.Focus();
-            this.Opacity = 1;
-            Cursor.Current = Cursors.Default;
-        }
 
         /// <summary>
         /// Событие при потери фокуса из строки поиска
@@ -433,6 +434,8 @@ namespace SSPD
         {
             this.Close();
         }
+
+
 
     }
 }

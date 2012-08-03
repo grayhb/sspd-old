@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace SSPD
 {
-    public partial class MainForm : Form
+    public partial class MainForm  : Form
     {
         Declarations Declarations = new Declarations();
-
+        
         public MainForm()
         {
             InitializeComponent();
@@ -28,10 +28,6 @@ namespace SSPD
             this.WindowState = FormWindowState.Maximized;
             this.Text = string.Format("Система Сопровождения Проектной Деятельности ({0})",Params.UserInfo.FIO);
             
-            //загружаем форму для вывода отчетов мониторинга
-            //Declarations.MdiParent = this;
-            //Declarations.Show();
-
             foreach(Control ctl in this.Controls) 
             {
                 if (ctl is MdiClient == true )  {
@@ -40,9 +36,7 @@ namespace SSPD
                 }
             }
 
-            
-            this.Opacity = 100;
-
+            this.Opacity = 1;
         }
 
         /// <summary>

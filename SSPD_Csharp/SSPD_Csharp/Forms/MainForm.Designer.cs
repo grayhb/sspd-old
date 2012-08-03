@@ -45,13 +45,13 @@
             this.каскадомToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.вертикальноToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.горизонтальноToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.свернутьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.развернутьВсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.свернутьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.развернутьВсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.закрытьВсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,7 +170,7 @@
             this.toolStripSeparator4,
             this.закрытьВсеToolStripMenuItem});
             this.положениеToolStripMenuItem.Name = "положениеToolStripMenuItem";
-            this.положениеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.положениеToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.положениеToolStripMenuItem.Text = "Положение";
             // 
             // каскадомToolStripMenuItem1
@@ -194,6 +194,11 @@
             this.горизонтальноToolStripMenuItem1.Text = "Горизонтально";
             this.горизонтальноToolStripMenuItem1.Click += new System.EventHandler(this.горизонтальноToolStripMenuItem1_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            // 
             // свернутьToolStripMenuItem
             // 
             this.свернутьToolStripMenuItem.Name = "свернутьToolStripMenuItem";
@@ -201,32 +206,12 @@
             this.свернутьToolStripMenuItem.Text = "Свернуть все";
             this.свернутьToolStripMenuItem.Click += new System.EventHandler(this.свернутьToolStripMenuItem_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // progressBar
-            // 
-            this.progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar.Location = new System.Drawing.Point(0, 650);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(952, 23);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar.TabIndex = 3;
-            this.progressBar.Visible = false;
-            // 
             // развернутьВсеToolStripMenuItem
             // 
             this.развернутьВсеToolStripMenuItem.Name = "развернутьВсеToolStripMenuItem";
             this.развернутьВсеToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.развернутьВсеToolStripMenuItem.Text = "Развернуть все";
             this.развернутьВсеToolStripMenuItem.Click += new System.EventHandler(this.развернутьВсеToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
             // 
             // toolStripSeparator4
             // 
@@ -239,6 +224,21 @@
             this.закрытьВсеToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.закрытьВсеToolStripMenuItem.Text = "Закрыть все";
             this.закрытьВсеToolStripMenuItem.Click += new System.EventHandler(this.закрытьВсеToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(139, 6);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar.Location = new System.Drawing.Point(0, 650);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(952, 23);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 3;
+            this.progressBar.Visible = false;
             // 
             // MainForm
             // 

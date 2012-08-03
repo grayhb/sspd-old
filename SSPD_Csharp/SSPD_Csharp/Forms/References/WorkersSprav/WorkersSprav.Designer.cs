@@ -420,11 +420,13 @@
             // 
             this.StrFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.StrFind.ForeColor = System.Drawing.Color.DarkGray;
             this.StrFind.Location = new System.Drawing.Point(12, 38);
             this.StrFind.MaxLength = 255;
             this.StrFind.Name = "StrFind";
             this.StrFind.Size = new System.Drawing.Size(372, 20);
             this.StrFind.TabIndex = 7;
+            this.StrFind.Text = "Введите строку для поиска";
             this.StrFind.WordWrap = false;
             this.StrFind.TextChanged += new System.EventHandler(this.StrFind_TextChanged);
             // 
@@ -468,6 +470,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник работников";
+            this.Load += new System.EventHandler(this.WorkersSprav_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

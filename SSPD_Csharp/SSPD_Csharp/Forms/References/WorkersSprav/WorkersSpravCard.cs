@@ -120,7 +120,7 @@ namespace SSPD
                 else
                 {
                     //новый сотрудник
-                    var rs = DB.GetFields("SELECT MAX(ID_Worker) + 1 AS NewID From Workers");
+                    var rs = DB.GetFields("SELECT ISNULL(MAX(ID_Worker), 0) + 1 AS NewID From Workers");
                     IDW =(Convert.ToInt32(rs[0]["NewID"]) + 1).ToString();
                     DataSet.Add("ID_Worker", IDW);
                     DB.InsertRow(DataSet, "Workers");
