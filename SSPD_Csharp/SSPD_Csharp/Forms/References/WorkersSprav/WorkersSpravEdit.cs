@@ -121,10 +121,6 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-        }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -249,6 +245,11 @@ namespace SSPD
                 OpenWorkerCard();
                 e.Handled = true;
             }
+        }
+
+        private void btn_Search_Click(object sender, EventArgs e)
+        {
+            SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
 

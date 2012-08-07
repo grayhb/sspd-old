@@ -10,6 +10,21 @@ namespace SSPD
 {
     class DB
     {
+
+        /// <summary>
+        /// Экранируем кавычки в SQL запросе
+        /// </summary>
+        /// <param name="SqlStr">Sql запрос</param>
+        /// <returns>Sql запрос с экранированными кавычками</returns>
+        public static string SetQuotes(string SqlStr)
+        {
+            SqlStr = System.Text.RegularExpressions.Regex.Replace(SqlStr, "[']", ((char)34).ToString());
+           // SqlStr = System.Text.RegularExpressions.Regex.Replace(SqlStr, "[" + ((char)34).ToString()+"]", @"\\" + ((char)34).ToString());
+
+            Console.WriteLine(SqlStr);
+            return SqlStr;
+        }
+
         /// <summary>
         /// Возвращает коллекцию строк по запросу
         /// </summary>
@@ -53,7 +68,7 @@ namespace SSPD
             foreach (KeyValuePair<string, string> kvp in DataSet)
             {
                 if (flComma == true) SqlStr += ", "; else flComma = true;
-                SqlStr += string.Format("{0}='{1}'", kvp.Key, kvp.Value);
+                SqlStr += string.Format("{0}='{1}'", kvp.Key, SetQuotes(kvp.Value));
             }
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
 
@@ -129,9 +144,10 @@ namespace SSPD
                 else flComma = true;
 
                 SqlColumns +=  kvp.Key;
-                SqlValues += string.Format("'{0}'",kvp.Value);
+                SqlValues += string.Format("'{0}'", SetQuotes(kvp.Value));
             }
             SqlStr += SqlColumns + ") " + SqlValues + ")";
+
             OleDbConnection Conn = new OleDbConnection("Provider=SQLOLEDB;" + Params.ConString);
             OleDbCommand dbCommand = new OleDbCommand(SqlStr, Conn);
             Conn.Open();

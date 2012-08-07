@@ -311,6 +311,7 @@ namespace SSPD.ObjectsTN
             }
             else
             { //создаем новый объект
+
                 DataSet.Add("ID_MN", RNU_MN_Name.Tag.ToString());
                 var rs = DB.GetFields("SELECT ISNULL(MAX(Ord), 0) + 1 AS Ord FROM ObjectRNU WHERE ID_MN = " + RNU_MN_Name.Tag.ToString());
                 string Ord = rs[0]["Ord"].ToString();
@@ -319,6 +320,7 @@ namespace SSPD.ObjectsTN
                 rs = DB.GetFields("SELECT ID FROM ObjectRNU WHERE Ord = " + Ord + " AND ID_MN = " + RNU_MN_Name.Tag.ToString());
                 if (rs.Count > 0)
                     IDObj = rs[0]["ID"].ToString();
+                else IDObj = "";
             }
 
             FlSave = true;
@@ -350,6 +352,7 @@ namespace SSPD.ObjectsTN
                 rs = DB.GetFields("SELECT ID FROM ObjectLPDS WHERE Ord = " + Ord + " AND LPDS_Name = '" + LPDS_Name.Text+ "'");
                 if (rs.Count > 0)
                     IDObj = rs[0]["ID"].ToString();
+                else IDObj = "";
             }
 
             FlSave = true;
@@ -393,6 +396,7 @@ namespace SSPD.ObjectsTN
                 rs = DB.GetFields("SELECT ID FROM ObjectPlace WHERE Ord = " + Ord + " AND Place_Name = '" + Place_Name.Text + "'");
                 if (rs.Count > 0)
                     IDObj = rs[0]["ID"].ToString();
+                else IDObj = "";
             }
 
             FlSave = true;
@@ -431,7 +435,6 @@ namespace SSPD.ObjectsTN
             if (e.KeyCode == Keys.Escape)  this.Close();
             if (e.KeyCode == Keys.F2) SaveObjects();
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
