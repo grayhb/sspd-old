@@ -65,7 +65,7 @@
             this.PhoneTown = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.StrFind = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_Search = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -430,24 +430,24 @@
             this.StrFind.WordWrap = false;
             this.StrFind.TextChanged += new System.EventHandler(this.StrFind_TextChanged);
             // 
-            // button1
+            // btn_Search
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.Image = global::SSPD.Properties.Resources.binocular_small;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(390, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 23);
-            this.button1.TabIndex = 6;
-            this.button1.TabStop = false;
-            this.button1.Text = "найти [F7]";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Search.BackColor = System.Drawing.SystemColors.Control;
+            this.btn_Search.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btn_Search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_Search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_Search.Image = global::SSPD.Properties.Resources.binocular_small;
+            this.btn_Search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_Search.Location = new System.Drawing.Point(390, 36);
+            this.btn_Search.Name = "btn_Search";
+            this.btn_Search.Size = new System.Drawing.Size(88, 23);
+            this.btn_Search.TabIndex = 6;
+            this.btn_Search.TabStop = false;
+            this.btn_Search.Text = "найти [F7]";
+            this.btn_Search.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_Search.UseVisualStyleBackColor = false;
+            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // WorkersSprav
             // 
@@ -455,7 +455,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 468);
             this.Controls.Add(this.StrFind);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Search);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeSGTP);
@@ -492,7 +492,7 @@
         private System.Windows.Forms.TreeView treeSGTP;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Search;
         private System.Windows.Forms.TextBox StrFind;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
         private System.Windows.Forms.ImageList imageList1;

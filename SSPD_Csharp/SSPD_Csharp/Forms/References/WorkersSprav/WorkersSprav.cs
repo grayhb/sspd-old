@@ -369,12 +369,6 @@ namespace SSPD
                 Foto.Image = Foto.ErrorImage;
         }
 
-        // Поиск в дереве
-        private void button1_Click(object sender, EventArgs e)
-        {
-            searchInTree(treeSGTP);
-        }
-
         /// <summary>
         /// Цикл по нодам дерева
         /// </summary>
@@ -433,6 +427,12 @@ namespace SSPD
         private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        // Поиск в дереве
+        private void btn_Search_Click(object sender, EventArgs e)
+        {
+            searchInTree(treeSGTP);
         }
 
 

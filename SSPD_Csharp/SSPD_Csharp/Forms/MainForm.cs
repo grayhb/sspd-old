@@ -37,6 +37,8 @@ namespace SSPD
             }
 
             this.Opacity = 1;
+
+            FTP.FtpDownload(Params.ServerFTP.Adress, FTP.GetFileName(28,"31"));
         }
 
         /// <summary>
@@ -187,6 +189,8 @@ namespace SSPD
                 tmpFrm.Dispose();
             }
         }
+
+
 
     }
 }

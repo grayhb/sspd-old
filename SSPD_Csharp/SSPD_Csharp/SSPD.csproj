@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="Class\Config.cs" />
     <Compile Include="Class\DB.cs" />
+    <Compile Include="Class\FTP.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Class\Security.cs" />
     <Compile Include="Class\SSPDUI.cs" />
     <Compile Include="Class\Params.cs" />
