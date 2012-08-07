@@ -235,14 +235,14 @@ namespace SSPD
             else if (e.KeyCode == Keys.Home)
             {
                 DGV.ClearSelection();
-                DGV.Rows[0].Selected = true;
-                DGV.Rows[0].Cells[0].Selected = true;
+                DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Selected = true;
+                DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
             }
             else if (e.KeyCode == Keys.End)
             {
                 DGV.ClearSelection();
-                DGV.Rows[DGV.Rows.Count - 1].Selected = true;
-                DGV.Rows[DGV.Rows.Count - 1].Cells[0].Selected = true;
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Selected = true;
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
             }
             else if (e.KeyCode == Keys.Enter)
             {
