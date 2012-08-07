@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TopMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.МенюОперации = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюОперацииЗакрыть = new System.Windows.Forms.ToolStripMenuItem();
             this.записиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,26 +41,26 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.TopToolStrip = new System.Windows.Forms.ToolStrip();
             this.StrFind = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btn_Search = new System.Windows.Forms.ToolStripButton();
             this.StatusFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.statusStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.StatusFilterLabel = new System.Windows.Forms.ToolStripLabel();
+            this.BottomStatusStrip.SuspendLayout();
+            this.TopMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
-            this.toolStrip1.SuspendLayout();
+            this.TopToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // BottomStatusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 491);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(952, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 491);
+            this.BottomStatusStrip.Name = "BottomStatusStrip";
+            this.BottomStatusStrip.Size = new System.Drawing.Size(952, 22);
+            this.BottomStatusStrip.TabIndex = 0;
+            this.BottomStatusStrip.Text = "statusStrip1";
             // 
             // StatusLabel
             // 
@@ -68,36 +68,36 @@
             this.StatusLabel.Size = new System.Drawing.Size(111, 17);
             this.StatusLabel.Text = "Всего работников: 0";
             // 
-            // menuStrip1
+            // TopMenuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.операцииToolStripMenuItem,
+            this.TopMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.МенюОперации,
             this.записиToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(952, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.TopMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.TopMenuStrip.Name = "TopMenuStrip";
+            this.TopMenuStrip.Size = new System.Drawing.Size(952, 24);
+            this.TopMenuStrip.TabIndex = 1;
+            this.TopMenuStrip.Text = "menuStrip1";
             // 
-            // операцииToolStripMenuItem
+            // МенюОперации
             // 
-            this.операцииToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выходToolStripMenuItem});
-            this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
-            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.операцииToolStripMenuItem.Text = "Операции";
+            this.МенюОперации.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.МенюОперации.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.МенюОперацииЗакрыть});
+            this.МенюОперации.Name = "МенюОперации";
+            this.МенюОперации.Size = new System.Drawing.Size(69, 20);
+            this.МенюОперации.Text = "Операции";
             // 
-            // выходToolStripMenuItem
+            // МенюОперацииЗакрыть
             // 
-            this.выходToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.выходToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.выходToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.ShortcutKeyDisplayString = "ESC";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.выходToolStripMenuItem.Text = "Закрыть";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.МенюОперацииЗакрыть.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.МенюОперацииЗакрыть.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.МенюОперацииЗакрыть.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.МенюОперацииЗакрыть.Name = "МенюОперацииЗакрыть";
+            this.МенюОперацииЗакрыть.ShortcutKeyDisplayString = "ESC";
+            this.МенюОперацииЗакрыть.Size = new System.Drawing.Size(155, 22);
+            this.МенюОперацииЗакрыть.Text = "Закрыть";
+            this.МенюОперацииЗакрыть.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // записиToolStripMenuItem
             // 
@@ -111,14 +111,14 @@
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.добавитьToolStripMenuItem.Text = "Добавить";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавитьToolStripMenuItem_Click);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
@@ -178,22 +178,22 @@
             this.Column4.ReadOnly = true;
             this.Column4.Width = 75;
             // 
-            // toolStrip1
+            // TopToolStrip
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TopToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.TopToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StrFind,
-            this.toolStripButton1,
+            this.btn_Search,
             this.StatusFilter,
-            this.toolStripLabel1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.ShowItemToolTips = false;
-            this.toolStrip1.Size = new System.Drawing.Size(952, 33);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
+            this.StatusFilterLabel});
+            this.TopToolStrip.Location = new System.Drawing.Point(0, 24);
+            this.TopToolStrip.Name = "TopToolStrip";
+            this.TopToolStrip.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
+            this.TopToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.TopToolStrip.ShowItemToolTips = false;
+            this.TopToolStrip.Size = new System.Drawing.Size(952, 33);
+            this.TopToolStrip.TabIndex = 3;
+            this.TopToolStrip.Text = "toolStrip1";
             // 
             // StrFind
             // 
@@ -205,15 +205,15 @@
             this.StrFind.Text = "Введите строку для поиска";
             this.StrFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StrFind_KeyDown);
             // 
-            // toolStripButton1
+            // btn_Search
             // 
-            this.toolStripButton1.Image = global::SSPD.Properties.Resources.binocular_small;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(80, 20);
-            this.toolStripButton1.Text = "найти [F7]";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btn_Search.Image = global::SSPD.Properties.Resources.binocular_small;
+            this.btn_Search.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_Search.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btn_Search.Name = "btn_Search";
+            this.btn_Search.Size = new System.Drawing.Size(80, 20);
+            this.btn_Search.Text = "найти [F7]";
+            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // StatusFilter
             // 
@@ -224,12 +224,12 @@
             this.StatusFilter.Name = "StatusFilter";
             this.StatusFilter.Size = new System.Drawing.Size(121, 23);
             // 
-            // toolStripLabel1
+            // StatusFilterLabel
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(154, 20);
-            this.toolStripLabel1.Text = "Отфильтровать по статусу: ";
+            this.StatusFilterLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.StatusFilterLabel.Name = "StatusFilterLabel";
+            this.StatusFilterLabel.Size = new System.Drawing.Size(154, 20);
+            this.StatusFilterLabel.Text = "Отфильтровать по статусу: ";
             // 
             // WorkersSpravEdit
             // 
@@ -237,24 +237,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 513);
             this.Controls.Add(this.DGV);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.BottomStatusStrip);
+            this.Controls.Add(this.TopToolStrip);
+            this.Controls.Add(this.TopMenuStrip);
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.TopMenuStrip;
             this.MinimumSize = new System.Drawing.Size(860, 194);
             this.Name = "WorkersSpravEdit";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Администрирование сотрудников";
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.BottomStatusStrip.ResumeLayout(false);
+            this.BottomStatusStrip.PerformLayout();
+            this.TopMenuStrip.ResumeLayout(false);
+            this.TopMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.TopToolStrip.ResumeLayout(false);
+            this.TopToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,10 +262,10 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip BottomStatusStrip;
+        private System.Windows.Forms.MenuStrip TopMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem МенюОперации;
+        private System.Windows.Forms.ToolStripMenuItem МенюОперацииЗакрыть;
         private System.Windows.Forms.ToolStripMenuItem записиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
@@ -275,11 +275,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip TopToolStrip;
         private System.Windows.Forms.ToolStripTextBox StrFind;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btn_Search;
         private System.Windows.Forms.ToolStripComboBox StatusFilter;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel StatusFilterLabel;
 
     }
 }

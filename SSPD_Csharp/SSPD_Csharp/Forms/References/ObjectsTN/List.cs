@@ -532,7 +532,7 @@ namespace SSPD.ObjectsTN
             EC.ShowDialog();
 
             //объект создан - добавляем в дерево
-            if (EC.FlSave == true)
+            if (EC.FlSave == true && EC.IDObj != "")
             {
                 if (EC.TypeObj == "Place")
                 {

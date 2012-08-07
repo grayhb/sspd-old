@@ -38,7 +38,9 @@ namespace SSPD
 
             this.Opacity = 1;
 
-            FTP.FtpDownload(Params.ServerFTP.Adress, FTP.GetFileName(28,"31"));
+            //FTP.FtpDownload(Params.ServerFTP.Adress, FTP.GetFileName(28,"31"));
+
+            Console.WriteLine(DB.SetQuotes("Test '213' \" "));
         }
 
         /// <summary>
