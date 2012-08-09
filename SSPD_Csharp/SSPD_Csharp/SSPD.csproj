@@ -85,16 +85,22 @@
     <Compile Include="Forms\Cfg\InputPassword.Designer.cs">
       <DependentUpon>InputPassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\References\ObjectsTN\EditCard.cs">
+    <Compile Include="Forms\ObjectsTN\EditCard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\References\ObjectsTN\EditCard.Designer.cs">
+    <Compile Include="Forms\ObjectsTN\EditCard.Designer.cs">
       <DependentUpon>EditCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\References\ObjectsTN\List.cs">
+    <Compile Include="Forms\ObjectsTN\Explorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\References\ObjectsTN\List.Designer.cs">
+    <Compile Include="Forms\ObjectsTN\Explorer.Designer.cs">
+      <DependentUpon>Explorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\List.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\List.Designer.cs">
       <DependentUpon>List.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\References\Phones\PhoneApCard.cs">
@@ -180,10 +186,13 @@
     <EmbeddedResource Include="Forms\Cfg\InputPassword.resx">
       <DependentUpon>InputPassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\References\ObjectsTN\EditCard.resx">
+    <EmbeddedResource Include="Forms\ObjectsTN\EditCard.resx">
       <DependentUpon>EditCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\References\ObjectsTN\List.resx">
+    <EmbeddedResource Include="Forms\ObjectsTN\Explorer.resx">
+      <DependentUpon>Explorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ObjectsTN\List.resx">
       <DependentUpon>List.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\References\Phones\PhoneApCard.resx">
