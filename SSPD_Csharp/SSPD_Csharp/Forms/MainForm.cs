@@ -40,7 +40,6 @@ namespace SSPD
 
             //FTP.FtpDownload(Params.ServerFTP.Adress, FTP.GetFileName(28,"31"));
 
-            Console.WriteLine(DB.SetQuotes("Test '213' \" "));
         }
 
         /// <summary>

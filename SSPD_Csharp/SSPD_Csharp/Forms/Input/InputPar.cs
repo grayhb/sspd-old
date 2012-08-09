@@ -27,16 +27,7 @@ namespace SSPD.Input
 
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            GetPar = Par.Text;
-            this.Close();
-        }
+        #region [События элементов формы]
 
         private void InputPar_KeyDown(object sender, KeyEventArgs e)
         {
@@ -47,6 +38,19 @@ namespace SSPD.Input
             }
             else if (e.KeyCode == Keys.Escape)
                 this.Close();
-        }   
+        }
+        
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            GetPar = Par.Text;
+            this.Close();
+        }
+
+        #endregion
     }
 }

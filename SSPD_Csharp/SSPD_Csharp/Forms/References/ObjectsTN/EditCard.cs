@@ -10,6 +10,9 @@ namespace SSPD.ObjectsTN
 {
     public partial class EditCard : Form
     {
+
+        #region [Объявление переменных]
+
         //тип объекта
         public string TypeObj = null;
         //ID объекта
@@ -23,6 +26,10 @@ namespace SSPD.ObjectsTN
         //флаг сохранения карточки
         public bool FlSave = false;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
+
         public EditCard()
         {
             InitializeComponent();
@@ -31,6 +38,8 @@ namespace SSPD.ObjectsTN
 
         private void EditCard_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             //изменяем размеры окна
             switch (TypeObj)
             {
@@ -64,6 +73,7 @@ namespace SSPD.ObjectsTN
             else
                 this.Text = "Карточка редактирования объекта";
 
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -76,6 +86,10 @@ namespace SSPD.ObjectsTN
                 if (TP.Name != TypeObj) TabControl.TabPages.Remove(TP);
             }
         }
+
+        #endregion
+
+        #region [Загрузка данных из БД]
 
         /// <summary>
         /// Загрузка списка ЛПДС
@@ -112,7 +126,7 @@ namespace SSPD.ObjectsTN
             {
                 MN_Name.Text = rs[0]["Name"].ToString();
                 MN_Name.Tag = rs[0]["ID_Org"].ToString();
-                bt_ChangeOrg.Focus();
+                btnChangeOrg.Focus();
             }
         }
 
@@ -159,7 +173,7 @@ namespace SSPD.ObjectsTN
             PlaceStatus.Checked = true;
             checkLPDS.Checked = false;
             comboLPDS.Enabled = false;
-            LPDSAdd.Enabled = false;
+            btnLPDSAdd.Enabled = false;
             Place_Name.Select(0, 0);
             Place_Name.Focus();
 
@@ -201,7 +215,7 @@ namespace SSPD.ObjectsTN
                                     comboLPDS.SelectedIndex = i;
                                     checkLPDS.Checked = true;
                                     comboLPDS.Enabled = true;
-                                    LPDSAdd.Enabled = true;
+                                    btnLPDSAdd.Enabled = true;
                                     break;
                                 }
                             }
@@ -243,6 +257,10 @@ namespace SSPD.ObjectsTN
                 }
             }
         }
+
+        #endregion
+
+        #region [Сохранение данных]
 
         /// <summary>
         /// Сохранение 
@@ -403,17 +421,37 @@ namespace SSPD.ObjectsTN
             this.Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        #endregion
+
+        #region [Обработка событий элементов формы]
+
+        private void EditCard_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F2) SaveObjects();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveObjects();
+        }
+
+        private void mbtnSave_Click(object sender, EventArgs e)
+        {
+            SaveObjects();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void bt_ChangeOrg_Click(object sender, EventArgs e)
+        
+        private void btnChangeOrg_Click(object sender, EventArgs e)
         {
             SSPD.Select.Orgs Org = new SSPD.Select.Orgs();
             Org.means = 5;
@@ -425,18 +463,7 @@ namespace SSPD.ObjectsTN
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            SaveObjects();
-        }
-
-        private void EditCard_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)  this.Close();
-            if (e.KeyCode == Keys.F2) SaveObjects();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLPDSAdd_Click(object sender, EventArgs e)
         {
             EditCard ec = new EditCard();
             ec.IDObj = Place_RNU.Tag.ToString();
@@ -452,20 +479,23 @@ namespace SSPD.ObjectsTN
                 comboLPDS.SelectedIndex = comboLPDS.Items.Count - 1;
             }
         }
-
+        
         private void checkLPDS_CheckStateChanged(object sender, EventArgs e)
         {
             if (checkLPDS.Checked == true)
             {
                 comboLPDS.Enabled = true;
-                LPDSAdd.Enabled = true;
+                btnLPDSAdd.Enabled = true;
                 if (comboLPDS.Items.Count == 0) LoadListLPDS();
             }
             else
             {
                 comboLPDS.Enabled = false;
-                LPDSAdd.Enabled = false;
+                btnLPDSAdd.Enabled = false;
             }
         }
+
+        #endregion
+
     }
 }

@@ -10,13 +10,13 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 
-
 namespace SSPD
 {
-
-
     public partial class WorkersSprav : Form
     {
+
+        #region [Объявление переменных]
+
         //флаг поиска
         private bool FlSearchStop = true;
         //индекс последнего найденного работника
@@ -27,6 +27,10 @@ namespace SSPD
         //данные всех сотрудников
         private DataRowCollection DRCWorkers;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
+
         public WorkersSprav()
         {
             InitializeComponent();
@@ -34,8 +38,6 @@ namespace SSPD
             StrFind.KeyDown +=new KeyEventHandler(StrFind_KeyDown);
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
-
-            
         }
 
         private void WorkersSprav_Load(object sender, EventArgs e)
@@ -52,46 +54,9 @@ namespace SSPD
             Cursor.Current = Cursors.Default;
         }
 
-        private void WorkersSprav_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape) this.Close();
-            if (e.KeyCode == Keys.F7) searchInTree(treeSGTP);
-        }
-        
+        #endregion
 
-        /// <summary>
-        /// Событие при потери фокуса из строки поиска
-        /// </summary>
-        private void StrFind_LostFocus(object sender, EventArgs e)
-        {
-            if (StrFind.Text == "")
-            {
-                StrFind.Text = Params.StrFindLabel;
-                StrFind.ForeColor = Color.DarkGray;
-            }
-        }
-
-        /// <summary>
-        /// Фокус в строке поиска
-        /// </summary>
-        private void StrFind_GotFocus(object sender, EventArgs e)
-        {
-            if (StrFind.Text == Params.StrFindLabel)
-            {
-                StrFind.Text = "";
-                StrFind.ForeColor = Color.Black;
-            }
-        }
-
-        /// <summary>
-        /// Ловим нажатия клавиш в поле поиска
-        /// </summary>
-        /// <param name="e"></param>
-        private void StrFind_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) searchInTree(treeSGTP);
-        }
-
+        #region [Загрузка данных из БД]
 
         /// <summary>
         /// Загрузка всех данных сотрудников
@@ -121,7 +86,6 @@ namespace SSPD
             DRCWorkers= DB.GetFields(SqlStr);
         }
 
-
         /// <summary>
         /// Загрузка название отделов в дерево
         /// </summary>
@@ -149,8 +113,6 @@ namespace SSPD
             }
 
         }
-
-
 
         /// <summary>
         /// Загрузка списка работников в указанную Ноду
@@ -239,7 +201,6 @@ namespace SSPD
 
         }
 
-
         /// <summary>
         /// Загрузка групп отдела
         /// </summary>
@@ -266,25 +227,14 @@ namespace SSPD
         }
 
         /// <summary>
-        /// Событие после выбора работника в дереве
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void treeSGTP_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (treeSGTP.SelectedNode.Tag == null) return;
-            Hashtable HT = (Hashtable)treeSGTP.SelectedNode.Tag;
-            LoadWorkerDetail(HT["ID_Worker"].ToString());
-        }
-
-
-        /// <summary>
         /// Загрузка сведений о работнике
         /// </summary>
         /// <param name="IDW">ID работника</param>
         private void LoadWorkerDetail(string IDW)
         {
-            string SqlStr = "";
+            Cursor.Current = Cursors.WaitCursor;
+
+            
             DataRowCollection rs = null;
             DataRow dr = null;
             foreach (DataRow tmpdr in DRCWorkers)
@@ -295,7 +245,7 @@ namespace SSPD
                     break;
                 }
             }
-            
+
             //Основные сведения
             FWorker.Text = dr["F_Worker"].ToString();
             NWorker.Text = dr["N_Worker"].ToString();
@@ -338,15 +288,17 @@ namespace SSPD
 
             IPPhoneNamber.Text = dr["IPPhoneNamber"].ToString().Length > 0 ? dr["IPPhoneNamber"].ToString() : "";
 
-            SqlStr = "SELECT PhoneMov.ID_Sim, PhoneSim.ANamber, PhoneMov.TUse"
-                    + " FROM PhoneMov INNER JOIN"
-                    + " PhoneSim ON PhoneMov.ID_Sim = PhoneSim.ID_Sim"
-                    + " Where (PhoneMov.DateTimeInp Is Null) And (PhoneMov.ID_Worker = " + IDW + ")";
+            string SqlStr = "SELECT PhoneMov.ID_Sim, PhoneSim.ANamber, PhoneMov.TUse"
+                            + " FROM PhoneMov INNER JOIN"
+                            + " PhoneSim ON PhoneMov.ID_Sim = PhoneSim.ID_Sim"
+                            + " Where (PhoneMov.DateTimeInp Is Null) And (PhoneMov.ID_Worker = " + IDW + ")";
             rs = DB.GetFields(SqlStr);
-            if (rs.Count>0)
+            if (rs.Count > 0)
                 ANamber.Text = rs[0]["ANamber"].ToString().Length > 0 ? rs[0]["ANamber"].ToString() : "";
 
             ViewFoto(dr["ID_Worker"].ToString());
+
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -368,6 +320,10 @@ namespace SSPD
             else
                 Foto.Image = Foto.ErrorImage;
         }
+
+        #endregion 
+
+        #region [Поиск в дереве]
 
         /// <summary>
         /// Цикл по нодам дерева
@@ -424,18 +380,70 @@ namespace SSPD
             IndexFind = -1;
         }
 
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         // Поиск в дереве
         private void btn_Search_Click(object sender, EventArgs e)
         {
             searchInTree(treeSGTP);
         }
 
+        /// <summary>
+        /// Событие при потери фокуса из строки поиска
+        /// </summary>
+        private void StrFind_LostFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == "")
+            {
+                StrFind.Text = Params.StrFindLabel;
+                StrFind.ForeColor = Color.DarkGray;
+            }
+        }
 
+        /// <summary>
+        /// Фокус в строке поиска
+        /// </summary>
+        private void StrFind_GotFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == Params.StrFindLabel)
+            {
+                StrFind.Text = "";
+                StrFind.ForeColor = Color.Black;
+            }
+        }
+
+        /// <summary>
+        /// Ловим нажатия клавиш в поле поиска
+        /// </summary>
+        /// <param name="e"></param>
+        private void StrFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) searchInTree(treeSGTP);
+        }
+
+        #endregion
+
+        #region [События элементов формы]
+
+        private void WorkersSprav_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F7) searchInTree(treeSGTP);
+        }
+
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Событие после выбора работника в дереве
+        /// </summary>
+        private void treeSGTP_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (treeSGTP.SelectedNode.Tag == null) return;
+            LoadWorkerDetail(((Hashtable)treeSGTP.SelectedNode.Tag)["ID_Worker"].ToString());
+        }
+
+        #endregion
 
     }
 }

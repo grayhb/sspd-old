@@ -34,28 +34,28 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.btnClose = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnDataAdd = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnDataEdit = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnDataDel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnDataSelect = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TopToolStrip = new System.Windows.Forms.ToolStrip();
             this.StrFind = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выбратьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearch = new System.Windows.Forms.ToolStripButton();
+            this.TopMenu = new System.Windows.Forms.MenuStrip();
+            this.mbtnOperation = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.записиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnData = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnDataAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnDataEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnDataDel = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
-            this.statusStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.BottomStatusStrip.SuspendLayout();
+            this.TopToolStrip.SuspendLayout();
+            this.TopMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGV
@@ -123,105 +123,105 @@
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             // 
-            // statusStrip1
+            // BottomStatusStrip
             // 
-            this.statusStrip1.AutoSize = false;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 448);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(792, 25);
-            this.statusStrip1.TabIndex = 13;
-            this.statusStrip1.Text = "statusStrip1";
+            this.BottomStatusStrip.AutoSize = false;
+            this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnClose,
+            this.btnDataAdd,
+            this.btnDataEdit,
+            this.btnDataDel,
+            this.btnDataSelect});
+            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 448);
+            this.BottomStatusStrip.Name = "BottomStatusStrip";
+            this.BottomStatusStrip.Size = new System.Drawing.Size(792, 25);
+            this.BottomStatusStrip.TabIndex = 13;
+            this.BottomStatusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // btnClose
             // 
-            this.toolStripStatusLabel1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.btnClose.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(95, 22);
-            this.toolStripStatusLabel1.Text = "Закрыть [ESC]";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            this.btnClose.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.btnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClose.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnClose.Size = new System.Drawing.Size(95, 22);
+            this.btnClose.Text = "Закрыть [ESC]";
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // toolStripStatusLabel2
+            // btnDataAdd
             // 
-            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.btnDataAdd.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(99, 22);
-            this.toolStripStatusLabel2.Text = "Добавить [INS]";
-            this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
+            this.btnDataAdd.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.btnDataAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDataAdd.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.btnDataAdd.Name = "btnDataAdd";
+            this.btnDataAdd.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnDataAdd.Size = new System.Drawing.Size(99, 22);
+            this.btnDataAdd.Text = "Добавить [INS]";
+            this.btnDataAdd.Click += new System.EventHandler(this.btnDataAdd_Click);
             // 
-            // toolStripStatusLabel3
+            // btnDataEdit
             // 
-            this.toolStripStatusLabel3.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.btnDataEdit.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(112, 22);
-            this.toolStripStatusLabel3.Text = "Изменить [ENTER]";
-            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
+            this.btnDataEdit.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.btnDataEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDataEdit.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.btnDataEdit.Name = "btnDataEdit";
+            this.btnDataEdit.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnDataEdit.Size = new System.Drawing.Size(112, 22);
+            this.btnDataEdit.Text = "Изменить [ENTER]";
+            this.btnDataEdit.Click += new System.EventHandler(this.btnDataEdit_Click);
             // 
-            // toolStripStatusLabel4
+            // btnDataDel
             // 
-            this.toolStripStatusLabel4.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.btnDataDel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel4.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel4.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(94, 22);
-            this.toolStripStatusLabel4.Text = "Удалить [DEL]";
-            this.toolStripStatusLabel4.Click += new System.EventHandler(this.toolStripStatusLabel4_Click);
+            this.btnDataDel.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.btnDataDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDataDel.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.btnDataDel.Name = "btnDataDel";
+            this.btnDataDel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnDataDel.Size = new System.Drawing.Size(94, 22);
+            this.btnDataDel.Text = "Удалить [DEL]";
+            this.btnDataDel.Click += new System.EventHandler(this.btnDataDel_Click);
             // 
-            // toolStripStatusLabel5
+            // btnDataSelect
             // 
-            this.toolStripStatusLabel5.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.btnDataSelect.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel5.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel5.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(108, 22);
-            this.toolStripStatusLabel5.Text = "Выбрать [ENTER]";
-            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
+            this.btnDataSelect.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.btnDataSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDataSelect.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.btnDataSelect.Name = "btnDataSelect";
+            this.btnDataSelect.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.btnDataSelect.Size = new System.Drawing.Size(108, 22);
+            this.btnDataSelect.Text = "Выбрать [ENTER]";
+            this.btnDataSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // toolStrip1
+            // TopToolStrip
             // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TopToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.TopToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StrFind,
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.ShowItemToolTips = false;
-            this.toolStrip1.Size = new System.Drawing.Size(792, 33);
-            this.toolStrip1.TabIndex = 12;
-            this.toolStrip1.Text = "toolStrip1";
+            this.btnSearch});
+            this.TopToolStrip.Location = new System.Drawing.Point(0, 24);
+            this.TopToolStrip.Name = "TopToolStrip";
+            this.TopToolStrip.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
+            this.TopToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.TopToolStrip.ShowItemToolTips = false;
+            this.TopToolStrip.Size = new System.Drawing.Size(792, 33);
+            this.TopToolStrip.TabIndex = 12;
+            this.TopToolStrip.Text = "toolStrip1";
             // 
             // StrFind
             // 
@@ -232,91 +232,90 @@
             this.StrFind.Size = new System.Drawing.Size(300, 23);
             this.StrFind.Text = "Введите строку для поиска";
             // 
-            // toolStripButton1
+            // btnSearch
             // 
-            this.toolStripButton1.Image = global::SSPD.Properties.Resources.binocular_small;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(80, 20);
-            this.toolStripButton1.Text = "найти [F7]";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnSearch.Image = global::SSPD.Properties.Resources.binocular_small;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(80, 20);
+            this.btnSearch.Text = "найти [F7]";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // menuStrip1
+            // TopMenu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.операцииToolStripMenuItem,
-            this.записиToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(792, 24);
-            this.menuStrip1.TabIndex = 10;
-            this.menuStrip1.Text = "menuStrip1";
+            this.TopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mbtnOperation,
+            this.mbtnData});
+            this.TopMenu.Location = new System.Drawing.Point(0, 0);
+            this.TopMenu.Name = "TopMenu";
+            this.TopMenu.Size = new System.Drawing.Size(792, 24);
+            this.TopMenu.TabIndex = 10;
+            this.TopMenu.Text = "menuStrip1";
             // 
-            // операцииToolStripMenuItem
+            // mbtnOperation
             // 
-            this.операцииToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выбратьToolStripMenuItem,
+            this.mbtnOperation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.mbtnOperation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mbtnSelect,
             this.toolStripSeparator1,
-            this.выходToolStripMenuItem});
-            this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
-            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.операцииToolStripMenuItem.Text = "Операции";
+            this.mbtnClose});
+            this.mbtnOperation.Name = "mbtnOperation";
+            this.mbtnOperation.Size = new System.Drawing.Size(69, 20);
+            this.mbtnOperation.Text = "Операции";
             // 
-            // выбратьToolStripMenuItem
+            // mbtnSelect
             // 
-            this.выбратьToolStripMenuItem.Name = "выбратьToolStripMenuItem";
-            this.выбратьToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.выбратьToolStripMenuItem.Text = "Выбрать";
-            this.выбратьToolStripMenuItem.Click += new System.EventHandler(this.выбратьToolStripMenuItem_Click);
+            this.mbtnSelect.Name = "mbtnSelect";
+            this.mbtnSelect.Size = new System.Drawing.Size(155, 22);
+            this.mbtnSelect.Text = "Выбрать";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
-            // выходToolStripMenuItem
+            // mbtnClose
             // 
-            this.выходToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.выходToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.выходToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.ShortcutKeyDisplayString = "ESC";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.выходToolStripMenuItem.Text = "Закрыть";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.mbtnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.mbtnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.mbtnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mbtnClose.Name = "mbtnClose";
+            this.mbtnClose.ShortcutKeyDisplayString = "ESC";
+            this.mbtnClose.Size = new System.Drawing.Size(155, 22);
+            this.mbtnClose.Text = "Закрыть";
+            this.mbtnClose.Click += new System.EventHandler(this.mbtnClose_Click);
             // 
-            // записиToolStripMenuItem
+            // mbtnData
             // 
-            this.записиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.добавитьToolStripMenuItem,
-            this.изменитьToolStripMenuItem,
-            this.удалитьToolStripMenuItem});
-            this.записиToolStripMenuItem.Name = "записиToolStripMenuItem";
-            this.записиToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.записиToolStripMenuItem.Text = "Записи";
+            this.mbtnData.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mbtnDataAdd,
+            this.mbtnDataEdit,
+            this.mbtnDataDel});
+            this.mbtnData.Name = "mbtnData";
+            this.mbtnData.Size = new System.Drawing.Size(54, 20);
+            this.mbtnData.Text = "Записи";
             // 
-            // добавитьToolStripMenuItem
+            // mbtnDataAdd
             // 
-            this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.добавитьToolStripMenuItem.Text = "Добавить";
-            this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.добавитьToolStripMenuItem_Click);
+            this.mbtnDataAdd.Name = "mbtnDataAdd";
+            this.mbtnDataAdd.Size = new System.Drawing.Size(135, 22);
+            this.mbtnDataAdd.Text = "Добавить";
+            this.mbtnDataAdd.Click += new System.EventHandler(this.mbtnDataAdd_Click);
             // 
-            // изменитьToolStripMenuItem
+            // mbtnDataEdit
             // 
-            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.изменитьToolStripMenuItem.Text = "Изменить";
-            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
+            this.mbtnDataEdit.Name = "mbtnDataEdit";
+            this.mbtnDataEdit.Size = new System.Drawing.Size(135, 22);
+            this.mbtnDataEdit.Text = "Изменить";
+            this.mbtnDataEdit.Click += new System.EventHandler(this.mbtnDataEdit_Click);
             // 
-            // удалитьToolStripMenuItem
+            // mbtnDataDel
             // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
-            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            this.mbtnDataDel.Name = "mbtnDataDel";
+            this.mbtnDataDel.Size = new System.Drawing.Size(135, 22);
+            this.mbtnDataDel.Text = "Удалить";
+            this.mbtnDataDel.Click += new System.EventHandler(this.mbtnDataDel_Click);
             // 
             // PhoneInnerList
             // 
@@ -324,23 +323,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 473);
             this.Controls.Add(this.DGV);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.BottomStatusStrip);
+            this.Controls.Add(this.TopToolStrip);
+            this.Controls.Add(this.TopMenu);
             this.KeyPreview = true;
             this.Name = "PhoneInnerList";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Список внутренних абонентов";
+            this.Load += new System.EventHandler(this.PhoneInnerList_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PhoneInnerList_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.BottomStatusStrip.ResumeLayout(false);
+            this.BottomStatusStrip.PerformLayout();
+            this.TopToolStrip.ResumeLayout(false);
+            this.TopToolStrip.PerformLayout();
+            this.TopMenu.ResumeLayout(false);
+            this.TopMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,24 +349,24 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGV;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.StatusStrip BottomStatusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel btnClose;
+        private System.Windows.Forms.ToolStripStatusLabel btnDataAdd;
+        private System.Windows.Forms.ToolStripStatusLabel btnDataEdit;
+        private System.Windows.Forms.ToolStripStatusLabel btnDataDel;
+        private System.Windows.Forms.ToolStripStatusLabel btnDataSelect;
+        private System.Windows.Forms.ToolStrip TopToolStrip;
         private System.Windows.Forms.ToolStripTextBox StrFind;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выбратьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnSearch;
+        private System.Windows.Forms.MenuStrip TopMenu;
+        private System.Windows.Forms.ToolStripMenuItem mbtnOperation;
+        private System.Windows.Forms.ToolStripMenuItem mbtnSelect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem записиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnClose;
+        private System.Windows.Forms.ToolStripMenuItem mbtnData;
+        private System.Windows.Forms.ToolStripMenuItem mbtnDataAdd;
+        private System.Windows.Forms.ToolStripMenuItem mbtnDataEdit;
+        private System.Windows.Forms.ToolStripMenuItem mbtnDataDel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

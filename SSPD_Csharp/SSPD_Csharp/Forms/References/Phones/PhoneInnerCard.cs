@@ -11,11 +11,17 @@ namespace SSPD
     public partial class PhoneInnerCard : Form
     {
 
+        #region [Объявление переменных]
+
         public bool FlSave = false;
         public Dictionary<string, string> GetData = null;
 
         private bool EditMode;
         private string ID_Item;
+        
+        #endregion
+
+        #region [Инициализация и загрузка формы]
 
         public PhoneInnerCard(bool FlEdit, string IDitem)
         {
@@ -24,7 +30,10 @@ namespace SSPD
             ID_Item = IDitem;
             EditMode = FlEdit;
             LoadComboData();
+        }
 
+        private void PhoneInnerCard_Load(object sender, EventArgs e)
+        {
             if (EditMode == false)
             {
                 this.Text = "Добавить нового абонента";
@@ -35,6 +44,10 @@ namespace SSPD
                 LoadData();
             }
         }
+
+        #endregion
+
+        #region [Загрузка и сохранение данных]
 
         private void LoadComboData()
         {
@@ -183,21 +196,27 @@ namespace SSPD
             this.Close();
         }
 
+        #endregion
+
+        #region [События элементов формы]
+
         private void PhoneInnerCard_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.F2) SaveData();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             SaveData();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
 
     }
 }

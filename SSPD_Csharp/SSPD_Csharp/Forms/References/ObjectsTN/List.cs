@@ -12,7 +12,7 @@ namespace SSPD.ObjectsTN
     public partial class List : Form
     {
 
-        #region [Переменные]
+        #region [Объявление переменных]
 
         //Данные объектов
         private DataRowCollection DRC_MN = null;
@@ -35,6 +35,8 @@ namespace SSPD.ObjectsTN
 
         #endregion
 
+        #region [Инициализация и загрузка формы]
+
         public List()
         {
             InitializeComponent();
@@ -46,7 +48,6 @@ namespace SSPD.ObjectsTN
             this.Opacity = 0;
         }
 
-
         private void List_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -56,11 +57,22 @@ namespace SSPD.ObjectsTN
             this.Opacity = 1;
         }
 
+        #endregion
+
+        #region [События элементов формы]
+
         private void List_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.F7) searchInTree(TreeObj);
         }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
 
         #region [Построение дерева объектов]
 
@@ -69,6 +81,8 @@ namespace SSPD.ObjectsTN
         /// </summary>
         private void LoadData()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             string SqlStr = "SELECT dbo.ObjectMN.ID as ID_MN, dbo.Orgs.Name"
                           + " FROM dbo.ObjectMN INNER JOIN "
                           + " dbo.Orgs ON dbo.ObjectMN.ID_Org = dbo.Orgs.ID_Org"
@@ -92,6 +106,8 @@ namespace SSPD.ObjectsTN
             CntLPDS = 0;
             CntRNU = 0;
             CntPlace = 0;
+
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -307,7 +323,22 @@ namespace SSPD.ObjectsTN
 
         #endregion
 
-        #region [Работа с деревом]
+        #region [Управление деревом]
+
+        /// <summary>
+        /// Отправка на обработку сворачивания веток
+        /// </summary>
+        /// <param name="TypeNode">Тип ветки (МН, РНУ, ЛПДС)</param>
+        private void GetCollapse(string TypeNode)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            TreeObj.Visible = false;
+            CollapseTree(TypeNode, TreeObj.Nodes[0]);
+            TreeObj.SelectedNode = TreeObj.Nodes[0];
+            TreeObj.Nodes[0].EnsureVisible();
+            TreeObj.Visible = true;
+            Cursor.Current = Cursors.Default;
+        }
 
         /// <summary>
         /// Свернуть указанную ветку
@@ -333,10 +364,6 @@ namespace SSPD.ObjectsTN
         {
             foreach (TreeNode subTN in TN.Nodes)
             {
-                if (((Hashtable)subTN.Tag)["Type"].ToString() == "MN" && ((Hashtable)subTN.Tag)["ID"].ToString() == "22")
-                {
-                    Console.WriteLine("gocha!");
-                }
                 if (((Hashtable)subTN.Tag)["Type"].ToString() == TypeNode && ((Hashtable)subTN.Tag)["ID"].ToString() == IDNode)
                 {
                     TreeObj.SelectedNode = subTN;
@@ -352,30 +379,26 @@ namespace SSPD.ObjectsTN
 
         private void свернутьВеткиМНToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CollapseTree("MN", TreeObj.Nodes[0]);
-            TreeObj.SelectedNode = TreeObj.Nodes[0];
-            TreeObj.Nodes[0].EnsureVisible();
+            GetCollapse("MN");
         }
 
         private void свернутьВеткиРНУToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CollapseTree("RNU", TreeObj.Nodes[0]);
-            TreeObj.SelectedNode = TreeObj.Nodes[0];
-            TreeObj.Nodes[0].EnsureVisible();
+            GetCollapse("RNU");
         }
 
         private void свернутьВеткиЛПДСToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CollapseTree("LPDS", TreeObj.Nodes[0]);
-            TreeObj.SelectedNode = TreeObj.Nodes[0];
-            TreeObj.Nodes[0].EnsureVisible();
+            GetCollapse("LPDS");
         }
 
         private void раскрытьВсеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TreeObj.Visible = false;
             TreeObj.ExpandAll();
             TreeObj.SelectedNode = TreeObj.Nodes[0];
             TreeObj.Nodes[0].EnsureVisible();
+            TreeObj.Visible = true;
         }
 
         #endregion
@@ -432,11 +455,6 @@ namespace SSPD.ObjectsTN
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            searchInTree(TreeObj);
-        }
-
         private void StrFind_LostFocus(object sender, EventArgs e)
         {
             if (StrFind.Text == "")
@@ -458,6 +476,11 @@ namespace SSPD.ObjectsTN
         private void StrFind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) searchInTree(TreeObj);
+        }
+
+        private void btn_Search_Click(object sender, EventArgs e)
+        {
+            searchInTree(TreeObj);
         }
 
         #endregion
@@ -663,7 +686,6 @@ namespace SSPD.ObjectsTN
         }
 
         #endregion
-
-
+       
     }
 }

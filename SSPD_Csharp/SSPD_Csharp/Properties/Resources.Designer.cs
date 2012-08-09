@@ -67,6 +67,13 @@ namespace SSPD.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap DeleteFoto {
+            get {
+                object obj = ResourceManager.GetObject("DeleteFoto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LineSeparator {
             get {
                 object obj = ResourceManager.GetObject("LineSeparator", resourceCulture);

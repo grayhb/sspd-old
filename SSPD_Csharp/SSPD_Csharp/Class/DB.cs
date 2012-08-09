@@ -19,9 +19,7 @@ namespace SSPD
         public static string SetQuotes(string SqlStr)
         {
             SqlStr = System.Text.RegularExpressions.Regex.Replace(SqlStr, "[']", ((char)34).ToString());
-           // SqlStr = System.Text.RegularExpressions.Regex.Replace(SqlStr, "[" + ((char)34).ToString()+"]", @"\\" + ((char)34).ToString());
 
-            Console.WriteLine(SqlStr);
             return SqlStr;
         }
 
@@ -224,7 +222,6 @@ namespace SSPD
                 SqlValues += string.Format("'{0}'", kvp.Value);
             }
             SqlStr += SqlColumns + ", " + ByteFieldName+ ") " + SqlValues + ", ?)";
-            Console.WriteLine(SqlStr);
             OleDbConnection Conn = new OleDbConnection("Provider=SQLOLEDB;" + Params.ConString);
             OleDbCommand dbCommand = new OleDbCommand(SqlStr, Conn);
             Conn.Open();

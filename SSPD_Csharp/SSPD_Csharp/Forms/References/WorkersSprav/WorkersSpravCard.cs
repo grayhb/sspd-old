@@ -11,6 +11,9 @@ namespace SSPD
 {
     public partial class WorkersSpravCard : Form
     {
+
+        #region [Объявление переменных]
+
         //ID сотрудника
         public string IDW = "";
         //флаг успешного сохранения данных
@@ -24,25 +27,25 @@ namespace SSPD
         //массив табов
         private TabPage[] myTabPage = null;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
+
         public WorkersSpravCard(string IDWorker)
         {
             InitializeComponent();
 
-            //события:
-            this.KeyDown +=new KeyEventHandler(WorkersSpravCard_KeyDown);
-            Foto.MouseDoubleClick +=new MouseEventHandler(Foto_MouseDoubleClick);
-            //----
             if (IDWorker != null) IDW = IDWorker;
-        }
-
-
-        private void WorkersSpravCard_Load(object sender, EventArgs e)
-        {
 
             //сохраняем закладки в массив
             myTabPage = new TabPage[tabControl1.TabPages.Count];
             for (int i = 0; i < tabControl1.TabPages.Count; i++)
                 myTabPage[i] = tabControl1.TabPages[i];
+        }
+
+        private void WorkersSpravCard_Load(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
 
             //Должности
             LoadNPost();
@@ -83,179 +86,17 @@ namespace SSPD
                 ID_WorkerLabel.Visible = false;
                 ID_Worker.Visible = false;
                 Foto.Visible = false;
-                FotoAdd.Visible = false;
+                btnFotoAdd.Visible = false;
                 tabControl1.TabPages.Remove(tabPage2);
                 tabControl1.TabPages.Remove(tabPage3);
-            } 
+            }
+
+            Cursor.Current = Cursors.Default;
         }
 
-        private void WorkersSpravCard_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape) this.Close(); 
-            if (e.KeyCode == Keys.F2) SaveCard();
-        }
+        #endregion
 
-
-        private void SaveCard()
-        {
-            if (CheckFields() == false) return;
-
-            Dictionary<string, string> DataSet;
-
-            if (doSaveDetails == true)
-            {   //основные данные:
-                DataSet = new Dictionary<string, string>();
-                DataSet.Add("F_Worker", FWorker.Text);
-                DataSet.Add("N_Worker", NWorker.Text);
-                DataSet.Add("P_Worker", PWorker.Text);
-                DataSet.Add("I_Worker", IWorker.Text);
-                DataSet.Add("ID_Post", ((SSPDUI.ComboType)Posts.SelectedItem).ID_Item.ToString());
-                DataSet.Add("ID_Otdel", ((SSPDUI.ComboType)Otdel.SelectedItem).ID_Item.ToString());
-                DataSet.Add("Fl_Rel", Status.SelectedIndex.ToString());
-                DataSet.Add("PersonIndexDP", IndexDP.Text);
-                DataSet.Add("Login", Login.Text);   //сетевые настройки:
-                if (IDW != "")
-                    //обновляем основные данные
-                    DB.SetFields(DataSet, "Workers", "ID_Worker = " + IDW);
-                else
-                {
-                    //новый сотрудник
-                    var rs = DB.GetFields("SELECT ISNULL(MAX(ID_Worker), 0) + 1 AS NewID From Workers");
-                    IDW =(Convert.ToInt32(rs[0]["NewID"]) + 1).ToString();
-                    DataSet.Add("ID_Worker", IDW);
-                    DB.InsertRow(DataSet, "Workers");
-                    if (Params.UserInfo.RightUser.ToUpper() != "ADMINKADR")
-                    {
-                        tabControl1.TabPages.Clear();
-                        tabControl1.TabPages.AddRange(myTabPage);
-                    }
-                    Foto.Visible = true;
-                    FotoAdd.Visible = true;
-                    ID_Worker.Text = IDW;
-                    ID_Worker.Visible = true;
-                    ID_WorkerLabel.Visible = true;
-                    return;
-                }
-                doSaveDetails = false;
-            }
-
-            if (doSavePhones == true)
-            {   //телефоны:
-                //если имеются данные о выбранном IP Phone у других сотрудников, очищаем
-                if (IPPhoneNamber.Tag != null)
-                {
-                    if (IPPhoneNamber.Tag.ToString() != "0")
-                    {
-                        DataSet = new Dictionary<string, string>();
-                        DataSet.Add("ID_IPPhone", "");
-                        DB.SetFields(DataSet, "WorkersExt", "ID_IPPhone = " + IPPhoneNamber.Tag.ToString());
-                    }
-                }
-                //удаление записи сотрудника из таблицы WorkersExt
-                DB.DeleteRow("WorkersExt", "ID_Worker = " + IDW);
-                //сохраняем данные телефонов
-                if (PhoneInnerM.Tag != null || PhoneInnerA.Tag != null || IPPhoneNamber.Tag != null)
-                {
-                    DataSet = new Dictionary<string, string>();
-                    DataSet.Add("ID_Worker", IDW);
-
-                    if (PhoneInnerM.Tag == null)
-                    {
-                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInner", PhoneInnerA.Tag.ToString());
-                    }
-                    else
-                    {
-                        if (PhoneInnerM.Tag != null) DataSet.Add("PhoneInner", PhoneInnerM.Tag.ToString());
-                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInnerAdd", PhoneInnerA.Tag.ToString());
-                    }
-                    if (IPPhoneNamber.Tag != null) DataSet.Add("ID_IPPhone", IPPhoneNamber.Tag.ToString());
-                    DB.InsertRow(DataSet, "WorkersExt");
-                }
-                doSavePhones = false;
-            }
-
-
-            //фотография
-            if (doSaveFoto == true)
-            {
-                if (Foto.Image==Foto.ErrorImage)
-                {
-                    DB.DeleteRow("WorkersPhoto", "ID_Worker = " + IDW);
-                }
-                else
-                {
-                    byte[] imageArray;
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        //сохраняем изображение в массив байтов
-                        Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        imageArray = ms.ToArray();
-                    }
-
-                    var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
-                    if (rs.Count > 0)
-                    {
-                        //обновление
-                        DB.SetByteField(imageArray, "WorkersPhoto", "Photo_Worker", "ID_Worker = " + IDW);
-                    }
-                    else
-                    {
-                        //создание
-                        DataSet = new Dictionary<string, string>();
-                        DataSet.Add("ID_Worker", IDW);
-                        DB.InsertByteRow(DataSet, imageArray, "Photo_Worker", "WorkersPhoto");
-                    }
-                }
-                doSaveFoto = false;
-            }
-
-            FlSave = true;
-            this.Close();
-        }
-
-
-        /// <summary>
-        /// Проверка заполнения обязательных полей
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckFields()
-        {
-            if (FWorker.Text.Length == 0)
-            {
-                SSPDUI.MsgEx("Не указана фамилия сотрудника", "Остановка сохранения");
-                tabControl1.SelectedTab = tabPage1;
-                FWorker.Focus();
-                return false;
-            } else if (NWorker.Text.Length == 0) {
-                SSPDUI.MsgEx("Не указано имя сотрудника", "Остановка сохранения");
-                tabControl1.SelectedTab = tabPage1;
-                NWorker.Focus();
-                return false;
-            }
-            else if (IWorker.Text.Length == 0)
-            {
-                SSPDUI.MsgEx("Не указаны инициалы сотрудника", "Остановка сохранения");
-                tabControl1.SelectedTab = tabPage1;
-                IWorker.Focus();
-                return false;
-            }
-            else if (Otdel.SelectedIndex == -1)
-            {
-                SSPDUI.MsgEx("Не выбран отдел", "Остановка сохранения");
-                tabControl1.SelectedTab = tabPage1;
-                Otdel.Focus();
-                return false;
-            }
-            else if (Posts.SelectedIndex == -1)
-            {
-                SSPDUI.MsgEx("Не выбрана должность сотрудника", "Остановка сохранения");
-                tabControl1.SelectedTab = tabPage1;
-                Posts.Focus();
-                return false;
-            }
-
-            return true;
-        }
+        #region [Загрузка и отображение данных]
 
         /// <summary>
         /// Загрузка сетевых настроек
@@ -339,7 +180,6 @@ namespace SSPD
 
         }   
 
-
         /// <summary>
         /// Загрузка основных сведений сотрудника
         /// </summary>
@@ -383,7 +223,6 @@ namespace SSPD
             Status.SelectedIndex = Convert.ToInt32(rs[0]["Fl_Rel"].ToString());
         }
 
-
         /// <summary>
         /// Загрузка списка статусов
         /// </summary>
@@ -418,7 +257,6 @@ namespace SSPD
             }
         }
 
-
         /// <summary>
         /// Загрузка списка должностей
         /// </summary>
@@ -439,13 +277,12 @@ namespace SSPD
             }
         }
 
-
         /// <summary>
         /// Запись в файла фотографии и показ на форме
         /// </summary>
         private void ViewFoto()
         {
-            FotoDelete.Visible = false;
+            btnFotoDelete.Visible = false;
             var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
             if (rs.Count == 0) return;
             DataRow dr = rs[0];
@@ -455,11 +292,10 @@ namespace SSPD
             {
                 ms.Write(arrByte, 0, arrByte.Length);
                 Foto.Image = Image.FromStream(ms, true);
-                FotoAdd.Text = "изменить фотографию";
-                FotoDelete.Visible = true;
+                btnFotoAdd.Text = "изменить фотографию";
+                btnFotoDelete.Visible = true;
             }
         }
-
 
         /// <summary>
         /// Выбор фотографии
@@ -478,36 +314,316 @@ namespace SSPD
                 thumb.Save(Path.ChangeExtension(OFD.FileName, "thumb"));
 
                 Foto.Image = thumb;
-                FotoAdd.Text = "изменить фотографию";
-                FotoDelete.Visible = true;
+                btnFotoAdd.Text = "изменить фотографию";
+                btnFotoDelete.Visible = true;
                 doSaveFoto = true;
             }
 
         }
 
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        #endregion
+
+        #region [Проверка и сохранение данных]
+
+        /// <summary>
+        /// Сохранение данных карточки
+        /// </summary>
+        private void SaveCard()
+        {
+            if (CheckFields() == false) return;
+
+            Dictionary<string, string> DataSet;
+
+            if (doSaveDetails == true)
+            {   //основные данные:
+                DataSet = new Dictionary<string, string>();
+                DataSet.Add("F_Worker", FWorker.Text);
+                DataSet.Add("N_Worker", NWorker.Text);
+                DataSet.Add("P_Worker", PWorker.Text);
+                DataSet.Add("I_Worker", IWorker.Text);
+                DataSet.Add("ID_Post", ((SSPDUI.ComboType)Posts.SelectedItem).ID_Item.ToString());
+                DataSet.Add("ID_Otdel", ((SSPDUI.ComboType)Otdel.SelectedItem).ID_Item.ToString());
+                DataSet.Add("Fl_Rel", Status.SelectedIndex.ToString());
+                DataSet.Add("PersonIndexDP", IndexDP.Text);
+                DataSet.Add("Login", Login.Text);   //сетевые настройки:
+                if (IDW != "")
+                    //обновляем основные данные
+                    DB.SetFields(DataSet, "Workers", "ID_Worker = " + IDW);
+                else
+                {
+                    //новый сотрудник
+                    var rs = DB.GetFields("SELECT ISNULL(MAX(ID_Worker), 0) + 1 AS NewID From Workers");
+                    IDW = (Convert.ToInt32(rs[0]["NewID"]) + 1).ToString();
+                    DataSet.Add("ID_Worker", IDW);
+                    DB.InsertRow(DataSet, "Workers");
+                    if (Params.UserInfo.RightUser.ToUpper() != "ADMINKADR")
+                    {
+                        tabControl1.TabPages.Clear();
+                        tabControl1.TabPages.AddRange(myTabPage);
+                    }
+                    Foto.Visible = true;
+                    btnFotoAdd.Visible = true;
+                    ID_Worker.Text = IDW;
+                    ID_Worker.Visible = true;
+                    ID_WorkerLabel.Visible = true;
+                    return;
+                }
+                doSaveDetails = false;
+            }
+
+            if (doSavePhones == true)
+            {   //телефоны:
+                //если имеются данные о выбранном IP Phone у других сотрудников, очищаем
+                if (IPPhoneNamber.Tag != null)
+                {
+                    if (IPPhoneNamber.Tag.ToString() != "0")
+                    {
+                        DataSet = new Dictionary<string, string>();
+                        DataSet.Add("ID_IPPhone", "");
+                        DB.SetFields(DataSet, "WorkersExt", "ID_IPPhone = " + IPPhoneNamber.Tag.ToString());
+                    }
+                }
+                //удаление записи сотрудника из таблицы WorkersExt
+                DB.DeleteRow("WorkersExt", "ID_Worker = " + IDW);
+                //сохраняем данные телефонов
+                if (PhoneInnerM.Tag != null || PhoneInnerA.Tag != null || IPPhoneNamber.Tag != null)
+                {
+                    DataSet = new Dictionary<string, string>();
+                    DataSet.Add("ID_Worker", IDW);
+
+                    if (PhoneInnerM.Tag == null)
+                    {
+                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInner", PhoneInnerA.Tag.ToString());
+                    }
+                    else
+                    {
+                        if (PhoneInnerM.Tag != null) DataSet.Add("PhoneInner", PhoneInnerM.Tag.ToString());
+                        if (PhoneInnerA.Tag != null) DataSet.Add("PhoneInnerAdd", PhoneInnerA.Tag.ToString());
+                    }
+                    if (IPPhoneNamber.Tag != null) DataSet.Add("ID_IPPhone", IPPhoneNamber.Tag.ToString());
+                    DB.InsertRow(DataSet, "WorkersExt");
+                }
+                doSavePhones = false;
+            }
+
+
+            //фотография
+            if (doSaveFoto == true)
+            {
+                if (Foto.Image == Foto.ErrorImage)
+                {
+                    DB.DeleteRow("WorkersPhoto", "ID_Worker = " + IDW);
+                }
+                else
+                {
+                    byte[] imageArray;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        //сохраняем изображение в массив байтов
+                        Foto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        imageArray = ms.ToArray();
+                    }
+
+                    var rs = DB.GetFields("SELECT ID_Worker, Photo_Worker From WorkersPhoto Where ID_Worker = " + IDW);
+                    if (rs.Count > 0)
+                    {
+                        //обновление
+                        DB.SetByteField(imageArray, "WorkersPhoto", "Photo_Worker", "ID_Worker = " + IDW);
+                    }
+                    else
+                    {
+                        //создание
+                        DataSet = new Dictionary<string, string>();
+                        DataSet.Add("ID_Worker", IDW);
+                        DB.InsertByteRow(DataSet, imageArray, "Photo_Worker", "WorkersPhoto");
+                    }
+                }
+                doSaveFoto = false;
+            }
+
+            FlSave = true;
+            this.Close();
+        }
+
+        /// <summary>
+        /// Проверка заполнения обязательных полей
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckFields()
+        {
+            if (FWorker.Text.Length == 0)
+            {
+                SSPDUI.MsgEx("Не указана фамилия сотрудника", "Остановка сохранения");
+                tabControl1.SelectedTab = tabPage1;
+                FWorker.Focus();
+                return false;
+            }
+            else if (NWorker.Text.Length == 0)
+            {
+                SSPDUI.MsgEx("Не указано имя сотрудника", "Остановка сохранения");
+                tabControl1.SelectedTab = tabPage1;
+                NWorker.Focus();
+                return false;
+            }
+            else if (IWorker.Text.Length == 0)
+            {
+                SSPDUI.MsgEx("Не указаны инициалы сотрудника", "Остановка сохранения");
+                tabControl1.SelectedTab = tabPage1;
+                IWorker.Focus();
+                return false;
+            }
+            else if (Otdel.SelectedIndex == -1)
+            {
+                SSPDUI.MsgEx("Не выбран отдел", "Остановка сохранения");
+                tabControl1.SelectedTab = tabPage1;
+                Otdel.Focus();
+                return false;
+            }
+            else if (Posts.SelectedIndex == -1)
+            {
+                SSPDUI.MsgEx("Не выбрана должность сотрудника", "Остановка сохранения");
+                tabControl1.SelectedTab = tabPage1;
+                Posts.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region [События элементов формы]
+
+        private void WorkersSpravCard_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F2) SaveCard();
+        }
+
+        private void WorkersSpravCard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (doSaveDetails == true || doSaveFoto == true || doSavePhones == true)
+            {
+                if (MessageBox.Show("Сохранить изменения?", "Карточка работника", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    SaveCard();
+                    this.Close();
+                }
+            }
+        }
+
+        private void Status_Click(object sender, EventArgs e)
+        {
+            doSaveDetails = true;
+        }
+
+        private void mbtnSave_Click(object sender, EventArgs e)
+        {
+            SaveCard();
+        }
+
+        private void tbtnSave_Click(object sender, EventArgs e)
+        {
+            SaveCard();
+        }
+        
+        private void mbtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        private void tbtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void FotoAdd_Click(object sender, EventArgs e)
+        private void btnFotoAdd_Click(object sender, EventArgs e)
         {
             SetFoto();
         }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void btnFotoDelete_Click(object sender, EventArgs e)
         {
-            SaveCard();
+            if (MessageBox.Show("Удалить фотографию сотрудника?", "Удаление фотографии", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) return;
+            Foto.Image = Foto.ErrorImage;
+            Foto.ImageLocation = null;
+            btnFotoAdd.Text = "добавить фотографию";
+            btnFotoDelete.Visible = false;
+            doSaveFoto = true;
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnAddPhoneInner_Click(object sender, EventArgs e)
         {
-            SaveCard();
+            PhoneInnerList PIL = new PhoneInnerList(true);
+            PIL.ShowDialog();
+            if (PIL.SelID != "")
+            {
+                  PhoneInnerM.Tag = PIL.SelID;
+                  PhoneInnerM.Text  = PIL.SelPhoneInner;
+                  PhoneTownM.Text  = PIL.SelPhoneTown;
+                  PhoneMATSM.Text  = PIL.SelPhoneMATS;
+                  PhoneGroupM.Text = PIL.SelPhoneGroup;
+                  doSavePhones = true;
+            }
+        }
+
+        private void btnDelPhoneInn_Click(object sender, EventArgs e)
+        {
+            PhoneInnerM.Tag = 0;
+            PhoneInnerM.Text = "";
+            PhoneTownM.Text = "";
+            PhoneMATSM.Text = "";
+            PhoneGroupM.Text = "";
+            doSavePhones = true;
+        }
+
+        private void btnDelPhoneInnerA_Click(object sender, EventArgs e)
+        {
+            PhoneInnerA.Tag = 0;
+            PhoneInnerA.Text = "";
+            PhoneTownA.Text = "";
+            PhoneMATSA.Text = "";
+            PhoneGroupA.Text = "";
+            doSavePhones = true;
+        }
+
+        private void btnAddPhoneInnerA_Click(object sender, EventArgs e)
+        {
+            PhoneInnerList PIL = new PhoneInnerList(true);
+            PIL.ShowDialog();
+            if (PIL.SelID != "")
+            {
+                PhoneInnerA.Tag = PIL.SelID;
+                PhoneInnerA.Text = PIL.SelPhoneInner;
+                PhoneTownA.Text = PIL.SelPhoneTown;
+                PhoneMATSA.Text = PIL.SelPhoneMATS;
+                PhoneGroupA.Text = PIL.SelPhoneGroup;
+                doSavePhones = true;
+            }
+        }
+
+        private void btnDelIPPhone_Click(object sender, EventArgs e)
+        {
+            IPPhoneNamber.Tag = "0";
+            IPPhoneNamber.Text  = "";
+            doSavePhones = true;
+        }
+
+        private void btnAddIPPhone_Click(object sender, EventArgs e)
+        {
+            PhoneIPList PIPL = new PhoneIPList();
+            PIPL.ShowDialog();
+            if (PIPL.SelIDIPPhone.Length > 0)
+            {
+                IPPhoneNamber.Tag = PIPL.SelIDIPPhone;
+                IPPhoneNamber.Text = PIPL.SelIPPhone;
+                doSavePhones = true;
+            }
+        }
+
+        private void Foto_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SetFoto();
         }
 
         private void FWorker_TextChanged(object sender, EventArgs e)
@@ -540,11 +656,6 @@ namespace SSPD
             doSaveDetails = true;
         }
 
-        private void Status_Click(object sender, EventArgs e)
-        {
-            doSaveDetails = true;
-        }
-
         private void IndexDP_TextChanged(object sender, EventArgs e)
         {
             doSaveDetails = true;
@@ -555,105 +666,7 @@ namespace SSPD
             doSaveDetails = true;
         }
 
-
-        private void FotoDelete_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Удалить фотографию сотрудника?", "Удаление фотографии", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.No) return;
-            Foto.Image = Foto.ErrorImage;
-            Foto.ImageLocation = null;
-            FotoAdd.Text = "добавить фотографию";
-            FotoDelete.Visible = false;
-            doSaveFoto = true;
-        }
-
-        private void Foto_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            SetFoto();
-        }
-
-        private void WorkersSpravCard_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (doSaveDetails == true || doSaveFoto == true || doSavePhones == true)
-            {
-                if (MessageBox.Show("Сохранить изменения?", "Карточка работника", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    SaveCard();
-                    this.Close();
-                }
-            }
-        }
-
-        private void AddPhoneInner_Click(object sender, EventArgs e)
-        {
-            PhoneInnerList PIL = new PhoneInnerList(true);
-            PIL.ShowDialog();
-            if (PIL.SelID != "")
-            {
-                  PhoneInnerM.Tag = PIL.SelID;
-                  PhoneInnerM.Text  = PIL.SelPhoneInner;
-                  PhoneTownM.Text  = PIL.SelPhoneTown;
-                  PhoneMATSM.Text  = PIL.SelPhoneMATS;
-                  PhoneGroupM.Text = PIL.SelPhoneGroup;
-                  doSavePhones = true;
-            }
-        }
-
-
-        private void DelPhoneInn_Click(object sender, EventArgs e)
-        {
-            PhoneInnerM.Tag = 0;
-            PhoneInnerM.Text = "";
-            PhoneTownM.Text = "";
-            PhoneMATSM.Text = "";
-            PhoneGroupM.Text = "";
-            doSavePhones = true;
-        }
-
-        private void DelPhoneInnerA_Click(object sender, EventArgs e)
-        {
-            PhoneInnerA.Tag = 0;
-            PhoneInnerA.Text = "";
-            PhoneTownA.Text = "";
-            PhoneMATSA.Text = "";
-            PhoneGroupA.Text = "";
-            doSavePhones = true;
-        }
-
-        private void AddPhoneInnerA_Click(object sender, EventArgs e)
-        {
-            PhoneInnerList PIL = new PhoneInnerList(true);
-            PIL.ShowDialog();
-            if (PIL.SelID != "")
-            {
-                PhoneInnerA.Tag = PIL.SelID;
-                PhoneInnerA.Text = PIL.SelPhoneInner;
-                PhoneTownA.Text = PIL.SelPhoneTown;
-                PhoneMATSA.Text = PIL.SelPhoneMATS;
-                PhoneGroupA.Text = PIL.SelPhoneGroup;
-                doSavePhones = true;
-            }
-        }
-
-        private void DelIPPhone_Click(object sender, EventArgs e)
-        {
-            IPPhoneNamber.Tag = "";
-            IPPhoneNamber.Text  = "";
-            doSavePhones = true;
-        }
-
-        private void AddIPPhone_Click(object sender, EventArgs e)
-        {
-            PhoneIPList PIPL = new PhoneIPList();
-            PIPL.ShowDialog();
-            if (PIPL.SelIDIPPhone.Length > 0)
-            {
-                IPPhoneNamber.Tag = PIPL.SelIDIPPhone;
-                IPPhoneNamber.Text = PIPL.SelIPPhone;
-                doSavePhones = true;
-            }
-        }
-
-
+        #endregion
 
     }
 }

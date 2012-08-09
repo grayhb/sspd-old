@@ -29,16 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkersSpravCard));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.FotoDelete = new System.Windows.Forms.Label();
-            this.FotoAdd = new System.Windows.Forms.Button();
+            this.btnFotoDelete = new System.Windows.Forms.Label();
+            this.btnFotoAdd = new System.Windows.Forms.Button();
             this.IndexDP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Foto = new System.Windows.Forms.PictureBox();
@@ -62,9 +61,9 @@
             this.label38 = new System.Windows.Forms.Label();
             this.ANamber = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.AddIPPhone = new System.Windows.Forms.Button();
+            this.btnAddIPPhone = new System.Windows.Forms.Button();
             this.IPPhoneNamber = new System.Windows.Forms.Label();
-            this.DelIPPhone = new System.Windows.Forms.Button();
+            this.btnDelIPPhone = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.InputCrossMATSA = new System.Windows.Forms.Label();
             this.InputCrossTownA = new System.Windows.Forms.Label();
@@ -72,9 +71,9 @@
             this.ATSCrossTownA = new System.Windows.Forms.Label();
             this.PhoneGroupA = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.AddPhoneInnerA = new System.Windows.Forms.Button();
+            this.btnAddPhoneInnerA = new System.Windows.Forms.Button();
             this.PhoneInnerA = new System.Windows.Forms.Label();
-            this.DelPhoneInnerA = new System.Windows.Forms.Button();
+            this.btnDelPhoneInnerA = new System.Windows.Forms.Button();
             this.PhoneMATSA = new System.Windows.Forms.Label();
             this.PhoneTownA = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
@@ -86,9 +85,9 @@
             this.ATSCrossTownM = new System.Windows.Forms.Label();
             this.PhoneGroupM = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.AddPhoneInner = new System.Windows.Forms.Button();
+            this.btnAddPhoneInner = new System.Windows.Forms.Button();
             this.PhoneInnerM = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnbtnDelPhoneInner = new System.Windows.Forms.Button();
             this.PhoneMATSM = new System.Windows.Forms.Label();
             this.PhoneTownM = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -102,58 +101,58 @@
             this.Status = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.ID_Worker = new System.Windows.Forms.ToolStripTextBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.BottomStrip = new System.Windows.Forms.StatusStrip();
+            this.tbtnClose = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tbtnSave = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.menuStrip1.SuspendLayout();
+            this.TopMenu.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Foto)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.BottomStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // TopMenu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TopMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.операцииToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.TopMenu.Location = new System.Drawing.Point(0, 0);
+            this.TopMenu.Name = "TopMenu";
+            this.TopMenu.Size = new System.Drawing.Size(684, 24);
+            this.TopMenu.TabIndex = 1;
+            this.TopMenu.Text = "menuStrip1";
             // 
             // операцииToolStripMenuItem
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сохранитьToolStripMenuItem,
+            this.mbtnSave,
             this.toolStripSeparator1,
-            this.закрытьToolStripMenuItem});
+            this.mbtnClose});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
             // 
-            // сохранитьToolStripMenuItem
+            // mbtnSave
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            this.mbtnSave.Name = "mbtnSave";
+            this.mbtnSave.Size = new System.Drawing.Size(140, 22);
+            this.mbtnSave.Text = "Сохранить";
+            this.mbtnSave.Click += new System.EventHandler(this.mbtnSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
             // 
-            // закрытьToolStripMenuItem
+            // mbtnClose
             // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.mbtnClose.Name = "mbtnClose";
+            this.mbtnClose.Size = new System.Drawing.Size(140, 22);
+            this.mbtnClose.Text = "Закрыть";
+            this.mbtnClose.Click += new System.EventHandler(this.mbtnClose_Click);
             // 
             // tabControl1
             // 
@@ -172,8 +171,8 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.FotoDelete);
-            this.tabPage1.Controls.Add(this.FotoAdd);
+            this.tabPage1.Controls.Add(this.btnFotoDelete);
+            this.tabPage1.Controls.Add(this.btnFotoAdd);
             this.tabPage1.Controls.Add(this.IndexDP);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.Foto);
@@ -197,35 +196,35 @@
             this.tabPage1.Text = "Основные сведения";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // FotoDelete
+            // btnFotoDelete
             // 
-            this.FotoDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FotoDelete.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.FotoDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FotoDelete.Image = ((System.Drawing.Image)(resources.GetObject("FotoDelete.Image")));
-            this.FotoDelete.Location = new System.Drawing.Point(612, 23);
-            this.FotoDelete.Name = "FotoDelete";
-            this.FotoDelete.Size = new System.Drawing.Size(20, 20);
-            this.FotoDelete.TabIndex = 35;
-            this.toolTip1.SetToolTip(this.FotoDelete, "Удалить фоторгафию сотрудника");
-            this.FotoDelete.Visible = false;
-            this.FotoDelete.Click += new System.EventHandler(this.FotoDelete_Click);
+            this.btnFotoDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFotoDelete.BackColor = System.Drawing.Color.Transparent;
+            this.btnFotoDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFotoDelete.Image = global::SSPD.Properties.Resources.DeleteFoto;
+            this.btnFotoDelete.Location = new System.Drawing.Point(613, 22);
+            this.btnFotoDelete.Name = "btnFotoDelete";
+            this.btnFotoDelete.Size = new System.Drawing.Size(20, 20);
+            this.btnFotoDelete.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.btnFotoDelete, "Удалить фоторгафию сотрудника");
+            this.btnFotoDelete.Visible = false;
+            this.btnFotoDelete.Click += new System.EventHandler(this.btnFotoDelete_Click);
             // 
-            // FotoAdd
+            // btnFotoAdd
             // 
-            this.FotoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FotoAdd.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.FotoAdd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FotoAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.FotoAdd.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FotoAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.FotoAdd.Location = new System.Drawing.Point(504, 197);
-            this.FotoAdd.Name = "FotoAdd";
-            this.FotoAdd.Size = new System.Drawing.Size(130, 24);
-            this.FotoAdd.TabIndex = 32;
-            this.FotoAdd.Text = "добавить фотографию";
-            this.FotoAdd.UseVisualStyleBackColor = false;
-            this.FotoAdd.Click += new System.EventHandler(this.FotoAdd_Click);
+            this.btnFotoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFotoAdd.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnFotoAdd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFotoAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFotoAdd.Font = new System.Drawing.Font("Verdana", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnFotoAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFotoAdd.Location = new System.Drawing.Point(504, 197);
+            this.btnFotoAdd.Name = "btnFotoAdd";
+            this.btnFotoAdd.Size = new System.Drawing.Size(130, 24);
+            this.btnFotoAdd.TabIndex = 32;
+            this.btnFotoAdd.Text = "добавить фотографию";
+            this.btnFotoAdd.UseVisualStyleBackColor = false;
+            this.btnFotoAdd.Click += new System.EventHandler(this.btnFotoAdd_Click);
             // 
             // IndexDP
             // 
@@ -261,6 +260,7 @@
             this.Foto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Foto.TabIndex = 28;
             this.Foto.TabStop = false;
+            this.Foto.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Foto_MouseDoubleClick);
             // 
             // IWorker
             // 
@@ -395,9 +395,9 @@
             this.tabPage2.Controls.Add(this.label38);
             this.tabPage2.Controls.Add(this.ANamber);
             this.tabPage2.Controls.Add(this.label36);
-            this.tabPage2.Controls.Add(this.AddIPPhone);
+            this.tabPage2.Controls.Add(this.btnAddIPPhone);
             this.tabPage2.Controls.Add(this.IPPhoneNamber);
-            this.tabPage2.Controls.Add(this.DelIPPhone);
+            this.tabPage2.Controls.Add(this.btnDelIPPhone);
             this.tabPage2.Controls.Add(this.label34);
             this.tabPage2.Controls.Add(this.InputCrossMATSA);
             this.tabPage2.Controls.Add(this.InputCrossTownA);
@@ -405,9 +405,9 @@
             this.tabPage2.Controls.Add(this.ATSCrossTownA);
             this.tabPage2.Controls.Add(this.PhoneGroupA);
             this.tabPage2.Controls.Add(this.label26);
-            this.tabPage2.Controls.Add(this.AddPhoneInnerA);
+            this.tabPage2.Controls.Add(this.btnAddPhoneInnerA);
             this.tabPage2.Controls.Add(this.PhoneInnerA);
-            this.tabPage2.Controls.Add(this.DelPhoneInnerA);
+            this.tabPage2.Controls.Add(this.btnDelPhoneInnerA);
             this.tabPage2.Controls.Add(this.PhoneMATSA);
             this.tabPage2.Controls.Add(this.PhoneTownA);
             this.tabPage2.Controls.Add(this.label30);
@@ -419,9 +419,9 @@
             this.tabPage2.Controls.Add(this.ATSCrossTownM);
             this.tabPage2.Controls.Add(this.PhoneGroupM);
             this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.AddPhoneInner);
+            this.tabPage2.Controls.Add(this.btnAddPhoneInner);
             this.tabPage2.Controls.Add(this.PhoneInnerM);
-            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.btnbtnDelPhoneInner);
             this.tabPage2.Controls.Add(this.PhoneMATSM);
             this.tabPage2.Controls.Add(this.PhoneTownM);
             this.tabPage2.Controls.Add(this.label12);
@@ -497,20 +497,20 @@
             this.label36.TabIndex = 39;
             this.label36.Text = "Телефон мобильный";
             // 
-            // AddIPPhone
+            // btnAddIPPhone
             // 
-            this.AddIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AddIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddIPPhone.Location = new System.Drawing.Point(274, 204);
-            this.AddIPPhone.Margin = new System.Windows.Forms.Padding(0);
-            this.AddIPPhone.Name = "AddIPPhone";
-            this.AddIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.AddIPPhone.Size = new System.Drawing.Size(23, 23);
-            this.AddIPPhone.TabIndex = 38;
-            this.AddIPPhone.Text = "+";
-            this.AddIPPhone.UseVisualStyleBackColor = true;
-            this.AddIPPhone.Click += new System.EventHandler(this.AddIPPhone_Click);
+            this.btnAddIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAddIPPhone.Location = new System.Drawing.Point(274, 204);
+            this.btnAddIPPhone.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddIPPhone.Name = "btnAddIPPhone";
+            this.btnAddIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnAddIPPhone.Size = new System.Drawing.Size(23, 23);
+            this.btnAddIPPhone.TabIndex = 38;
+            this.btnAddIPPhone.Text = "+";
+            this.btnAddIPPhone.UseVisualStyleBackColor = true;
+            this.btnAddIPPhone.Click += new System.EventHandler(this.btnAddIPPhone_Click);
             // 
             // IPPhoneNamber
             // 
@@ -522,20 +522,20 @@
             this.IPPhoneNamber.TabIndex = 37;
             this.IPPhoneNamber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DelIPPhone
+            // btnDelIPPhone
             // 
-            this.DelIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DelIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DelIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DelIPPhone.Location = new System.Drawing.Point(299, 204);
-            this.DelIPPhone.Margin = new System.Windows.Forms.Padding(0);
-            this.DelIPPhone.Name = "DelIPPhone";
-            this.DelIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.DelIPPhone.Size = new System.Drawing.Size(23, 23);
-            this.DelIPPhone.TabIndex = 36;
-            this.DelIPPhone.Text = "-";
-            this.DelIPPhone.UseVisualStyleBackColor = true;
-            this.DelIPPhone.Click += new System.EventHandler(this.DelIPPhone_Click);
+            this.btnDelIPPhone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelIPPhone.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDelIPPhone.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnDelIPPhone.Location = new System.Drawing.Point(299, 204);
+            this.btnDelIPPhone.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDelIPPhone.Name = "btnDelIPPhone";
+            this.btnDelIPPhone.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnDelIPPhone.Size = new System.Drawing.Size(23, 23);
+            this.btnDelIPPhone.TabIndex = 36;
+            this.btnDelIPPhone.Text = "-";
+            this.btnDelIPPhone.UseVisualStyleBackColor = true;
+            this.btnDelIPPhone.Click += new System.EventHandler(this.btnDelIPPhone_Click);
             // 
             // label34
             // 
@@ -605,20 +605,20 @@
             this.label26.TabIndex = 29;
             this.label26.Text = "Телефон группы (основной)";
             // 
-            // AddPhoneInnerA
+            // btnAddPhoneInnerA
             // 
-            this.AddPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AddPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddPhoneInnerA.Location = new System.Drawing.Point(274, 110);
-            this.AddPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
-            this.AddPhoneInnerA.Name = "AddPhoneInnerA";
-            this.AddPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.AddPhoneInnerA.Size = new System.Drawing.Size(23, 23);
-            this.AddPhoneInnerA.TabIndex = 28;
-            this.AddPhoneInnerA.Text = "+";
-            this.AddPhoneInnerA.UseVisualStyleBackColor = true;
-            this.AddPhoneInnerA.Click += new System.EventHandler(this.AddPhoneInnerA_Click);
+            this.btnAddPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAddPhoneInnerA.Location = new System.Drawing.Point(274, 110);
+            this.btnAddPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddPhoneInnerA.Name = "btnAddPhoneInnerA";
+            this.btnAddPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnAddPhoneInnerA.Size = new System.Drawing.Size(23, 23);
+            this.btnAddPhoneInnerA.TabIndex = 28;
+            this.btnAddPhoneInnerA.Text = "+";
+            this.btnAddPhoneInnerA.UseVisualStyleBackColor = true;
+            this.btnAddPhoneInnerA.Click += new System.EventHandler(this.btnAddPhoneInnerA_Click);
             // 
             // PhoneInnerA
             // 
@@ -630,20 +630,20 @@
             this.PhoneInnerA.TabIndex = 27;
             this.PhoneInnerA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DelPhoneInnerA
+            // btnDelPhoneInnerA
             // 
-            this.DelPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DelPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DelPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DelPhoneInnerA.Location = new System.Drawing.Point(299, 110);
-            this.DelPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
-            this.DelPhoneInnerA.Name = "DelPhoneInnerA";
-            this.DelPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.DelPhoneInnerA.Size = new System.Drawing.Size(23, 23);
-            this.DelPhoneInnerA.TabIndex = 26;
-            this.DelPhoneInnerA.Text = "-";
-            this.DelPhoneInnerA.UseVisualStyleBackColor = true;
-            this.DelPhoneInnerA.Click += new System.EventHandler(this.DelPhoneInnerA_Click);
+            this.btnDelPhoneInnerA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelPhoneInnerA.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDelPhoneInnerA.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnDelPhoneInnerA.Location = new System.Drawing.Point(299, 110);
+            this.btnDelPhoneInnerA.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDelPhoneInnerA.Name = "btnDelPhoneInnerA";
+            this.btnDelPhoneInnerA.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnDelPhoneInnerA.Size = new System.Drawing.Size(23, 23);
+            this.btnDelPhoneInnerA.TabIndex = 26;
+            this.btnDelPhoneInnerA.Text = "-";
+            this.btnDelPhoneInnerA.UseVisualStyleBackColor = true;
+            this.btnDelPhoneInnerA.Click += new System.EventHandler(this.btnDelPhoneInnerA_Click);
             // 
             // PhoneMATSA
             // 
@@ -751,20 +751,20 @@
             this.label16.TabIndex = 15;
             this.label16.Text = "Телефон группы (основной)";
             // 
-            // AddPhoneInner
+            // btnAddPhoneInner
             // 
-            this.AddPhoneInner.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AddPhoneInner.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.AddPhoneInner.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddPhoneInner.Location = new System.Drawing.Point(274, 19);
-            this.AddPhoneInner.Margin = new System.Windows.Forms.Padding(0);
-            this.AddPhoneInner.Name = "AddPhoneInner";
-            this.AddPhoneInner.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.AddPhoneInner.Size = new System.Drawing.Size(23, 23);
-            this.AddPhoneInner.TabIndex = 14;
-            this.AddPhoneInner.Text = "+";
-            this.AddPhoneInner.UseVisualStyleBackColor = true;
-            this.AddPhoneInner.Click += new System.EventHandler(this.AddPhoneInner_Click);
+            this.btnAddPhoneInner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddPhoneInner.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAddPhoneInner.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAddPhoneInner.Location = new System.Drawing.Point(274, 19);
+            this.btnAddPhoneInner.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddPhoneInner.Name = "btnAddPhoneInner";
+            this.btnAddPhoneInner.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnAddPhoneInner.Size = new System.Drawing.Size(23, 23);
+            this.btnAddPhoneInner.TabIndex = 14;
+            this.btnAddPhoneInner.Text = "+";
+            this.btnAddPhoneInner.UseVisualStyleBackColor = true;
+            this.btnAddPhoneInner.Click += new System.EventHandler(this.btnAddPhoneInner_Click);
             // 
             // PhoneInnerM
             // 
@@ -776,20 +776,20 @@
             this.PhoneInnerM.TabIndex = 13;
             this.PhoneInnerM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button3
+            // btnbtnDelPhoneInner
             // 
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(299, 19);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.button3.Size = new System.Drawing.Size(23, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.DelPhoneInn_Click);
+            this.btnbtnDelPhoneInner.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnbtnDelPhoneInner.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnbtnDelPhoneInner.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnbtnDelPhoneInner.Location = new System.Drawing.Point(299, 19);
+            this.btnbtnDelPhoneInner.Margin = new System.Windows.Forms.Padding(0);
+            this.btnbtnDelPhoneInner.Name = "btnbtnDelPhoneInner";
+            this.btnbtnDelPhoneInner.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
+            this.btnbtnDelPhoneInner.Size = new System.Drawing.Size(23, 23);
+            this.btnbtnDelPhoneInner.TabIndex = 12;
+            this.btnbtnDelPhoneInner.Text = "-";
+            this.btnbtnDelPhoneInner.UseVisualStyleBackColor = true;
+            this.btnbtnDelPhoneInner.Click += new System.EventHandler(this.btnDelPhoneInn_Click);
             // 
             // PhoneMATSM
             // 
@@ -919,57 +919,57 @@
             this.ID_Worker.Size = new System.Drawing.Size(75, 21);
             this.ID_Worker.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // statusStrip1
+            // BottomStrip
             // 
-            this.statusStrip1.AutoSize = false;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 372);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(684, 25);
-            this.statusStrip1.TabIndex = 8;
-            this.statusStrip1.Text = "statusStrip1";
+            this.BottomStrip.AutoSize = false;
+            this.BottomStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbtnClose,
+            this.tbtnSave});
+            this.BottomStrip.Location = new System.Drawing.Point(0, 372);
+            this.BottomStrip.Name = "BottomStrip";
+            this.BottomStrip.Size = new System.Drawing.Size(684, 25);
+            this.BottomStrip.TabIndex = 8;
+            this.BottomStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tbtnClose
             // 
-            this.toolStripStatusLabel1.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.tbtnClose.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel1.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(95, 22);
-            this.toolStripStatusLabel1.Text = "Закрыть [ESC]";
-            this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
+            this.tbtnClose.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.tbtnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbtnClose.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.tbtnClose.Name = "tbtnClose";
+            this.tbtnClose.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.tbtnClose.Size = new System.Drawing.Size(95, 22);
+            this.tbtnClose.Text = "Закрыть [ESC]";
+            this.tbtnClose.Click += new System.EventHandler(this.tbtnClose_Click);
             // 
-            // toolStripStatusLabel2
+            // tbtnSave
             // 
-            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+            this.tbtnSave.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(99, 22);
-            this.toolStripStatusLabel2.Text = "Сохранить [F2]";
-            this.toolStripStatusLabel2.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
+            this.tbtnSave.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedInner;
+            this.tbtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tbtnSave.Margin = new System.Windows.Forms.Padding(2, 3, 0, 0);
+            this.tbtnSave.Name = "tbtnSave";
+            this.tbtnSave.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.tbtnSave.Size = new System.Drawing.Size(99, 22);
+            this.tbtnSave.Text = "Сохранить [F2]";
+            this.tbtnSave.Click += new System.EventHandler(this.tbtnSave_Click);
             // 
             // WorkersSpravCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 397);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.BottomStrip);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.TopMenu);
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.TopMenu;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WorkersSpravCard";
@@ -979,8 +979,9 @@
             this.Text = "Карточка работника";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WorkersSpravCard_FormClosing);
             this.Load += new System.EventHandler(this.WorkersSpravCard_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WorkersSpravCard_KeyDown);
+            this.TopMenu.ResumeLayout(false);
+            this.TopMenu.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -991,8 +992,8 @@
             this.tabPage3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.BottomStrip.ResumeLayout(false);
+            this.BottomStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1000,7 +1001,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip TopMenu;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1009,9 +1010,9 @@
         private System.Windows.Forms.ToolStripComboBox Status;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnClose;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox Login;
         private System.Windows.Forms.Label label1;
@@ -1035,9 +1036,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button AddPhoneInner;
+        private System.Windows.Forms.Button btnAddPhoneInner;
         private System.Windows.Forms.Label PhoneInnerM;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnbtnDelPhoneInner;
         private System.Windows.Forms.Label InputCrossMATSM;
         private System.Windows.Forms.Label InputCrossTownM;
         private System.Windows.Forms.Label ATSCrossMATSM;
@@ -1051,9 +1052,9 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label ANamber;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Button AddIPPhone;
+        private System.Windows.Forms.Button btnAddIPPhone;
         private System.Windows.Forms.Label IPPhoneNamber;
-        private System.Windows.Forms.Button DelIPPhone;
+        private System.Windows.Forms.Button btnDelIPPhone;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label InputCrossMATSA;
         private System.Windows.Forms.Label InputCrossTownA;
@@ -1061,20 +1062,20 @@
         private System.Windows.Forms.Label ATSCrossTownA;
         private System.Windows.Forms.Label PhoneGroupA;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Button AddPhoneInnerA;
+        private System.Windows.Forms.Button btnAddPhoneInnerA;
         private System.Windows.Forms.Label PhoneInnerA;
-        private System.Windows.Forms.Button DelPhoneInnerA;
+        private System.Windows.Forms.Button btnDelPhoneInnerA;
         private System.Windows.Forms.Label PhoneMATSA;
         private System.Windows.Forms.Label PhoneTownA;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.ToolStripTextBox ID_Worker;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Button FotoAdd;
+        private System.Windows.Forms.StatusStrip BottomStrip;
+        private System.Windows.Forms.ToolStripStatusLabel tbtnClose;
+        private System.Windows.Forms.ToolStripStatusLabel tbtnSave;
+        private System.Windows.Forms.Button btnFotoAdd;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label FotoDelete;
+        private System.Windows.Forms.Label btnFotoDelete;
     }
 }
