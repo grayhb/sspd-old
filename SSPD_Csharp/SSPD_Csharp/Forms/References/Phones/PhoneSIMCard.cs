@@ -10,12 +10,18 @@ namespace SSPD
 {
     public partial class PhoneSIMCard : Form
     {
+
+        #region [Объявление переменных]
+
         public bool FlSave = false;
         public Dictionary<string, string> SIM = null;
 
         private bool EditMode;
         private string ID_SIM;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
 
         public PhoneSIMCard(bool FlEdit, string IDSIM)
         {
@@ -33,6 +39,10 @@ namespace SSPD
                 LoadSIM();
             }
         }
+
+        #endregion
+
+        #region [Загрузка и сохранение данных]
 
         private void LoadSIM()
         {
@@ -86,20 +96,27 @@ namespace SSPD
             this.Close();
         }
 
+        #endregion
+
+        #region [События элементов формы]
+
         private void PhoneSIMCard_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.F2) SaveSIM();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             SaveSIM();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
+
     }
 }

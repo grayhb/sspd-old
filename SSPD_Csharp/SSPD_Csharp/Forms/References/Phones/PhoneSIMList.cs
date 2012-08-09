@@ -11,10 +11,15 @@ namespace SSPD
     public partial class PhoneSIMList : Form
     {
 
+        #region [Объявление переменных]
+
         public string SelectedIDSIM; 
 
         private bool ReadOnly;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
 
         public PhoneSIMList(bool FlRead)
         {
@@ -28,30 +33,36 @@ namespace SSPD
 
             if (ReadOnly == true)
             {
-                toolStripStatusLabel2.Visible = false;
-                toolStripStatusLabel3.Visible = false;
-                toolStripStatusLabel4.Visible = false;
-                записиToolStripMenuItem.Visible = false;
-                toolStripStatusLabel5.Visible = true;
-                выбратьToolStripMenuItem.Visible = true;
+                btnDataAdd.Visible = false;
+                btnDataEdit.Visible = false;
+                btnDataDel.Visible = false;
+                mbtnData.Visible = false;
+                btnDataSelect.Visible = true;
+                mbtnSelect.Visible = true;
                 toolStripSeparator1.Visible = true;
             }
             else
             {
-                toolStripStatusLabel2.Visible = true;
-                toolStripStatusLabel3.Visible = true;
-                toolStripStatusLabel4.Visible = true;
-                записиToolStripMenuItem.Visible = true;
-                toolStripStatusLabel5.Visible = false;
-                выбратьToolStripMenuItem.Visible = false;
+                btnDataAdd.Visible = true;
+                btnDataEdit.Visible = true;
+                btnDataDel.Visible = true;
+                mbtnData.Visible = true;
+                btnDataSelect.Visible = false;
+                mbtnSelect.Visible = false;
                 toolStripSeparator1.Visible = false;
             }
 
             if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
+        }
 
+        private void PhoneSIMList_Load(object sender, EventArgs e)
+        {
             LoadSIMList();
         }
 
+        #endregion
+
+        #region [Загрузка данных]
 
         private void LoadSIMList()
         {
@@ -105,6 +116,10 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
+        #endregion
+
+        #region [Операции с записями]
+
         private void AddNewSIM()
         {
             PhoneSIMCard SimCard = new PhoneSIMCard(false, "");
@@ -151,12 +166,21 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
-
         private void GetSIM()
         {
             if (DGV.Rows.Count == 0) return;
             SelectedIDSIM = DGV.CurrentRow.Tag.ToString();
             this.Close();
+        }
+
+        #endregion
+
+        #region [События элементов формы]
+
+        private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+            if (e.KeyCode == Keys.Insert) AddNewSIM();
         }
 
         private void DGV_Sorted(object sender, EventArgs e)
@@ -175,6 +199,14 @@ namespace SSPD
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            if (ReadOnly == true)
+                GetSIM();
+            else EditSIM();
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -200,77 +232,62 @@ namespace SSPD
             if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
-
-        private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-            if (e.KeyCode == Keys.Insert) AddNewSIM();
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewSIM();
         }
 
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewSIM();
         }
 
-        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1) return;
-            if (ReadOnly == true)
-                GetSIM();
-            else EditSIM();
-        }
-
-        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        private void btnDataEdit_Click(object sender, EventArgs e)
         {
             EditSIM();
         }
 
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataEdit_Click(object sender, EventArgs e)
         {
             EditSIM();
         }
 
-        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        private void btnDataDel_Click(object sender, EventArgs e)
         {
             DelSIM();
         }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataDel_Click(object sender, EventArgs e)
         {
             DelSIM();
         }
 
-        private void выбратьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnSelect_Click(object sender, EventArgs e)
         {
             GetSIM();
         }
 
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        private void btnDataSelect_Click(object sender, EventArgs e)
         {
             GetSIM();
         }
 
+        #endregion
 
     }
 }

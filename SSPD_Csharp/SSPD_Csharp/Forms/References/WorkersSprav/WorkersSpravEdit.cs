@@ -11,74 +11,27 @@ namespace SSPD
     public partial class WorkersSpravEdit : Form
     {
 
+        #region [Инициализация и загрузка формы]
+
         public WorkersSpravEdit()
         {
             InitializeComponent();
 
             //обработка событий:
-            this.SizeChanged += new EventHandler(WorkersSpravEdit_SizeChanged);
-            this.KeyDown +=new KeyEventHandler(WorkersSpravEdit_KeyDown);
-            StatusFilter.SelectedIndexChanged +=new EventHandler(StatusFilter_SelectedIndexChanged);
             StrFind.GotFocus +=new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus  +=new EventHandler(StrFind_LostFocus);
-            DGV.Sorted+=new EventHandler(DGV_Sorted);
-            DGV.CellMouseDoubleClick +=new DataGridViewCellMouseEventHandler(DGV_CellMouseDoubleClick);
+            
+        }
 
+        private void WorkersSpravEdit_Load(object sender, EventArgs e)
+        {
             LoadWorkers();
             StrFind.Focus();
         }
 
-        private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
-            if (e.RowIndex!=-1) 
-                OpenWorkerCard();
-        }
+        #endregion
 
-        private void DGV_Sorted(object sender, EventArgs e)
-        {
-            SSPDUI.SetBgRowInDGV(DGV);
-        }
-
-        private void StrFind_LostFocus(object sender, EventArgs e)
-        {
-            if (StrFind.Text == "")
-            {
-                StrFind.Text = Params.StrFindLabel;
-                StrFind.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void StrFind_GotFocus(object sender, EventArgs e)
-        {
-            if (StrFind.Text == Params.StrFindLabel)
-            {
-                StrFind.Text = "";
-                StrFind.ForeColor = Color.Black;
-            }
-        }
-
-        private void StrFind_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-        }
-
-        private void StatusFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            doFilter(StatusFilter.Text);
-        }
-
-
-        private void WorkersSpravEdit_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-            if (e.KeyCode == Keys.Escape) this.Close();
-        }
-
-
-        private void WorkersSpravEdit_SizeChanged(object sender, EventArgs e)
-        {
-            DGV.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            DGV.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-        }
+        #region [Загрузка данных]
 
         /// <summary>
         /// Загрузка списка работников
@@ -112,7 +65,7 @@ namespace SSPD
                 DGVR.Cells[3].Value = dr["Status"].ToString();
                 AddStatusInFilter(dr["Status"].ToString());
             }
-            
+
             StatusFilter.SelectedIndex = 0;
 
             //меняем размер столбцов
@@ -121,25 +74,54 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-
         /// <summary>
         /// Заполнение фильтра статусов
         /// </summary>
         /// <param name="StatusLabel">Статус</param>
         private void AddStatusInFilter(string StatusLabel)
         {
-            foreach(string obj in StatusFilter.Items){
+            foreach (string obj in StatusFilter.Items)
+            {
                 if (obj == StatusLabel) return;
             }
             StatusFilter.Items.Add(StatusLabel);
         }
 
+
+        #endregion
+
+        #region [Управление данными]
+
+        /// <summary>
+        /// Карточка сотрудника
+        /// </summary>
+        private void OpenWorkerCard()
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+            WorkersSpravCard WSC = new WorkersSpravCard(DGV.SelectedRows[0].Tag.ToString());
+            WSC.ShowDialog();
+            if (WSC.FlSave == true)
+            {
+                string SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker + ' ' + Workers.N_Worker +  ISNULL(' ' + Workers.P_Worker, '') AS FIO, Posts.N_Post, Otdels.Name_Otdel,"
+                + " Workers.Fl_Rel, "
+                + " CASE Workers.Fl_Rel WHEN 1 THEN 'Уволен' WHEN 2 THEN 'Командировка' WHEN 3 THEN 'Отпуск' WHEN 4 THEN 'Больничный' WHEN 5 THEN 'Декрет' WHEN 6 THEN 'Прочее ДО' ELSE '' END AS Status"
+                + " FROM Workers INNER JOIN"
+                + " Posts ON Workers.ID_Post = Posts.ID_Post INNER JOIN"
+                + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
+                + " WHERE Workers.ID_Worker = " + WSC.IDW;
+                var rs = DB.GetFields(SqlStr);
+                if (rs.Count == 0) return;
+
+                DataGridViewRow DGVR = DGV.SelectedRows[0];
+                DataRow dr = rs[0];
+                DGVR.Tag = dr["ID_Worker"].ToString();
+                DGVR.Cells[0].Value = dr["FIO"].ToString();
+                DGVR.Cells[1].Value = dr["N_Post"].ToString();
+                DGVR.Cells[2].Value = dr["Name_Otdel"].ToString();
+                DGVR.Cells[3].Value = dr["Status"].ToString();
+            }
+            WSC.Dispose();
+        }
 
         /// <summary>
         /// Фильтр по выбранному статусу
@@ -147,7 +129,7 @@ namespace SSPD
         /// <param name="txtFltr">Выбранный статус</param>
         private void doFilter(string txtFltr)
         {
-            if (DGV.Rows.Count==0) return;
+            if (DGV.Rows.Count == 0) return;
             int CountFilterRow = 0;
             foreach (DataGridViewRow DGVR in DGV.Rows)
             {
@@ -171,7 +153,7 @@ namespace SSPD
 
             StatusLabel.Text = "Всего работников: " + DGV.Rows.Count.ToString();
             if (txtFltr != "Все") StatusLabel.Text += ", отфильтровано: " + CountFilterRow.ToString();
-            
+
             //меняем размер столбцов
             WorkersSpravEdit_SizeChanged(null, null);
             //красим строки
@@ -183,45 +165,30 @@ namespace SSPD
             DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Selected = true;
         }
 
+        #endregion
 
+        #region [События элементов формы]
 
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void WorkersSpravEdit_SizeChanged(object sender, EventArgs e)
         {
-            WorkersSpravCard WSC = new WorkersSpravCard(null);
-            WSC.ShowDialog();
+            DGV.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DGV.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
         }
 
-        private void OpenWorkerCard()
+        private void WorkersSpravEdit_KeyDown(object sender, KeyEventArgs e)
         {
-            if (DGV.SelectedRows.Count == 0) return;
-            WorkersSpravCard WSC = new WorkersSpravCard(DGV.SelectedRows[0].Tag.ToString());
-            WSC.ShowDialog();
-            if (WSC.FlSave == true)
-            {
-                string SqlStr = "SELECT Workers.ID_Worker, Workers.F_Worker + ' ' + Workers.N_Worker +  ISNULL(' ' + Workers.P_Worker, '') AS FIO, Posts.N_Post, Otdels.Name_Otdel,"
-                + " Workers.Fl_Rel, "
-                + " CASE Workers.Fl_Rel WHEN 1 THEN 'Уволен' WHEN 2 THEN 'Командировка' WHEN 3 THEN 'Отпуск' WHEN 4 THEN 'Больничный' WHEN 5 THEN 'Декрет' WHEN 6 THEN 'Прочее ДО' ELSE '' END AS Status"
-                + " FROM Workers INNER JOIN"
-                + " Posts ON Workers.ID_Post = Posts.ID_Post INNER JOIN"
-                + " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel"
-                + " WHERE Workers.ID_Worker = " + WSC.IDW;
-                var rs = DB.GetFields(SqlStr);
-                if (rs.Count == 0) return;
-                
-                DataGridViewRow DGVR = DGV.SelectedRows[0];
-                DataRow dr = rs[0];
-                DGVR.Tag = dr["ID_Worker"].ToString();
-                DGVR.Cells[0].Value = dr["FIO"].ToString();
-                DGVR.Cells[1].Value = dr["N_Post"].ToString();
-                DGVR.Cells[2].Value = dr["Name_Otdel"].ToString();
-                DGVR.Cells[3].Value = dr["Status"].ToString();
-            }
-            WSC.Dispose();
+            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+            if (e.KeyCode == Keys.Escape) this.Close();
         }
 
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e) {
+            if (e.RowIndex!=-1) 
+                OpenWorkerCard();
+        }
+
+        private void DGV_Sorted(object sender, EventArgs e)
         {
-            OpenWorkerCard();
+            SSPDUI.SetBgRowInDGV(DGV);
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)
@@ -247,11 +214,56 @@ namespace SSPD
             }
         }
 
-        private void btn_Search_Click(object sender, EventArgs e)
+        private void StrFind_LostFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == "")
+            {
+                StrFind.Text = Params.StrFindLabel;
+                StrFind.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private void StrFind_GotFocus(object sender, EventArgs e)
+        {
+            if (StrFind.Text == Params.StrFindLabel)
+            {
+                StrFind.Text = "";
+                StrFind.ForeColor = Color.Black;
+            }
+        }
+
+        private void StrFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+        }
+
+        private void StatusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            doFilter(StatusFilter.Text);
+        }
+
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mbtnDataAdd_Click(object sender, EventArgs e)
+        {
+            WorkersSpravCard WSC = new WorkersSpravCard(null);
+            WSC.ShowDialog();
+        }
+
+        private void mbtnDataEdit_Click(object sender, EventArgs e)
+        {
+            OpenWorkerCard();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
+        #endregion
 
     }
 }

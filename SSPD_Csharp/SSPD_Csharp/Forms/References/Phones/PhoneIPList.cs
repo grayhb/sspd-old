@@ -11,8 +11,14 @@ namespace SSPD
     public partial class PhoneIPList : Form
     {
 
+        #region [Объявление переменных]
+
         public string SelIPPhone = "";
         public string SelIDIPPhone = "";
+
+        #endregion
+
+        #region [Инициализация и загрузка формы]
 
         public PhoneIPList()
         {
@@ -23,10 +29,16 @@ namespace SSPD
             StrFind.KeyDown += new KeyEventHandler(StrFind_KeyDown);
 
             if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
+        }
 
+        private void PhoneIPList_Load(object sender, EventArgs e)
+        {
             LoadDataList();
         }
 
+        #endregion
+
+        #region [Загрузка данных]
 
         private void LoadDataList()
         {
@@ -60,6 +72,9 @@ namespace SSPD
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
+        #endregion
+
+        #region [Управление записями]
 
         private void AddNewItem()
         {
@@ -88,7 +103,6 @@ namespace SSPD
             }
         }
 
-
         private void DelItem()
         {
             if (MessageBox.Show("Удалить номер - " + DGV.CurrentRow.Cells[0].Value.ToString() + "?", "Удаление IP номера",
@@ -113,6 +127,16 @@ namespace SSPD
             this.Close();
         }
 
+        #endregion
+
+        #region [События элементов формы]
+
+        private void PhoneIPList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+            if (e.KeyCode == Keys.Insert) AddNewItem();
+        }
+
         private void DGV_Sorted(object sender, EventArgs e)
         {
             //красим строки
@@ -128,6 +152,12 @@ namespace SSPD
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            SelectItem();
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -153,65 +183,52 @@ namespace SSPD
             if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
-
-        private void PhoneIPList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-            if (e.KeyCode == Keys.Insert) AddNewItem();
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewItem();
         }
 
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewItem();
         }
 
-        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1) return;
-            SelectItem();
-        }
-
-
-        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        private void btnDataDel_Click(object sender, EventArgs e)
         {
             DelItem();
         }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataDel_Click(object sender, EventArgs e)
         {
             DelItem();
         }
 
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        private void btnDataSelect_Click(object sender, EventArgs e)
         {
             SelectItem();
         }
 
-        private void выбратьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnSelect_Click(object sender, EventArgs e)
         {
             SelectItem();
         }
+
+        #endregion
 
     }
 }

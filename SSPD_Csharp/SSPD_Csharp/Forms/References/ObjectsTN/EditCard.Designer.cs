@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.LineSeparatorBottom = new System.Windows.Forms.PictureBox();
             this.TabControl = new System.Windows.Forms.TabControl();
             this.MN = new System.Windows.Forms.TabPage();
-            this.bt_ChangeOrg = new System.Windows.Forms.Button();
+            this.btnChangeOrg = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MN_Name = new System.Windows.Forms.TextBox();
             this.RNU = new System.Windows.Forms.TabPage();
@@ -48,7 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.LPDS_RNU = new System.Windows.Forms.TextBox();
             this.Place = new System.Windows.Forms.TabPage();
-            this.LPDSAdd = new System.Windows.Forms.Button();
+            this.btnLPDSAdd = new System.Windows.Forms.Button();
             this.PlaceRN = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.PlaceStatus = new System.Windows.Forms.CheckBox();
@@ -60,9 +60,9 @@
             this.Place_RNU = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
             this.TabControl.SuspendLayout();
@@ -73,31 +73,31 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonCancel
+            // btnCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonCancel.Location = new System.Drawing.Point(505, 268);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 30;
-            this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.Location = new System.Drawing.Point(505, 268);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 30;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // buttonSave
+            // btnSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonSave.Location = new System.Drawing.Point(424, 268);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 28;
-            this.buttonSave.Text = "ОК";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSave.Location = new System.Drawing.Point(424, 268);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 28;
+            this.btnSave.Text = "ОК";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // LineSeparatorBottom
             // 
@@ -127,7 +127,7 @@
             // 
             // MN
             // 
-            this.MN.Controls.Add(this.bt_ChangeOrg);
+            this.MN.Controls.Add(this.btnChangeOrg);
             this.MN.Controls.Add(this.label1);
             this.MN.Controls.Add(this.MN_Name);
             this.MN.Location = new System.Drawing.Point(4, 22);
@@ -138,16 +138,16 @@
             this.MN.Text = "ОСТ";
             this.MN.UseVisualStyleBackColor = true;
             // 
-            // bt_ChangeOrg
+            // btnChangeOrg
             // 
-            this.bt_ChangeOrg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bt_ChangeOrg.Location = new System.Drawing.Point(381, 34);
-            this.bt_ChangeOrg.Name = "bt_ChangeOrg";
-            this.bt_ChangeOrg.Size = new System.Drawing.Size(158, 23);
-            this.bt_ChangeOrg.TabIndex = 2;
-            this.bt_ChangeOrg.Text = "Выбрать организацию";
-            this.bt_ChangeOrg.UseVisualStyleBackColor = true;
-            this.bt_ChangeOrg.Click += new System.EventHandler(this.bt_ChangeOrg_Click);
+            this.btnChangeOrg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeOrg.Location = new System.Drawing.Point(381, 34);
+            this.btnChangeOrg.Name = "btnChangeOrg";
+            this.btnChangeOrg.Size = new System.Drawing.Size(158, 23);
+            this.btnChangeOrg.TabIndex = 2;
+            this.btnChangeOrg.Text = "Выбрать организацию";
+            this.btnChangeOrg.UseVisualStyleBackColor = true;
+            this.btnChangeOrg.Click += new System.EventHandler(this.btnChangeOrg_Click);
             // 
             // label1
             // 
@@ -278,7 +278,7 @@
             // 
             // Place
             // 
-            this.Place.Controls.Add(this.LPDSAdd);
+            this.Place.Controls.Add(this.btnLPDSAdd);
             this.Place.Controls.Add(this.PlaceRN);
             this.Place.Controls.Add(this.label8);
             this.Place.Controls.Add(this.PlaceStatus);
@@ -296,18 +296,18 @@
             this.Place.Text = "Площадка";
             this.Place.UseVisualStyleBackColor = true;
             // 
-            // LPDSAdd
+            // btnLPDSAdd
             // 
-            this.LPDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LPDSAdd.Enabled = false;
-            this.LPDSAdd.Location = new System.Drawing.Point(467, 146);
-            this.LPDSAdd.Name = "LPDSAdd";
-            this.LPDSAdd.Size = new System.Drawing.Size(71, 23);
-            this.LPDSAdd.TabIndex = 17;
-            this.LPDSAdd.Text = "добавить";
-            this.toolTip1.SetToolTip(this.LPDSAdd, "Добавить новую ЛПДС");
-            this.LPDSAdd.UseVisualStyleBackColor = true;
-            this.LPDSAdd.Click += new System.EventHandler(this.button1_Click);
+            this.btnLPDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLPDSAdd.Enabled = false;
+            this.btnLPDSAdd.Location = new System.Drawing.Point(467, 146);
+            this.btnLPDSAdd.Name = "btnLPDSAdd";
+            this.btnLPDSAdd.Size = new System.Drawing.Size(71, 23);
+            this.btnLPDSAdd.TabIndex = 17;
+            this.btnLPDSAdd.Text = "добавить";
+            this.toolTip1.SetToolTip(this.btnLPDSAdd, "Добавить новую ЛПДС");
+            this.btnLPDSAdd.UseVisualStyleBackColor = true;
+            this.btnLPDSAdd.Click += new System.EventHandler(this.btnLPDSAdd_Click);
             // 
             // PlaceRN
             // 
@@ -419,30 +419,31 @@
             // операцииToolStripMenuItem
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сохранитьToolStripMenuItem,
+            this.mbtnSave,
             this.toolStripSeparator1,
-            this.закрытьToolStripMenuItem});
+            this.mbtnClose});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
             // 
-            // сохранитьToolStripMenuItem
+            // mbtnSave
             // 
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.mbtnSave.Name = "mbtnSave";
+            this.mbtnSave.Size = new System.Drawing.Size(152, 22);
+            this.mbtnSave.Text = "Сохранить";
+            this.mbtnSave.Click += new System.EventHandler(this.mbtnSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
-            // закрытьToolStripMenuItem
+            // mbtnClose
             // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.mbtnClose.Name = "mbtnClose";
+            this.mbtnClose.Size = new System.Drawing.Size(152, 22);
+            this.mbtnClose.Text = "Закрыть";
+            this.mbtnClose.Click += new System.EventHandler(this.mbtnClose_Click);
             // 
             // EditCard
             // 
@@ -450,9 +451,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 303);
             this.Controls.Add(this.TabControl);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.LineSeparatorBottom);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -482,12 +483,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox LineSeparatorBottom;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage MN;
-        private System.Windows.Forms.Button bt_ChangeOrg;
+        private System.Windows.Forms.Button btnChangeOrg;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox MN_Name;
         private System.Windows.Forms.TabPage RNU;
@@ -495,9 +496,9 @@
         private System.Windows.Forms.TabPage Place;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnClose;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox RNU_Name;
         private System.Windows.Forms.Label label2;
@@ -515,7 +516,7 @@
         private System.Windows.Forms.CheckBox PlaceStatus;
         private System.Windows.Forms.TextBox PlaceRN;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button LPDSAdd;
+        private System.Windows.Forms.Button btnLPDSAdd;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

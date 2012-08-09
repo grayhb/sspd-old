@@ -34,7 +34,7 @@
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.treeSGTP = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -101,18 +101,18 @@
             // операцииToolStripMenuItem
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.закрытьToolStripMenuItem});
+            this.mbtnClose});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
             // 
-            // закрытьToolStripMenuItem
+            // mbtnClose
             // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.ShortcutKeyDisplayString = "ESC";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.mbtnClose.Name = "mbtnClose";
+            this.mbtnClose.ShortcutKeyDisplayString = "ESC";
+            this.mbtnClose.Size = new System.Drawing.Size(155, 22);
+            this.mbtnClose.Text = "Закрыть";
+            this.mbtnClose.Click += new System.EventHandler(this.mbtnClose_Click);
             // 
             // treeSGTP
             // 
@@ -522,6 +522,6 @@
         private System.Windows.Forms.TextBox PhoneTown;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnClose;
     }
 }

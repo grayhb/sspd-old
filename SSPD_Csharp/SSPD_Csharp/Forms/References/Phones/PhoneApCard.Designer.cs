@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.IMEI = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblIMEI = new System.Windows.Forms.Label();
             this.Inv = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblInv = new System.Windows.Forms.Label();
             this.Label = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.lblLabel = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
             this.LineSeparatorBottom = new System.Windows.Forms.PictureBox();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,14 +48,14 @@
             this.IMEI.Size = new System.Drawing.Size(251, 20);
             this.IMEI.TabIndex = 14;
             // 
-            // label1
+            // lblIMEI
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "IMEI аппарата:";
+            this.lblIMEI.AutoSize = true;
+            this.lblIMEI.Location = new System.Drawing.Point(12, 15);
+            this.lblIMEI.Name = "lblIMEI";
+            this.lblIMEI.Size = new System.Drawing.Size(82, 13);
+            this.lblIMEI.TabIndex = 13;
+            this.lblIMEI.Text = "IMEI аппарата:";
             // 
             // Inv
             // 
@@ -65,14 +65,14 @@
             this.Inv.Size = new System.Drawing.Size(251, 20);
             this.Inv.TabIndex = 16;
             // 
-            // label2
+            // lblInv
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Инвентарный номер:";
+            this.lblInv.AutoSize = true;
+            this.lblInv.Location = new System.Drawing.Point(12, 41);
+            this.lblInv.Name = "lblInv";
+            this.lblInv.Size = new System.Drawing.Size(114, 13);
+            this.lblInv.TabIndex = 15;
+            this.lblInv.Text = "Инвентарный номер:";
             // 
             // Label
             // 
@@ -82,27 +82,27 @@
             this.Label.Size = new System.Drawing.Size(251, 20);
             this.Label.TabIndex = 18;
             // 
-            // label3
+            // lblLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 67);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Марка аппарата:";
+            this.lblLabel.AutoSize = true;
+            this.lblLabel.Location = new System.Drawing.Point(12, 67);
+            this.lblLabel.Name = "lblLabel";
+            this.lblLabel.Size = new System.Drawing.Size(93, 13);
+            this.lblLabel.TabIndex = 17;
+            this.lblLabel.Text = "Марка аппарата:";
             // 
-            // buttonSave
+            // btnSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonSave.Location = new System.Drawing.Point(224, 103);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 25;
-            this.buttonSave.Text = "ОК";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSave.Location = new System.Drawing.Point(224, 103);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 25;
+            this.btnSave.Text = "ОК";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // LineSeparatorBottom
             // 
@@ -115,33 +115,33 @@
             this.LineSeparatorBottom.TabIndex = 26;
             this.LineSeparatorBottom.TabStop = false;
             // 
-            // buttonCancel
+            // btnCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonCancel.Location = new System.Drawing.Point(305, 103);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 27;
-            this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.Location = new System.Drawing.Point(305, 103);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 27;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // PhoneApCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 138);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.LineSeparatorBottom);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.Label);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblLabel);
             this.Controls.Add(this.Inv);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblInv);
             this.Controls.Add(this.IMEI);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblIMEI);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -149,6 +149,7 @@
             this.Name = "PhoneApCard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " ";
+            this.Load += new System.EventHandler(this.PhoneApCard_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PhoneApCard_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).EndInit();
             this.ResumeLayout(false);
@@ -159,13 +160,13 @@
         #endregion
 
         private System.Windows.Forms.TextBox IMEI;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblIMEI;
         private System.Windows.Forms.TextBox Inv;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblInv;
         private System.Windows.Forms.TextBox Label;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Label lblLabel;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.PictureBox LineSeparatorBottom;
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

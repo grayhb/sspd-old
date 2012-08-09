@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNSim = new System.Windows.Forms.Label();
             this.NSim = new System.Windows.Forms.TextBox();
             this.ANamber = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblANamber = new System.Windows.Forms.Label();
+            this.lblPIN1 = new System.Windows.Forms.Label();
             this.PIN1 = new System.Windows.Forms.TextBox();
             this.PIN2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblPIN2 = new System.Windows.Forms.Label();
             this.PUK2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblPUK2 = new System.Windows.Forms.Label();
             this.PUK1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.lblPUK1 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.LineSeparatorBottom = new System.Windows.Forms.PictureBox();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblNSim
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Уникальный номер SIM-карты:";
+            this.lblNSim.AutoSize = true;
+            this.lblNSim.Location = new System.Drawing.Point(12, 10);
+            this.lblNSim.Name = "lblNSim";
+            this.lblNSim.Size = new System.Drawing.Size(165, 13);
+            this.lblNSim.TabIndex = 11;
+            this.lblNSim.Text = "Уникальный номер SIM-карты:";
             // 
             // NSim
             // 
@@ -71,23 +71,23 @@
             this.ANamber.Size = new System.Drawing.Size(251, 20);
             this.ANamber.TabIndex = 14;
             // 
-            // label2
+            // lblANamber
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Абонентский номер:";
+            this.lblANamber.AutoSize = true;
+            this.lblANamber.Location = new System.Drawing.Point(12, 57);
+            this.lblANamber.Name = "lblANamber";
+            this.lblANamber.Size = new System.Drawing.Size(111, 13);
+            this.lblANamber.TabIndex = 13;
+            this.lblANamber.Text = "Абонентский номер:";
             // 
-            // label3
+            // lblPIN1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "PIN1:";
+            this.lblPIN1.AutoSize = true;
+            this.lblPIN1.Location = new System.Drawing.Point(12, 114);
+            this.lblPIN1.Name = "lblPIN1";
+            this.lblPIN1.Size = new System.Drawing.Size(34, 13);
+            this.lblPIN1.TabIndex = 15;
+            this.lblPIN1.Text = "PIN1:";
             // 
             // PIN1
             // 
@@ -105,14 +105,14 @@
             this.PIN2.Size = new System.Drawing.Size(80, 20);
             this.PIN2.TabIndex = 18;
             // 
-            // label4
+            // lblPIN2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(143, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 13);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "PIN2:";
+            this.lblPIN2.AutoSize = true;
+            this.lblPIN2.Location = new System.Drawing.Point(143, 114);
+            this.lblPIN2.Name = "lblPIN2";
+            this.lblPIN2.Size = new System.Drawing.Size(34, 13);
+            this.lblPIN2.TabIndex = 17;
+            this.lblPIN2.Text = "PIN2:";
             // 
             // PUK2
             // 
@@ -122,14 +122,14 @@
             this.PUK2.Size = new System.Drawing.Size(80, 20);
             this.PUK2.TabIndex = 22;
             // 
-            // label5
+            // lblPUK2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(143, 140);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "PUK2:";
+            this.lblPUK2.AutoSize = true;
+            this.lblPUK2.Location = new System.Drawing.Point(143, 140);
+            this.lblPUK2.Name = "lblPUK2";
+            this.lblPUK2.Size = new System.Drawing.Size(38, 13);
+            this.lblPUK2.TabIndex = 21;
+            this.lblPUK2.Text = "PUK2:";
             // 
             // PUK1
             // 
@@ -139,27 +139,27 @@
             this.PUK1.Size = new System.Drawing.Size(80, 20);
             this.PUK1.TabIndex = 20;
             // 
-            // label6
+            // lblPUK1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 13);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "PUK1:";
+            this.lblPUK1.AutoSize = true;
+            this.lblPUK1.Location = new System.Drawing.Point(12, 140);
+            this.lblPUK1.Name = "lblPUK1";
+            this.lblPUK1.Size = new System.Drawing.Size(38, 13);
+            this.lblPUK1.TabIndex = 19;
+            this.lblPUK1.Text = "PUK1:";
             // 
-            // buttonCancel
+            // btnCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonCancel.Location = new System.Drawing.Point(191, 177);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 30;
-            this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.Location = new System.Drawing.Point(191, 177);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 30;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // LineSeparatorBottom
             // 
@@ -172,39 +172,39 @@
             this.LineSeparatorBottom.TabIndex = 29;
             this.LineSeparatorBottom.TabStop = false;
             // 
-            // buttonSave
+            // btnSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonSave.Location = new System.Drawing.Point(110, 177);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 28;
-            this.buttonSave.Text = "ОК";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSave.Location = new System.Drawing.Point(110, 177);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 28;
+            this.btnSave.Text = "ОК";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // PhoneSIMCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(278, 212);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.LineSeparatorBottom);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.PUK2);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblPUK2);
             this.Controls.Add(this.PUK1);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lblPUK1);
             this.Controls.Add(this.PIN2);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblPIN2);
             this.Controls.Add(this.PIN1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblPIN1);
             this.Controls.Add(this.ANamber);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblANamber);
             this.Controls.Add(this.NSim);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblNSim);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -220,20 +220,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNSim;
         private System.Windows.Forms.TextBox NSim;
         private System.Windows.Forms.TextBox ANamber;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblANamber;
+        private System.Windows.Forms.Label lblPIN1;
         private System.Windows.Forms.TextBox PIN1;
         private System.Windows.Forms.TextBox PIN2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblPIN2;
         private System.Windows.Forms.TextBox PUK2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblPUK2;
         private System.Windows.Forms.TextBox PUK1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label lblPUK1;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox LineSeparatorBottom;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button btnSave;
     }
 }

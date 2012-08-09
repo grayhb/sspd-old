@@ -10,6 +10,9 @@ namespace SSPD.Select
 {
     public partial class Orgs : Form
     {
+
+        #region [Объявление переменных]
+
         //флаг выбора
         public bool FlSel = false;
 
@@ -23,6 +26,10 @@ namespace SSPD.Select
         //вариант отображения списка организаций
         public int means;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
+
         public Orgs()
         {
             InitializeComponent();
@@ -30,8 +37,6 @@ namespace SSPD.Select
             StrFind.GotFocus += new EventHandler(StrFind_GotFocus);
             StrFind.LostFocus += new EventHandler(StrFind_LostFocus);
             StrFind.KeyDown += new KeyEventHandler(StrFind_KeyDown);
-
-
         }
 
         private void Orgs_Load(object sender, EventArgs e)
@@ -39,6 +44,9 @@ namespace SSPD.Select
             LoadData();
         }
 
+        #endregion
+
+        #region [Работа с данными]
 
         /// <summary>
         /// Загрузка данных
@@ -132,13 +140,48 @@ namespace SSPD.Select
             }
         }
 
-
         /// <summary>
         /// Поиск
         /// </summary>
         private void doSearch()
         {
             SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+        }
+
+
+        #endregion
+
+        #region [События элементов формы]
+
+        private void Orgs_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F7) doSearch();
+            if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mbtnSelect_Click(object sender, EventArgs e)
+        {
+            SelectItems();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SelectItems();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            doSearch();
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -159,7 +202,6 @@ namespace SSPD.Select
             }
         }
 
-
         private void StrFind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) doSearch();
@@ -171,54 +213,9 @@ namespace SSPD.Select
             SSPDUI.SetBgRowInDGV(DGV);
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void закрытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            doSearch();
-        }
-
-        private void Orgs_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F7) doSearch();
-            if (e.KeyCode == Keys.Escape) this.Close();
-
-        }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            SelectItems();
-        }
-
-        private void ChangeStat(int RowIndex)
-        {
-            if (RowIndex > -1 && DGV.Rows[RowIndex].Tag != null)
-            {
-                foreach (DataGridViewRow DGVR in DGV.Rows)
-                {
-                    DGVR.Cells[0].Value = false;
-                    if (DGVR.Index == RowIndex) DGVR.Cells[0].Value = DGVR.Cells[0].Value == null ? false : true;
-                }
-            }
-        }
-
-
         private void DGV_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             ChangeStat(e.RowIndex);
-        }
-
-        private void выбратьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectItems();
         }
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -231,6 +228,24 @@ namespace SSPD.Select
             if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.Return)
                 SelectItems();
         }
+
+        /// <summary>
+        /// Снять все чекбоксы и поставить в указанную строку
+        /// </summary>
+        /// <param name="RowIndex">Индекс строки</param>
+        private void ChangeStat(int RowIndex)
+        {
+            if (RowIndex > -1 && DGV.Rows[RowIndex].Tag != null)
+            {
+                foreach (DataGridViewRow DGVR in DGV.Rows)
+                {
+                    DGVR.Cells[0].Value = false;
+                    if (DGVR.Index == RowIndex) DGVR.Cells[0].Value = DGVR.Cells[0].Value == null ? false : true;
+                }
+            }
+        }
+
+        #endregion
 
     }
 }

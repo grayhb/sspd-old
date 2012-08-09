@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выбратьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюОперации = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.LineSeparatorBottom = new System.Windows.Forms.PictureBox();
-            this.buttonSave = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.StrFind = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -51,54 +51,54 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.операцииToolStripMenuItem});
+            this.МенюОперации});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(417, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // операцииToolStripMenuItem
+            // МенюОперации
             // 
-            this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выбратьToolStripMenuItem,
+            this.МенюОперации.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mbtnSelect,
             this.toolStripSeparator1,
-            this.закрытьToolStripMenuItem});
-            this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
-            this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.операцииToolStripMenuItem.Text = "Операции";
+            this.mbtnClose});
+            this.МенюОперации.Name = "МенюОперации";
+            this.МенюОперации.Size = new System.Drawing.Size(69, 20);
+            this.МенюОперации.Text = "Операции";
             // 
-            // выбратьToolStripMenuItem
+            // mbtnSelect
             // 
-            this.выбратьToolStripMenuItem.Name = "выбратьToolStripMenuItem";
-            this.выбратьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.выбратьToolStripMenuItem.Text = "Выбрать";
-            this.выбратьToolStripMenuItem.Click += new System.EventHandler(this.выбратьToolStripMenuItem_Click);
+            this.mbtnSelect.Name = "mbtnSelect";
+            this.mbtnSelect.Size = new System.Drawing.Size(152, 22);
+            this.mbtnSelect.Text = "Выбрать";
+            this.mbtnSelect.Click += new System.EventHandler(this.mbtnSelect_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
-            // закрытьToolStripMenuItem
+            // mbtnClose
             // 
-            this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
-            this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.закрытьToolStripMenuItem.Text = "Закрыть";
-            this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
+            this.mbtnClose.Name = "mbtnClose";
+            this.mbtnClose.Size = new System.Drawing.Size(152, 22);
+            this.mbtnClose.Text = "Закрыть";
+            this.mbtnClose.Click += new System.EventHandler(this.mbtnClose_Click);
             // 
-            // buttonCancel
+            // btnCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonCancel.Location = new System.Drawing.Point(330, 438);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 3;
-            this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancel.Location = new System.Drawing.Point(330, 438);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // LineSeparatorBottom
             // 
@@ -111,18 +111,18 @@
             this.LineSeparatorBottom.TabIndex = 32;
             this.LineSeparatorBottom.TabStop = false;
             // 
-            // buttonSave
+            // btnSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.buttonSave.Location = new System.Drawing.Point(249, 438);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 4;
-            this.buttonSave.Text = "ОК";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSave.Location = new System.Drawing.Point(249, 438);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "ОК";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // DGV
             // 
@@ -172,7 +172,7 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StrFind,
-            this.toolStripButton1});
+            this.btnSearch});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
@@ -191,15 +191,15 @@
             this.StrFind.Size = new System.Drawing.Size(300, 23);
             this.StrFind.Text = "Введите строку для поиска";
             // 
-            // toolStripButton1
+            // btnSearch
             // 
-            this.toolStripButton1.Image = global::SSPD.Properties.Resources.binocular_small;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(80, 20);
-            this.toolStripButton1.Text = "найти [F7]";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.btnSearch.Image = global::SSPD.Properties.Resources.binocular_small;
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 1, 0, 2);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(80, 20);
+            this.btnSearch.Text = "найти [F7]";
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // Orgs
             // 
@@ -208,9 +208,9 @@
             this.ClientSize = new System.Drawing.Size(417, 473);
             this.Controls.Add(this.DGV);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.LineSeparatorBottom);
-            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -235,17 +235,17 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox LineSeparatorBottom;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выбратьToolStripMenuItem;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ToolStripMenuItem МенюОперации;
+        private System.Windows.Forms.ToolStripMenuItem mbtnSelect;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mbtnClose;
         private System.Windows.Forms.DataGridView DGV;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripTextBox StrFind;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton btnSearch;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }

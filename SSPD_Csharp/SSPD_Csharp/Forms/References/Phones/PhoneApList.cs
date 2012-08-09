@@ -11,11 +11,16 @@ namespace SSPD
     public partial class PhoneApList : Form
     {
 
+        #region [Объявление переменных]
+
         public string SelectedIDAN;
         public string SelectedAN; 
 
         private bool ReadOnly;
 
+        #endregion
+
+        #region [Инициализация и загрузка формы]
 
         public PhoneApList(bool FlRead)
         {
@@ -29,33 +34,41 @@ namespace SSPD
 
             if (ReadOnly == true)
             {
-                toolStripStatusLabel2.Visible = false;
-                toolStripStatusLabel3.Visible = false;
-                toolStripStatusLabel4.Visible = false;
-                записиToolStripMenuItem.Visible = false;
-                toolStripStatusLabel5.Visible = true;
-                выбратьToolStripMenuItem.Visible = true;
+                btnDataAdd.Visible = false;
+                btnDataEdit.Visible = false;
+                btnDataDel.Visible = false;
+                mbtnData.Visible = false;
+                btnDataSelect.Visible = true;
+                mbtnSelect.Visible = true;
                 toolStripSeparator1.Visible = true;
             }
             else
             {
-                toolStripStatusLabel2.Visible = true;
-                toolStripStatusLabel3.Visible = true;
-                toolStripStatusLabel4.Visible = true;
-                записиToolStripMenuItem.Visible = true;
-                toolStripStatusLabel5.Visible = false;
-                выбратьToolStripMenuItem.Visible = false;
+                btnDataAdd.Visible = true;
+                btnDataEdit.Visible = true;
+                btnDataDel.Visible = true;
+                mbtnData.Visible = true;
+                btnDataSelect.Visible = false;
+                mbtnSelect.Visible = false;
                 toolStripSeparator1.Visible = false;
             }
 
             if (Screen.PrimaryScreen.WorkingArea.Width > 1150) this.Width = 1150;
+        }
 
+        private void PhoneApList_Load(object sender, EventArgs e)
+        {
             LoadDataList();
         }
 
+        #endregion
+
+        #region [Загрузка данных из БД]
 
         private void LoadDataList()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             string SqlStr ="";
             if (ReadOnly == false) {
                 SqlStr = "SELECT     PhoneAp.ID_PA, PhoneAp.Inv, PhoneAp.IMEI, PhoneAp.Label, DERIVEDTBL.DateTimeInp, DERIVEDTBL.DateTimeOut, DERIVEDTBL.FIO,"
@@ -76,34 +89,40 @@ namespace SSPD
                 + " Where (DERIVEDTBL.DateTimeInp Is Null)";
             }
             var rs = DB.GetFields(SqlStr + " ORDER BY PhoneAp.IMEI DESC");
-            if (rs.Count == 0) return;
 
-            DataGridViewRow DGVR;
-            DGV.Rows.Clear();
-            
-
-            foreach (DataRow dr in rs)
+            if (rs.Count > 0)
             {
-                DGV.Rows.Add();
-                DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
+                DataGridViewRow DGVR;
+                DGV.Rows.Clear();
 
-                DGVR.Tag = dr["ID_PA"].ToString();
-                DGVR.Cells[0].Value = dr["IMEI"].ToString();
-                DGVR.Cells[1].Value = dr["Inv"].ToString();
-                DGVR.Cells[2].Value = dr["Label"].ToString();
-                if (ReadOnly == false && dr["DateTimeOut"].ToString().Length >0 )
+                foreach (DataRow dr in rs)
                 {
-                    DGVR.Cells[3].Value = "Выдан ";
-                    DGVR.Cells[3].Value += dr["TUse"].ToString() == "0" ? "во временное пользование " : "в постоянное пользование ";
-                    DGVR.Cells[3].Value += string.Format ("{0:dd-MM-yyyy hh:mm}",Convert.ToDateTime (dr["DateTimeOut"].ToString()));
-                    DGVR.Cells[3].Value += ". Пользователь - " + dr["FIO"].ToString() + " (" + dr["NB_Otdel"].ToString() + ")";
+                    DGV.Rows.Add();
+                    DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
+
+                    DGVR.Tag = dr["ID_PA"].ToString();
+                    DGVR.Cells[0].Value = dr["IMEI"].ToString();
+                    DGVR.Cells[1].Value = dr["Inv"].ToString();
+                    DGVR.Cells[2].Value = dr["Label"].ToString();
+                    if (ReadOnly == false && dr["DateTimeOut"].ToString().Length > 0)
+                    {
+                        DGVR.Cells[3].Value = "Выдан ";
+                        DGVR.Cells[3].Value += dr["TUse"].ToString() == "0" ? "во временное пользование " : "в постоянное пользование ";
+                        DGVR.Cells[3].Value += string.Format("{0:dd-MM-yyyy hh:mm}", Convert.ToDateTime(dr["DateTimeOut"].ToString()));
+                        DGVR.Cells[3].Value += ". Пользователь - " + dr["FIO"].ToString() + " (" + dr["NB_Otdel"].ToString() + ")";
+                    }
                 }
+
+                //красим строки
+                SSPDUI.SetBgRowInDGV(DGV);
             }
 
-            //красим строки
-            SSPDUI.SetBgRowInDGV(DGV);
+            Cursor.Current = Cursors.Default;
         }
 
+        #endregion
+
+        #region [Управление записями]
 
         private void AddNewItem()
         {
@@ -152,6 +171,16 @@ namespace SSPD
             this.Close();
         }
 
+        #endregion
+
+        #region [События элементов формы]
+
+        private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
+            if (e.KeyCode == Keys.Insert) AddNewItem();
+        }
+
         private void DGV_Sorted(object sender, EventArgs e)
         {
             //красим строки
@@ -169,6 +198,14 @@ namespace SSPD
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            if (ReadOnly == true)
+                SelectItem();
+            else EditItem();
         }
 
         private void StrFind_LostFocus(object sender, EventArgs e)
@@ -194,76 +231,62 @@ namespace SSPD
             if (e.KeyCode == Keys.Enter) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
-
-        private void PhoneSIMList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F7) SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
-            if (e.KeyCode == Keys.Insert) AddNewItem();
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             SSPDUI.SearchInDGV(DGV, StrFind.Text, DGV.CurrentRow.Index);
         }
 
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewItem();
         }
 
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataAdd_Click(object sender, EventArgs e)
         {
             AddNewItem();
         }
 
-        private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1) return;
-            if (ReadOnly == true)
-                SelectItem();
-            else EditItem();
-        }
-
-        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        private void btnDataEdit_Click(object sender, EventArgs e)
         {
             EditItem();
         }
 
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataEdit_Click(object sender, EventArgs e)
         {
             EditItem();
         }
 
-        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        private void btnDataDel_Click(object sender, EventArgs e)
         {
             DelItem();
         }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnDataDel_Click(object sender, EventArgs e)
         {
             DelItem();
         }
 
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        private void btnDataSelect_Click(object sender, EventArgs e)
         {
             SelectItem();
         }
 
-        private void выбратьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mbtnSelect_Click(object sender, EventArgs e)
         {
             SelectItem();
         }
+
+        #endregion
 
     }
 }
