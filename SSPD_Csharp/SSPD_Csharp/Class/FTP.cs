@@ -21,12 +21,19 @@ namespace SSPD
         private static Form pb;
         private static ProgressBar progbar;
         private static string LocalFileName;
+        private static bool FlStart;
 
         /// <summary>
         /// Загрузка файла с ФТП сервера
         /// </summary>
-        public static void FtpDownload(string host, string pathFtp)
+        public static void FtpDownload(string host, string pathFtp, bool showpb)
         {
+            if (FlStart != false)
+            {
+                SSPDUI.MsgEx("Операция загрузки файла уже запущена!","Остановка загрузки файла");
+                return;
+            }
+
             LocalFileName = System.IO.Path.GetTempFileName() + new System.IO.FileInfo(pathFtp).Extension;
 
             if (!host.StartsWith("ftp://"))
@@ -34,21 +41,32 @@ namespace SSPD
 
             Uri uri = new Uri(host +"/"+ pathFtp);
 
-            SetParamPB();
+            if (showpb == true) SetParamPB();
+
+            FlStart = true;
             
             FTPClient request = new FTPClient();
             request.Credentials = new System.Net.NetworkCredential(Params.ServerFTP.UserNameRead, Params.ServerFTP.PasswordRead);
             request.DownloadProgressChanged += UpdateProgress;
             request.DownloadFileAsync(uri, LocalFileName);
             request.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadFileCompleted);
-            
-            pb.Show();
+
+            if (showpb == true)
+            {
+                pb.Show();
+                pb.Text = "Загрузка файла";
+            }
         }
 
         public static void DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            pb.Hide();
-            pb.Dispose();
+            if (pb != null)
+            {
+                pb.Hide();
+                pb.Dispose();
+            }
+
+            FlStart = false;
 
             if (System.IO.File.Exists(LocalFileName))
             {
@@ -68,8 +86,11 @@ namespace SSPD
         /// </summary>
         private static void UpdateProgress(object sender, System.Net.DownloadProgressChangedEventArgs e)
         {
-            progbar.Value = e.ProgressPercentage;
-            pb.Text = "Загрузка файла [" + e.ProgressPercentage.ToString() + "%" + "]";
+            if (pb != null)
+            {
+                progbar.Value = e.ProgressPercentage;
+                pb.Text = "Загрузка файла [" + e.ProgressPercentage.ToString() + "%" + "]";
+            }
         }
 
         /// <summary>
@@ -78,18 +99,23 @@ namespace SSPD
         private static void SetParamPB()
         {
             pb = new Form();
-            pb.Size = new System.Drawing.Size(250,30);
-            //pb.TopMost = true;
-            pb.ShowInTaskbar = false;
             pb.FormBorderStyle = FormBorderStyle.FixedDialog;
-            pb.StartPosition = FormStartPosition.CenterScreen;
+            pb.TopMost = true;
+            pb.ShowInTaskbar = false;
+            pb.Size = new System.Drawing.Size(250, 30);
+            pb.ControlBox = false;
+            //pb.StartPosition = FormStartPosition.CenterScreen;
+            pb.StartPosition = FormStartPosition.Manual;
+            pb.Left = Screen.PrimaryScreen.WorkingArea.Width - 300;
+            pb.Top = Screen.PrimaryScreen.WorkingArea.Height - 100;
+            
             progbar = new ProgressBar();
             pb.Controls.Add(progbar);
-            pb.ControlBox = false;
             progbar.Dock = DockStyle.Fill;
             progbar.Value = 0;
             progbar.Maximum = 100;
             progbar.Style = ProgressBarStyle.Continuous;
+            
         }
 
         /// <summary>
