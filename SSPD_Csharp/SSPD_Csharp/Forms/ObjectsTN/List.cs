@@ -14,6 +14,12 @@ namespace SSPD.ObjectsTN
 
         #region [Объявление переменных]
 
+        //режим выбора объектов
+        public bool SelectMode = false;
+        public string SelectType = "";
+        public bool FlSel = false;
+        public Hashtable SelectData;
+
         //Данные объектов
         private DataRowCollection DRC_MN = null;
         private DataRowCollection DRC_RNU = null;
@@ -50,26 +56,18 @@ namespace SSPD.ObjectsTN
 
         private void List_Load(object sender, EventArgs e)
         {
+
+            if (SelectMode == true)
+            {
+                mbtnSelect.Visible = true;
+                mbtnSepor1.Visible = true;
+            }
+
             LoadData();
             GetObject();
             SetCntLabel();
             
             this.Opacity = 1;
-        }
-
-        #endregion
-
-        #region [События элементов формы]
-
-        private void List_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape) this.Close();
-            if (e.KeyCode == Keys.F7) searchInTree(TreeObj);
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         #endregion
@@ -670,27 +668,48 @@ namespace SSPD.ObjectsTN
             return false;
         }
 
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Выбор объекта
+        /// </summary>
+        private void doSelectItem()
         {
-            EditObj();
-        }
+            if (TreeObj.SelectedNode == null) return;
+            if (TreeObj.SelectedNode.Tag == null) return;
 
-        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddObj();
-        }
+            if (SelectType.Length > 0)
+            {
+                if (SelectType != ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString())
+                {
+                    return;
+                }
+            }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DeleteObj();
+            FlSel = true;
+            SelectData = (Hashtable)TreeObj.SelectedNode.Tag;
+            SelectData.Add("Name", TreeObj.SelectedNode.Text);
+            this.Close();
         }
 
         #endregion
 
-        private void проводникОбъектаToolStripMenuItem_Click(object sender, EventArgs e)
+        #region [События элементов формы]
+
+        private void List_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.F7) searchInTree(TreeObj);
+        }
+
+        private void mbtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mbtnExplorer_Click(object sender, EventArgs e)
         {
             if (TreeObj.SelectedNode == null) return;
             if (TreeObj.SelectedNode.Tag == null) return;
+
             SSPD.ObjectsTN.Explorer Exp = new SSPD.ObjectsTN.Explorer();
             Exp.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
             Exp.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
@@ -698,6 +717,51 @@ namespace SSPD.ObjectsTN
             Exp.ShowDialog();
             Exp.Dispose();
         }
-       
+
+        private void mbtnEdit_Click(object sender, EventArgs e)
+        {
+            EditObj();
+        }
+
+        private void mbtnAdd_Click(object sender, EventArgs e)
+        {
+            AddObj();
+        }
+
+        private void mbtnDel_Click(object sender, EventArgs e)
+        {
+            DeleteObj();
+        }
+
+        private void mbtnFiles_Click(object sender, EventArgs e)
+        {
+            if (TreeObj.SelectedNode == null) return;
+            if (TreeObj.SelectedNode.Tag == null) return;
+
+            FileList FL = new FileList();
+            FL.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
+            FL.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
+            FL.NameObj = TreeObj.SelectedNode.Text;
+            FL.ShowDialog();
+        }
+
+        private void TreeObj_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (SelectMode == true)
+            {
+                if (e.KeyCode == Keys.Enter)
+                    doSelectItem();
+            }
+        }
+
+        private void mbtnSelect_Click(object sender, EventArgs e)
+        {
+            doSelectItem();
+        }
+
+        #endregion
+
+
+
     }
 }

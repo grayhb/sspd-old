@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace SSPD.ObjectsTN
 {
@@ -58,7 +59,8 @@ namespace SSPD.ObjectsTN
                             + " Projects ON ProjectsObjectPlace.ID_Project = Projects.ID_Project INNER JOIN"
                             + " Orgs ON Projects.ID_Zak = Orgs.ID_Org INNER JOIN"
                             + " Workers ON Projects.ID_GIP = Workers.ID_Worker"
-                            + " WHERE ProjectsObjectPlace.ID_Place = " + IDObj;
+                            + " WHERE ProjectsObjectPlace.ID_Place = " + IDObj
+                            + " ORDER BY Projects.Name_Project";
 
             var rs = DB.GetFields(SQLStr);
             if (rs.Count > 0)
@@ -70,10 +72,15 @@ namespace SSPD.ObjectsTN
                 TN.Expand();
                 TreeNode subTN;
 
+                Hashtable Detail = new Hashtable();
+                Detail.Add("TYPE", "PRJ");
+                Detail.Add("ID", "0");
+
                 foreach (DataRow dr in rs)
                 {
+                    Detail["ID"] = dr["ID_Project"];
                     subTN = new TreeNode();
-                    subTN.Tag = dr["ID_Project"];
+                    subTN.Tag = Detail;
                     subTN.Text = dr["Name_Project"].ToString();
                     subTN.Nodes.Add(new TreeNode("Шифр - " + dr["Sh_project"]));
                     subTN.Nodes.Add(new TreeNode("Заказчик - " + dr["Name"]));
@@ -138,11 +145,15 @@ namespace SSPD.ObjectsTN
             var rs = DB.GetFields(SQLStr);
 
             TreeNode subTN;
+            Hashtable Detail = new Hashtable();
+            Detail.Add("TYPE", "FILE");
+            Detail.Add("ID", "0");
 
             foreach (DataRow dr in rs)
             {
+                Detail["ID"] = dr["ID_Rec"];
                 subTN = new TreeNode();
-                subTN.Tag = dr["ID_Rec"];
+                subTN.Tag = Detail;
                 subTN.Text = dr["Name_F"].ToString();
                 subTN.Nodes.Add(new TreeNode("Организация источник - " + dr["Name"].ToString()));
                 subTN.Nodes.Add(new TreeNode("Добавил - " + dr["IDWCreator"].ToString()));
@@ -215,6 +226,29 @@ namespace SSPD.ObjectsTN
         }
 
         #endregion
+
+        private void TreeExp_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (TreeExp.SelectedNode == null) return;
+            if (TreeExp.SelectedNode.Tag == null) return;
+
+            Hashtable Detail = new Hashtable();
+
+
+            if (TreeExp.SelectedNode.Tag.GetType() == Detail.GetType())
+            {
+                Detail = (Hashtable)TreeExp.SelectedNode.Tag;
+                if (Detail["TYPE"].ToString() == "FILE")
+                {
+                    FileCard FC = new FileCard();
+                    FC.IDFile = Detail["ID"].ToString();
+                    FC.ShowDialog();
+                }
+            }
+
+            TreeExp.SelectedNode.Expand();
+
+        }
 
 
     }
