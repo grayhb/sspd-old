@@ -23,6 +23,9 @@ namespace SSPD.Select
         //запрос
         private string SqlStr = null;
 
+        //выделить организацию по ID
+        public string SelRow = "";
+
         //вариант отображения списка организаций
         public int means;
 
@@ -115,6 +118,11 @@ namespace SSPD.Select
                     DGVR = DGV.Rows[DGV.Rows.Count - 1];
                     DGVR.Tag = dr["ID_Org"].ToString();
                     DGVR.Cells[1].Value = dr["Name"].ToString();
+                    if (DGVR.Tag.ToString() == SelRow)
+                    {
+                        DGVR.Selected = true;
+                        DGVR.Cells[0].Selected = true;
+                    }
                 }
                 //красим строки
                 SSPDUI.SetBgRowInDGV(DGV);
@@ -227,6 +235,16 @@ namespace SSPD.Select
         {
             if (e.KeyCode == Keys.F2 || e.KeyCode == Keys.Return)
                 SelectItems();
+            if (e.KeyCode == Keys.Home)
+            {
+                DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Selected = true;
+                DGV.Rows[DGV.Rows.GetFirstRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
+            }
+            if (e.KeyCode == Keys.End) 
+            {
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Selected = true;
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
+            }
         }
 
         /// <summary>
