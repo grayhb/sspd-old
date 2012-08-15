@@ -109,6 +109,7 @@
             this.TreeExp.SelectedImageIndex = 9;
             this.TreeExp.Size = new System.Drawing.Size(692, 649);
             this.TreeExp.TabIndex = 12;
+            this.TreeExp.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TreeExp_MouseDoubleClick);
             // 
             // imageList
             // 
