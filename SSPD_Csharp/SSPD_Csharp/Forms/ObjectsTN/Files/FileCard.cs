@@ -111,6 +111,13 @@ namespace SSPD.ObjectsTN
                     return;
                 }
             }
+
+            if (Params.UserInfo.RightUser.ToUpper() == "ADMIN")
+            {
+                doSave = true;
+                return;
+            }
+
             doSave = false;
             btnSelType.Enabled = false;
             btnSelObj.Enabled = false;

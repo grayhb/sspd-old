@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace SSPD.ObjectsTN
 {
@@ -46,8 +47,10 @@ namespace SSPD.ObjectsTN
                     + " dbo.Workers ON ObjectFiles.ID_WorkerCreator = dbo.Workers.ID_Worker LEFT OUTER JOIN"
                     + " dbo.Orgs ON ObjectFiles.ID_Org = dbo.Orgs.ID_Org";
 
-
-            SetFilter(1, IDObj, TypeObj, mbtnFilterObj);
+            if (IDObj != null)
+                SetFilter(1, IDObj, TypeObj, mbtnFilterObj);
+            else
+                SetFilter(0, null, null, mbtnFilterNone);
 
             LoadData();
 
@@ -55,7 +58,26 @@ namespace SSPD.ObjectsTN
 
             FillWidthDGVColumn();
         }
-    
+
+        /// <summary>
+        /// Проверка доступа на запись
+        /// </summary>
+        private void CheckAccess()
+        {
+            mbtnFileDel.Visible = false;
+            var rs = DB.GetFields("SELECT Val_Par FROM Params WHERE ID_Par = 212");
+            if (rs.Count > 0)
+            {
+                if (rs[0]["Val_Par"].ToString() == Params.UserInfo.ID_Otdel)
+                {
+                    mbtnFileDel.Visible = true;
+                }
+            }
+
+            if (Params.UserInfo.RightUser.ToUpper() == "ADMIN")
+                mbtnFileDel.Visible = true;
+        }
+
         #endregion
 
         #region [Загрузка и управление данными]
@@ -193,6 +215,16 @@ namespace SSPD.ObjectsTN
             }
         }
 
+        /// <summary>
+        /// Добавление нового файла
+        /// </summary>
+        private void AddNewFile()
+        {
+            FileAdd FA = new FileAdd();
+            FA.ShowDialog();
+
+        }
+
         #endregion
 
         #region [События элементов формы]
@@ -309,11 +341,27 @@ namespace SSPD.ObjectsTN
                 OpenCard(DGV.SelectedRows[0].Tag.ToString());
         }
 
+        private void mbtnFileAdd_Click(object sender, EventArgs e)
+        {
+            AddNewFile();
+        }
+
+        private void mbtnFilterObj_Click(object sender, EventArgs e)
+        {
+            ObjectsTN.List ObjList = new ObjectsTN.List();
+            ObjList.SelectMode = true;
+            ObjList.ShowDialog();
+            if (ObjList.FlSel == true)
+            {
+                SetFilter(1, ((Hashtable)ObjList.SelectData)["ID"].ToString(), ((Hashtable)ObjList.SelectData)["Type"].ToString(), mbtnFilterObj);
+                LoadData();
+            }
+            ObjList.Dispose();
+        }
+
         #endregion
 
 
 
-
-        
     }
 }

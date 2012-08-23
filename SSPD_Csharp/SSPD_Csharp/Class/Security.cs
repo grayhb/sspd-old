@@ -11,7 +11,8 @@ namespace SSPD
         private static string[] AdminMachineName = {   "OVIAP00-GTPSAM",
                                             "DGK-PC",
                                             "NOTEBOOK-51",
-                                            "TO04-GTPSAM" };
+                                            "TO04-GTPSAM",
+                                                   "TO00-GTPSAM"};
 
 
 

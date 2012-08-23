@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.Windows.Forms;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace SSPD
 {
@@ -108,6 +110,7 @@ namespace SSPD
             pb.StartPosition = FormStartPosition.Manual;
             pb.Left = Screen.PrimaryScreen.WorkingArea.Width - 300;
             pb.Top = Screen.PrimaryScreen.WorkingArea.Height - 100;
+            pb.Opacity = 0.75;
             
             progbar = new ProgressBar();
             pb.Controls.Add(progbar);
@@ -237,6 +240,32 @@ namespace SSPD
 
             return rs[0][0].ToString();
 
+        }
+
+        /// <summary>
+        /// Вычисление хеша MD5 из файла
+        /// </summary>
+        /// <param name="fileName">путь к файлу</param>
+        /// <returns>Хэш MD5 или пустую строку в случае отсутствия файла</returns>
+        public static string GetMD5HashFromFile(string fileName)
+        {
+            try
+            {
+                FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                MD5 md5 = new MD5CryptoServiceProvider();
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in md5.ComputeHash(file))
+                {
+                    sb.Append(b.ToString("x2").ToUpper());
+                }
+                file.Close();
+                return sb.ToString();
+            }
+            catch
+            {
+                return "";
+            }
+            
         }
 
     }

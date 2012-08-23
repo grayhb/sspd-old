@@ -74,6 +74,13 @@ namespace SSPD.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap drive_download {
+            get {
+                object obj = ResourceManager.GetObject("drive-download", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LineSeparator {
             get {
                 object obj = ResourceManager.GetObject("LineSeparator", resourceCulture);
@@ -81,9 +88,23 @@ namespace SSPD.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap navigation_180_button {
+            get {
+                object obj = ResourceManager.GetObject("navigation-180-button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap no_images {
             get {
                 object obj = ResourceManager.GetObject("no_images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap ui_button_navigation_back {
+            get {
+                object obj = ResourceManager.GetObject("ui-button-navigation-back", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

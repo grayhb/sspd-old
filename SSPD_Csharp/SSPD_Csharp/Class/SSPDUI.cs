@@ -31,6 +31,25 @@ namespace SSPD
 
         }
 
+        /// <summary>
+        /// Проверка открыта ли форма
+        /// </summary>
+        /// <param name="FName">Заголовок окна</param>
+        /// <returns>false - открыто, true - нет</returns>
+        public static bool CheckOpenForm(string FName)
+        {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.Name == FName)
+                {
+                    f.WindowState = FormWindowState.Normal;
+                    f.Activate();
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         /// <summary>
         /// Вывод предупреждающего сообщения

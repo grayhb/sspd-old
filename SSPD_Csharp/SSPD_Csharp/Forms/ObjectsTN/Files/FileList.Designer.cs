@@ -41,7 +41,7 @@
             this.mbtnFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFileCard = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mbtnSepor2 = new System.Windows.Forms.ToolStripSeparator();
             this.mbtnFileAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFileDel = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFilter = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,17 +49,9 @@
             this.mbtnFilterWorker = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFilterType = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnFilterName = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mbtnSepor1 = new System.Windows.Forms.ToolStripSeparator();
             this.mbtnFilterNone = new System.Windows.Forms.ToolStripMenuItem();
             this.DGV = new System.Windows.Forms.DataGridView();
-            this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.CntMNLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.CntRNULabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.CntLPDSLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.CntPlaceLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmbtnOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbtnCard = new System.Windows.Forms.ToolStripMenuItem();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,11 +60,19 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmbtnOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbtnCard = new System.Windows.Forms.ToolStripMenuItem();
+            this.BottomStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.CntMNLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.CntRNULabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.CntLPDSLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.CntPlaceLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.TopToolStrip.SuspendLayout();
             this.TopMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
-            this.BottomStatusStrip.SuspendLayout();
             this.contextMenu.SuspendLayout();
+            this.BottomStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopToolStrip
@@ -146,7 +146,7 @@
             this.mbtnFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mbtnFileOpen,
             this.mbtnFileCard,
-            this.toolStripSeparator2,
+            this.mbtnSepor2,
             this.mbtnFileAdd,
             this.mbtnFileDel});
             this.mbtnFile.Name = "mbtnFile";
@@ -167,16 +167,17 @@
             this.mbtnFileCard.Text = "Карточка документа";
             this.mbtnFileCard.Click += new System.EventHandler(this.mbtnFileCard_Click);
             // 
-            // toolStripSeparator2
+            // mbtnSepor2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
+            this.mbtnSepor2.Name = "mbtnSepor2";
+            this.mbtnSepor2.Size = new System.Drawing.Size(189, 6);
             // 
             // mbtnFileAdd
             // 
             this.mbtnFileAdd.Name = "mbtnFileAdd";
             this.mbtnFileAdd.Size = new System.Drawing.Size(192, 22);
             this.mbtnFileAdd.Text = "Добавить";
+            this.mbtnFileAdd.Click += new System.EventHandler(this.mbtnFileAdd_Click);
             // 
             // mbtnFileDel
             // 
@@ -191,7 +192,7 @@
             this.mbtnFilterWorker,
             this.mbtnFilterType,
             this.mbtnFilterName,
-            this.toolStripSeparator1,
+            this.mbtnSepor1,
             this.mbtnFilterNone});
             this.mbtnFilter.Name = "mbtnFilter";
             this.mbtnFilter.Size = new System.Drawing.Size(57, 20);
@@ -202,6 +203,7 @@
             this.mbtnFilterObj.Name = "mbtnFilterObj";
             this.mbtnFilterObj.Size = new System.Drawing.Size(245, 22);
             this.mbtnFilterObj.Text = "По объекту";
+            this.mbtnFilterObj.Click += new System.EventHandler(this.mbtnFilterObj_Click);
             // 
             // mbtnFilterWorker
             // 
@@ -222,10 +224,10 @@
             this.mbtnFilterName.Text = "По вхождению в наименование";
             this.mbtnFilterName.Click += new System.EventHandler(this.mbtnFilterName_Click);
             // 
-            // toolStripSeparator1
+            // mbtnSepor1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(242, 6);
+            this.mbtnSepor1.Name = "mbtnSepor1";
+            this.mbtnSepor1.Size = new System.Drawing.Size(242, 6);
             // 
             // mbtnFilterNone
             // 
@@ -268,65 +270,6 @@
             this.DGV.TabIndex = 12;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.Sorted += new System.EventHandler(this.DGV_Sorted);
-            // 
-            // BottomStatusStrip
-            // 
-            this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.CntMNLabel,
-            this.CntRNULabel,
-            this.CntLPDSLabel,
-            this.CntPlaceLabel});
-            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 651);
-            this.BottomStatusStrip.Name = "BottomStatusStrip";
-            this.BottomStatusStrip.Size = new System.Drawing.Size(952, 22);
-            this.BottomStatusStrip.TabIndex = 14;
-            this.BottomStatusStrip.Text = "statusStrip1";
-            // 
-            // CntMNLabel
-            // 
-            this.CntMNLabel.Name = "CntMNLabel";
-            this.CntMNLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.CntMNLabel.Size = new System.Drawing.Size(20, 17);
-            // 
-            // CntRNULabel
-            // 
-            this.CntRNULabel.Name = "CntRNULabel";
-            this.CntRNULabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.CntRNULabel.Size = new System.Drawing.Size(20, 17);
-            // 
-            // CntLPDSLabel
-            // 
-            this.CntLPDSLabel.Name = "CntLPDSLabel";
-            this.CntLPDSLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.CntLPDSLabel.Size = new System.Drawing.Size(20, 17);
-            // 
-            // CntPlaceLabel
-            // 
-            this.CntPlaceLabel.Name = "CntPlaceLabel";
-            this.CntPlaceLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.CntPlaceLabel.Size = new System.Drawing.Size(20, 17);
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbtnOpen,
-            this.cmbtnCard});
-            this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(192, 48);
-            // 
-            // cmbtnOpen
-            // 
-            this.cmbtnOpen.Name = "cmbtnOpen";
-            this.cmbtnOpen.Size = new System.Drawing.Size(191, 22);
-            this.cmbtnOpen.Text = "Открыть";
-            this.cmbtnOpen.Click += new System.EventHandler(this.cmbtnOpen_Click);
-            // 
-            // cmbtnCard
-            // 
-            this.cmbtnCard.Name = "cmbtnCard";
-            this.cmbtnCard.Size = new System.Drawing.Size(191, 22);
-            this.cmbtnCard.Text = "Карточка материала";
-            this.cmbtnCard.Click += new System.EventHandler(this.cmbtnCard_Click);
             // 
             // Column1
             // 
@@ -389,6 +332,65 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbtnOpen,
+            this.cmbtnCard});
+            this.contextMenu.Name = "contextMenuStrip1";
+            this.contextMenu.Size = new System.Drawing.Size(192, 48);
+            // 
+            // cmbtnOpen
+            // 
+            this.cmbtnOpen.Name = "cmbtnOpen";
+            this.cmbtnOpen.Size = new System.Drawing.Size(191, 22);
+            this.cmbtnOpen.Text = "Открыть";
+            this.cmbtnOpen.Click += new System.EventHandler(this.cmbtnOpen_Click);
+            // 
+            // cmbtnCard
+            // 
+            this.cmbtnCard.Name = "cmbtnCard";
+            this.cmbtnCard.Size = new System.Drawing.Size(191, 22);
+            this.cmbtnCard.Text = "Карточка материала";
+            this.cmbtnCard.Click += new System.EventHandler(this.cmbtnCard_Click);
+            // 
+            // BottomStatusStrip
+            // 
+            this.BottomStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CntMNLabel,
+            this.CntRNULabel,
+            this.CntLPDSLabel,
+            this.CntPlaceLabel});
+            this.BottomStatusStrip.Location = new System.Drawing.Point(0, 651);
+            this.BottomStatusStrip.Name = "BottomStatusStrip";
+            this.BottomStatusStrip.Size = new System.Drawing.Size(952, 22);
+            this.BottomStatusStrip.TabIndex = 14;
+            this.BottomStatusStrip.Text = "statusStrip1";
+            // 
+            // CntMNLabel
+            // 
+            this.CntMNLabel.Name = "CntMNLabel";
+            this.CntMNLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.CntMNLabel.Size = new System.Drawing.Size(20, 17);
+            // 
+            // CntRNULabel
+            // 
+            this.CntRNULabel.Name = "CntRNULabel";
+            this.CntRNULabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.CntRNULabel.Size = new System.Drawing.Size(20, 17);
+            // 
+            // CntLPDSLabel
+            // 
+            this.CntLPDSLabel.Name = "CntLPDSLabel";
+            this.CntLPDSLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.CntLPDSLabel.Size = new System.Drawing.Size(20, 17);
+            // 
+            // CntPlaceLabel
+            // 
+            this.CntPlaceLabel.Name = "CntPlaceLabel";
+            this.CntPlaceLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.CntPlaceLabel.Size = new System.Drawing.Size(20, 17);
+            // 
             // FileList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,9 +414,9 @@
             this.TopMenu.ResumeLayout(false);
             this.TopMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
+            this.contextMenu.ResumeLayout(false);
             this.BottomStatusStrip.ResumeLayout(false);
             this.BottomStatusStrip.PerformLayout();
-            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,14 +441,14 @@
         private System.Windows.Forms.ToolStripMenuItem mbtnFilterWorker;
         private System.Windows.Forms.ToolStripMenuItem mbtnFilterType;
         private System.Windows.Forms.ToolStripMenuItem mbtnFilterName;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator mbtnSepor1;
         private System.Windows.Forms.ToolStripMenuItem mbtnFilterNone;
         private System.Windows.Forms.ToolStripMenuItem mbtnFile;
         private System.Windows.Forms.ToolStripMenuItem mbtnFileAdd;
         private System.Windows.Forms.ToolStripMenuItem mbtnFileDel;
         private System.Windows.Forms.ToolStripMenuItem mbtnFileOpen;
         private System.Windows.Forms.ToolStripMenuItem mbtnFileCard;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator mbtnSepor2;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem cmbtnOpen;
         private System.Windows.Forms.ToolStripMenuItem cmbtnCard;

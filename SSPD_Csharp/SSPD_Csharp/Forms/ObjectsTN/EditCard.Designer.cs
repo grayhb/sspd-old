@@ -61,7 +61,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mbtnSepor = new System.Windows.Forms.ToolStripSeparator();
             this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.LineSeparatorBottom)).BeginInit();
@@ -76,7 +76,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnCancel.Location = new System.Drawing.Point(505, 268);
             this.btnCancel.Name = "btnCancel";
@@ -89,7 +89,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSave.Location = new System.Drawing.Point(424, 268);
             this.btnSave.Name = "btnSave";
@@ -141,11 +141,16 @@
             // btnChangeOrg
             // 
             this.btnChangeOrg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeOrg.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeOrg.Image = global::SSPD.Properties.Resources.ui_button_navigation_back;
+            this.btnChangeOrg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnChangeOrg.Location = new System.Drawing.Point(381, 34);
             this.btnChangeOrg.Name = "btnChangeOrg";
+            this.btnChangeOrg.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.btnChangeOrg.Size = new System.Drawing.Size(158, 23);
             this.btnChangeOrg.TabIndex = 2;
             this.btnChangeOrg.Text = "Выбрать организацию";
+            this.btnChangeOrg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChangeOrg.UseVisualStyleBackColor = true;
             this.btnChangeOrg.Click += new System.EventHandler(this.btnChangeOrg_Click);
             // 
@@ -299,12 +304,17 @@
             // btnLPDSAdd
             // 
             this.btnLPDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLPDSAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLPDSAdd.Enabled = false;
-            this.btnLPDSAdd.Location = new System.Drawing.Point(467, 146);
+            this.btnLPDSAdd.Image = global::SSPD.Properties.Resources.ui_button_navigation_back;
+            this.btnLPDSAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLPDSAdd.Location = new System.Drawing.Point(448, 146);
             this.btnLPDSAdd.Name = "btnLPDSAdd";
-            this.btnLPDSAdd.Size = new System.Drawing.Size(71, 23);
+            this.btnLPDSAdd.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.btnLPDSAdd.Size = new System.Drawing.Size(90, 23);
             this.btnLPDSAdd.TabIndex = 17;
             this.btnLPDSAdd.Text = "добавить";
+            this.btnLPDSAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip1.SetToolTip(this.btnLPDSAdd, "Добавить новую ЛПДС");
             this.btnLPDSAdd.UseVisualStyleBackColor = true;
             this.btnLPDSAdd.Click += new System.EventHandler(this.btnLPDSAdd_Click);
@@ -350,7 +360,7 @@
             this.comboLPDS.Location = new System.Drawing.Point(139, 148);
             this.comboLPDS.Margin = new System.Windows.Forms.Padding(3, 12, 3, 3);
             this.comboLPDS.Name = "comboLPDS";
-            this.comboLPDS.Size = new System.Drawing.Size(322, 21);
+            this.comboLPDS.Size = new System.Drawing.Size(303, 21);
             this.comboLPDS.TabIndex = 13;
             // 
             // checkLPDS
@@ -420,7 +430,7 @@
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mbtnSave,
-            this.toolStripSeparator1,
+            this.mbtnSepor,
             this.mbtnClose});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
@@ -433,10 +443,10 @@
             this.mbtnSave.Text = "Сохранить";
             this.mbtnSave.Click += new System.EventHandler(this.mbtnSave_Click);
             // 
-            // toolStripSeparator1
+            // mbtnSepor
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.mbtnSepor.Name = "mbtnSepor";
+            this.mbtnSepor.Size = new System.Drawing.Size(149, 6);
             // 
             // mbtnClose
             // 
@@ -457,6 +467,7 @@
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "EditCard";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -497,7 +508,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mbtnSave;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator mbtnSepor;
         private System.Windows.Forms.ToolStripMenuItem mbtnClose;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox RNU_Name;
