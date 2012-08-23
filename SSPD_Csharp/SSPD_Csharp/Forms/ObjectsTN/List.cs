@@ -690,6 +690,22 @@ namespace SSPD.ObjectsTN
             this.Close();
         }
 
+        /// <summary>
+        /// Открыть проводник объекта
+        /// </summary>
+        private void OpenExplorer()
+        {
+            if (TreeObj.SelectedNode == null) return;
+            if (TreeObj.SelectedNode.Tag == null) return;
+
+            SSPD.ObjectsTN.Explorer Exp = new SSPD.ObjectsTN.Explorer();
+            Exp.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
+            Exp.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
+            Exp.NameObj = TreeObj.SelectedNode.Text;
+            Exp.ShowDialog();
+            Exp.Dispose();
+        }
+
         #endregion
 
         #region [События элементов формы]
@@ -707,15 +723,7 @@ namespace SSPD.ObjectsTN
 
         private void mbtnExplorer_Click(object sender, EventArgs e)
         {
-            if (TreeObj.SelectedNode == null) return;
-            if (TreeObj.SelectedNode.Tag == null) return;
-
-            SSPD.ObjectsTN.Explorer Exp = new SSPD.ObjectsTN.Explorer();
-            Exp.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
-            Exp.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
-            Exp.NameObj = TreeObj.SelectedNode.Text;
-            Exp.ShowDialog();
-            Exp.Dispose();
+            OpenExplorer();
         }
 
         private void mbtnEdit_Click(object sender, EventArgs e)
@@ -735,13 +743,13 @@ namespace SSPD.ObjectsTN
 
         private void mbtnFiles_Click(object sender, EventArgs e)
         {
-            if (TreeObj.SelectedNode == null) return;
-            if (TreeObj.SelectedNode.Tag == null) return;
-
             FileList FL = new FileList();
-            FL.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
-            FL.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
-            FL.NameObj = TreeObj.SelectedNode.Text;
+            if (TreeObj.SelectedNode.Tag != null)
+            {
+                FL.IDObj = ((Hashtable)TreeObj.SelectedNode.Tag)["ID"].ToString();
+                FL.TypeObj = ((Hashtable)TreeObj.SelectedNode.Tag)["Type"].ToString();
+                FL.NameObj = TreeObj.SelectedNode.Text;
+            }
             FL.ShowDialog();
         }
 
@@ -759,8 +767,21 @@ namespace SSPD.ObjectsTN
             doSelectItem();
         }
 
-        #endregion
+        private void TreeObj_DoubleClick(object sender, EventArgs e)
+        {
+            if (SelectMode == true)
+            {
+                doSelectItem();
+            }
+            else
+            {
+                OpenExplorer();
+            }
+            if( TreeObj.Nodes.Count>0 ) 
+                TreeObj.SelectedNode.Expand();
+        }
 
+        #endregion
 
 
     }

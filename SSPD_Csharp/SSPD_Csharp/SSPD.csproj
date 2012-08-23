@@ -97,6 +97,24 @@
     <Compile Include="Forms\ObjectsTN\Explorer.Designer.cs">
       <DependentUpon>Explorer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileAdd.Designer.cs">
+      <DependentUpon>FileAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileCard.Designer.cs">
+      <DependentUpon>FileCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ObjectsTN\Files\FileList.Designer.cs">
+      <DependentUpon>FileList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ObjectsTN\List.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +187,12 @@
     <Compile Include="Forms\Select\Orgs.Designer.cs">
       <DependentUpon>Orgs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Select\SelectPar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Select\SelectPar.Designer.cs">
+      <DependentUpon>SelectPar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Cfg\Cfg.resx">
@@ -191,6 +215,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ObjectsTN\Explorer.resx">
       <DependentUpon>Explorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ObjectsTN\Files\FileAdd.resx">
+      <DependentUpon>FileAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ObjectsTN\Files\FileCard.resx">
+      <DependentUpon>FileCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ObjectsTN\Files\FileList.resx">
+      <DependentUpon>FileList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ObjectsTN\List.resx">
       <DependentUpon>List.cs</DependentUpon>
@@ -228,6 +261,9 @@
     <EmbeddedResource Include="Forms\Select\Orgs.resx">
       <DependentUpon>Orgs.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Select\SelectPar.resx">
+      <DependentUpon>SelectPar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -256,6 +292,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dgk32.ico" />
+    <None Include="Resources\drive-download.png" />
+    <None Include="Resources\ui-button-navigation-back.png" />
+    <None Include="Resources\navigation-180-button.png" />
     <None Include="Resources\DeleteFoto.png" />
     <None Include="Resources\LineSeparator.png" />
   </ItemGroup>

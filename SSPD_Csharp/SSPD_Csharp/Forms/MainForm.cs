@@ -38,8 +38,8 @@ namespace SSPD
 
             this.Opacity = 1;
 
-            //FTP.FtpDownload(Params.ServerFTP.Adress, FTP.GetFileName(28,"31"));
-
+            ObjectsTN.FileAdd FA = new ObjectsTN.FileAdd();
+            FA.ShowDialog();
         }
 
         /// <summary>
@@ -68,25 +68,12 @@ namespace SSPD
 
         }
 
-        private bool CheckOpenForm(string FName)
-        {
-            foreach (Form f in Application.OpenForms)
-            {
-                if (f.Name == FName)
-                {
-                    f.WindowState = FormWindowState.Normal;
-                    f.Activate();
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        #region [события элементов]
 
         private void списокРаботниковToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WorkersSprav WS = new WorkersSprav();
-            if (CheckOpenForm(WS.Name))
+            if (SSPDUI.CheckOpenForm(WS.Name))
             {
                 WS.ShowInTaskbar = true;
                 WS.MdiParent = this;
@@ -97,7 +84,7 @@ namespace SSPD
         private void списокРаботниковадминистрированиеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WorkersSpravEdit WSE = new WorkersSpravEdit();
-            if (CheckOpenForm(WSE.Name))
+            if (SSPDUI.CheckOpenForm(WSE.Name))
             {
                 WSE.ShowInTaskbar = true;
                 WSE.MdiParent = this;
@@ -108,7 +95,7 @@ namespace SSPD
         private void МенюСправочникСИМКарт_Click(object sender, EventArgs e)
         {
             PhoneSIMList PSIML = new PhoneSIMList(false);
-            if (CheckOpenForm(PSIML.Name))
+            if (SSPDUI.CheckOpenForm(PSIML.Name))
             {
                 PSIML.MdiParent = this;
                 PSIML.Show();
@@ -118,7 +105,7 @@ namespace SSPD
         private void справочникМобильныхТелефоновToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneApList PAL = new PhoneApList(false);
-            if (CheckOpenForm(PAL.Name))
+            if (SSPDUI.CheckOpenForm(PAL.Name))
             {
                 PAL.MdiParent = this;
                 PAL.Show();
@@ -128,7 +115,7 @@ namespace SSPD
         private void справочникТелефонныхТочекToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneInnerList PIL = new PhoneInnerList(false);
-            if (CheckOpenForm(PIL.Name))
+            if (SSPDUI.CheckOpenForm(PIL.Name))
             {
                 PIL.MdiParent = this;
                 PIL.Show();
@@ -138,7 +125,7 @@ namespace SSPD
         private void справочникIPНомеровToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PhoneIPList PIPL = new PhoneIPList();
-            if (CheckOpenForm(PIPL.Name))
+            if (SSPDUI.CheckOpenForm(PIPL.Name))
             {
                 PIPL.MdiParent = this;
                 PIPL.Show();
@@ -148,7 +135,7 @@ namespace SSPD
         private void MenuListObjKTN_Click(object sender, EventArgs e)
         {
             SSPD.ObjectsTN.List ListKTN = new SSPD.ObjectsTN.List();
-            if (CheckOpenForm(ListKTN.Name))
+            if (SSPDUI.CheckOpenForm(ListKTN.Name))
             {
                 ListKTN.MdiParent = this;
                 ListKTN.Show();
@@ -191,7 +178,10 @@ namespace SSPD
             }
         }
 
+        #endregion
 
 
+
+        
     }
 }

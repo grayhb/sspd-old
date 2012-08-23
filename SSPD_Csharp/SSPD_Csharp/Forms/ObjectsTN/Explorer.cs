@@ -72,13 +72,13 @@ namespace SSPD.ObjectsTN
                 TN.Expand();
                 TreeNode subTN;
 
-                Hashtable Detail = new Hashtable();
-                Detail.Add("TYPE", "PRJ");
-                Detail.Add("ID", "0");
+                Hashtable Detail ;
 
                 foreach (DataRow dr in rs)
                 {
-                    Detail["ID"] = dr["ID_Project"];
+                    Detail = new Hashtable();
+                    Detail.Add("TYPE", "PRJ");
+                    Detail.Add("ID", dr["ID_Project"]);
                     subTN = new TreeNode();
                     subTN.Tag = Detail;
                     subTN.Text = dr["Name_Project"].ToString();
@@ -145,13 +145,13 @@ namespace SSPD.ObjectsTN
             var rs = DB.GetFields(SQLStr);
 
             TreeNode subTN;
-            Hashtable Detail = new Hashtable();
-            Detail.Add("TYPE", "FILE");
-            Detail.Add("ID", "0");
+            Hashtable Detail;
 
             foreach (DataRow dr in rs)
             {
-                Detail["ID"] = dr["ID_Rec"];
+                Detail = new Hashtable();
+                Detail.Add("TYPE", "FILE");
+                Detail.Add("ID", dr["ID_Rec"]);
                 subTN = new TreeNode();
                 subTN.Tag = Detail;
                 subTN.Text = dr["Name_F"].ToString();
@@ -249,7 +249,6 @@ namespace SSPD.ObjectsTN
             TreeExp.SelectedNode.Expand();
 
         }
-
 
     }
 }

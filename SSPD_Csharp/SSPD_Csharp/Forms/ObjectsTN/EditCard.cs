@@ -26,6 +26,9 @@ namespace SSPD.ObjectsTN
         //флаг сохранения карточки
         public bool FlSave = false;
 
+        //флаг права сохранения
+        private bool doSave = false;
+
         #endregion
 
         #region [Инициализация и загрузка формы]
@@ -65,6 +68,8 @@ namespace SSPD.ObjectsTN
                     break;
             }
 
+            CheckAccess();
+
             //удаляем вкладки
             DeleteTab();
 
@@ -85,6 +90,45 @@ namespace SSPD.ObjectsTN
             {
                 if (TP.Name != TypeObj) TabControl.TabPages.Remove(TP);
             }
+        }
+
+        /// <summary>
+        /// Проверка доступа на запись
+        /// </summary>
+        private void CheckAccess()
+        {
+            var rs = DB.GetFields("SELECT Val_Par FROM Params WHERE ID_Par = 212");
+            if (rs.Count > 0)
+            {
+                if (rs[0]["Val_Par"].ToString() == Params.UserInfo.ID_Otdel)
+                {
+                    doSave = true;
+                    return;
+                }
+            }
+
+            if (Params.UserInfo.RightUser.ToUpper() == "ADMIN")
+            {
+                doSave = true;
+                return;
+            }
+
+            btnChangeOrg.Visible = false;
+            MN_Name.Width += btnChangeOrg.Width;
+
+            RNU_Name.ReadOnly = true;
+
+            LPDS_Name.ReadOnly = true;
+            Place_Name.ReadOnly = true;
+            PlaceRN.ReadOnly = true;
+            PlaceStatus.Enabled = false;
+            checkLPDS.Enabled = false;
+            comboLPDS.Enabled = false;
+
+            btnLPDSAdd.Visible = false;
+            btnSave.Visible = false;
+            mbtnSave.Visible = false;
+            mbtnSepor.Visible = false;
         }
 
         #endregion
@@ -267,20 +311,23 @@ namespace SSPD.ObjectsTN
         /// </summary>
         private void SaveObjects()
         {
-            switch (TypeObj)
+            if (doSave == true)
             {
-                case "MN":
-                    SaveMN();
-                    break;
-                case "RNU":
-                    SaveRNU();
-                    break;
-                case "LPDS":
-                    SaveLPDS();
-                    break;
-                case "Place":
-                    SavePlace();
-                    break;
+                switch (TypeObj)
+                {
+                    case "MN":
+                        SaveMN();
+                        break;
+                    case "RNU":
+                        SaveRNU();
+                        break;
+                    case "LPDS":
+                        SaveLPDS();
+                        break;
+                    case "Place":
+                        SavePlace();
+                        break;
+                }
             }
         }
 

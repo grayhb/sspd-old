@@ -35,6 +35,8 @@
             this.btn_Search = new System.Windows.Forms.ToolStripButton();
             this.TopMenu = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSelect = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnSepor1 = new System.Windows.Forms.ToolStripSeparator();
             this.mbtnClose = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюОбъекты = new System.Windows.Forms.ToolStripMenuItem();
             this.mbtnExplorer = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +63,6 @@
             this.CntRNULabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.CntLPDSLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.CntPlaceLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mbtnSelect = new System.Windows.Forms.ToolStripMenuItem();
-            this.mbtnSepor1 = new System.Windows.Forms.ToolStripSeparator();
             this.TopToolStrip.SuspendLayout();
             this.TopMenu.SuspendLayout();
             this.BottomPanel.SuspendLayout();
@@ -126,6 +126,20 @@
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
+            // 
+            // mbtnSelect
+            // 
+            this.mbtnSelect.Name = "mbtnSelect";
+            this.mbtnSelect.Size = new System.Drawing.Size(155, 22);
+            this.mbtnSelect.Text = "Выбрать";
+            this.mbtnSelect.Visible = false;
+            this.mbtnSelect.Click += new System.EventHandler(this.mbtnSelect_Click);
+            // 
+            // mbtnSepor1
+            // 
+            this.mbtnSepor1.Name = "mbtnSepor1";
+            this.mbtnSepor1.Size = new System.Drawing.Size(152, 6);
+            this.mbtnSepor1.Visible = false;
             // 
             // mbtnClose
             // 
@@ -250,6 +264,7 @@
             this.TreeObj.SelectedImageIndex = 0;
             this.TreeObj.Size = new System.Drawing.Size(782, 463);
             this.TreeObj.TabIndex = 11;
+            this.TreeObj.DoubleClick += new System.EventHandler(this.TreeObj_DoubleClick);
             this.TreeObj.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TreeObj_KeyDown);
             // 
             // imageList1
@@ -361,20 +376,6 @@
             this.CntPlaceLabel.Name = "CntPlaceLabel";
             this.CntPlaceLabel.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.CntPlaceLabel.Size = new System.Drawing.Size(20, 17);
-            // 
-            // mbtnSelect
-            // 
-            this.mbtnSelect.Name = "mbtnSelect";
-            this.mbtnSelect.Size = new System.Drawing.Size(155, 22);
-            this.mbtnSelect.Text = "Выбрать";
-            this.mbtnSelect.Visible = false;
-            this.mbtnSelect.Click += new System.EventHandler(this.mbtnSelect_Click);
-            // 
-            // mbtnSepor1
-            // 
-            this.mbtnSepor1.Name = "mbtnSepor1";
-            this.mbtnSepor1.Size = new System.Drawing.Size(152, 6);
-            this.mbtnSepor1.Visible = false;
             // 
             // List
             // 
