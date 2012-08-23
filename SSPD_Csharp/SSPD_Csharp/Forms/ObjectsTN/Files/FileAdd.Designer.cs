@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Шаги", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Выбор объекта");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Ввод регистрационных данных");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Выбор файла");
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Шаги", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Выбор объекта");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Ввод регистрационных данных");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Выбор файла");
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
@@ -171,19 +171,19 @@
             this.listSteps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listSteps.FullRowSelect = true;
-            listViewGroup2.Header = "Шаги";
-            listViewGroup2.Name = "Шаги";
+            listViewGroup1.Header = "Шаги";
+            listViewGroup1.Name = "Шаги";
             this.listSteps.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
             this.listSteps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listSteps.HideSelection = false;
-            listViewItem4.Group = listViewGroup2;
-            listViewItem5.Group = listViewGroup2;
-            listViewItem6.Group = listViewGroup2;
+            listViewItem1.Group = listViewGroup1;
+            listViewItem2.Group = listViewGroup1;
+            listViewItem3.Group = listViewGroup1;
             this.listSteps.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3});
             this.listSteps.Location = new System.Drawing.Point(12, 12);
             this.listSteps.MultiSelect = false;
             this.listSteps.Name = "listSteps";
@@ -237,6 +237,7 @@
             this.btnSelOrg.Text = "выбрать";
             this.btnSelOrg.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSelOrg.UseVisualStyleBackColor = true;
+            this.btnSelOrg.Click += new System.EventHandler(this.btnSelOrg_Click);
             // 
             // OrgLabel
             // 
