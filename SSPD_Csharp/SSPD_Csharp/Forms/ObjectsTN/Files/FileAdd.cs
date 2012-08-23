@@ -180,7 +180,23 @@ namespace SSPD.ObjectsTN
             ObjList.Dispose();
           }
 
+        private void btnSelOrg_Click(object sender, EventArgs e)
+        {
+            SSPD.Select.Orgs SelOrg = new SSPD.Select.Orgs();
+            SelOrg.means = 5;
+            SelOrg.SelRow = Org.Tag.ToString();
+            SelOrg.ShowDialog();
+            if (SelOrg.FlSel == true)
+            {
+                Org.Text = SelOrg.SelectValue;
+                Org.Tag = SelOrg.SelectID;
+            }
+            SelOrg.Dispose();
+        }
+
+
         #endregion
+
 
 
 
