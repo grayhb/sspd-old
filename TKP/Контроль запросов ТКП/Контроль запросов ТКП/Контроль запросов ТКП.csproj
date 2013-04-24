@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD33CE03-D119-47D3-9290-17B1E9ED5CAF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Контроль_запросов_ТКП</RootNamespace>
+    <AssemblyName>Контроль запросов ТКП</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.2.1269.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SSPD">
+      <HintPath>..\..\dllSSPD\dllSSPD\bin\Release\SSPD.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FTP.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help.Designer.cs">
+      <DependentUpon>Help.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListMTR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListMTR.Designer.cs">
+      <DependentUpon>ListMTR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocalDB.cs" />
+    <Compile Include="SelectForm\ListDocsOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListDocsOut.Designer.cs">
+      <DependentUpon>ListDocsOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectForm\ListEquip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListEquip.Designer.cs">
+      <DependentUpon>ListEquip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectForm\ListZadGip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListZadGip.Designer.cs">
+      <DependentUpon>ListZadGip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectForm\ListZadOtdels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListZadOtdels.Designer.cs">
+      <DependentUpon>ListZadOtdels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectForm\ListDocsInp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListDocsInp.Designer.cs">
+      <DependentUpon>ListDocsInp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectForm\ListProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListProject.Designer.cs">
+      <DependentUpon>ListProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Card.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Card.Designer.cs">
+      <DependentUpon>Card.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contacts.Designer.cs">
+      <DependentUpon>Contacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Note.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Note.Designer.cs">
+      <DependentUpon>Note.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListTKP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListTKP.Designer.cs">
+      <DependentUpon>ListTKP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectForm\SelectDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\SelectDate.Designer.cs">
+      <DependentUpon>SelectDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TKP_Conf.cs" />
+    <Compile Include="UI.cs" />
+    <EmbeddedResource Include="Card.resx">
+      <DependentUpon>Card.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contacts.resx">
+      <DependentUpon>Contacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help.resx">
+      <DependentUpon>Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListMTR.resx">
+      <DependentUpon>ListMTR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListTKP.resx">
+      <DependentUpon>ListTKP.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Note.resx">
+      <DependentUpon>Note.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SelectForm\ListDocsInp.resx">
+      <DependentUpon>ListDocsInp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListDocsOut.resx">
+      <DependentUpon>ListDocsOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListEquip.resx">
+      <DependentUpon>ListEquip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListProject.resx">
+      <DependentUpon>ListProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListZadGip.resx">
+      <DependentUpon>ListZadGip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListZadOtdels.resx">
+      <DependentUpon>ListZadOtdels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\SelectDate.resx">
+      <DependentUpon>SelectDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LineSeparator.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
