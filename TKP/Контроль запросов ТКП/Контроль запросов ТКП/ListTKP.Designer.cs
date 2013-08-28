@@ -52,6 +52,7 @@
             this.поСтатусуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВработе = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВыполненные = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФСтатусОтмененные = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ФСтатусВсе = new System.Windows.Forms.ToolStripMenuItem();
             this.поОборудованиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +86,6 @@
             this.GIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ФСтатусОтмененные = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -227,6 +227,13 @@
             this.ФСтатусВыполненные.Size = new System.Drawing.Size(155, 22);
             this.ФСтатусВыполненные.Text = "Выполненные";
             this.ФСтатусВыполненные.Click += new System.EventHandler(this.ФСтатусВыполненные_Click);
+            // 
+            // ФСтатусОтмененные
+            // 
+            this.ФСтатусОтмененные.Name = "ФСтатусОтмененные";
+            this.ФСтатусОтмененные.Size = new System.Drawing.Size(155, 22);
+            this.ФСтатусОтмененные.Text = "Отмененные";
+            this.ФСтатусОтмененные.Click += new System.EventHandler(this.ФСтатусОтмененные_Click);
             // 
             // toolStripSeparator1
             // 
@@ -502,13 +509,6 @@
             this.DateFinish.Name = "DateFinish";
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
-            // 
-            // ФСтатусОтмененные
-            // 
-            this.ФСтатусОтмененные.Name = "ФСтатусОтмененные";
-            this.ФСтатусОтмененные.Size = new System.Drawing.Size(155, 22);
-            this.ФСтатусОтмененные.Text = "Отмененные";
-            this.ФСтатусОтмененные.Click += new System.EventHandler(this.ФСтатусОтмененные_Click);
             // 
             // ListTKP
             // 

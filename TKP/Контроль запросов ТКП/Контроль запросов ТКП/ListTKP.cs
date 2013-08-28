@@ -54,37 +54,7 @@ namespace Контроль_запросов_ТКП
             GetListTKP();
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
-        private void DGV_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (DGV.Rows.Count == 0) return;
-            
-            if (e.KeyCode == Keys.Home) {
-                DGV.Rows[0].Selected = true;
-                DGV.Rows[0].Cells[0].Selected = true;
-            }
-            
-            if (e.KeyCode == Keys.End)
-            {
-                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Selected = true;
-                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
-            }
-
-            if (e.KeyCode == Keys.Enter) OpenCard();
-        }
-
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (DGV.SelectedRows.Count > 0)
-            {
-                FTP.DonwloadFile(((Hashtable)DGV.SelectedRows[0].Tag)["FPath"].ToString(), 
-                             DGV.SelectedRows[0].Cells[0].Value.ToString());
-            }
-        }
 
         #region [Работа с данными]
 
@@ -187,15 +157,15 @@ namespace Контроль_запросов_ТКП
 
             string SqlStr = "";
             SqlStr = "SELECT  КонтрольТКП.ID_TKP, КонтрольТКП.ID_Zad, КонтрольТКП.TypeZad, КонтрольТКП.Status, КонтрольТКП.DateStart, КонтрольТКП.DateEnd, КонтрольТКП.Equipment, КонтрольТКП.OlSh, ";
-            SqlStr += " (SELECT Count(*) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_OutDoc Is Not Null) as CntOutDoc,";
-            SqlStr += " (SELECT Count(*) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_InpDoc Is Not Null) as CntInpDoc,";
-            SqlStr += " (SELECT Count(*) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.UseTKP = 1) as CntUseTKP,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_OutDoc Is Not Null) as CntOutDoc,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_InpDoc Is Not Null) as CntInpDoc,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.UseTKP = 1) as CntUseTKP,";
             SqlStr += " ГруппыМТР.Code ";
             SqlStr += " FROM КонтрольТКП LEFT OUTER JOIN ГруппыМТР ON ГруппыМТР.ID_Rec = КонтрольТКП.ID_MTR";
             SqlStr += " ORDER BY КонтрольТКП.ID_TKP DESC";
 
             dra = LocalDB.LoadData(SqlStr);
-
+           
             draZP = LoadDataSSPD(0);
             draZPGIP = LoadDataSSPD(1);
 
@@ -278,7 +248,7 @@ namespace Контроль_запросов_ТКП
             switch (Convert.ToInt32(Status))
             {
                 case 0:
-                    retStatus = "В работе\n\r";
+                    retStatus = "В работе\n";
                     retStatus += "Получено " + cntDocInp
                                     + " из " + cntDocOut;
                     break;
@@ -590,6 +560,8 @@ namespace Контроль_запросов_ТКП
 
         #endregion
 
+        #region [События]
+
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -620,7 +592,8 @@ namespace Контроль_запросов_ТКП
 
         private void экспортВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Application.DoEvents();
+            ExportExl.ExportTKP(DGV);
         }
 
         //подсвечиваем статус если ткп в работе 
@@ -651,6 +624,40 @@ namespace Контроль_запросов_ТКП
             GetListTKP();
         }
 
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void DGV_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (DGV.Rows.Count == 0) return;
+
+            if (e.KeyCode == Keys.Home)
+            {
+                DGV.Rows[0].Selected = true;
+                DGV.Rows[0].Cells[0].Selected = true;
+            }
+
+            if (e.KeyCode == Keys.End)
+            {
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Selected = true;
+                DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)].Cells[0].Selected = true;
+            }
+
+            if (e.KeyCode == Keys.Enter) OpenCard();
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count > 0)
+            {
+                FTP.DonwloadFile(((Hashtable)DGV.SelectedRows[0].Tag)["FPath"].ToString(),
+                             DGV.SelectedRows[0].Cells[0].Value.ToString());
+            }
+        }
+
+        #endregion
     }
 }
 
