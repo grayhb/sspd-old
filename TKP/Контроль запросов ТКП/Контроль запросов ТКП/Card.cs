@@ -141,7 +141,7 @@ namespace Контроль_запросов_ТКП
 
             if (TypeZad == "0") {
                 SqlStr = "SELECT ExchandeZadReestr.ID_Rec,  Projects.Sh_project,  Projects.Name_Project,  Otdels.Name_Otdel,  ExchandeZadReestr.DT_Out, ExchandeZadReestr.Node";
-                SqlStr += " , ExchandeZadReestr.PathFiles, ExchandeZadReestr.PathFilesPril, Workers.F_Worker + ' ' + Workers.I_Worker as WorkerOut";
+                SqlStr += " , ExchandeZadReestr.PathFiles, ExchandeZadReestr.PathFilesPril, Workers.F_Worker + ' ' + Workers.I_Worker as WorkerOut, Workers.ID_Worker";
                 SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project";
                 SqlStr += " FROM ExchandeZadReestr INNER JOIN ";
                 SqlStr += " Projects ON  ExchandeZadReestr.ID_Project =  Projects.ID_Project INNER JOIN ";
@@ -153,8 +153,8 @@ namespace Контроль_запросов_ТКП
             else 
             {
                 SqlStr = " SELECT ZadFromGIPReestr.ID_Rec, Workers.F_Worker + ' ' + Workers.I_Worker AS WorkerOut, Projects.Sh_project, Projects.Name_Project, ";
-                SqlStr += " ZadFromGIPReestr.PathFiles, ZadFromGIPReestr.PathFilePril, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out, 'Бюро главных инженеров проектов' as Name_Otdel ";
-                SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project";
+                SqlStr += " ZadFromGIPReestr.PathFiles, ZadFromGIPReestr.PathFilesPril, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out, 'Бюро главных инженеров проектов' as Name_Otdel ";
+                SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project, Workers.ID_Worker";
                 SqlStr += " FROM  ZadFromGIPReestr INNER JOIN";
                 SqlStr += " ZadFromGIPReestrAdr ON ZadFromGIPReestr.ID_Rec = ZadFromGIPReestrAdr.ID_RecZadGip INNER JOIN";
                 SqlStr += " Projects ON ZadFromGIPReestr.ID_Project = Projects.ID_Project INNER JOIN";
@@ -176,6 +176,7 @@ namespace Контроль_запросов_ТКП
                 ZadDate.Text = UI.GetDate(dr["DT_Out"].ToString());
                 ZadNote.Text = dr["Node"].ToString();
                 FIOZad.Text = dr["WorkerOut"].ToString();
+                FIOZad.Tag = dr["ID_Worker"].ToString();
                 GIP.Text = dr["GIP"].ToString();
             }
        }
@@ -486,7 +487,7 @@ namespace Контроль_запросов_ТКП
             SelectForm.ListDocsOut LDO = new SelectForm.ListDocsOut();
             LDO.ShowDialog();
             if (LDO.flSel)
-                AddDoc(LDO.IDDoc, 0);
+                AddDoc(LDO.IDDoc, 0, LDO.IDOrg);
         }
 
         private void ответНаЗапросToolStripMenuItem_Click(object sender, EventArgs e)
@@ -500,7 +501,7 @@ namespace Контроль_запросов_ТКП
             SelectForm.ListDocsInp LDI = new SelectForm.ListDocsInp();
             LDI.ShowDialog();
             if (LDI.flSel)
-                AddDoc(LDI.IDDoc, 1);
+                AddDoc(LDI.IDDoc, 1, LDI.IDOrg);
         }
 
         private void безЗапросаToolStripMenuItem_Click(object sender, EventArgs e)
@@ -508,7 +509,7 @@ namespace Контроль_запросов_ТКП
             SelectForm.ListDocsInp LDI = new SelectForm.ListDocsInp();
             LDI.ShowDialog();
             if (LDI.flSel)
-                AddDoc(LDI.IDDoc, 2);
+                AddDoc(LDI.IDDoc, 2, LDI.IDOrg);
         }
 
         /// <summary>
@@ -520,16 +521,22 @@ namespace Контроль_запросов_ТКП
         /// 1 - входящий
         /// 2 - входящий без привязки к исходящему
         /// </param>
-        private void AddDoc(string IDDoc, byte TypeDoc)
+        private void AddDoc(string IDDoc, byte TypeDoc, string IDOrg)
         {
             Dictionary<string, string> DS = new Dictionary<string, string>();
             if (TypeDoc != 1)
             {
                 DS.Add("ID_TKP", ID_TKP);
                 if (TypeDoc == 0)
+                {
                     DS.Add("ID_OutDoc", IDDoc);
+                    DS.Add("ID_OrgOut", IDOrg);
+                }
                 else
+                {
                     DS.Add("ID_InpDoc", IDDoc);
+                    DS.Add("ID_OrgInp", IDOrg);
+                }
                 LocalDB.InsertData(DS, "КонтрольТКП_Письма");
                 LoadDataDocs();
             }
@@ -538,6 +545,7 @@ namespace Контроль_запросов_ТКП
                 //входящий:
                 string ID_DocTkp = DGV.SelectedRows[0].Tag.ToString();
                 DS.Add("ID_InpDoc", IDDoc);
+                DS.Add("ID_OrgInp", IDOrg);
                 LocalDB.UpdateData(DS, "КонтрольТКП_Письма", "ID = " + ID_DocTkp);
                 LoadDataDocs();
                 if (DGV.Rows.Count > 0)
@@ -564,6 +572,8 @@ namespace Контроль_запросов_ТКП
             //связка документов между собой
             LinkDocsInpToOut(IDDoc, TypeDoc);
 
+            //добавление организации в локальный справочник
+            Orgs.addOrg(IDOrg);
         }
 
         private void удалитьДокументToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1049,6 +1059,13 @@ namespace Контроль_запросов_ТКП
                 if (dgvr.Cells["RNDocInp"].Value != null)
                     CntDocInp++;
             }
+        }
+
+        private void btnCardWorker_Click(object sender, EventArgs e)
+        {
+            CardWorker cw = new CardWorker();
+            cw.IDW = FIOZad.Tag.ToString();
+            cw.ShowDialog();
         }
 
 

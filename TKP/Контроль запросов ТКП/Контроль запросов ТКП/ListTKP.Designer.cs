@@ -49,13 +49,13 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.открытьКарточкуТКПToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Фильтр = new System.Windows.Forms.ToolStripMenuItem();
-            this.поСтатусуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФПоСтатусу = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВработе = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВыполненные = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусОтмененные = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ФСтатусВсе = new System.Windows.Forms.ToolStripMenuItem();
-            this.поОборудованиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФПоОборудованию = new System.Windows.Forms.ToolStripMenuItem();
             this.ФОборудование = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОборудованиеВсе = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +67,10 @@
             this.ФГИП = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.ФГИПВсе = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФОрг = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.ФОргВсе = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОтсутствует = new System.Windows.Forms.ToolStripMenuItem();
             this.реестрМТР = new System.Windows.Forms.ToolStripMenuItem();
@@ -190,27 +194,28 @@
             // Фильтр
             // 
             this.Фильтр.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.поСтатусуToolStripMenuItem,
-            this.поОборудованиToolStripMenuItem,
+            this.ФПоСтатусу,
+            this.ФПоОборудованию,
             this.поПроектуToolStripMenuItem,
             this.поГИПуToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.toolStripSeparator2,
             this.ФОтсутствует});
             this.Фильтр.Name = "Фильтр";
             this.Фильтр.Size = new System.Drawing.Size(57, 20);
             this.Фильтр.Text = "Фильтр";
             // 
-            // поСтатусуToolStripMenuItem
+            // ФПоСтатусу
             // 
-            this.поСтатусуToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ФПоСтатусу.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ФСтатусВработе,
             this.ФСтатусВыполненные,
             this.ФСтатусОтмененные,
             this.toolStripSeparator1,
             this.ФСтатусВсе});
-            this.поСтатусуToolStripMenuItem.Name = "поСтатусуToolStripMenuItem";
-            this.поСтатусуToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.поСтатусуToolStripMenuItem.Text = "По статусу";
+            this.ФПоСтатусу.Name = "ФПоСтатусу";
+            this.ФПоСтатусу.Size = new System.Drawing.Size(177, 22);
+            this.ФПоСтатусу.Text = "По статусу";
             // 
             // ФСтатусВработе
             // 
@@ -247,15 +252,15 @@
             this.ФСтатусВсе.Text = "Все";
             this.ФСтатусВсе.Click += new System.EventHandler(this.ФСтатусВсе_Click);
             // 
-            // поОборудованиToolStripMenuItem
+            // ФПоОборудованию
             // 
-            this.поОборудованиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ФПоОборудованию.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ФОборудование,
             this.toolStripSeparator3,
             this.ФОборудованиеВсе});
-            this.поОборудованиToolStripMenuItem.Name = "поОборудованиToolStripMenuItem";
-            this.поОборудованиToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.поОборудованиToolStripMenuItem.Text = "По оборудованию";
+            this.ФПоОборудованию.Name = "ФПоОборудованию";
+            this.ФПоОборудованию.Size = new System.Drawing.Size(177, 22);
+            this.ФПоОборудованию.Text = "По оборудованию";
             // 
             // ФОборудование
             // 
@@ -338,6 +343,37 @@
             this.ФГИПВсе.Name = "ФГИПВсе";
             this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
             this.ФГИПВсе.Text = "Все";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ФОрг,
+            this.toolStripSeparator8,
+            this.ФОргВсе});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuItem1.Text = "По организации";
+            // 
+            // ФОрг
+            // 
+            this.ФОрг.Name = "ФОрг";
+            this.ФОрг.Size = new System.Drawing.Size(173, 22);
+            this.ФОрг.Text = "Организация - ...";
+            this.ФОрг.Click += new System.EventHandler(this.ФОрг_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(170, 6);
+            // 
+            // ФОргВсе
+            // 
+            this.ФОргВсе.Checked = true;
+            this.ФОргВсе.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ФОргВсе.Name = "ФОргВсе";
+            this.ФОргВсе.Size = new System.Drawing.Size(173, 22);
+            this.ФОргВсе.Text = "Все";
+            this.ФОргВсе.Click += new System.EventHandler(this.ФОргВсе_Click);
             // 
             // toolStripSeparator2
             // 
@@ -524,6 +560,7 @@
             this.Name = "ListTKP";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Контроль запросов ТКП";
+            this.Load += new System.EventHandler(this.ListTKP_Load);
             this.Shown += new System.EventHandler(this.ListTKP_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -548,12 +585,12 @@
         private System.Windows.Forms.ToolStripMenuItem элВерсияЗаданияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Фильтр;
-        private System.Windows.Forms.ToolStripMenuItem поСтатусуToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ФПоСтатусу;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусВработе;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусВыполненные;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусВсе;
-        private System.Windows.Forms.ToolStripMenuItem поОборудованиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ФПоОборудованию;
         private System.Windows.Forms.ToolStripMenuItem поПроектуToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поГИПуToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -587,6 +624,10 @@
         private System.Windows.Forms.ToolStripMenuItem экспортВExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусОтмененные;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ФОрг;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem ФОргВсе;
     }
 }
 

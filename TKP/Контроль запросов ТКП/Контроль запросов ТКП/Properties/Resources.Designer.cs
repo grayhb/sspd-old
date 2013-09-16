@@ -60,6 +60,13 @@ namespace Контроль_запросов_ТКП.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap card_address {
+            get {
+                object obj = ResourceManager.GetObject("card-address", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap LineSeparator {
             get {
                 object obj = ResourceManager.GetObject("LineSeparator", resourceCulture);

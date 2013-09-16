@@ -239,7 +239,13 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            doSelect();
+            if (e.RowIndex >-1)
+                doSelect();
+        }
+
+        private void DGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
         
     }

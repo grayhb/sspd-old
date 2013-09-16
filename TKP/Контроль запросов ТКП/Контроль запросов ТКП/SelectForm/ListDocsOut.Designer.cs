@@ -79,6 +79,7 @@
             this.DGV.Size = new System.Drawing.Size(892, 507);
             this.DGV.TabIndex = 22;
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
+            this.DGV.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGV_CellPainting);
             this.DGV.Sorted += new System.EventHandler(this.DGV_Sorted);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
             // 

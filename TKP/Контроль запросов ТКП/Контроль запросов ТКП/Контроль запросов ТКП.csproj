@@ -56,8 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportExl.cs" />
-    <Compile Include="FTP.cs">
+    <Compile Include="Classes\ExportExl.cs" />
+    <Compile Include="Classes\FTP.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Help.cs">
@@ -72,7 +72,20 @@
     <Compile Include="ListMTR.Designer.cs">
       <DependentUpon>ListMTR.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalDB.cs" />
+    <Compile Include="Classes\LocalDB.cs" />
+    <Compile Include="CardWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CardWorker.Designer.cs">
+      <DependentUpon>CardWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Orgs.cs" />
+    <Compile Include="SelectForm\ListOrg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\ListOrg.Designer.cs">
+      <DependentUpon>ListOrg.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectForm\ListDocsOut.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,10 +154,13 @@
     <Compile Include="SelectForm\SelectDate.Designer.cs">
       <DependentUpon>SelectDate.cs</DependentUpon>
     </Compile>
-    <Compile Include="TKP_Conf.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="Classes\TKP_Conf.cs" />
+    <Compile Include="Classes\UI.cs" />
     <EmbeddedResource Include="Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CardWorker.resx">
+      <DependentUpon>CardWorker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Contacts.resx">
       <DependentUpon>Contacts.cs</DependentUpon>
@@ -181,6 +197,9 @@
     <EmbeddedResource Include="SelectForm\ListEquip.resx">
       <DependentUpon>ListEquip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\ListOrg.resx">
+      <DependentUpon>ListOrg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectForm\ListProject.resx">
       <DependentUpon>ListProject.cs</DependentUpon>
     </EmbeddedResource>
@@ -205,6 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LineSeparator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\card-address.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
