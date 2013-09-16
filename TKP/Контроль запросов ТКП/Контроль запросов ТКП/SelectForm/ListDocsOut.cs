@@ -15,6 +15,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         public bool flSel = false;
         public string IDDoc = "";
+        public string IDOrg = "";
 
         private DataRowCollection dra = null;
 
@@ -43,10 +44,10 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void LoadData()
         {
-            string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut,"; 
-            SqlStr += " DocsOutput.Note_DocOut, DOutRec.Org, DOutRec.Rec_Org";
+            string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut,";
+            SqlStr += " DocsOutput.Note_DocOut, DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
             SqlStr += " FROM DocsOutput LEFT OUTER JOIN";
-            SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name as Org, DocsOutputRec.Rec_Org";
+            SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name as Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
             SqlStr += " FROM DocsOutputRec INNER JOIN";
             SqlStr += " Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
             SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut INNER JOIN";
@@ -78,12 +79,13 @@ namespace Контроль_запросов_ТКП.SelectForm
                         DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocOut"].ToString());
                         DGVR.Cells["Note"].Value = dr["Note_DocOut"].ToString();
                         DGVR.Cells["Org"].Value = dr["Org"].ToString();
+                        DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
                         DGVR.Cells["Adr"].Value = dr["Rec_Org"].ToString();
 
                         DGVR.Tag = dr["PathToImage"].ToString();
                     }
                 }
-                UI.SetBgRowInDGV(DGV);
+                //UI.SetBgRowInDGV(DGV);
             }
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
@@ -111,6 +113,7 @@ namespace Контроль_запросов_ТКП.SelectForm
             if (DGV.SelectedRows.Count > 0)
             {
                 IDDoc = DGV.SelectedRows[0].Cells["RNDoc"].Tag.ToString();
+                IDOrg = DGV.SelectedRows[0].Cells["Org"].Tag.ToString();
                 flSel = true;
             }
             this.Close();
@@ -205,7 +208,18 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_Sorted(object sender, EventArgs e)
         {
-            UI.SetBgRowInDGV(DGV);
+            //UI.SetBgRowInDGV(DGV);
+        }
+
+        private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                if (e.RowIndex % 2 == 0)
+                    e.CellStyle.BackColor = Color.FromArgb(240, 240, 240);
+                else
+                    e.CellStyle.BackColor = Color.White;
+            }
         }
 
     }

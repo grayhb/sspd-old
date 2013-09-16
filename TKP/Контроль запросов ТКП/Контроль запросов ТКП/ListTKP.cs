@@ -49,6 +49,10 @@ namespace Контроль_запросов_ТКП
 
         private void ListTKP_Shown(object sender, EventArgs e)
         {
+            //===============================
+            //Orgs.addAllDocOrg();
+            //===============================
+
             Application.DoEvents();
             LoadListTKP();
             GetListTKP();
@@ -91,12 +95,17 @@ namespace Контроль_запросов_ТКП
                 UI.SetBgRowInDGV(DGV);
                 UI.ProcessPB(PB, 0);
                 CountRowLabel.Text = "Найдено записей: " + DGV.Rows.Count;
+
+                getLabelFilter();
+
             }
 
             DGV.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGV.Visible = true;
             Cursor.Current = Cursors.Default;
         }
+
+
 
         /// <summary>
         /// Заполняем строку (DataGridViewRow) данными
@@ -448,6 +457,16 @@ namespace Контроль_запросов_ТКП
                     ret = false;
             }
 
+            //по организации
+            if (ФОргВсе.Checked == false && ret == true)
+            {
+                //Console.WriteLine(drTKP["ID_TKP"].ToString());
+                //Console.WriteLine(((List<string>)ФОрг.Tag).Count);
+
+                if (ФОрг.Tag != null && ((List<string>)ФОрг.Tag).IndexOf(drTKP["ID_TKP"].ToString()) == -1)
+                    ret = false;
+            }
+
             return ret;
         }
         
@@ -658,6 +677,106 @@ namespace Контроль_запросов_ТКП
         }
 
         #endregion
+
+        private void ListTKP_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
+        private void ФОргВсе_Click(object sender, EventArgs e)
+        {
+            ФОрг.Text = "Организация - ...";
+            ФОрг.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+
+        private void ФОрг_Click(object sender, EventArgs e)
+        {
+            SelectForm.ListOrg LOrg = new SelectForm.ListOrg();
+            LOrg.ShowDialog();
+            if (LOrg.SelIDOrg != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФОрг.Text = "Организация - " + LOrg.SelNameOrg;
+                //ФПроект.Tag = LOrg.SelIDOrg;
+
+                //1. создать лист подходящих ID_TKP
+                string SqlStr = "SELECT DISTINCT КонтрольТКП_Письма.ID_TKP";
+                SqlStr += " FROM КонтрольТКП_Письма ";
+                SqlStr += " WHERE КонтрольТКП_Письма.ID_OrgOut=" + LOrg.SelIDOrg + " OR КонтрольТКП_Письма.ID_OrgInp=" + LOrg.SelIDOrg;
+                DataRowCollection drc_tkp_org = LocalDB.LoadData(SqlStr);
+
+                List<string> TKPOrgFilter = new List<string>();
+                foreach (DataRow dr in drc_tkp_org)
+                    TKPOrgFilter.Add(dr["ID_TKP"].ToString());
+                drc_tkp_org = null;
+
+                //Console.WriteLine(TKPOrgFilter.Count);
+
+                ФОрг.Tag = TKPOrgFilter;
+                //2. проверять по каждому о_О
+
+                //3. изменить запрос о_О
+
+
+                GetListTKP();
+            }
+        }
+
+        /// <summary>
+        /// Выводит информацию о выбранных фильтрах
+        /// </summary>
+        private void getLabelFilter()
+        {
+            string LabelFilter = " | Фильтр: ";
+            if (ФОтсутствует.Checked)
+                LabelFilter += ФОтсутствует.Text;
+            else
+            {
+                if (ФСтатусВработе.Checked)
+                    LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусВработе.Text;
+                else if (ФСтатусВыполненные.Checked)
+                    LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусВыполненные.Text;
+                else if (ФСтатусОтмененные.Checked)
+                    LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусОтмененные.Text;
+                else if (ФСтатусВсе.Checked)
+                    LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусВсе.Text;
+
+
+                if (ФОборудование.Checked)
+                {
+                    if (LabelFilter != " | Фильтр: ") LabelFilter += "; ";
+                    LabelFilter += ФОборудование.Text;
+                }
+
+
+                if (ФПроект.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += ФПроект.Text;
+                }
+
+
+                if (ФГИП.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += ФГИП.Text;
+                }
+                
+
+                if (ФОрг.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += ФОрг.Text;
+                }
+            }
+
+           CountRowLabel.Text += LabelFilter; 
+        }
+
     }
 }
 

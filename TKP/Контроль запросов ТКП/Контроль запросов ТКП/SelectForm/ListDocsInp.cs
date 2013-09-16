@@ -15,6 +15,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         public bool flSel = false;
         public string IDDoc = "";
+        public string IDOrg = "";
 
         private DataRowCollection dra = null;
 
@@ -44,12 +45,12 @@ namespace Контроль_запросов_ТКП.SelectForm
         private void LoadData()
         {
 
-            string SqlStr = "SELECT DISTINCT dbo.DocsInput.ID_DocInp, dbo.DocsInput.RN_DocInp, dbo.DocsInput.Date_DocInp, dbo.DocsInput.Note_DocInp, dbo.Orgs.Name, ";
-            SqlStr += " dbo.DocsInput.Aut_Org, dbo.DocsInput.PathToImage";
-            SqlStr += " FROM dbo.DocsInput INNER JOIN";
-            SqlStr += " dbo.DocsInputExec ON dbo.DocsInput.ID_DocInp = dbo.DocsInputExec.ID_DocInp INNER JOIN";
-            SqlStr += " dbo.Orgs ON dbo.DocsInput.ID_Org = dbo.Orgs.ID_Org INNER JOIN";
-            SqlStr += " dbo.Workers ON dbo.Workers.ID_Worker = dbo.DocsInputExec.ID_WorkerInput";
+            string SqlStr = "SELECT DISTINCT DocsInput.ID_DocInp, DocsInput.RN_DocInp, DocsInput.Date_DocInp, DocsInput.Note_DocInp, Orgs.Name, ";
+            SqlStr += " DocsInput.Aut_Org, DocsInput.PathToImage, Orgs.ID_Org";
+            SqlStr += " FROM DocsInput INNER JOIN";
+            SqlStr += " DocsInputExec ON DocsInput.ID_DocInp = DocsInputExec.ID_DocInp INNER JOIN";
+            SqlStr += " Orgs ON DocsInput.ID_Org = Orgs.ID_Org INNER JOIN";
+            SqlStr += " Workers ON Workers.ID_Worker = DocsInputExec.ID_WorkerInput";
             SqlStr += " WHERE Workers.ID_Otdel = " + TKP_Conf.AdminIDOtdel;
             SqlStr += " ORDER BY DocsInput.ID_DocInp DESC";
 
@@ -77,12 +78,13 @@ namespace Контроль_запросов_ТКП.SelectForm
                         DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocInp"].ToString());
                         DGVR.Cells["Note"].Value = dr["Note_DocInp"].ToString();
                         DGVR.Cells["Org"].Value = dr["Name"].ToString();
+                        DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
                         DGVR.Cells["Adr"].Value = dr["Aut_Org"].ToString();
 
                         DGVR.Tag = dr["PathToImage"].ToString();
                     }
                 }
-                UI.SetBgRowInDGV(DGV);
+                //UI.SetBgRowInDGV(DGV);
             }
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
@@ -110,6 +112,7 @@ namespace Контроль_запросов_ТКП.SelectForm
             if (DGV.SelectedRows.Count > 0)
             {
                 IDDoc = DGV.SelectedRows[0].Cells["RNDoc"].Tag.ToString();
+                IDOrg = DGV.SelectedRows[0].Cells["Org"].Tag.ToString();
                 flSel = true;
             }
             this.Close();
@@ -204,7 +207,18 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_Sorted(object sender, EventArgs e)
         {
-            UI.SetBgRowInDGV(DGV);
+            //UI.SetBgRowInDGV(DGV);
+        }
+
+        private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                if (e.RowIndex % 2 == 0)
+                    e.CellStyle.BackColor = Color.FromArgb(240, 240, 240);
+                else
+                    e.CellStyle.BackColor = Color.White;
+            }
         }
         
 
