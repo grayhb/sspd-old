@@ -52,7 +52,7 @@ namespace Контроль_запросов_ТКП.SelectForm
                     DGVR.Cells["NamePrj"].Value = dr["Name_Project"].ToString();
                     DGVR.Cells["GIP"].Value = dr["GIP"].ToString();
                 }
-                //UI.SetBgRowInDGV(DGV);
+                UI.SetBgRowInDGV(DGV);
             }
             
         }
@@ -72,7 +72,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void Filter_TextChanged(object sender, EventArgs e)
         {
-            UI.FilterInDGV(DGV, Filter.Text);
+            UI.FilterInDGV(DGV, Filter.Text, true);
         }
 
         private void Filter_KeyDown(object sender, KeyEventArgs e)
@@ -93,8 +93,8 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1) return;
-            doSelect();
+            if (e.RowIndex != -1) 
+                doSelect();
         }
 
         private void DGV_KeyDown(object sender, KeyEventArgs e)
@@ -123,13 +123,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex > -1)
-            {
-                if (e.RowIndex % 2 == 0)
-                    e.CellStyle.BackColor = Color.FromArgb(240, 240, 240);
-                else
-                    e.CellStyle.BackColor = Color.White;
-            }
+            if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace Контроль_запросов_ТКП.SelectForm
                         DGVR.Tag = dr["PathToImage"].ToString();
                     }
                 }
-                //UI.SetBgRowInDGV(DGV);
+                UI.SetBgRowInDGV(DGV);
             }
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
@@ -212,13 +212,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex > -1)
-            {
-                if (e.RowIndex % 2 == 0)
-                    e.CellStyle.BackColor = Color.FromArgb(240, 240, 240);
-                else
-                    e.CellStyle.BackColor = Color.White;
-            }
+            if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
         }
         
 
