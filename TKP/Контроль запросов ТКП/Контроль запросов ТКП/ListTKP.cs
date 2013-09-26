@@ -49,12 +49,7 @@ namespace Контроль_запросов_ТКП
 
         private void ListTKP_Shown(object sender, EventArgs e)
         {
-            //===============================
-            //Orgs.addAllDocOrg();
-            //===============================
-
-            Application.DoEvents();
-            LoadListTKP();
+            Application.DoEvents();           
             GetListTKP();
         }
 
@@ -67,6 +62,8 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         private void GetListTKP()
         {
+            LoadListTKP();
+
             Cursor.Current = Cursors.WaitCursor;
 
             DGV.Visible = false;
@@ -267,6 +264,9 @@ namespace Контроль_запросов_ТКП
                 case 2:
                     retStatus = "Отменено";
                     break;
+                case 3:
+                    retStatus = "Не актуально";
+                    break;
             }
 
             return retStatus;
@@ -441,6 +441,7 @@ namespace Контроль_запросов_ТКП
                 if (ФСтатусВработе.Checked == true && drTKP["Status"].ToString() != "0") ret =  false;
                 if (ФСтатусВыполненные.Checked == true && drTKP["Status"].ToString() != "1") ret = false;
                 if (ФСтатусОтмененные.Checked == true && drTKP["Status"].ToString() != "2") ret = false;
+                if (ФСтатусНеАктуально.Checked == true && drTKP["Status"].ToString() != "3") ret = false;
             }
 
             //по оборудованию
@@ -493,6 +494,7 @@ namespace Контроль_запросов_ТКП
             ФПроектВсе.Checked = true;
             ФОборудованиеВсе.Checked = true;
             ФОтсутствует.Checked = true;
+            ФОргВсе.Checked = true;
 
             ФОборудование.Text = "Оборудование - ...";
             ФОборудование.Tag = null;
@@ -500,6 +502,8 @@ namespace Контроль_запросов_ТКП
             ФПроект.Tag = null;
             ФПроект.Text = "Проект - ...";
 
+            ФОрг.Tag = null;
+            ФОрг.Text = "Организация - ...";
 
             GetListTKP();
         }
@@ -742,6 +746,8 @@ namespace Контроль_запросов_ТКП
                     LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусВыполненные.Text;
                 else if (ФСтатусОтмененные.Checked)
                     LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусОтмененные.Text;
+                else if (ФСтатусНеАктуально.Checked)
+                    LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусНеАктуально.Text;
                 else if (ФСтатусВсе.Checked)
                     LabelFilter += ФПоСтатусу.Text + " - " + ФСтатусВсе.Text;
 
@@ -775,6 +781,17 @@ namespace Контроль_запросов_ТКП
             }
 
            CountRowLabel.Text += LabelFilter; 
+        }
+
+        private void ФСтатусНеАктуально_Click(object sender, EventArgs e)
+        {
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
         }
 
     }

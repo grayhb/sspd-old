@@ -98,10 +98,15 @@ namespace Контроль_запросов_ТКП
                     СтатусВыполнено.Checked = true;
                     Status.Text = "Выполнено";
                 }
-                else
+                else if (dr["Status"].ToString() == "2")
                 {
                     СтатусОтменено.Checked = true;
                     Status.Text = "Отменено";
+                }
+                else if (dr["Status"].ToString() == "3")
+                {
+                    СтатусНеАктуально.Checked = true;
+                    Status.Text = "Не актуально";
                 }
 
                 Status.Tag = dr["Status"].ToString();
@@ -395,6 +400,8 @@ namespace Контроль_запросов_ТКП
             СтатусВРаботе.Checked = false;
             СтатусВыполнено.Checked = false;
             СтатусОтменено.Checked = false;
+            СтатусНеАктуально.Checked = false;
+
             if (status == "0")
             {
                 DS.Add("DateEnd", "Null");
@@ -411,11 +418,18 @@ namespace Контроль_запросов_ТКП
                 Status.Tag = 1;
                 DateEnd.Text = UI.GetDate(DateTime.Now.ToString());
             }
-            else
+            else if (status == "2")
             {
                 СтатусОтменено.Checked = true;
                 Status.Text = "Отменено";
                 Status.Tag = 2;
+                DateEnd.Text = "-";
+            }
+            else if (status == "3")
+            {
+                СтатусНеАктуально.Checked = true;
+                Status.Text = "Не актуально";
+                Status.Tag = 3;
                 DateEnd.Text = "-";
             }
 
@@ -1066,6 +1080,11 @@ namespace Контроль_запросов_ТКП
             CardWorker cw = new CardWorker();
             cw.IDW = FIOZad.Tag.ToString();
             cw.ShowDialog();
+        }
+
+        private void СтатусНеАктуально_Click(object sender, EventArgs e)
+        {
+            setStatus("3");
         }
 
 

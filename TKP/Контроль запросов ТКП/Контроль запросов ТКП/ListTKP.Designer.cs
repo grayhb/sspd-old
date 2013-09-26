@@ -90,6 +90,7 @@
             this.GIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ФСтатусНеАктуально = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -210,6 +211,7 @@
             this.ФПоСтатусу.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ФСтатусВработе,
             this.ФСтатусВыполненные,
+            this.ФСтатусНеАктуально,
             this.ФСтатусОтмененные,
             this.toolStripSeparator1,
             this.ФСтатусВсе});
@@ -296,21 +298,21 @@
             // ФПроект
             // 
             this.ФПроект.Name = "ФПроект";
-            this.ФПроект.Size = new System.Drawing.Size(144, 22);
+            this.ФПроект.Size = new System.Drawing.Size(152, 22);
             this.ФПроект.Text = "Проект - ...";
             this.ФПроект.Click += new System.EventHandler(this.ФПроект_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // ФПроектВсе
             // 
             this.ФПроектВсе.Checked = true;
             this.ФПроектВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФПроектВсе.Name = "ФПроектВсе";
-            this.ФПроектВсе.Size = new System.Drawing.Size(144, 22);
+            this.ФПроектВсе.Size = new System.Drawing.Size(152, 22);
             this.ФПроектВсе.Text = "Все";
             this.ФПроектВсе.Click += new System.EventHandler(this.ФПроектВсе_Click);
             // 
@@ -328,20 +330,20 @@
             // ФГИП
             // 
             this.ФГИП.Name = "ФГИП";
-            this.ФГИП.Size = new System.Drawing.Size(127, 22);
+            this.ФГИП.Size = new System.Drawing.Size(152, 22);
             this.ФГИП.Text = "ГИП - ...";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // ФГИПВсе
             // 
             this.ФГИПВсе.Checked = true;
             this.ФГИПВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФГИПВсе.Name = "ФГИПВсе";
-            this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
+            this.ФГИПВсе.Size = new System.Drawing.Size(152, 22);
             this.ФГИПВсе.Text = "Все";
             // 
             // toolStripMenuItem1
@@ -461,6 +463,7 @@
             this.DGV.TabIndex = 6;
             this.DGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellContentClick);
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
+            this.DGV.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGV_CellPainting);
             this.DGV.Sorted += new System.EventHandler(this.DGV_Sorted);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
             // 
@@ -546,6 +549,13 @@
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
             // 
+            // ФСтатусНеАктуально
+            // 
+            this.ФСтатусНеАктуально.Name = "ФСтатусНеАктуально";
+            this.ФСтатусНеАктуально.Size = new System.Drawing.Size(155, 22);
+            this.ФСтатусНеАктуально.Text = "Не актуально";
+            this.ФСтатусНеАктуально.Click += new System.EventHandler(this.ФСтатусНеАктуально_Click);
+            // 
             // ListTKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -628,6 +638,7 @@
         private System.Windows.Forms.ToolStripMenuItem ФОрг;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem ФОргВсе;
+        private System.Windows.Forms.ToolStripMenuItem ФСтатусНеАктуально;
     }
 }
 

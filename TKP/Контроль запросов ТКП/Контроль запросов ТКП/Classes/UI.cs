@@ -57,22 +57,24 @@ namespace Контроль_запросов_ТКП
             bool odd = false;
             foreach (DataGridViewRow DGVR in DGV.Rows)
             {
-                foreach (DataGridViewCell DGVC in DGVR.Cells)
+                if (DGVR.Visible)
                 {
-                    if (DGVC.ColumnIndex == 0 || DGVC.ColumnIndex == 8)
+                    foreach (DataGridViewCell DGVC in DGVR.Cells)
                     {
-                        if (DGVC.Style.BackColor.Name == "0" || DGVC.Style.BackColor == Color.White || DGVC.Style.BackColor == Color.FromArgb(240, 240, 240))
+                        if (DGVC.ColumnIndex == 0 || DGVC.ColumnIndex == 8)
                         {
+                            if (DGVC.Style.BackColor.Name == "0" || DGVC.Style.BackColor == Color.White || DGVC.Style.BackColor == Color.FromArgb(240, 240, 240))
+                            {
+                                if (odd) DGVC.Style.BackColor = Color.FromArgb(240, 240, 240);
+                                else DGVC.Style.BackColor = Color.White;
+                            }
+                        }
+                        else
                             if (odd) DGVC.Style.BackColor = Color.FromArgb(240, 240, 240);
                             else DGVC.Style.BackColor = Color.White;
-                        }
                     }
-                    else {
-                        if (odd) DGVC.Style.BackColor = Color.FromArgb(240, 240, 240);
-                        else DGVC.Style.BackColor = Color.White;
-                    }
+                    odd = odd == true ? false : true;
                 }
-                if (DGVR.Visible) odd = odd == true ? false : true;
             }
         }
 
