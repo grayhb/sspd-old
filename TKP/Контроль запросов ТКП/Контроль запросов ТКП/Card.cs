@@ -70,7 +70,7 @@ namespace Контроль_запросов_ТКП
         private void LoadDataTKP()
         {
             string SqlStr = "SELECT КонтрольТКП.ID_Zad, КонтрольТКП.TypeZad, КонтрольТКП.Status, КонтрольТКП.DateStart, КонтрольТКП.DateEnd, ";
-            SqlStr += " КонтрольТКП.Equipment, КонтрольТКП.OlSh, ГруппыМТР.Code ";
+            SqlStr += " КонтрольТКП.Equipment, КонтрольТКП.OlSh, ГруппыМТР.Code, КонтрольТКП.DateOut ";
             SqlStr += " FROM КонтрольТКП LEFT OUTER JOIN ГруппыМТР ON ГруппыМТР.ID_REC = КонтрольТКП.ID_MTR";
             SqlStr += " WHERE КонтрольТКП.ID_TKP = " + ID_TKP;
 
@@ -111,10 +111,14 @@ namespace Контроль_запросов_ТКП
 
                 Status.Tag = dr["Status"].ToString();
 
+
                 if (dr["DateEnd"].ToString() == "")
                     DateEnd.Text = "-";
                 else
                     DateEnd.Text = UI.GetDate(dr["DateEnd"].ToString());
+
+                DateEnd.Tag = DateEnd.Text;
+
 
                 if (dr["DateStart"].ToString() !="") DateStart.Text = UI.GetDate(dr["DateStart"].ToString());
 
@@ -134,6 +138,12 @@ namespace Контроль_запросов_ТКП
                 {
                     SelMTR.Text = "очистить";
                     MTRCode.Text = dr["Code"].ToString();
+                }
+
+                if (dr["DateOut"].ToString() != "")
+                {
+                    DateOut.Text = UI.GetDate(dr["DateOut"].ToString());
+                    DateOut.Tag = DateOut.Text;
                 }
 
                 
@@ -622,18 +632,50 @@ namespace Контроль_запросов_ТКП
                 if (OlSh.Tag.ToString() != OlSh.Text)
                     DS.Add("OlSh", OlSh.Text);
             }
-            else if (OlSh.Text != "") DS.Add("OlSh", OlSh.Text);
+            else 
+                if (OlSh.Text != "") 
+                    DS.Add("OlSh", OlSh.Text);
+                else
+                    DS.Add("OlSh", "");
 
             if (Equipment.Tag != null)
             {
                 if (Equipment.Tag.ToString() != Equipment.Text)
                     DS.Add("Equipment", Equipment.Text);
             }
-            else if (Equipment.Text != "") DS.Add("Equipment", Equipment.Text);
+            else 
+                if (Equipment.Text != "") 
+                    DS.Add("Equipment", Equipment.Text);
+                else
+                    DS.Add("Equipment", "");
+
+
+            if (DateEnd.Tag != null)
+            {
+                if (DateEnd.Tag.ToString() != DateEnd.Text)
+                    DS.Add("DateEnd", DateEnd.Text);
+            }
+            else
+                if (DateEnd.Text != "-")
+                    DS.Add("DateEnd", DateEnd.Text);
+                else
+                    DS.Add("DateEnd", "");
+
+
+            if (DateOut.Tag != null)
+            {
+                if (DateOut.Tag.ToString() != DateOut.Text)
+                    DS.Add("DateOut", DateOut.Text);
+            }
+            else
+                if (DateOut.Text != "")
+                    DS.Add("DateOut", DateOut.Text);
+                else
+                    DS.Add("DateOut", "");
+
 
             if (DS.Count > 0)
                 LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
-
             
 
             FlSave = true;
@@ -943,32 +985,20 @@ namespace Контроль_запросов_ТКП
         {
             if (СтатусВыполнено.Checked == true)
             {
-                dt_picker.Top = DateEnd.Top;
-                dt_picker.Left = DateEnd.Left;
-                dt_picker.Width = DateEnd.Width;
-                dt_picker.Height = DateEnd.Height;
-                dt_picker.Value = Convert.ToDateTime(DateEnd.Text);
-                dt_picker.MaxDate = DateTime.Now;
-                DateEnd.Visible = false;
-                dt_picker.Visible = true;
+                SelectForm.SelectDate SD = new SelectForm.SelectDate();
+                SD.Top = MousePosition.Y - SD.Height / 2;
+                SD.Left = MousePosition.X - SD.Width / 2;
+                SD.mCalendar.MaxSelectionCount = 1;
+                SD.mCalendar.SetDate(Convert.ToDateTime(DateEnd.Text));
+                SD.ShowDialog();
                 
+                if (SD.flSel)
+                    DateEnd.Text = UI.GetDate(SD.SelDate.ToString());
+
+                SD.Dispose();
             }
         }
 
-        private void dt_picker_ValueChanged(object sender, EventArgs e)
-        {
-            DateEnd.Text = UI.GetDate(dt_picker.Value.ToString());
-            setDateEnd();
-            DateEnd.Visible = true;
-            dt_picker.Visible = false;
-        }
-
-        private void setDateEnd()
-        {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            DS.Add("DateEnd", UI.GetDate(DateEnd.Text));
-            LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
-        }
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1085,6 +1115,32 @@ namespace Контроль_запросов_ТКП
         private void СтатусНеАктуально_Click(object sender, EventArgs e)
         {
             setStatus("3");
+        }
+
+        private void DateOut_DoubleClick(object sender, EventArgs e)
+        {
+            SelectForm.SelectDate SD = new SelectForm.SelectDate();
+            SD.Top = MousePosition.Y - SD.Height / 2;
+            SD.Left = MousePosition.X - SD.Width / 2;
+            SD.mCalendar.MaxSelectionCount = 1;
+
+            if (DateOut.Text.Length != 0)
+                SD.mCalendar.SetDate(Convert.ToDateTime(DateOut.Text));
+            else
+                SD.mCalendar.SetDate(DateTime.Now);
+            
+            SD.ShowDialog();
+
+            if (SD.flSel)
+                DateOut.Text = UI.GetDate(SD.SelDate.ToString());
+
+            SD.Dispose();
+        }
+
+        private void DateOut_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                DateOut.Text = "";
         }
 
 

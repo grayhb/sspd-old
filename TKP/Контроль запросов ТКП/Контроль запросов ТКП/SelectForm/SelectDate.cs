@@ -13,7 +13,7 @@ namespace Контроль_запросов_ТКП.SelectForm
     {
 
         public bool flSel = false;
-        public DateTime SelDate;
+        public object SelDate;
 
         private short numClick = 0;
         private long firstClick;
@@ -23,6 +23,7 @@ namespace Контроль_запросов_ТКП.SelectForm
             InitializeComponent();
             
         }
+       
 
         private void SelectDate_KeyDown(object sender, KeyEventArgs e)
         {
@@ -35,7 +36,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void doSelectDate()
         {
-            SelDate = mCalendar.SelectionRange.Start;
+            this.SelDate = mCalendar.SelectionRange.Start;
             flSel = true;
             this.Close();
         }

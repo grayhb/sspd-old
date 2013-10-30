@@ -62,6 +62,7 @@
             this.СтатусВРаботе = new System.Windows.Forms.ToolStripMenuItem();
             this.СтатусВыполнено = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.СтатусНеАктуально = new System.Windows.Forms.ToolStripMenuItem();
             this.СтатусОтменено = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюУправление = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьДокументToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,6 +112,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panelSepor1 = new System.Windows.Forms.Panel();
             this.DataPanel = new System.Windows.Forms.Panel();
+            this.DateOut = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.DateStart = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.DateEnd = new System.Windows.Forms.TextBox();
@@ -125,8 +128,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.NumZad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dt_picker = new System.Windows.Forms.DateTimePicker();
-            this.СтатусНеАктуально = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -329,6 +330,13 @@
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(152, 6);
+            // 
+            // СтатусНеАктуально
+            // 
+            this.СтатусНеАктуально.Name = "СтатусНеАктуально";
+            this.СтатусНеАктуально.Size = new System.Drawing.Size(155, 22);
+            this.СтатусНеАктуально.Text = "Не актуально";
+            this.СтатусНеАктуально.Click += new System.EventHandler(this.СтатусНеАктуально_Click);
             // 
             // СтатусОтменено
             // 
@@ -856,6 +864,8 @@
             // 
             // DataPanel
             // 
+            this.DataPanel.Controls.Add(this.DateOut);
+            this.DataPanel.Controls.Add(this.label15);
             this.DataPanel.Controls.Add(this.DateStart);
             this.DataPanel.Controls.Add(this.label6);
             this.DataPanel.Controls.Add(this.DateEnd);
@@ -870,22 +880,46 @@
             this.DataPanel.Controls.Add(this.label7);
             this.DataPanel.Controls.Add(this.NumZad);
             this.DataPanel.Controls.Add(this.label1);
-            this.DataPanel.Controls.Add(this.dt_picker);
             this.DataPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.DataPanel.Location = new System.Drawing.Point(0, 0);
             this.DataPanel.Name = "DataPanel";
             this.DataPanel.Size = new System.Drawing.Size(993, 162);
             this.DataPanel.TabIndex = 11;
             // 
+            // DateOut
+            // 
+            this.DateOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DateOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.DateOut.Location = new System.Drawing.Point(541, 15);
+            this.DateOut.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
+            this.DateOut.Name = "DateOut";
+            this.DateOut.ReadOnly = true;
+            this.DateOut.Size = new System.Drawing.Size(80, 20);
+            this.DateOut.TabIndex = 46;
+            this.DateOut.TabStop = false;
+            this.DateOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DateOut.DoubleClick += new System.EventHandler(this.DateOut_DoubleClick);
+            this.DateOut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DateOut_KeyDown);
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(473, 18);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(62, 13);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "Сдача ТКП";
+            // 
             // DateStart
             // 
             this.DateStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DateStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.DateStart.Location = new System.Drawing.Point(417, 15);
+            this.DateStart.Location = new System.Drawing.Point(373, 15);
             this.DateStart.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.DateStart.Name = "DateStart";
             this.DateStart.ReadOnly = true;
-            this.DateStart.Size = new System.Drawing.Size(100, 20);
+            this.DateStart.Size = new System.Drawing.Size(80, 20);
             this.DateStart.TabIndex = 43;
             this.DateStart.TabStop = false;
             this.DateStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -894,7 +928,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(290, 18);
+            this.label6.Location = new System.Drawing.Point(246, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(121, 13);
             this.label6.TabIndex = 42;
@@ -904,11 +938,11 @@
             // 
             this.DateEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DateEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.DateEnd.Location = new System.Drawing.Point(631, 15);
+            this.DateEnd.Location = new System.Drawing.Point(743, 15);
             this.DateEnd.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.DateEnd.Name = "DateEnd";
             this.DateEnd.ReadOnly = true;
-            this.DateEnd.Size = new System.Drawing.Size(100, 20);
+            this.DateEnd.Size = new System.Drawing.Size(80, 20);
             this.DateEnd.TabIndex = 41;
             this.DateEnd.TabStop = false;
             this.DateEnd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -918,7 +952,7 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(527, 18);
+            this.label11.Location = new System.Drawing.Point(639, 18);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(98, 13);
             this.label11.TabIndex = 40;
@@ -928,11 +962,11 @@
             // 
             this.Status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Status.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.Status.Location = new System.Drawing.Point(878, 15);
+            this.Status.Location = new System.Drawing.Point(888, 15);
             this.Status.Margin = new System.Windows.Forms.Padding(3, 3, 15, 3);
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
-            this.Status.Size = new System.Drawing.Size(100, 20);
+            this.Status.Size = new System.Drawing.Size(90, 20);
             this.Status.TabIndex = 39;
             this.Status.TabStop = false;
             this.Status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -941,7 +975,7 @@
             // 
             this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(831, 18);
+            this.Label2.Location = new System.Drawing.Point(841, 18);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(41, 13);
             this.Label2.TabIndex = 38;
@@ -1017,7 +1051,7 @@
             this.NumZad.Location = new System.Drawing.Point(153, 15);
             this.NumZad.Name = "NumZad";
             this.NumZad.ReadOnly = true;
-            this.NumZad.Size = new System.Drawing.Size(100, 20);
+            this.NumZad.Size = new System.Drawing.Size(80, 20);
             this.NumZad.TabIndex = 3;
             this.NumZad.TabStop = false;
             this.NumZad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1030,25 +1064,6 @@
             this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Номер задания";
-            // 
-            // dt_picker
-            // 
-            this.dt_picker.CustomFormat = "yyyy-MM-dd";
-            this.dt_picker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dt_picker.Location = new System.Drawing.Point(631, 3);
-            this.dt_picker.MinDate = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
-            this.dt_picker.Name = "dt_picker";
-            this.dt_picker.Size = new System.Drawing.Size(100, 20);
-            this.dt_picker.TabIndex = 44;
-            this.dt_picker.Visible = false;
-            this.dt_picker.ValueChanged += new System.EventHandler(this.dt_picker_ValueChanged);
-            // 
-            // СтатусНеАктуально
-            // 
-            this.СтатусНеАктуально.Name = "СтатусНеАктуально";
-            this.СтатусНеАктуально.Size = new System.Drawing.Size(155, 22);
-            this.СтатусНеАктуально.Text = "Не актуально";
-            this.СтатусНеАктуально.Click += new System.EventHandler(this.СтатусНеАктуально_Click);
             // 
             // Card
             // 
@@ -1174,11 +1189,12 @@
         public System.Windows.Forms.TextBox Equipment;
         private System.Windows.Forms.ToolStripMenuItem экспортДанныхВExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.DateTimePicker dt_picker;
         private System.Windows.Forms.ToolStripMenuItem btnUseTKP;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem СтатусОтменено;
         private System.Windows.Forms.Button btnCardWorker;
         private System.Windows.Forms.ToolStripMenuItem СтатусНеАктуально;
+        public System.Windows.Forms.TextBox DateOut;
+        private System.Windows.Forms.Label label15;
     }
 }

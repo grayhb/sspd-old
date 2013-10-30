@@ -63,7 +63,7 @@ namespace Контроль_запросов_ТКП
 
                 SqlColumns += kvp.Key;
                 string val = SetQuotes(kvp.Value);
-                if (val =="Null")
+                if (val == "Null")
                     SqlValues += val;
                 else
                     SqlValues += string.Format("'{0}'", val);
@@ -96,7 +96,12 @@ namespace Контроль_запросов_ТКП
                 if (val == "Null")
                     SqlStr += string.Format("{0}={1}", kvp.Key, val);
                 else
-                    SqlStr += string.Format("{0}='{1}'", kvp.Key, val);
+                {
+                    if (val != "")
+                        SqlStr += string.Format("{0}='{1}'", kvp.Key, val);
+                    else
+                        SqlStr += string.Format("{0}={1}", kvp.Key, "NULL");
+                }
                 
             }
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
