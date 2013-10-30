@@ -60,6 +60,7 @@ namespace Контроль_запросов_ТКП
                 (range.Cells[1, 15] as Excel.Range).Value = "Р/Н вх.";
                 (range.Cells[1, 16] as Excel.Range).Value = "Дата вх.";
                 (range.Cells[1, 17] as Excel.Range).Value = "Примечание";
+                (range.Cells[1, 18] as Excel.Range).Value = "Контакты";
 
                 int rowout = 2;
                 int numTKP = 0;
@@ -134,6 +135,7 @@ namespace Контроль_запросов_ТКП
                 wbs.Range[wbs.Cells[rowout - countMail + 1, 1], wbs.Cells[rowout - 1, 11]].Font.Colorindex = 2;
             //else if (countMail == 0) 
             //   rowout--;
+            int CountCol = 18;
 
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
@@ -142,45 +144,46 @@ namespace Контроль_запросов_ТКП
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
 
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout -1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout -1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout - countMail, 12], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
 
             if (countMail == 0) rowout++;
             //верхняя жирная линия
-            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].Weight = Excel.XlBorderWeight.xlMedium;
-            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
-            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].Weight = Excel.XlBorderWeight.xlMedium;
-            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].Weight = Excel.XlBorderWeight.xlMedium;
+            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
+            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].Weight = Excel.XlBorderWeight.xlMedium;
+            (wbs.Range[wbs.Cells[rowout, 1], wbs.Cells[rowout, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
 
         }
 
         private void WriteInExcelSetBodyFormat(Excel.Worksheet wbs, int rowout)
         {
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, 17]].Font.Name = "Franklin Gothic Book";
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, 17]].Font.Size = 8;
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, 17]].WrapText = true;
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, 17]].VerticalAlignment = Excel.XlVAlign.xlVAlignTop;
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, 17]].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            int CountCol = 18;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].Font.Name = "Franklin Gothic Book";
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].Font.Size = 8;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].WrapText = true;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].VerticalAlignment = Excel.XlVAlign.xlVAlignTop;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             //шапка
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 17]].Font.Bold = true;
-            wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 17]].VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].Weight = Excel.XlBorderWeight.xlMedium;
-            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
-            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].Weight = Excel.XlBorderWeight.xlMedium;
-            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, CountCol]].Font.Bold = true;
+            wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, CountCol]].VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].Weight = Excel.XlBorderWeight.xlMedium;
+            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
+            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].Weight = Excel.XlBorderWeight.xlMedium;
+            (wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
             //сетка
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout - 1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
 
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
-            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 17]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
+            (wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, CountCol]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
 
          
         }
@@ -204,6 +207,7 @@ namespace Контроль_запросов_ТКП
             (range.Columns[15] as Excel.Range).ColumnWidth = 8;
             (range.Columns[16] as Excel.Range).ColumnWidth = 8;
             (range.Columns[17] as Excel.Range).ColumnWidth = 13;
+            (range.Columns[18] as Excel.Range).ColumnWidth = 20;
         }
 
         private void WriteInExcelMailZadTKP(Hashtable mail, Excel.Range range, int rowout)
@@ -219,6 +223,10 @@ namespace Контроль_запросов_ТКП
 
                 if (mail["org_DocOut"] != null)
                     (range.Cells[rowout, 14] as Excel.Range).Value = mail["org_DocOut"].ToString();
+
+                if (mail["contacts_DocOut"] != null)
+                    (range.Cells[rowout, 18] as Excel.Range).Value = mail["contacts_DocOut"].ToString();
+                
             }
 
             //входящее письмо
@@ -229,6 +237,7 @@ namespace Контроль_запросов_ТКП
 
                 if (mail["date_DocInp"] != null)
                     (range.Cells[rowout, 16] as Excel.Range).Value = mail["date_DocInp"].ToString();
+
             }
 
             if (mail["Mail_Note"] != null)
@@ -358,7 +367,7 @@ namespace Контроль_запросов_ТКП
             //данные исходящего письма
             if (id_DocOut > 0)
             {
-                sql = "SELECT DocsOutput.RN_DocOut,  DocsOutput.Date_DocOut,  Orgs.Name_Br ";
+                sql = "SELECT DocsOutput.RN_DocOut,  DocsOutput.Date_DocOut,  Orgs.Name_Br, Orgs.ID_Org ";
                 sql += " FROM DocsOutput INNER JOIN DocsOutputRec ON  DocsOutput.ID_DocOut =  DocsOutputRec.ID_DocOut INNER JOIN";
                 sql += " Orgs ON  DocsOutputRec.ID_Org =  Orgs.ID_Org WHERE  DocsOutput.ID_DocOut = " + id_DocOut.ToString();
                 var rs = SSPD.DB.GetFields(sql);
@@ -367,6 +376,7 @@ namespace Контроль_запросов_ТКП
                     h.Add("rn_DocOut", rs[0]["RN_DocOut"].ToString());
                     h.Add("date_DocOut", rs[0]["Date_DocOut"].ToString());
                     h.Add("org_DocOut", rs[0]["Name_Br"].ToString());
+                    h.Add("contacts_DocOut", getContacts(rs[0]["ID_Org"].ToString()));
                 }
                 rs = null;
             }
@@ -374,16 +384,12 @@ namespace Контроль_запросов_ТКП
             //данные входящего письма
             if (id_DocInp > 0)
             {
-                //sql = "Select DocsInput.RN_DocInp, DocsInput.Date_DocInp, Orgs.Name, DocsInput.Date_Otprav, DocsInput.RN_Otprav  FROM DocsInput INNER JOIN Orgs ON DocsInput.ID_Org = Orgs.ID_Org WHERE ID_DocInp = " + id_DocInp.ToString();
-                sql = "Select DocsInput.RN_DocInp, DocsInput.Date_DocInp FROM DocsInput WHERE ID_DocInp = " + id_DocInp.ToString();
+                sql = "Select RN_DocInp, Date_DocInp  FROM DocsInput WHERE ID_DocInp = " + id_DocInp.ToString();
                 var rs = SSPD.DB.GetFields(sql);
                 if (rs != null && rs.Count > 0)
                 {
                     h.Add("rn_DocInp", rs[0]["RN_DocInp"].ToString());
                     h.Add("date_DocInp", rs[0]["Date_DocInp"].ToString());
-                    //h.Add("orgName_DocInp", rs[0]["Name"].ToString());
-                    //h.Add("dateOtprav_DocInp", rs[0]["Date_Otprav"].ToString());
-                    //h.Add("rnOtprav_DocInp", rs[0]["RN_Otprav"].ToString());
                 }
             }
 
@@ -424,5 +430,17 @@ namespace Контроль_запросов_ТКП
             frm.Dispose();
         }
 
+        /// <summary>
+        /// Запрос контактов по организации
+        /// </summary>
+        /// <param name="Org">ID организации</param>
+        /// <returns>Строку контактов</returns>
+        private string getContacts(string Org)
+        {
+            var rs = LocalDB.LoadData("SELECT Contacts FROM КонтрольТКП_Контакты WHERE ID_Org = " + Org);
+            if (rs != null)
+                if (rs.Count > 0) return rs[0]["Contacts"].ToString();
+            return "";
+        }
     }
 }

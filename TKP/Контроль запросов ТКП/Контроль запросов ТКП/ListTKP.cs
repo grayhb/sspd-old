@@ -142,6 +142,8 @@ namespace Контроль_запросов_ТКП
             Detail.Add("ID_TKP", drZad["ID_TKP"].ToString());
             Detail.Add("FPath", drSSPD["PathFiles"].ToString());
 
+            if (drZad["DateOut"].ToString() != "")
+                DGVR.Cells["DateOut"].Value = UI.GetDate(drZad["DateOut"].ToString());
 
             DGVR.Tag = Detail;
 
@@ -166,7 +168,7 @@ namespace Контроль_запросов_ТКП
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_OutDoc Is Not Null) as CntOutDoc,";
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_InpDoc Is Not Null) as CntInpDoc,";
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.UseTKP = 1) as CntUseTKP,";
-            SqlStr += " ГруппыМТР.Code ";
+            SqlStr += " ГруппыМТР.Code, КонтрольТКП.DateOut ";
             SqlStr += " FROM КонтрольТКП LEFT OUTER JOIN ГруппыМТР ON ГруппыМТР.ID_Rec = КонтрольТКП.ID_MTR";
             SqlStr += " ORDER BY КонтрольТКП.ID_TKP DESC";
 
@@ -188,7 +190,7 @@ namespace Контроль_запросов_ТКП
             DataRowCollection drc = null;
 
             if (TypeZP == 0) 
-                drc =draZP;
+                drc = draZP;
             else
                 drc = draZPGIP;
 
@@ -232,7 +234,6 @@ namespace Контроль_запросов_ТКП
               SqlStr += " Projects ON ZadFromGIPReestr.ID_Project = Projects.ID_Project INNER JOIN";
               SqlStr += " Workers ON Projects.ID_GIP = Workers.ID_Worker ON DogovorsProjects.ID_Project = Projects.ID_Project";
               SqlStr += " WHERE      (ZadFromGIPReestrAdr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") "; 
-              Clipboard.SetText(SqlStr);
             }
 
             var rs = SSPD.DB.GetFields(SqlStr);
@@ -408,6 +409,8 @@ namespace Контроль_запросов_ТКП
                 else
                     SetStatusUseTKP(DGV.SelectedRows[0], 1);
 
+                DGV.SelectedRows[0].Cells["DateOut"].Value = c.DateOut.Text;
+
                 //обновляем данные в массиве
                 foreach (DataRow dr in dra)
                 {
@@ -418,6 +421,8 @@ namespace Контроль_запросов_ТКП
                         dr["CntOutDoc"] = CntDocOut;
                         dr["CntInpDoc"] = CntDocInp;
                         dr["Status"] = c.Status.Tag.ToString();
+                        dr["DateOut"] = c.DateOut.Text;
+
                         break;
                     }
                 }

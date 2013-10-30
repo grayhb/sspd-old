@@ -35,6 +35,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListTKP));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +53,7 @@
             this.ФПоСтатусу = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВработе = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВыполненные = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФСтатусНеАктуально = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусОтмененные = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ФСтатусВсе = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,9 +90,9 @@
             this.OtdelZad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateZad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ФСтатусНеАктуально = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -235,6 +237,13 @@
             this.ФСтатусВыполненные.Text = "Выполненные";
             this.ФСтатусВыполненные.Click += new System.EventHandler(this.ФСтатусВыполненные_Click);
             // 
+            // ФСтатусНеАктуально
+            // 
+            this.ФСтатусНеАктуально.Name = "ФСтатусНеАктуально";
+            this.ФСтатусНеАктуально.Size = new System.Drawing.Size(155, 22);
+            this.ФСтатусНеАктуально.Text = "Не актуально";
+            this.ФСтатусНеАктуально.Click += new System.EventHandler(this.ФСтатусНеАктуально_Click);
+            // 
             // ФСтатусОтмененные
             // 
             this.ФСтатусОтмененные.Name = "ФСтатусОтмененные";
@@ -298,21 +307,21 @@
             // ФПроект
             // 
             this.ФПроект.Name = "ФПроект";
-            this.ФПроект.Size = new System.Drawing.Size(152, 22);
+            this.ФПроект.Size = new System.Drawing.Size(144, 22);
             this.ФПроект.Text = "Проект - ...";
             this.ФПроект.Click += new System.EventHandler(this.ФПроект_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
             // 
             // ФПроектВсе
             // 
             this.ФПроектВсе.Checked = true;
             this.ФПроектВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФПроектВсе.Name = "ФПроектВсе";
-            this.ФПроектВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФПроектВсе.Size = new System.Drawing.Size(144, 22);
             this.ФПроектВсе.Text = "Все";
             this.ФПроектВсе.Click += new System.EventHandler(this.ФПроектВсе_Click);
             // 
@@ -330,20 +339,20 @@
             // ФГИП
             // 
             this.ФГИП.Name = "ФГИП";
-            this.ФГИП.Size = new System.Drawing.Size(152, 22);
+            this.ФГИП.Size = new System.Drawing.Size(127, 22);
             this.ФГИП.Text = "ГИП - ...";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
             // 
             // ФГИПВсе
             // 
             this.ФГИПВсе.Checked = true;
             this.ФГИПВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФГИПВсе.Name = "ФГИПВсе";
-            this.ФГИПВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
             this.ФГИПВсе.Text = "Все";
             // 
             // toolStripMenuItem1
@@ -450,6 +459,7 @@
             this.OtdelZad,
             this.DateZad,
             this.GIP,
+            this.DateOut,
             this.Status,
             this.DateFinish});
             this.DGV.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -531,30 +541,32 @@
             this.GIP.Name = "GIP";
             this.GIP.ReadOnly = true;
             // 
-            // Status
+            // DateOut
             // 
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.DefaultCellStyle = dataGridViewCellStyle6;
+            this.DateOut.DefaultCellStyle = dataGridViewCellStyle6;
+            this.DateOut.HeaderText = "Сдача ТКП";
+            this.DateOut.Name = "DateOut";
+            this.DateOut.ReadOnly = true;
+            this.DateOut.Width = 85;
+            // 
+            // Status
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.DefaultCellStyle = dataGridViewCellStyle7;
             this.Status.HeaderText = "Статус";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
             // DateFinish
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle8;
             this.DateFinish.HeaderText = "Выполнено";
             this.DateFinish.Name = "DateFinish";
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
-            // 
-            // ФСтатусНеАктуально
-            // 
-            this.ФСтатусНеАктуально.Name = "ФСтатусНеАктуально";
-            this.ФСтатусНеАктуально.Size = new System.Drawing.Size(155, 22);
-            this.ФСтатусНеАктуально.Text = "Не актуально";
-            this.ФСтатусНеАктуально.Click += new System.EventHandler(this.ФСтатусНеАктуально_Click);
             // 
             // ListTKP
             // 
@@ -617,16 +629,6 @@
         private System.Windows.Forms.ToolStripMenuItem МенюЗадания;
         private System.Windows.Forms.ToolStripMenuItem добавитьЗаданиеОтОтделаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьЗаданиеОтГИПаToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NZ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShOl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NamePrj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Equip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DatePrj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OtdelZad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateZad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GIP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateFinish;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem открытьКарточкуТКПToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
@@ -639,6 +641,17 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem ФОргВсе;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусНеАктуально;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShOl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NamePrj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Equip;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DatePrj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OtdelZad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateZad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateOut;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateFinish;
     }
 }
 
