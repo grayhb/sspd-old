@@ -61,7 +61,7 @@ namespace Контроль_запросов_ТКП
                 {
                     foreach (DataGridViewCell DGVC in DGVR.Cells)
                     {
-                        if (DGVC.ColumnIndex == 0 || DGVC.ColumnIndex == 8)
+                        if (DGVC.ColumnIndex == 0 || DGVC.OwningColumn.Name == "Status")
                         {
                             if (DGVC.Style.BackColor.Name == "0" || DGVC.Style.BackColor == Color.White || DGVC.Style.BackColor == Color.FromArgb(240, 240, 240))
                             {
