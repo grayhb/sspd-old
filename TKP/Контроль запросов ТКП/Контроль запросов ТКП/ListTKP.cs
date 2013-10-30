@@ -32,7 +32,7 @@ namespace Контроль_запросов_ТКП
             //this.Height = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Height / 1.1);
 
             //17 дюймов:
-            this.Width = 1280;
+            this.Width = 1380;
             this.Height = 1024;
 
             this.Text += " (" + Params.UserInfo.FIO + ")";
@@ -421,7 +421,11 @@ namespace Контроль_запросов_ТКП
                         dr["CntOutDoc"] = CntDocOut;
                         dr["CntInpDoc"] = CntDocInp;
                         dr["Status"] = c.Status.Tag.ToString();
-                        dr["DateOut"] = c.DateOut.Text;
+
+                        if (c.DateOut.Text != "") 
+                            dr["DateOut"] = c.DateOut.Text;
+                        else
+                            dr["DateOut"] = DBNull.Value;
 
                         break;
                     }
@@ -629,15 +633,15 @@ namespace Контроль_запросов_ТКП
         {
             if (mean == 0)
             {
-                DGVR.Cells[8].Style.BackColor = UI.bgUseTKP;
-                DGVR.Cells[8].Style.SelectionBackColor = UI.bgUseTKP;
-                DGVR.Cells[8].Style.SelectionForeColor = Color.Black;
+                DGVR.Cells["Status"].Style.BackColor = UI.bgUseTKP;
+                DGVR.Cells["Status"].Style.SelectionBackColor = UI.bgUseTKP;
+                DGVR.Cells["Status"].Style.SelectionForeColor = Color.Black;
             }
             else
             {
-                DGVR.Cells[8].Style.BackColor = DGVR.Cells[2].Style.BackColor;
-                DGVR.Cells[8].Style.SelectionBackColor = DGVR.Cells[2].Style.SelectionBackColor;
-                DGVR.Cells[8].Style.SelectionForeColor = DGVR.Cells[2].Style.SelectionForeColor;
+                DGVR.Cells["Status"].Style.BackColor = DGVR.Cells[2].Style.BackColor;
+                DGVR.Cells["Status"].Style.SelectionBackColor = DGVR.Cells[2].Style.SelectionBackColor;
+                DGVR.Cells["Status"].Style.SelectionForeColor = DGVR.Cells[2].Style.SelectionForeColor;
             }
         }
 

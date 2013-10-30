@@ -635,8 +635,6 @@ namespace Контроль_запросов_ТКП
             else 
                 if (OlSh.Text != "") 
                     DS.Add("OlSh", OlSh.Text);
-                else
-                    DS.Add("OlSh", "");
 
             if (Equipment.Tag != null)
             {
@@ -646,8 +644,6 @@ namespace Контроль_запросов_ТКП
             else 
                 if (Equipment.Text != "") 
                     DS.Add("Equipment", Equipment.Text);
-                else
-                    DS.Add("Equipment", "");
 
 
             if (DateEnd.Tag != null)
@@ -656,10 +652,8 @@ namespace Контроль_запросов_ТКП
                     DS.Add("DateEnd", DateEnd.Text);
             }
             else
-                if (DateEnd.Text != "-")
+                if (DateEnd.Text != "")
                     DS.Add("DateEnd", DateEnd.Text);
-                else
-                    DS.Add("DateEnd", "");
 
 
             if (DateOut.Tag != null)
@@ -670,15 +664,13 @@ namespace Контроль_запросов_ТКП
             else
                 if (DateOut.Text != "")
                     DS.Add("DateOut", DateOut.Text);
-                else
-                    DS.Add("DateOut", "");
 
 
             if (DS.Count > 0)
+            {
                 LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
-            
-
-            FlSave = true;
+                FlSave = true;
+            }
         }
 
         private void LinkGAU(string IDDOc, byte TypeDoc)
