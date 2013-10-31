@@ -147,6 +147,8 @@ namespace Контроль_запросов_ТКП
                 }
 
                 
+
+                
             }
         }
 
@@ -193,6 +195,15 @@ namespace Контроль_запросов_ТКП
                 FIOZad.Text = dr["WorkerOut"].ToString();
                 FIOZad.Tag = dr["ID_Worker"].ToString();
                 GIP.Text = dr["GIP"].ToString();
+
+                if (DateOut.Text == "")
+                {
+                    DateOut.Text = LoaDatePZakPlan(ShPrj.Tag.ToString());
+                    if (DateOut.Text != "") {
+                        DateOut.Text = UI.GetDate(DateOut.Text);
+                        DateOut.Tag = DateOut.Text;
+                    }
+                }
             }
        }
 
@@ -294,6 +305,22 @@ namespace Контроль_запросов_ТКП
             var rs = LocalDB.LoadData("SELECT Contacts FROM КонтрольТКП_Контакты WHERE ID_Org = " + Org);
             if (rs != null)
                 if (rs.Count>0) return rs[0]["Contacts"].ToString();
+            return "";
+        }
+
+        private string LoaDatePZakPlan(string IDP)
+        {
+            string SqlStr = "SELECT PIRPlan.DatePZakPlan";
+            SqlStr += " FROM Dogovors INNER JOIN";
+            SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog INNER JOIN";
+            SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec";
+            SqlStr += string.Format(" WHERE DogovorsProjects.ID_Project = {0}", IDP);
+
+            var rs = DB.GetFields(SqlStr);
+            if (rs != null)
+                if (rs.Count > 0)
+                    return rs[0]["DatePZakPlan"].ToString();
+
             return "";
         }
 
