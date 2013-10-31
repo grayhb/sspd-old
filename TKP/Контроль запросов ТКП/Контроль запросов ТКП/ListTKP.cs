@@ -144,12 +144,21 @@ namespace Контроль_запросов_ТКП
 
             if (drZad["DateOut"].ToString() != "")
                 DGVR.Cells["DateOut"].Value = UI.GetDate(drZad["DateOut"].ToString());
+            else
+                if (drSSPD["DatePZakPlan"].ToString() != "")
+                {
+                    drZad["DateOut"] = drSSPD["DatePZakPlan"];
+                    DGVR.Cells["DateOut"].Value = UI.GetDate(drSSPD["DatePZakPlan"].ToString());
+                    DGVR.Cells["DateOut"].Tag = DGVR.Cells["DateOut"].Value;
+                }
+
 
             DGVR.Tag = Detail;
 
             //выставляем цветовой статус
             if (drZad["Status"].ToString() == "0")
-                GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drSSPD["DateExpPlan"].ToString());
+                //GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drSSPD["DateExpPlan"].ToString());
+                GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
 
             //красим статус если ткп используется в сметах
             if (drZad["CntUseTKP"].ToString() != "0")
@@ -213,7 +222,7 @@ namespace Контроль_запросов_ТКП
             if (TypeZP == 0) {
               SqlStr = " SELECT ExchandeZadReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
               SqlStr += " ExchandeZadReestr.Node, ExchandeZadReestr.PathFiles, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.DateExpPlan, Projects.ID_GIP";
+              SqlStr += " PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP";
               SqlStr += " FROM Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -225,7 +234,7 @@ namespace Контроль_запросов_ТКП
             }
             else {
               SqlStr = "SELECT      ZadFromGIPReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.DateExpPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
+              SqlStr += " PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
               SqlStr += " FROM          Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -287,15 +296,22 @@ namespace Контроль_запросов_ТКП
                 DateTime DP = Convert.ToDateTime(DatePrj);
 
                 //прошло 5 дней с даты выдачи задания 
-                if (DP.AddDays(-30) < DateTime.Now)
+                if (DP.AddDays(-5) < DateTime.Now)
                 {
-                    DGVC.Style.BackColor = Color.LightCoral;
-                    //прошло 5 дней с даты выдачи задания 
-                    if (DO.AddDays(5) < DateTime.Now)
+                    if (DP.AddDays(-1) < DateTime.Now)
                     {
                         DGVC.Style.BackColor = Color.DarkRed;
                         DGVC.Style.ForeColor = Color.White;
-                    }
+                    } 
+                    else
+                        DGVC.Style.BackColor = Color.LightCoral;
+
+                    ////прошло 5 дней с даты выдачи задания 
+                    //if (DO.AddDays(5) < DateTime.Now)
+                    //{
+                    //    DGVC.Style.BackColor = Color.DarkRed;
+                    //    DGVC.Style.ForeColor = Color.White;
+                    //}
                 }
                 else
                 {
@@ -422,10 +438,18 @@ namespace Контроль_запросов_ТКП
                         dr["CntInpDoc"] = CntDocInp;
                         dr["Status"] = c.Status.Tag.ToString();
 
-                        if (c.DateOut.Text != "") 
+                        if (c.DateOut.Text != "")
                             dr["DateOut"] = c.DateOut.Text;
                         else
+                        {
+                            
                             dr["DateOut"] = DBNull.Value;
+
+                            if (DGV.SelectedRows[0].Cells["DateOut"].Tag != null)
+                            {
+                                DGV.SelectedRows[0].Cells["DateOut"].Value = DGV.SelectedRows[0].Cells["DateOut"].Tag;
+                            }
+                        }
 
                         break;
                     }

@@ -86,24 +86,23 @@
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(267, 20);
             this.Label5.TabIndex = 4;
-            this.Label5.Text = "- осталось меньше 30 дней до окончания проекта ";
+            this.Label5.Text = "- осталось меньше 5 дней до сдачи ТКП";
             this.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(88, 86);
+            this.Label1.Location = new System.Drawing.Point(88, 92);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(263, 26);
+            this.Label1.Size = new System.Drawing.Size(205, 13);
             this.Label1.TabIndex = 5;
-            this.Label1.Text = "- осталось меньше 30 дней до окончания проекта \r\nи прошло 5 дней с момента отправ" +
-                "ления ТКП";
+            this.Label1.Text = "- осталось меньше 1 дня до сдачи ТКП";
             // 
             // Help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(371, 164);
+            this.ClientSize = new System.Drawing.Size(367, 160);
             this.ControlBox = false;
             this.Controls.Add(this.Button1);
             this.Controls.Add(this.Label4);
