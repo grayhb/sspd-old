@@ -141,6 +141,8 @@ namespace Контроль_запросов_ТКП
             Hashtable Detail = new Hashtable();
             Detail.Add("ID_TKP", drZad["ID_TKP"].ToString());
             Detail.Add("FPath", drSSPD["PathFiles"].ToString());
+            Detail.Add("Sh_project", drSSPD["Sh_project"].ToString());
+            
 
             if (drZad["DateOut"].ToString() != "")
                 DGVR.Cells["DateOut"].Value = UI.GetDate(drZad["DateOut"].ToString());
@@ -825,6 +827,15 @@ namespace Контроль_запросов_ТКП
         private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
+        }
+
+        private void экспортДокументовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            ExportScanDoc expFrm = new ExportScanDoc();
+            expFrm.DGV = DGV;
+            expFrm.ShowDialog();
+
         }
 
     }

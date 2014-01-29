@@ -93,6 +93,7 @@
             this.DateOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.экспортДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -116,6 +117,7 @@
             // операцииToolStripMenuItem
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.экспортДокументовToolStripMenuItem,
             this.экспортВExcelToolStripMenuItem,
             this.toolStripSeparator7,
             this.выходToolStripMenuItem});
@@ -126,19 +128,19 @@
             // экспортВExcelToolStripMenuItem
             // 
             this.экспортВExcelToolStripMenuItem.Name = "экспортВExcelToolStripMenuItem";
-            this.экспортВExcelToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.экспортВExcelToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.экспортВExcelToolStripMenuItem.Text = "Экспорт в Excel";
             this.экспортВExcelToolStripMenuItem.Click += new System.EventHandler(this.экспортВExcelToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(188, 6);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -568,6 +570,13 @@
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
             // 
+            // экспортДокументовToolStripMenuItem
+            // 
+            this.экспортДокументовToolStripMenuItem.Name = "экспортДокументовToolStripMenuItem";
+            this.экспортДокументовToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.экспортДокументовToolStripMenuItem.Text = "Экспорт документов";
+            this.экспортДокументовToolStripMenuItem.Click += new System.EventHandler(this.экспортДокументовToolStripMenuItem_Click);
+            // 
             // ListTKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,6 +661,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOut;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateFinish;
+        private System.Windows.Forms.ToolStripMenuItem экспортДокументовToolStripMenuItem;
     }
 }
 

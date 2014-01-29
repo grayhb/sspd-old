@@ -50,6 +50,8 @@ namespace Контроль_запросов_ТКП
                 pПримечание.Visible = false;
                 pКонтакты.Visible = false;
                 btnSelEq.Visible = false;
+                toolStripSeparator9.Visible = false;
+                статусВходящего.Visible = false;
             }
 
         }
@@ -60,6 +62,10 @@ namespace Контроль_запросов_ТКП
             LoadDataEq();
         }
 
+
+        /// <summary>
+        /// Общая процедура загрузки данных
+        /// </summary>
         private void LoadData()
         {
             LoadDataTKP();
@@ -67,6 +73,18 @@ namespace Контроль_запросов_ТКП
             LoadDataDocs();
         }
 
+        /// <summary>
+        /// Загрузка листа оборудования для выбора
+        /// </summary>
+        private void LoadDataEq()
+        {
+            drEq = LocalDB.LoadData("SELECT DISTINCT Equipment FROM КонтрольТКП");
+            lbEq.Width = Equipment.Width;
+        }
+
+        /// <summary>
+        /// Загрузка карточки ТКП
+        /// </summary>
         private void LoadDataTKP()
         {
             string SqlStr = "SELECT КонтрольТКП.ID_Zad, КонтрольТКП.TypeZad, КонтрольТКП.Status, КонтрольТКП.DateStart, КонтрольТКП.DateEnd, ";
@@ -145,13 +163,13 @@ namespace Контроль_запросов_ТКП
                     DateOut.Text = UI.GetDate(dr["DateOut"].ToString());
                     DateOut.Tag = DateOut.Text;
                 }
-
-                
-
                 
             }
         }
 
+        /// <summary>
+        /// Загрузка данных по заданию на запрос ТКП
+        /// </summary>
         private void LoadDataZP()
         {
             string SqlStr = "";
@@ -207,9 +225,12 @@ namespace Контроль_запросов_ТКП
             }
        }
 
+        /// <summary>
+        /// Загрузка списка документов к запросу ТКП
+        /// </summary>
         private void LoadDataDocs()
         {
-            var rs = LocalDB.LoadData("SELECT ID, ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, UseTKP "
+            var rs = LocalDB.LoadData("SELECT ID, ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, UseTKP, StatusDoc "
                                      +"FROM КонтрольТКП_Письма WHERE ID_TKP = " + ID_TKP+ " ORDER BY ID DESC");
             DGV.Rows.Clear();
             if (rs != null)
@@ -219,7 +240,7 @@ namespace Контроль_запросов_ТКП
                     DGV.Rows.Add();
                     DataGridViewRow DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
 
-                    DGVR.Tag = dr["ID"].ToString();
+                    DGVR.Tag = dr;
 
                     if (dr["DateStartTKP"].ToString()!="") 
                         DGVR.Cells["DateStartTKP"].Value = UI.GetDate(dr["DateStartTKP"].ToString());
@@ -246,9 +267,16 @@ namespace Контроль_запросов_ТКП
                         CntUseTKP++;
                     }
                 }
+
+                if (DGV.Rows.Count > 0) DGV.Rows[0].Selected = true;
             }
         }
         
+        /// <summary>
+        /// Загрузка данных исходящего документа
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
+        /// <param name="IDDoc">ID исходящего документа</param>
         private void LoaDataOutDoc(DataGridViewRow DGVR, string IDDoc)
         {
             string SqlStr = "SELECT DocsOutput.Date_DocOut,  Orgs.Name AS Org,  DocsOutput.RN_DocOut, Orgs.Name_Br AS NB_Org, DocsOutput.PathToImage, DocsOutputRec.ID_Org";
@@ -274,6 +302,11 @@ namespace Контроль_запросов_ТКП
                 }
         }
 
+        /// <summary>
+        /// Загрузка данных входящего документа
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
+        /// <param name="IDDoc">ID входящего документа</param>
         private void LoaDataInpDoc(DataGridViewRow DGVR, string IDDoc)
         {
             var rs = DB.GetFields("SELECT RN_DocInp, Date_DocInp, PathToImage FROM  DocsInput WHERE ID_DocInp = " + IDDoc);
@@ -295,11 +328,14 @@ namespace Контроль_запросов_ТКП
 
                     if ( DGVR.Cells["DateFinishTKP"].Value == null)
                         DGVR.Cells["DateFinishTKP"].Value = UI.GetDate(Convert.ToDateTime(dr["Date_DocInp"]).AddMonths(6).ToString());
-
-                    SetBGColor(DGVR);
                 }
         }
 
+        /// <summary>
+        /// Загрузка контактов
+        /// </summary>
+        /// <param name="Org">Наименование организации</param>
+        /// <returns>Возвращает строку "Контакты"</returns>
         private string LoadDataOrg(string Org)
         {
             var rs = LocalDB.LoadData("SELECT Contacts FROM КонтрольТКП_Контакты WHERE ID_Org = " + Org);
@@ -308,6 +344,11 @@ namespace Контроль_запросов_ТКП
             return "";
         }
 
+        /// <summary>
+        /// Загрузка плановой даты передачи заказчику из Плана ПИР
+        /// </summary>
+        /// <param name="IDP">ID проекта</param>
+        /// <returns>Дата</returns>
         private string LoaDatePZakPlan(string IDP)
         {
             string SqlStr = "SELECT PIRPlan.DatePZakPlan";
@@ -324,24 +365,58 @@ namespace Контроль_запросов_ТКП
             return "";
         }
 
-        private void SetBGColor(DataGridViewRow DGVR)
-        {
-            foreach (DataGridViewCell dgvc in DGVR.Cells)
-                dgvc.Style.BackColor = UI.bgHaveTKP;
-        }
-
+        /// <summary>
+        /// Установка фона строки документа
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
         private void SetSelBG(DataGridViewRow DGVR)
         {
+            string StatusDoc = ((DataRow)DGVR.Tag)["StatusDoc"].ToString();
+
             foreach (DataGridViewCell dgvc in DGVR.Cells)
             {
-                if (dgvc.Style.BackColor.Name != "0")
+
+                //обновление цвета статуса
+                if (dgvc.Style.BackColor != UI.bgUseTKP)
+                {
+                    if (StatusDoc == "0")
+                        dgvc.Style.BackColor = UI.bgStatusDocInp0;
+                    else if (StatusDoc == "1")
+                        dgvc.Style.BackColor = UI.bgStatusDocInp1;
+                    else if (StatusDoc == "2")
+                        dgvc.Style.BackColor = UI.bgStatusDocInp2;
+                    else
+                        dgvc.Style.BackColor = Color.White;
+
                     dgvc.Style.SelectionBackColor = dgvc.Style.BackColor;
-                else
-                    dgvc.Style.SelectionBackColor = Color.White ;
+                }
+
                 dgvc.Style.SelectionForeColor = Color.Black;
             }
         }
 
+        /// <summary>
+        /// Установка фона для документа используемого в сметах
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
+        /// <param name="mean">параметр использования документа</param>
+        private void SetBGUseTKP(DataGridViewRow DGVR, byte mean = 0)
+        {
+            if (mean == 0)
+            {
+                DGVR.Cells[3].Style.BackColor = UI.bgUseTKP;
+                DGVR.Cells[3].Style.SelectionBackColor = UI.bgUseTKP;
+            }
+            else
+            {
+                DGVR.Cells[3].Style.BackColor = DGVR.Cells[1].Style.BackColor;
+                DGVR.Cells[3].Style.SelectionBackColor = DGVR.Cells[1].Style.SelectionBackColor;
+            }
+        }
+
+        /// <summary>
+        /// Открыть исходящий документ
+        /// </summary>
         private void OpenOutDoc()
         {
             if (DGV.SelectedRows.Count == 0) return;
@@ -351,6 +426,9 @@ namespace Контроль_запросов_ТКП
                     ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["PathToImage"].ToString());
         }
 
+        /// <summary>
+        /// Открыть входящий документ
+        /// </summary>
         private void OpenInpDoc()
         {
             if (DGV.SelectedRows.Count == 0) return;
@@ -360,6 +438,9 @@ namespace Контроль_запросов_ТКП
                     ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString());
         }
 
+        /// <summary>
+        /// Редактирование контактов
+        /// </summary>
         private void EditContacts()
         {
             if (DGV.SelectedRows.Count > 0)
@@ -371,17 +452,554 @@ namespace Контроль_запросов_ТКП
                     if (c.flSave) DGV.SelectedRows[0].Cells["Contacts"].Value = c.Contact.Text;
                 }
         }
-
+        
+        /// <summary>
+        /// Редактирование примечания
+        /// </summary>
         private void EditNote()
         {
             if (DGV.SelectedRows.Count > 0)
             {
                 Note n = new Note();
-                n.ID_Doc = DGV.SelectedRows[0].Tag.ToString();
+                n.ID_Doc = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(); //DGV.SelectedRows[0].Tag.ToString();
                 n.ShowDialog();
                 if (n.flSave) DGV.SelectedRows[0].Cells["Note"].Value = n.NoteTxt.Text;
             }
         }
+
+
+        private void SaveChange()
+        {
+            if (ReadOnly) return;
+
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+
+            if (OlSh.Tag != null)
+            {
+                if (OlSh.Tag.ToString() != OlSh.Text)
+                    DS.Add("OlSh", OlSh.Text);
+            }
+            else
+                if (OlSh.Text != "")
+                    DS.Add("OlSh", OlSh.Text);
+
+            if (Equipment.Tag != null)
+            {
+                if (Equipment.Tag.ToString() != Equipment.Text)
+                    DS.Add("Equipment", Equipment.Text);
+            }
+            else
+                if (Equipment.Text != "")
+                    DS.Add("Equipment", Equipment.Text);
+
+
+            if (DateEnd.Tag != null)
+            {
+                if (DateEnd.Tag.ToString() != DateEnd.Text)
+                    DS.Add("DateEnd", DateEnd.Text);
+            }
+            else
+                if (DateEnd.Text != "")
+                    DS.Add("DateEnd", DateEnd.Text);
+
+
+            if (DateOut.Tag != null)
+            {
+                if (DateOut.Tag.ToString() != DateOut.Text)
+                    DS.Add("DateOut", DateOut.Text);
+            }
+            else
+                if (DateOut.Text != "")
+                    DS.Add("DateOut", DateOut.Text);
+
+
+            if (DS.Count > 0)
+            {
+                LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
+                FlSave = true;
+            }
+        }
+
+
+        /// <summary>
+        /// Связка документа с группой аналитического учета
+        /// </summary>
+        /// <param name="IDDOc">ID документа</param>
+        /// <param name="TypeDoc">Тип документа</param>
+        private void LinkGAU(string IDDOc, byte TypeDoc)
+        {
+            var rs = DB.GetFields("SELECT COUNT(*) as CntLink FROM LinksDocsA WHERE"
+                                + "     ID_Doc = " + IDDOc
+                                + " AND TDoc = " + TypeDoc.ToString()
+                                + " AND ID_CA = " + TKP_Conf.ID_GAU);
+            if (rs != null)
+                if (rs[0][0].ToString() == "0")
+                {
+                    Dictionary<string, string> DS = new Dictionary<string, string>();
+                    DS.Add("TDoc", TypeDoc.ToString());
+                    DS.Add("ID_CA", TKP_Conf.ID_GAU);
+                    DS.Add("ID_Doc", IDDOc);
+                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
+                    DB.InsertRow(DS, "LinksDocsA");
+                }
+        }
+
+        /// <summary>
+        /// Связка документа с проектом
+        /// </summary>
+        /// <param name="IDDOc">ID документа</param>
+        /// <param name="TypeDoc">Тип документа</param>
+        private void LinkPrj(string IDDOc, byte TypeDoc)
+        {
+            var rs = DB.GetFields("SELECT COUNT(*) as CntLink FROM LinksDocs WHERE"
+                                + "     ID_Doc = " + IDDOc
+                                + " AND TDoc = " + TypeDoc.ToString()
+                                + " AND ID_Project = " + ShPrj.Tag.ToString());
+            if (rs != null)
+                if (rs[0][0].ToString() == "0")
+                {
+                    Dictionary<string, string> DS = new Dictionary<string, string>();
+                    DS.Add("TDoc", TypeDoc.ToString());
+                    DS.Add("ID_Project", ShPrj.Tag.ToString());
+                    DS.Add("ID_Doc", IDDOc);
+                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
+                    DB.InsertRow(DS, "LinksDocs");
+                }
+        }
+
+        /// <summary>
+        /// Связка входящего документа с исходящим
+        /// </summary>
+        /// <param name="IDDOc">ID документа</param>
+        /// <param name="TypeDoc">Тип документа</param>
+        private void LinkDocsInpToOut(string IDDocInp, byte TypeDoc)
+        {
+            if (TypeDoc != 1) return;
+            if (DGV.SelectedRows.Count == 0) return;
+            if (DGV.SelectedRows[0].Cells["RNDocOut"].Value == null) return;
+
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            string IDDocOut = ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["IDDoc"].ToString();
+
+            //привязка исходящего к входящему!
+            var rs = DB.GetFields("SELECT Count(*) as CntLink FROM DocsInputLink "
+                                + " WHERE TDoc = 2 AND ID_DocInp = " + IDDocInp +
+                                  " AND ID_Doc = " + IDDocOut);
+            if (rs != null)
+                if (rs[0][0].ToString() == "0")
+                {
+                    DS.Add("ID_DocInp", IDDocInp);
+                    DS.Add("TDoc", "2");
+                    DS.Add("ID_Doc", IDDocOut);
+                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
+                    DB.InsertRow(DS, "DocsInputLink");
+                }
+
+            //привязка входящего к исходящему!
+            rs = DB.GetFields("SELECT Count(*) as CntLink FROM DocsOutputLink "
+                                + " WHERE TDoc = 1 AND ID_DocOut = " + IDDocOut +
+                                  " AND ID_Doc = " + IDDocInp);
+            if (rs != null)
+                if (rs[0][0].ToString() == "0")
+                {
+                    DS = new Dictionary<string, string>();
+                    DS.Add("ID_DocOut", IDDocOut);
+                    DS.Add("TDoc", "1");
+                    DS.Add("ID_Doc", IDDocInp);
+                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
+                    DB.InsertRow(DS, "DocsOutputLink");
+                }
+
+
+        }
+
+
+        /// <summary>
+        /// Установка статуса Карточки запроса ТКП
+        /// </summary>
+        /// <param name="status">статус запроса</param>
+        private void setStatus(string status)
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("Status", status);
+
+            СтатусВРаботе.Checked = false;
+            СтатусВыполнено.Checked = false;
+            СтатусОтменено.Checked = false;
+            СтатусНеАктуально.Checked = false;
+
+            if (status == "0")
+            {
+                DS.Add("DateEnd", "Null");
+                СтатусВРаботе.Checked = true;
+                Status.Text = "В работе";
+                Status.Tag = 0;
+                DateEnd.Text = "-";
+            }
+            else if (status == "1")
+            {
+                DS.Add("DateEnd", DateTime.Now.ToString());
+                СтатусВыполнено.Checked = true;
+                Status.Text = "Выполнено";
+                Status.Tag = 1;
+                DateEnd.Text = UI.GetDate(DateTime.Now.ToString());
+            }
+            else if (status == "2")
+            {
+                СтатусОтменено.Checked = true;
+                Status.Text = "Отменено";
+                Status.Tag = 2;
+                DateEnd.Text = "-";
+            }
+            else if (status == "3")
+            {
+                СтатусНеАктуально.Checked = true;
+                Status.Text = "Не актуально";
+                Status.Tag = 3;
+                DateEnd.Text = "-";
+            }
+
+            LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
+            FlSave = true;
+        }
+
+        /// <summary>
+        /// Установка статуса документа
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
+        /// <param name="status">статус документа</param>
+        private void setStatusDoc(DataGridViewRow DGVR, string status)
+        {
+            if (status == "") status = "-1";
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("StatusDoc", status);
+
+            //обновляем базу
+            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
+
+            //обновляем статус в деталях письма
+            ((DataRow)DGVR.Tag)["StatusDoc"] = status;
+            UpdateStatusDocMenu(DGVR);
+
+            //обновляем фон
+            SetSelBG(DGVR);
+
+            FlSave = true;
+        }
+
+        /// <summary>
+        /// Обновление чекбоксов в меню Статус документа
+        /// </summary>
+        /// <param name="DGVR"></param>
+        private void UpdateStatusDocMenu(DataGridViewRow DGVR)
+        {
+            if (DGVR.Tag == null) return;
+
+            статусПисьмаОтказ.Checked = false;
+            статусПисьмаПоложительный.Checked = false;
+            статусПисьмаУточнение.Checked = false;
+
+            switch (((DataRow)DGVR.Tag)["StatusDoc"].ToString())
+            {
+                case "0":
+                    статусПисьмаОтказ.Checked = true;
+                    break;
+                case "1":
+                    статусПисьмаПоложительный.Checked = true;
+                    break;
+                case "2":
+                    статусПисьмаУточнение.Checked = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Добавление документа
+        /// </summary>
+        /// <param name="IDDoc">Ид документа</param>
+        /// <param name="TypeDoc">
+        /// 0 - исходящий
+        /// 1 - входящий
+        /// 2 - входящий без привязки к исходящему
+        /// </param>
+        private void AddDoc(string IDDoc, byte TypeDoc, string IDOrg)
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            if (TypeDoc != 1)
+            {
+                DS.Add("ID_TKP", ID_TKP);
+                if (TypeDoc == 0)
+                {
+                    DS.Add("ID_OutDoc", IDDoc);
+                    DS.Add("ID_OrgOut", IDOrg);
+                }
+                else
+                {
+                    DS.Add("ID_InpDoc", IDDoc);
+                    DS.Add("ID_OrgInp", IDOrg);
+                }
+                LocalDB.InsertData(DS, "КонтрольТКП_Письма");
+                LoadDataDocs();
+            }
+            else
+            {
+                //входящий:
+                string ID_DocTkp = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(); //DGV.SelectedRows[0].Tag.ToString();
+                DS.Add("ID_InpDoc", IDDoc);
+                DS.Add("ID_OrgInp", IDOrg);
+                LocalDB.UpdateData(DS, "КонтрольТКП_Письма", "ID = " + ID_DocTkp);
+                LoadDataDocs();
+                if (DGV.Rows.Count > 0)
+                    foreach (DataGridViewRow dgvr in DGV.Rows)
+                        if (ID_DocTkp == dgvr.Tag.ToString())
+                        {
+                            DGV.ClearSelection();
+                            dgvr.Selected = true;
+                            break;
+                        }
+            }
+
+            //Типы документов для привязки в ССПД
+            if (TypeDoc == 0)
+                TypeDoc = 2;
+            else TypeDoc = 1;
+
+            //привязка к ГАУ:
+            LinkGAU(IDDoc, TypeDoc);
+
+            //привязка к проекту
+            LinkPrj(IDDoc, TypeDoc);
+
+            //связка документов между собой
+            LinkDocsInpToOut(IDDoc, TypeDoc);
+
+            //добавление организации в локальный справочник
+            Orgs.addOrg(IDOrg);
+        }
+
+        /// <summary>
+        /// Фильтр по списку оборудования
+        /// </summary>
+        /// <param name="fValue"></param>
+        private void doFilterEq(string fValue)
+        {
+            lbEq.Items.Clear();
+
+            if (drEq == null) return;
+
+            foreach (DataRow dr in drEq)
+            {
+                if (dr[0].ToString().ToLower().IndexOf(fValue) > -1)
+                    lbEq.Items.Add(dr[0].ToString());
+            }
+            if (lbEq.Items.Count > 0)
+            {
+                if (lbEq.Items.Count < 16)
+                    lbEq.Size = new Size(lbEq.Size.Width, lbEq.ItemHeight * (lbEq.Items.Count + 1));
+                else
+                    lbEq.Size = new Size(lbEq.Size.Width, lbEq.ItemHeight * 16);
+
+                lbEq.Visible = true;
+            }
+            else
+                lbEq.Visible = false;
+
+        }
+
+        /// <summary>
+        /// Выбор из списка оборудования
+        /// </summary>
+        private void doSelectEq()
+        {
+            Equipment.Text = lbEq.SelectedItem.ToString();
+            lbEq.Visible = false;
+        }
+
+        /// <summary>
+        /// Выбор категории МТР
+        /// </summary>
+        private void SelectMTR()
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            if (SelMTR.Text != "очистить")
+            {
+                ListMTR MTR = new ListMTR();
+                MTR.mean = 1;
+                MTR.ShowDialog();
+                if (MTR.FlSel)
+                {
+                    MTRCode.Text = MTR.SelItem["Code"].ToString();
+
+                    DS.Add("ID_MTR", MTR.SelItem["ID_Rec"].ToString());
+                    LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
+
+                    SelMTR.Text = "очистить";
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Очистить группу МТР?", "Карточка ТКП", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    DS.Add("ID_MTR", "0");
+                    LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
+                    MTRCode.Text = "";
+                    SelMTR.Text = "выбрать";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Экспорт карточки в Excel
+        /// </summary>
+        private void ExportCard()
+        {
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook wb = app.Workbooks.Add();
+            Excel.Worksheet wbs = wb.Worksheets.get_Item(1);
+
+            Excel.Range range = wbs.UsedRange;
+
+            try
+            {
+
+                string strtmp = "";
+
+                strtmp = "№" + NumZad.Text + " от " + ZadDate.Text + "\n";
+                strtmp += "Выдал: " + OtdelZad.Text + ", " + FIOZad.Text + "\n";
+                strtmp += ZadNote.Text;
+                (range.Cells[1, 1] as Excel.Range).Value = "Задание: " + strtmp;
+                (range.Cells[1, 7] as Excel.Range).Value = "Статус: " + Status.Text;
+
+                strtmp = ShPrj.Text + "\n" + NamePrj.Text + "\n" + "ГИП: " + GIP.Text;
+                (range.Cells[2, 1] as Excel.Range).Value = "Проект: " + strtmp;
+
+                strtmp = Equipment.Text + "\n" + OlSh.Text;
+                (range.Cells[3, 1] as Excel.Range).Value = "Оборудование: " + strtmp;
+
+                for (int i = 0; i <= 6; i++)
+                    (range.Cells[4, i + 1] as Excel.Range).Value = DGV.Columns[i].HeaderText;
+
+                int c = 5;
+                foreach (DataGridViewRow dgvr in DGV.Rows)
+                {
+                    for (int i = 0; i <= 6; i++)
+                    {
+                        if (dgvr.Cells[i].Value != null)
+                            (range.Cells[c, i + 1] as Excel.Range).Value = dgvr.Cells[i].Value.ToString();
+                    }
+                    c++;
+                }
+
+                (range.Columns[1] as Excel.Range).ColumnWidth = 12;
+                (range.Columns[2] as Excel.Range).ColumnWidth = 12;
+                (range.Columns[3] as Excel.Range).ColumnWidth = 20;
+                (range.Columns[4] as Excel.Range).ColumnWidth = 12;
+                (range.Columns[5] as Excel.Range).ColumnWidth = 12;
+                (range.Columns[6] as Excel.Range).ColumnWidth = 35;
+                (range.Columns[7] as Excel.Range).ColumnWidth = 45;
+
+                wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 6]].Merge();
+                wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 7]].Merge();
+                wbs.Range[wbs.Cells[3, 1], wbs.Cells[3, 7]].Merge();
+
+                (range.Rows[1] as Excel.Range).RowHeight = 65;
+                (range.Rows[2] as Excel.Range).RowHeight = 65;
+                (range.Rows[3] as Excel.Range).RowHeight = 65;
+
+                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].VerticalAlignment = Excel.XlVAlign.xlVAlignTop;
+                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].WrapText = true;
+
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Font as Excel.Font).Size = 10;
+
+                (wbs.Range[wbs.Cells[4, 1], wbs.Cells[4, 7]].Font as Excel.Font).Bold = true;
+                wbs.Range[wbs.Cells[4, 1], wbs.Cells[4, 7]].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
+                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
+
+                wbs.PageSetup.LeftMargin = 20;
+                wbs.PageSetup.RightMargin = 20;
+                wbs.PageSetup.TopMargin = 20;
+                wbs.PageSetup.BottomMargin = 20;
+                wbs.PageSetup.Zoom = false;
+                wbs.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
+                wbs.PageSetup.FitToPagesTall = false;
+                wbs.PageSetup.FitToPagesWide = 1;
+                wbs.PageSetup.CenterHorizontally = true;
+                wbs.PageSetup.PrintTitleRows = "$4:$4";
+                wbs.PageSetup.LeftFooter = "&D &T";
+                wbs.PageSetup.RightFooter = "&P из &N";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка экспорта!");
+            }
+
+            app.Visible = true;
+        }
+
+        /// <summary>
+        /// Установка даты окончания действия ТКП у документа
+        /// </summary>
+        /// <param name="IDDoc">ID документа</param>
+        /// <param name="FinishDate">Дата окончания действия</param>
+        private void saveDateEndTKP(string IDDoc, string FinishDate)
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("DateFinishTKP", FinishDate);
+            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
+        }
+
+        /// <summary>
+        /// !!!!!!!!!! Загрузка отметки  - ПРОВЕРИТЬ
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        private bool LoadUseTKP(string ID)
+        {
+            var rs = LocalDB.LoadData("SELECT UseTKP FROM КонтрольТКП_Письма WHERE ID = " + ID);
+            if (rs != null)
+                if (rs[0][0].ToString() == "1")
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Установка отметки использования документа в сметах
+        /// </summary>
+        /// <param name="IDDoc">ID документа</param>
+        /// <param name="FlUseTKP">Отметка</param>
+        private void saveUseTKP(string IDDoc, byte FlUseTKP)
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("UseTKP", FlUseTKP.ToString());
+            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
+        }
+
+        /// <summary>
+        /// Подсчет кол-ва документов
+        /// </summary>
+        private void setCountDocs()
+        {
+            CntDocOut = 0;
+            CntDocInp = 0;
+            foreach (DataGridViewRow dgvr in DGV.Rows)
+            {
+                if (dgvr.Cells["RNDocOut"].Value != null)
+                    CntDocOut++;
+
+                if (dgvr.Cells["RNDocInp"].Value != null)
+                    CntDocInp++;
+            }
+        }
+
 
         private void Card_KeyDown(object sender, KeyEventArgs e)
         {
@@ -427,51 +1045,6 @@ namespace Контроль_запросов_ТКП
         private void отмененоToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setStatus("2");
-        }
-
-        private void setStatus(string status)
-        {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            DS.Add("Status", status);
-
-            СтатусВРаботе.Checked = false;
-            СтатусВыполнено.Checked = false;
-            СтатусОтменено.Checked = false;
-            СтатусНеАктуально.Checked = false;
-
-            if (status == "0")
-            {
-                DS.Add("DateEnd", "Null");
-                СтатусВРаботе.Checked = true;
-                Status.Text = "В работе";
-                Status.Tag = 0;
-                DateEnd.Text = "-";
-            }
-            else if (status == "1")
-            {
-                DS.Add("DateEnd", DateTime.Now.ToString());
-                СтатусВыполнено.Checked = true;
-                Status.Text = "Выполнено";
-                Status.Tag = 1;
-                DateEnd.Text = UI.GetDate(DateTime.Now.ToString());
-            }
-            else if (status == "2")
-            {
-                СтатусОтменено.Checked = true;
-                Status.Text = "Отменено";
-                Status.Tag = 2;
-                DateEnd.Text = "-";
-            }
-            else if (status == "3")
-            {
-                СтатусНеАктуально.Checked = true;
-                Status.Text = "Не актуально";
-                Status.Tag = 3;
-                DateEnd.Text = "-";
-            }
-
-            LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
-            FlSave = true;
         }
 
         #region [Рамка выделенной строки]
@@ -563,70 +1136,6 @@ namespace Контроль_запросов_ТКП
                 AddDoc(LDI.IDDoc, 2, LDI.IDOrg);
         }
 
-        /// <summary>
-        /// Добавление документа
-        /// </summary>
-        /// <param name="IDDoc">Ид документа</param>
-        /// <param name="TypeDoc">
-        /// 0 - исходящий
-        /// 1 - входящий
-        /// 2 - входящий без привязки к исходящему
-        /// </param>
-        private void AddDoc(string IDDoc, byte TypeDoc, string IDOrg)
-        {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            if (TypeDoc != 1)
-            {
-                DS.Add("ID_TKP", ID_TKP);
-                if (TypeDoc == 0)
-                {
-                    DS.Add("ID_OutDoc", IDDoc);
-                    DS.Add("ID_OrgOut", IDOrg);
-                }
-                else
-                {
-                    DS.Add("ID_InpDoc", IDDoc);
-                    DS.Add("ID_OrgInp", IDOrg);
-                }
-                LocalDB.InsertData(DS, "КонтрольТКП_Письма");
-                LoadDataDocs();
-            }
-            else
-            {
-                //входящий:
-                string ID_DocTkp = DGV.SelectedRows[0].Tag.ToString();
-                DS.Add("ID_InpDoc", IDDoc);
-                DS.Add("ID_OrgInp", IDOrg);
-                LocalDB.UpdateData(DS, "КонтрольТКП_Письма", "ID = " + ID_DocTkp);
-                LoadDataDocs();
-                if (DGV.Rows.Count > 0)
-                    foreach (DataGridViewRow dgvr in DGV.Rows)
-                        if (ID_DocTkp == dgvr.Tag.ToString())
-                        {
-                            DGV.ClearSelection();
-                            dgvr.Selected = true;
-                            break;
-                        }
-            }
-
-            //Типы документов для привязки в ССПД
-            if (TypeDoc == 0) 
-                TypeDoc = 2;
-            else TypeDoc = 1;
-
-            //привязка к ГАУ:
-            LinkGAU(IDDoc, TypeDoc);
-
-            //привязка к проекту
-            LinkPrj(IDDoc, TypeDoc);
-
-            //связка документов между собой
-            LinkDocsInpToOut(IDDoc, TypeDoc);
-
-            //добавление организации в локальный справочник
-            Orgs.addOrg(IDOrg);
-        }
-
         private void удалитьДокументToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DGV.SelectedRows.Count == 0) return;
@@ -646,135 +1155,6 @@ namespace Контроль_запросов_ТКП
 
             FlDelete = true;
             this.Close();
-        }
-
-        private void SaveChange()
-        {
-            if (ReadOnly) return;
-
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-
-            if (OlSh.Tag != null)
-            {
-                if (OlSh.Tag.ToString() != OlSh.Text)
-                    DS.Add("OlSh", OlSh.Text);
-            }
-            else 
-                if (OlSh.Text != "") 
-                    DS.Add("OlSh", OlSh.Text);
-
-            if (Equipment.Tag != null)
-            {
-                if (Equipment.Tag.ToString() != Equipment.Text)
-                    DS.Add("Equipment", Equipment.Text);
-            }
-            else 
-                if (Equipment.Text != "") 
-                    DS.Add("Equipment", Equipment.Text);
-
-
-            if (DateEnd.Tag != null)
-            {
-                if (DateEnd.Tag.ToString() != DateEnd.Text)
-                    DS.Add("DateEnd", DateEnd.Text);
-            }
-            else
-                if (DateEnd.Text != "")
-                    DS.Add("DateEnd", DateEnd.Text);
-
-
-            if (DateOut.Tag != null)
-            {
-                if (DateOut.Tag.ToString() != DateOut.Text)
-                    DS.Add("DateOut", DateOut.Text);
-            }
-            else
-                if (DateOut.Text != "")
-                    DS.Add("DateOut", DateOut.Text);
-
-
-            if (DS.Count > 0)
-            {
-                LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
-                FlSave = true;
-            }
-        }
-
-        private void LinkGAU(string IDDOc, byte TypeDoc)
-        {
-            var rs = DB.GetFields("SELECT COUNT(*) as CntLink FROM LinksDocsA WHERE"
-                                + "     ID_Doc = " + IDDOc 
-                                + " AND TDoc = " + TypeDoc.ToString()
-                                + " AND ID_CA = " + TKP_Conf.ID_GAU);
-            if (rs!=null)
-                if (rs[0][0].ToString() == "0")
-                {
-                    Dictionary<string, string> DS = new Dictionary<string, string>();
-                    DS.Add("TDoc", TypeDoc.ToString());
-                    DS.Add("ID_CA", TKP_Conf.ID_GAU);
-                    DS.Add("ID_Doc", IDDOc);
-                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
-                    DB.InsertRow(DS, "LinksDocsA");
-                }
-        }
-
-        private void LinkPrj(string IDDOc, byte TypeDoc)
-        {
-            var rs = DB.GetFields("SELECT COUNT(*) as CntLink FROM LinksDocs WHERE"
-                                + "     ID_Doc = " + IDDOc
-                                + " AND TDoc = " + TypeDoc.ToString()
-                                + " AND ID_Project = " + ShPrj.Tag.ToString());
-            if (rs != null)
-                if (rs[0][0].ToString() == "0")
-                {
-                    Dictionary<string, string> DS = new Dictionary<string, string>();
-                    DS.Add("TDoc", TypeDoc.ToString());
-                    DS.Add("ID_Project", ShPrj.Tag.ToString());
-                    DS.Add("ID_Doc", IDDOc);
-                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
-                    DB.InsertRow(DS, "LinksDocs");
-                }
-        }
-
-        private void LinkDocsInpToOut(string IDDocInp, byte TypeDoc)
-        {
-            if (TypeDoc != 1) return;
-            if (DGV.SelectedRows.Count == 0) return;
-            if (DGV.SelectedRows[0].Cells["RNDocOut"].Value == null) return;
-
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            string IDDocOut = ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["IDDoc"].ToString();
-
-            //привязка исходящего к входящему!
-            var rs = DB.GetFields("SELECT Count(*) as CntLink FROM DocsInputLink "
-                                + " WHERE TDoc = 2 AND ID_DocInp = " + IDDocInp +
-                                  " AND ID_Doc = " + IDDocOut);
-            if (rs != null)
-                if (rs[0][0].ToString() == "0")
-                {
-                    DS.Add("ID_DocInp", IDDocInp);
-                    DS.Add("TDoc", "2");
-                    DS.Add("ID_Doc", IDDocOut);
-                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
-                    DB.InsertRow(DS, "DocsInputLink");
-                }
-
-            //привязка входящего к исходящему!
-            rs = DB.GetFields("SELECT Count(*) as CntLink FROM DocsOutputLink "
-                                + " WHERE TDoc = 1 AND ID_DocOut = " + IDDocOut +
-                                  " AND ID_Doc = " + IDDocInp);
-            if (rs != null)
-                if (rs[0][0].ToString() == "0")
-                {
-                    DS = new Dictionary<string, string>();
-                    DS.Add("ID_DocOut", IDDocOut);
-                    DS.Add("TDoc", "1");
-                    DS.Add("ID_Doc", IDDocInp);
-                    DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
-                    DB.InsertRow(DS, "DocsOutputLink");
-                }
-            
-
         }
 
         private void приложениеКЗаданиюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -807,69 +1187,7 @@ namespace Контроль_запросов_ТКП
 
         private void SelMTR_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            if (SelMTR.Text != "очистить")
-            {
-                ListMTR MTR = new ListMTR();
-                MTR.mean = 1;
-                MTR.ShowDialog();
-                if (MTR.FlSel)
-                {
-                    MTRCode.Text = MTR.SelItem["Code"].ToString();
-
-                    DS.Add("ID_MTR", MTR.SelItem["ID_Rec"].ToString());
-                    LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
-
-                    SelMTR.Text = "очистить";
-                }
-            }
-            else
-            {
-                if (MessageBox.Show("Очистить группу МТР?", "Карточка ТКП", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
-                {
-                    DS.Add("ID_MTR", "0");
-                    LocalDB.UpdateData(DS, "КонтрольТКП", "ID_TKP = " + ID_TKP);
-                    MTRCode.Text = "";
-                    SelMTR.Text = "выбрать";
-                }
-            }
-        }
-
-        private void LoadDataEq()
-        {
-            drEq = LocalDB.LoadData("SELECT DISTINCT Equipment FROM КонтрольТКП");
-            lbEq.Width = Equipment.Width;
-        }
-
-        private void doFilterEq(string fValue)
-        {
-            lbEq.Items.Clear();
-
-            if (drEq == null) return;
-
-            foreach (DataRow dr in drEq)
-            {
-                if (dr[0].ToString().ToLower().IndexOf(fValue) > -1)
-                    lbEq.Items.Add(dr[0].ToString());
-            }
-            if (lbEq.Items.Count > 0)
-            {
-                if (lbEq.Items.Count < 16)
-                    lbEq.Size = new Size(lbEq.Size.Width, lbEq.ItemHeight * (lbEq.Items.Count + 1));
-                else
-                    lbEq.Size = new Size(lbEq.Size.Width, lbEq.ItemHeight * 16);
-
-                lbEq.Visible = true;
-            }
-            else
-                lbEq.Visible = false;
-
-        }
-
-        private void doSelectEq()
-        {
-            Equipment.Text = lbEq.SelectedItem.ToString();
-            lbEq.Visible = false;
+            SelectMTR();
         }
 
         private void Equipment_TextChanged(object sender, EventArgs e)
@@ -906,98 +1224,7 @@ namespace Контроль_запросов_ТКП
 
         private void экспортДанныхВExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            Excel.Application app = new Excel.Application();
-            Excel.Workbook wb = app.Workbooks.Add();
-            Excel.Worksheet wbs = wb.Worksheets.get_Item(1);
-            
-            Excel.Range range = wbs.UsedRange;
-
-            try
-            {
-
-                string strtmp = "";
-
-                strtmp = "№" + NumZad.Text + " от " + ZadDate.Text + "\n";
-                strtmp += "Выдал: " + OtdelZad.Text + ", " + FIOZad.Text + "\n";
-                strtmp += ZadNote.Text;
-                (range.Cells[1, 1] as Excel.Range).Value = "Задание: " + strtmp;
-                (range.Cells[1, 7] as Excel.Range).Value = "Статус: " + Status.Text;
-
-                strtmp = ShPrj.Text + "\n" + NamePrj.Text + "\n" + "ГИП: " + GIP.Text;
-                (range.Cells[2, 1] as Excel.Range).Value = "Проект: " + strtmp;
-
-                strtmp = Equipment.Text + "\n" + OlSh.Text;
-                (range.Cells[3, 1] as Excel.Range).Value = "Оборудование: " + strtmp;
-
-                for (int i = 0; i <= 6; i++)
-                    (range.Cells[4, i + 1] as Excel.Range).Value = DGV.Columns[i].HeaderText;
-
-                int c = 5;
-                foreach (DataGridViewRow dgvr in DGV.Rows)
-                {
-                    for (int i = 0; i <= 6; i++)
-                    {
-                        if (dgvr.Cells[i].Value != null)
-                            (range.Cells[c, i + 1] as Excel.Range).Value = dgvr.Cells[i].Value.ToString();
-                    }
-                    c++;
-                }
-
-                (range.Columns[1] as Excel.Range).ColumnWidth = 12;
-                (range.Columns[2] as Excel.Range).ColumnWidth = 12;
-                (range.Columns[3] as Excel.Range).ColumnWidth = 20;
-                (range.Columns[4] as Excel.Range).ColumnWidth = 12;
-                (range.Columns[5] as Excel.Range).ColumnWidth = 12;
-                (range.Columns[6] as Excel.Range).ColumnWidth = 35;
-                (range.Columns[7] as Excel.Range).ColumnWidth = 45;
-
-                wbs.Range[wbs.Cells[1, 1], wbs.Cells[1, 6]].Merge();
-                wbs.Range[wbs.Cells[2, 1], wbs.Cells[2, 7]].Merge();
-                wbs.Range[wbs.Cells[3, 1], wbs.Cells[3, 7]].Merge();
-
-                (range.Rows[1] as Excel.Range).RowHeight = 65;
-                (range.Rows[2] as Excel.Range).RowHeight = 65;
-                (range.Rows[3] as Excel.Range).RowHeight = 65;
-
-                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].VerticalAlignment = Excel.XlVAlign.xlVAlignTop;
-                wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].WrapText = true;
-
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Font as Excel.Font).Size = 10;
-
-                (wbs.Range[wbs.Cells[4, 1], wbs.Cells[4, 7]].Font as Excel.Font).Bold = true;
-                wbs.Range[wbs.Cells[4, 1], wbs.Cells[4, 7]].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
-
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeLeft].LineStyle = 1;
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeRight].LineStyle = 1;
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = 1;
-                (wbs.Range[wbs.Cells[1, 1], wbs.Cells[c - 1, 7]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlInsideVertical].LineStyle = 1;
-
-                wbs.PageSetup.LeftMargin = 20;
-                wbs.PageSetup.RightMargin = 20;
-                wbs.PageSetup.TopMargin = 20;
-                wbs.PageSetup.BottomMargin = 20;
-                wbs.PageSetup.Zoom = false;
-                wbs.PageSetup.Orientation = Excel.XlPageOrientation.xlLandscape;
-                wbs.PageSetup.FitToPagesTall = false;
-                wbs.PageSetup.FitToPagesWide = 1;
-                wbs.PageSetup.CenterHorizontally = true;
-                wbs.PageSetup.PrintTitleRows = "$4:$4";
-                wbs.PageSetup.LeftFooter = "&D &T";
-                wbs.PageSetup.RightFooter = "&P из &N";
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка экспорта!");
-            }
-
-            app.Visible = true;
-
+            ExportCard();
         }
 
         private void DateEnd_DoubleClick(object sender, EventArgs e)
@@ -1018,7 +1245,6 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1 && e.ColumnIndex == 8 && DGV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
@@ -1038,42 +1264,6 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-        private void saveDateEndTKP(string IDDoc, string FinishDate)
-        {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            DS.Add("DateFinishTKP", FinishDate);
-            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc); 
-        }
-
-        private bool LoadUseTKP (string ID) {
-            var rs = LocalDB.LoadData("SELECT UseTKP FROM КонтрольТКП_Письма WHERE ID = " + ID);
-            if (rs != null)
-                if (rs[0][0].ToString() == "1")
-                    return true;
-            return false;
-        }
-
-        private void saveUseTKP(string IDDoc, byte FlUseTKP)
-        {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
-            DS.Add("UseTKP", FlUseTKP.ToString());
-            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
-        }
-
-        private void SetBGUseTKP(DataGridViewRow DGVR, byte mean = 0 )
-        {
-            if (mean == 0)
-            {
-                DGVR.Cells[3].Style.BackColor = UI.bgUseTKP;
-                DGVR.Cells[3].Style.SelectionBackColor = UI.bgUseTKP;
-            }
-            else
-            {
-                DGVR.Cells[3].Style.BackColor = DGVR.Cells[1].Style.BackColor;
-                DGVR.Cells[3].Style.SelectionBackColor = DGVR.Cells[1].Style.SelectionBackColor;
-            }
-        }
-
         private void btnUseTKP_Click(object sender, EventArgs e)
         {
             if (DGV.SelectedRows.Count == 0) return;
@@ -1082,14 +1272,14 @@ namespace Контроль_запросов_ТКП
             {
                 if (btnUseTKP.Checked == false)
                 {
-                    saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 1);
+                    ///saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 1);
                     btnUseTKP.Checked = true;
                     SetBGUseTKP(DGV.SelectedRows[0]);
                     CntUseTKP++;
                 }
                 else
                 {
-                    saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 0);
+                    ///saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 0);
                     btnUseTKP.Checked = false;
                     SetBGUseTKP(DGV.SelectedRows[0], 1);
                     CntUseTKP--;
@@ -1108,20 +1298,6 @@ namespace Контроль_запросов_ТКП
             } 
             else 
                 btnUseTKP.Visible = false;
-        }
-
-        private void setCountDocs()
-        {
-            CntDocOut = 0;
-            CntDocInp = 0;
-            foreach (DataGridViewRow dgvr in DGV.Rows)
-            {
-                if (dgvr.Cells["RNDocOut"].Value != null)
-                    CntDocOut++;
-
-                if (dgvr.Cells["RNDocInp"].Value != null)
-                    CntDocInp++;
-            }
         }
 
         private void btnCardWorker_Click(object sender, EventArgs e)
@@ -1160,6 +1336,46 @@ namespace Контроль_запросов_ТКП
         {
             if (e.KeyCode == Keys.Delete)
                 DateOut.Text = "";
+        }
+
+        private void статусПисьмаПоложительный_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+            
+            //setStatusDoc(DGV.SelectedRows[0], "1");
+            if (((ToolStripMenuItem)sender).Checked)
+                setStatusDoc(DGV.SelectedRows[0], "");
+            else
+                setStatusDoc(DGV.SelectedRows[0], "1");
+        }
+
+        private void статусПисьмаУточнение_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+            //setStatusDoc(DGV.SelectedRows[0], "2");
+            if (((ToolStripMenuItem)sender).Checked)
+                setStatusDoc(DGV.SelectedRows[0], "");
+            else
+                setStatusDoc(DGV.SelectedRows[0], "2");
+        }
+
+        private void статусПисьмаОтказ_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+
+            if (((ToolStripMenuItem)sender).Checked)
+                setStatusDoc(DGV.SelectedRows[0], "");
+            else
+                setStatusDoc(DGV.SelectedRows[0], "0");
+            
+        }
+
+        /// <summary>
+        /// Определение статуса входящего письма
+        /// </summary>
+        private void DGV_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            UpdateStatusDocMenu(DGV.Rows[e.RowIndex]);
         }
 
 

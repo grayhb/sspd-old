@@ -30,15 +30,15 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV = new System.Windows.Forms.DataGridView();
-            this.ShPrj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NamePrj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Filter = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выбратьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NamePrj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShPrj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -69,29 +69,6 @@
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGV_CellPainting);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
-            // 
-            // ShPrj
-            // 
-            this.ShPrj.HeaderText = "Шифр";
-            this.ShPrj.Name = "ShPrj";
-            this.ShPrj.ReadOnly = true;
-            this.ShPrj.Width = 250;
-            // 
-            // NamePrj
-            // 
-            this.NamePrj.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.NamePrj.DefaultCellStyle = dataGridViewCellStyle1;
-            this.NamePrj.HeaderText = "Наименование";
-            this.NamePrj.Name = "NamePrj";
-            this.NamePrj.ReadOnly = true;
-            // 
-            // GIP
-            // 
-            this.GIP.HeaderText = "ГИП";
-            this.GIP.Name = "GIP";
-            this.GIP.ReadOnly = true;
-            this.GIP.Width = 150;
             // 
             // Filter
             // 
@@ -140,6 +117,29 @@
             this.закрытьToolStripMenuItem.Name = "закрытьToolStripMenuItem";
             this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
+            // 
+            // GIP
+            // 
+            this.GIP.HeaderText = "ГИП";
+            this.GIP.Name = "GIP";
+            this.GIP.ReadOnly = true;
+            this.GIP.Width = 150;
+            // 
+            // NamePrj
+            // 
+            this.NamePrj.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.NamePrj.DefaultCellStyle = dataGridViewCellStyle1;
+            this.NamePrj.HeaderText = "Наименование";
+            this.NamePrj.Name = "NamePrj";
+            this.NamePrj.ReadOnly = true;
+            // 
+            // ShPrj
+            // 
+            this.ShPrj.HeaderText = "Шифр";
+            this.ShPrj.Name = "ShPrj";
+            this.ShPrj.ReadOnly = true;
+            this.ShPrj.Width = 250;
             // 
             // ListProject
             // 

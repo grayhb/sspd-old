@@ -219,7 +219,10 @@ namespace Контроль_запросов_ТКП
                     (range.Cells[rowout, 12] as Excel.Range).Value = mail["rn_DocOut"].ToString();
 
                 if (mail["date_DocOut"] != null)
-                    (range.Cells[rowout, 13] as Excel.Range).Value = mail["date_DocOut"].ToString();
+                {
+                    (range.Cells[rowout, 13] as Excel.Range).NumberFormat = "m/d/yyyy";
+                    (range.Cells[rowout, 13] as Excel.Range).Value = UI.GetDate(mail["date_DocOut"].ToString());
+                }
 
                 if (mail["org_DocOut"] != null)
                     (range.Cells[rowout, 14] as Excel.Range).Value = mail["org_DocOut"].ToString();
@@ -236,7 +239,10 @@ namespace Контроль_запросов_ТКП
                     (range.Cells[rowout, 15] as Excel.Range).Value = mail["rn_DocInp"].ToString();
 
                 if (mail["date_DocInp"] != null)
-                    (range.Cells[rowout, 16] as Excel.Range).Value = mail["date_DocInp"].ToString();
+                {
+                    (range.Cells[rowout, 16] as Excel.Range).NumberFormat = "m/d/yyyy";
+                    (range.Cells[rowout, 16] as Excel.Range).Value = UI.GetDate(mail["date_DocInp"].ToString());
+                }
 
             }
 
@@ -262,13 +268,13 @@ namespace Контроль_запросов_ТКП
                 (range.Cells[rowout, 5] as Excel.Range).Value = zadTKP["Equip"].ToString();
 
             if (zadTKP["DatePrj"] != null) 
-                (range.Cells[rowout, 6] as Excel.Range).Value = zadTKP["DatePrj"].ToString();
+                (range.Cells[rowout, 6] as Excel.Range).Value = UI.GetDate(zadTKP["DatePrj"].ToString());
 
             if (zadTKP["OtdelZad"] != null) 
                 (range.Cells[rowout, 7] as Excel.Range).Value = zadTKP["OtdelZad"].ToString();
 
             if (zadTKP["DateZad"] != null) 
-                (range.Cells[rowout, 8] as Excel.Range).Value = zadTKP["DateZad"].ToString();
+                (range.Cells[rowout, 8] as Excel.Range).Value = UI.GetDate(zadTKP["DateZad"].ToString());
 
             if (zadTKP["GIP"] != null) 
                 (range.Cells[rowout, 9] as Excel.Range).Value = zadTKP["GIP"].ToString();
@@ -277,7 +283,7 @@ namespace Контроль_запросов_ТКП
                 (range.Cells[rowout, 10] as Excel.Range).Value = zadTKP["Status"].ToString();
 
             if (zadTKP["DateFinish"] != null) 
-                (range.Cells[rowout, 11] as Excel.Range).Value = zadTKP["DateFinish"].ToString();
+                (range.Cells[rowout, 11] as Excel.Range).Value = UI.GetDate( zadTKP["DateFinish"].ToString());
 
 
         }

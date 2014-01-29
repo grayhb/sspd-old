@@ -158,6 +158,8 @@ namespace Контроль_запросов_ТКП
         /// <returns>Sql запрос с экранированными кавычками</returns>
         public static string SetQuotes(string SqlStr)
         {
+            if (SqlStr == null) return "";
+
             SqlStr = System.Text.RegularExpressions.Regex.Replace(SqlStr, "[']", ((char)34).ToString());
 
             return SqlStr;
