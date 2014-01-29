@@ -60,6 +60,12 @@
     <Compile Include="Classes\FTP.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ExportScanDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportScanDoc.Designer.cs">
+      <DependentUpon>ExportScanDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Help.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Contacts.resx">
       <DependentUpon>Contacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportScanDoc.resx">
+      <DependentUpon>ExportScanDoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Help.resx">
       <DependentUpon>Help.cs</DependentUpon>

@@ -11,7 +11,12 @@ namespace Контроль_запросов_ТКП
     {
         //цвет для заданий добавленных в работу
         public static Color bgHaveTKP = Color.FromArgb(198, 255, 199);
+        public static Color bgStatusDocInp0 = Color.FromArgb(255, 180, 180);  //светло красный
+        public static Color bgStatusDocInp1 = Color.FromArgb(198, 255, 199);  //светло зеленый  
+        public static Color bgStatusDocInp2 = Color.FromArgb(240, 240, 240);  //светло серый  
+
         public static Color bgUseTKP = Color.SkyBlue;
+        
 
         /// <summary>
         /// Управление прогрессбаром

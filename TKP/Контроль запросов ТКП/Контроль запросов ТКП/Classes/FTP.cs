@@ -27,11 +27,15 @@ namespace Контроль_запросов_ТКП
     class FTP
     {
 
-        public static void DonwloadFile(string path, string Nzad = "")
+        public static void DonwloadFile(string path, string Nzad = "", string sFile = "", bool flOpen = true)
         {
             try
             {
-                string tmpFile = Path.GetTempPath() + GetExt(path);
+                string tmpFile ="";
+                if (sFile.Length == 0)
+                    tmpFile = Path.GetTempPath() + GetExt(path);
+                else
+                    tmpFile = sFile;
 
                 FTPClient request = new FTPClient();
                 request.Credentials = new System.Net.NetworkCredential(Params.ServerFTP.UserNameRead, Params.ServerFTP.PasswordRead);
@@ -39,10 +43,14 @@ namespace Контроль_запросов_ТКП
                 request.DownloadFile("ftp://" + Params.ServerFTP.Adress + "/" + path, tmpFile);
 
                 if (Nzad != "") SetNumZadInPDF(tmpFile, Nzad);
-                     
-                System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                proc.StartInfo.FileName = tmpFile;
-                proc.Start();
+
+                //автооткрытие
+                if (flOpen)
+                {
+                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                    proc.StartInfo.FileName = tmpFile;
+                    proc.Start();
+                }
             }
             catch (Exception ex)
             {
