@@ -39,16 +39,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListTKP));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.экспортВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЭкспортДокументов = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЭкспортВExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюВыход = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюЗадания = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.элВерсияЗаданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюДобавитьЗаданиеОтОтдела = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюДобавитьЗаданиеОтБГИП = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЗапросТКП = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЗапросТКПОткрытьЗадание = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.открытьКарточкуТКПToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЗапросТКПОткрытьКарточкуТКП = new System.Windows.Forms.ToolStripMenuItem();
             this.Фильтр = new System.Windows.Forms.ToolStripMenuItem();
             this.ФПоСтатусу = new System.Windows.Forms.ToolStripMenuItem();
             this.ФСтатусВработе = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +94,7 @@
             this.DateOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.экспортДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЭкспортТКП = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -104,7 +105,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.операцииToolStripMenuItem,
             this.МенюЗадания,
-            this.элВерсияЗаданияToolStripMenuItem,
+            this.МенюЗапросТКП,
             this.Фильтр,
             this.реестрМТР,
             this.справкаToolStripMenuItem});
@@ -117,84 +118,92 @@
             // операцииToolStripMenuItem
             // 
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.экспортДокументовToolStripMenuItem,
-            this.экспортВExcelToolStripMenuItem,
+            this.МенюЭкспортТКП,
+            this.МенюЭкспортДокументов,
+            this.МенюЭкспортВExcel,
             this.toolStripSeparator7,
-            this.выходToolStripMenuItem});
+            this.МенюВыход});
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
             // 
-            // экспортВExcelToolStripMenuItem
+            // МенюЭкспортДокументов
             // 
-            this.экспортВExcelToolStripMenuItem.Name = "экспортВExcelToolStripMenuItem";
-            this.экспортВExcelToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.экспортВExcelToolStripMenuItem.Text = "Экспорт в Excel";
-            this.экспортВExcelToolStripMenuItem.Click += new System.EventHandler(this.экспортВExcelToolStripMenuItem_Click);
+            this.МенюЭкспортДокументов.Name = "МенюЭкспортДокументов";
+            this.МенюЭкспортДокументов.Size = new System.Drawing.Size(191, 22);
+            this.МенюЭкспортДокументов.Text = "Экспорт документов";
+            this.МенюЭкспортДокументов.Click += new System.EventHandler(this.экспортДокументовToolStripMenuItem_Click);
+            // 
+            // МенюЭкспортВExcel
+            // 
+            this.МенюЭкспортВExcel.Name = "МенюЭкспортВExcel";
+            this.МенюЭкспортВExcel.Size = new System.Drawing.Size(191, 22);
+            this.МенюЭкспортВExcel.Text = "Экспорт в Excel";
+            this.МенюЭкспортВExcel.Click += new System.EventHandler(this.экспортВExcelToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(188, 6);
             // 
-            // выходToolStripMenuItem
+            // МенюВыход
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            this.МенюВыход.Name = "МенюВыход";
+            this.МенюВыход.Size = new System.Drawing.Size(191, 22);
+            this.МенюВыход.Text = "Выход";
+            this.МенюВыход.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // МенюЗадания
             // 
             this.МенюЗадания.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem,
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem});
+            this.МенюДобавитьЗаданиеОтОтдела,
+            this.МенюДобавитьЗаданиеОтБГИП});
             this.МенюЗадания.Name = "МенюЗадания";
             this.МенюЗадания.Size = new System.Drawing.Size(114, 20);
             this.МенюЗадания.Text = "Добавить задание";
             // 
-            // добавитьЗаданиеОтОтделаToolStripMenuItem
+            // МенюДобавитьЗаданиеОтОтдела
             // 
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem.Name = "добавитьЗаданиеОтОтделаToolStripMenuItem";
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem.Text = "От отдела";
-            this.добавитьЗаданиеОтОтделаToolStripMenuItem.Click += new System.EventHandler(this.добавитьЗаданиеОтОтделаToolStripMenuItem_Click);
+            this.МенюДобавитьЗаданиеОтОтдела.Name = "МенюДобавитьЗаданиеОтОтдела";
+            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтОтдела.Text = "От отдела";
+            this.МенюДобавитьЗаданиеОтОтдела.Click += new System.EventHandler(this.добавитьЗаданиеОтОтделаToolStripMenuItem_Click);
             // 
-            // добавитьЗаданиеОтГИПаToolStripMenuItem
+            // МенюДобавитьЗаданиеОтБГИП
             // 
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem.Name = "добавитьЗаданиеОтГИПаToolStripMenuItem";
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem.Text = "От ГИПа";
-            this.добавитьЗаданиеОтГИПаToolStripMenuItem.Click += new System.EventHandler(this.добавитьЗаданиеОтГИПаToolStripMenuItem_Click);
+            this.МенюДобавитьЗаданиеОтБГИП.Name = "МенюДобавитьЗаданиеОтБГИП";
+            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтБГИП.Text = "От ГИПа";
+            this.МенюДобавитьЗаданиеОтБГИП.Click += new System.EventHandler(this.добавитьЗаданиеОтГИПаToolStripMenuItem_Click);
             // 
-            // элВерсияЗаданияToolStripMenuItem
+            // МенюЗапросТКП
             // 
-            this.элВерсияЗаданияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьToolStripMenuItem,
+            this.МенюЗапросТКП.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.МенюЗапросТКПОткрытьЗадание,
             this.toolStripSeparator6,
-            this.открытьКарточкуТКПToolStripMenuItem});
-            this.элВерсияЗаданияToolStripMenuItem.Name = "элВерсияЗаданияToolStripMenuItem";
-            this.элВерсияЗаданияToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.элВерсияЗаданияToolStripMenuItem.Text = "Запрос ТКП";
+            this.МенюЗапросТКПОткрытьКарточкуТКП});
+            this.МенюЗапросТКП.Name = "МенюЗапросТКП";
+            this.МенюЗапросТКП.Size = new System.Drawing.Size(77, 20);
+            this.МенюЗапросТКП.Text = "Запрос ТКП";
             // 
-            // открытьToolStripMenuItem
+            // МенюЗапросТКПОткрытьЗадание
             // 
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть задание";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.МенюЗапросТКПОткрытьЗадание.Name = "МенюЗапросТКПОткрытьЗадание";
+            this.МенюЗапросТКПОткрытьЗадание.Size = new System.Drawing.Size(205, 22);
+            this.МенюЗапросТКПОткрытьЗадание.Text = "Открыть задание";
+            this.МенюЗапросТКПОткрытьЗадание.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(202, 6);
             // 
-            // открытьКарточкуТКПToolStripMenuItem
+            // МенюЗапросТКПОткрытьКарточкуТКП
             // 
-            this.открытьКарточкуТКПToolStripMenuItem.Name = "открытьКарточкуТКПToolStripMenuItem";
-            this.открытьКарточкуТКПToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.открытьКарточкуТКПToolStripMenuItem.Text = "Открыть карточку ТКП";
-            this.открытьКарточкуТКПToolStripMenuItem.Click += new System.EventHandler(this.открытьКарточкуТКПToolStripMenuItem_Click);
+            this.МенюЗапросТКПОткрытьКарточкуТКП.Name = "МенюЗапросТКПОткрытьКарточкуТКП";
+            this.МенюЗапросТКПОткрытьКарточкуТКП.Size = new System.Drawing.Size(205, 22);
+            this.МенюЗапросТКПОткрытьКарточкуТКП.Text = "Открыть карточку ТКП";
+            this.МенюЗапросТКПОткрытьКарточкуТКП.Click += new System.EventHandler(this.открытьКарточкуТКПToolStripMenuItem_Click);
             // 
             // Фильтр
             // 
@@ -564,18 +573,19 @@
             // DateFinish
             // 
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DateFinish.DefaultCellStyle = dataGridViewCellStyle8;
             this.DateFinish.HeaderText = "Выполнено";
             this.DateFinish.Name = "DateFinish";
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
             // 
-            // экспортДокументовToolStripMenuItem
+            // МенюЭкспортТКП
             // 
-            this.экспортДокументовToolStripMenuItem.Name = "экспортДокументовToolStripMenuItem";
-            this.экспортДокументовToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.экспортДокументовToolStripMenuItem.Text = "Экспорт документов";
-            this.экспортДокументовToolStripMenuItem.Click += new System.EventHandler(this.экспортДокументовToolStripMenuItem_Click);
+            this.МенюЭкспортТКП.Name = "МенюЭкспортТКП";
+            this.МенюЭкспортТКП.Size = new System.Drawing.Size(191, 22);
+            this.МенюЭкспортТКП.Text = "Экспорт ТКП";
+            this.МенюЭкспортТКП.Click += new System.EventHandler(this.МенюЭкспортТКП_Click);
             // 
             // ListTKP
             // 
@@ -607,14 +617,14 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюВыход;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.DataGridView DGV;
         private System.Windows.Forms.ToolStripStatusLabel CountRowLabel;
         private System.Windows.Forms.ToolStripStatusLabel PlaceHolder;
         private System.Windows.Forms.ToolStripProgressBar PB;
-        private System.Windows.Forms.ToolStripMenuItem элВерсияЗаданияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюЗапросТКП;
+        private System.Windows.Forms.ToolStripMenuItem МенюЗапросТКПОткрытьЗадание;
         private System.Windows.Forms.ToolStripMenuItem Фильтр;
         private System.Windows.Forms.ToolStripMenuItem ФПоСтатусу;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусВработе;
@@ -636,13 +646,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem ФГИПВсе;
         private System.Windows.Forms.ToolStripMenuItem МенюЗадания;
-        private System.Windows.Forms.ToolStripMenuItem добавитьЗаданиеОтОтделаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem добавитьЗаданиеОтГИПаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюДобавитьЗаданиеОтОтдела;
+        private System.Windows.Forms.ToolStripMenuItem МенюДобавитьЗаданиеОтБГИП;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem открытьКарточкуТКПToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюЗапросТКПОткрытьКарточкуТКП;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem реестрМТР;
-        private System.Windows.Forms.ToolStripMenuItem экспортВExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюЭкспортВExcel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусОтмененные;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -650,6 +660,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem ФОргВсе;
         private System.Windows.Forms.ToolStripMenuItem ФСтатусНеАктуально;
+        private System.Windows.Forms.ToolStripMenuItem МенюЭкспортДокументов;
         private System.Windows.Forms.DataGridViewTextBoxColumn NZ;
         private System.Windows.Forms.DataGridViewTextBoxColumn ShOl;
         private System.Windows.Forms.DataGridViewTextBoxColumn NamePrj;
@@ -661,7 +672,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateOut;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateFinish;
-        private System.Windows.Forms.ToolStripMenuItem экспортДокументовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюЭкспортТКП;
     }
 }
 

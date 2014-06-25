@@ -44,17 +44,38 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void LoadData()
         {
-            string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut,";
-            SqlStr += " DocsOutput.Note_DocOut, DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
-            SqlStr += " FROM DocsOutput LEFT OUTER JOIN";
-            SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name as Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
-            SqlStr += " FROM DocsOutputRec INNER JOIN";
-            SqlStr += " Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
-            SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut INNER JOIN";
-            SqlStr += " Workers ON DocsOutput.ID_Worker = Workers.ID_Worker INNER JOIN";
-            SqlStr += " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel";
-            SqlStr += " WHERE      (Otdels.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
-            SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
+            //string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut,";
+            //SqlStr += " DocsOutput.Note_DocOut, DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
+            //SqlStr += " FROM DocsOutput LEFT OUTER JOIN";
+            //SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name as Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
+            //SqlStr += " FROM DocsOutputRec INNER JOIN";
+            //SqlStr += " Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
+            //SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut INNER JOIN";
+            //SqlStr += " Workers ON DocsOutput.ID_Worker = Workers.ID_Worker INNER JOIN";
+            //SqlStr += " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel";
+            //SqlStr += " WHERE      (Otdels.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
+            //SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
+
+            string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut, DocsOutput.Note_DocOut, ";
+                   SqlStr += " DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
+                   SqlStr += " FROM DocsOutput INNER JOIN";
+                   SqlStr += " (SELECT DISTINCT * FROM (SELECT      ID_DocOut AS IDO";
+                   SqlStr += " FROM DocsOutput INNER JOIN Workers ON Workers.ID_Worker = DocsOutput.ID_Worker";
+                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") UNION SELECT      ID_DocOut AS IDO";
+                   SqlStr += " FROM ImageDocOutAc INNER JOIN Workers ON Workers.ID_Worker = ImageDocOutAc.ID_Worker";
+                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") GROUP BY ID_DocOut UNION SELECT      DocsOutput.ID_DocOut AS IDO";
+                   SqlStr += " FROM DocsOutput INNER JOIN DocsInputExec ON DocsOutput.ID_DocInp = DocsInputExec.ID_DocInp INNER JOIN";
+                   SqlStr += " Workers ON Workers.ID_Worker = DocsInputExec.ID_WorkerInput";
+                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
+                   SqlStr += " GROUP BY ID_DocOut) t) Isp ON DocsOutput.ID_DocOut = Isp.IDO LEFT OUTER JOIN";
+                   SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name AS Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
+                   SqlStr += " FROM DocsOutputRec INNER JOIN Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
+                   SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut";
+                   SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
+
+
+            //Clipboard.Clear();
+            //Clipboard.SetText(SqlStr);
 
             dra = DB.GetFields(SqlStr);
         }

@@ -89,7 +89,9 @@ namespace Контроль_запросов_ТКП
         }
 
 
-
+        /// <summary>
+        /// Процедура экспорта документов
+        /// </summary>
         private void doExport()
         {
             PB.Maximum = DGV.Rows.Count;
@@ -275,7 +277,10 @@ namespace Контроль_запросов_ТКП
             return h;
         }
 
-
+        /// <summary>
+        /// Конвертация символов
+        /// </summary>
+        /// <param name="FName">Наименование папки</param>
         private string ConvertFileName(string FName)
         {
             FName = FName.Replace("/", "_");
@@ -284,6 +289,10 @@ namespace Контроль_запросов_ТКП
             return FName;
         }
 
+        /// <summary>
+        /// Создание папки
+        /// </summary>
+        /// <param name="PathOut">Путь до папки</param>
         private void createPath(string PathOut)
         {
             if (!Directory.Exists(PathOut)) // "!" забыл поставить
