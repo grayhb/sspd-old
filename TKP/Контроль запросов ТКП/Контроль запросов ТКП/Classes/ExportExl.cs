@@ -282,8 +282,12 @@ namespace Контроль_запросов_ТКП
             if (zadTKP["Status"] != null) 
                 (range.Cells[rowout, 10] as Excel.Range).Value = zadTKP["Status"].ToString();
 
-            if (zadTKP["DateFinish"] != null) 
-                (range.Cells[rowout, 11] as Excel.Range).Value = UI.GetDate( zadTKP["DateFinish"].ToString());
+            if (zadTKP["DateFinish"] != null)
+            {
+                //Console.WriteLine(zadTKP["DateFinish"].ToString());
+                //(range.Cells[rowout, 11] as Excel.Range).Value = UI.GetDate(zadTKP["DateFinish"].ToString());
+                (range.Cells[rowout, 11] as Excel.Range).Value = zadTKP["DateFinish"].ToString();
+            }
 
 
         }

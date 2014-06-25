@@ -22,6 +22,9 @@ namespace Контроль_запросов_ТКП
         public int CntDocOut;
         public int CntDocInp;
         public int CntUseTKP;
+        public int CntCancelDoc;
+        public int CntTrueDoc;
+        public int CntRecDoc;
         
         private string TypeZad = "";
         private string PathFZad = "";
@@ -375,7 +378,6 @@ namespace Контроль_запросов_ТКП
 
             foreach (DataGridViewCell dgvc in DGVR.Cells)
             {
-
                 //обновление цвета статуса
                 if (dgvc.Style.BackColor != UI.bgUseTKP)
                 {
@@ -461,13 +463,15 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count > 0)
             {
                 Note n = new Note();
-                n.ID_Doc = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(); //DGV.SelectedRows[0].Tag.ToString();
+                n.ID_Doc = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString();
                 n.ShowDialog();
                 if (n.flSave) DGV.SelectedRows[0].Cells["Note"].Value = n.NoteTxt.Text;
             }
         }
 
-
+        /// <summary>
+        /// Сохранение изменений в карточке ТКП
+        /// </summary>
         private void SaveChange()
         {
             if (ReadOnly) return;
@@ -744,10 +748,14 @@ namespace Контроль_запросов_ТКП
             else
             {
                 //входящий:
-                string ID_DocTkp = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(); //DGV.SelectedRows[0].Tag.ToString();
+                string ID_DocTkp = ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString();
                 DS.Add("ID_InpDoc", IDDoc);
                 DS.Add("ID_OrgInp", IDOrg);
                 LocalDB.UpdateData(DS, "КонтрольТКП_Письма", "ID = " + ID_DocTkp);
+                
+                //связка документов между собой
+                LinkDocsInpToOut(IDDoc, TypeDoc);
+
                 LoadDataDocs();
                 if (DGV.Rows.Count > 0)
                     foreach (DataGridViewRow dgvr in DGV.Rows)
@@ -769,10 +777,7 @@ namespace Контроль_запросов_ТКП
 
             //привязка к проекту
             LinkPrj(IDDoc, TypeDoc);
-
-            //связка документов между собой
-            LinkDocsInpToOut(IDDoc, TypeDoc);
-
+                   
             //добавление организации в локальный справочник
             Orgs.addOrg(IDOrg);
         }
@@ -990,6 +995,9 @@ namespace Контроль_запросов_ТКП
         {
             CntDocOut = 0;
             CntDocInp = 0;
+            CntTrueDoc = 0;
+            CntCancelDoc = 0;
+            CntRecDoc = 0;
             foreach (DataGridViewRow dgvr in DGV.Rows)
             {
                 if (dgvr.Cells["RNDocOut"].Value != null)
@@ -997,6 +1005,13 @@ namespace Контроль_запросов_ТКП
 
                 if (dgvr.Cells["RNDocInp"].Value != null)
                     CntDocInp++;
+
+                if (((DataRow)dgvr.Tag)["StatusDoc"].ToString() == "0")
+                    CntCancelDoc++;
+                else if (((DataRow)dgvr.Tag)["StatusDoc"].ToString() == "1")
+                    CntTrueDoc++;
+                else if (((DataRow)dgvr.Tag)["StatusDoc"].ToString() == "2")
+                    CntRecDoc++;
             }
         }
 
@@ -1124,6 +1139,7 @@ namespace Контроль_запросов_ТКП
 
             SelectForm.ListDocsInp LDI = new SelectForm.ListDocsInp();
             LDI.ShowDialog();
+            
             if (LDI.flSel)
                 AddDoc(LDI.IDDoc, 1, LDI.IDOrg);
         }
@@ -1141,7 +1157,7 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
             if (MessageBox.Show("Удалить выбранный документ?","Удаление записи", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No) return;
-            LocalDB.DeleteData("КонтрольТКП_Письма", "ID = " + DGV.SelectedRows[0].Tag.ToString());
+            LocalDB.DeleteData("КонтрольТКП_Письма", "ID = " + ((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
             LoadDataDocs();
         }
 
@@ -1247,6 +1263,8 @@ namespace Контроль_запросов_ТКП
 
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (ReadOnly) return;
+
             if (e.RowIndex > -1 && e.ColumnIndex == 8 && DGV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 SelectForm.SelectDate SD = new SelectForm.SelectDate();
@@ -1272,14 +1290,14 @@ namespace Контроль_запросов_ТКП
             {
                 if (btnUseTKP.Checked == false)
                 {
-                    ///saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 1);
+                    saveUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(), 1);
                     btnUseTKP.Checked = true;
                     SetBGUseTKP(DGV.SelectedRows[0]);
                     CntUseTKP++;
                 }
                 else
                 {
-                    ///saveUseTKP(DGV.SelectedRows[0].Tag.ToString(), 0);
+                    saveUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString(), 0);
                     btnUseTKP.Checked = false;
                     SetBGUseTKP(DGV.SelectedRows[0], 1);
                     CntUseTKP--;
@@ -1291,9 +1309,9 @@ namespace Контроль_запросов_ТКП
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            if (DGV.SelectedRows.Count != 0 && Params.UserInfo.ID_Otdel=="7")
+            if (DGV.SelectedRows.Count != 0 && Params.UserInfo.ID_Otdel == TKP_Conf.SMIDOtdel)
             {
-                btnUseTKP.Checked = LoadUseTKP(DGV.SelectedRows[0].Tag.ToString());
+                btnUseTKP.Checked = LoadUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString()); //DGV.SelectedRows[0].Tag.ToString()
                 btnUseTKP.Visible=true;
             } 
             else 
@@ -1341,8 +1359,7 @@ namespace Контроль_запросов_ТКП
         private void статусПисьмаПоложительный_Click(object sender, EventArgs e)
         {
             if (DGV.SelectedRows.Count == 0) return;
-            
-            //setStatusDoc(DGV.SelectedRows[0], "1");
+
             if (((ToolStripMenuItem)sender).Checked)
                 setStatusDoc(DGV.SelectedRows[0], "");
             else
@@ -1352,7 +1369,7 @@ namespace Контроль_запросов_ТКП
         private void статусПисьмаУточнение_Click(object sender, EventArgs e)
         {
             if (DGV.SelectedRows.Count == 0) return;
-            //setStatusDoc(DGV.SelectedRows[0], "2");
+
             if (((ToolStripMenuItem)sender).Checked)
                 setStatusDoc(DGV.SelectedRows[0], "");
             else

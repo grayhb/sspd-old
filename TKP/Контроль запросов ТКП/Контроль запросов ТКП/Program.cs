@@ -22,6 +22,7 @@ namespace Контроль_запросов_ТКП
             string UName = Environment.UserName;
 
             //UName = "AbrashkinaKP";
+            UName = "TafincevNA";
 
             //загружаем данные пользователя
             Config.LoadDataUser(Application.ProductName, UName);

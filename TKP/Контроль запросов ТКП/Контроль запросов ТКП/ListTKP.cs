@@ -43,7 +43,15 @@ namespace Контроль_запросов_ТКП
             {
                 МенюЗадания.Visible = false;
                 реестрМТР.Visible = false;
+                //МенюЭкспортТКП
             }
+
+            //если обычный отдел
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel && Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
+            {
+                МенюЭкспортДокументов.Visible = false;
+            }
+
             
         }
 
@@ -130,19 +138,26 @@ namespace Контроль_запросов_ТКП
             if (drSSPD["DateExpPlan"].ToString() != "")
                 DGVR.Cells["DatePrj"].Value = UI.GetDate(drSSPD["DateExpPlan"].ToString());
 
-            DGVR.Cells["Status"].Value = GetStatus(drZad["Status"].ToString(),
-                                                   drZad["CntOutDoc"].ToString(),
-                                                   drZad["CntInpDoc"].ToString());
+            //DGVR.Cells["Status"].Value = GetStatus(drZad["Status"].ToString(),
+            //                                       drZad["CntOutDoc"].ToString(),
+            //                                       drZad["CntInpDoc"].ToString());
+            DGVR.Cells["DateFinish"].Value = GetStatus(drZad["Status"].ToString());
 
             if (drZad["DateEnd"].ToString() != "")
-                DGVR.Cells["DateFinish"].Value = UI.GetDate(drZad["DateEnd"].ToString());
+                DGVR.Cells["DateFinish"].Value += "\n" + UI.GetDate(drZad["DateEnd"].ToString());
 
+            GetCountStatus(DGVR.Cells["Status"],
+                Convert.ToInt32(drZad["CntOutDoc"]),
+                Convert.ToInt32(drZad["CntInpDoc"]),
+                Convert.ToInt32(drZad["CntCancelDoc"]),
+                Convert.ToInt32(drZad["CntTrueDoc"]),
+                Convert.ToInt32(drZad["CntRecDoc"])
+                );
 
             Hashtable Detail = new Hashtable();
             Detail.Add("ID_TKP", drZad["ID_TKP"].ToString());
             Detail.Add("FPath", drSSPD["PathFiles"].ToString());
             Detail.Add("Sh_project", drSSPD["Sh_project"].ToString());
-            
 
             if (drZad["DateOut"].ToString() != "")
                 DGVR.Cells["DateOut"].Value = UI.GetDate(drZad["DateOut"].ToString());
@@ -159,7 +174,6 @@ namespace Контроль_запросов_ТКП
 
             //выставляем цветовой статус
             if (drZad["Status"].ToString() == "0")
-                //GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drSSPD["DateExpPlan"].ToString());
                 GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
 
             //красим статус если ткп используется в сметах
@@ -178,6 +192,9 @@ namespace Контроль_запросов_ТКП
             SqlStr = "SELECT  КонтрольТКП.ID_TKP, КонтрольТКП.ID_Zad, КонтрольТКП.TypeZad, КонтрольТКП.Status, КонтрольТКП.DateStart, КонтрольТКП.DateEnd, КонтрольТКП.Equipment, КонтрольТКП.OlSh, ";
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_OutDoc Is Not Null) as CntOutDoc,";
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.ID_InpDoc Is Not Null) as CntInpDoc,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.StatusDoc = 0) as CntCancelDoc,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.StatusDoc = 1) as CntTrueDoc,";
+            SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.StatusDoc = 2) as CntRecDoc,";
             SqlStr += " (SELECT Count(ID_TKP) AS Cnt FROM КонтрольТКП_Письма WHERE КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP AND КонтрольТКП_Письма.UseTKP = 1) as CntUseTKP,";
             SqlStr += " ГруппыМТР.Code, КонтрольТКП.DateOut ";
             SqlStr += " FROM КонтрольТКП LEFT OUTER JOIN ГруппыМТР ON ГруппыМТР.ID_Rec = КонтрольТКП.ID_MTR";
@@ -256,19 +273,15 @@ namespace Контроль_запросов_ТКП
         /// Возвращает статус запроса ТКП
         /// </summary>
         /// <param name="Status">Параметр статуса</param>
-        /// <param name="cntDocOut">Кол-во отправленных писем</param>
-        /// <param name="cntDocInp">Кол-во принятых</param>
         /// <returns></returns>
-        private string GetStatus(string Status, string cntDocOut = "", string cntDocInp = "")
+        private string GetStatus(string Status)
         {
             string retStatus = "";
 
             switch (Convert.ToInt32(Status))
             {
                 case 0:
-                    retStatus = "В работе\n";
-                    retStatus += "Получено " + cntDocInp
-                                    + " из " + cntDocOut;
+                    retStatus = "В работе";
                     break;
                 case 1:
                     retStatus = "Выполнено";
@@ -282,6 +295,22 @@ namespace Контроль_запросов_ТКП
             }
 
             return retStatus;
+        }
+
+        private void GetCountStatus(DataGridViewCell dgvc, int cntOut, int cntInp, int cntCancel, int cntTrue, int cntRec)
+        {
+            string s = "Полож-ых: " + cntTrue.ToString() + " из " + cntOut.ToString();
+            s += "\n";
+            s += "Отказов: " + cntCancel.ToString();
+            dgvc.Value = s;
+
+            string t = "Отправлено: " + cntOut.ToString() + "\n";
+            t += "Всего получено: " + cntInp.ToString() + "\n\n";
+            t += "из них: \n";
+            t += "Положительных: " + cntTrue.ToString() + "\n";
+            t += "Отказов: " + cntCancel.ToString() + "\n";
+            t += "Уточнений: " + cntRec.ToString() ;
+            dgvc.ToolTipText = t;
         }
 
         /// <summary>
@@ -307,13 +336,6 @@ namespace Контроль_запросов_ТКП
                     } 
                     else
                         DGVC.Style.BackColor = Color.LightCoral;
-
-                    ////прошло 5 дней с даты выдачи задания 
-                    //if (DO.AddDays(5) < DateTime.Now)
-                    //{
-                    //    DGVC.Style.BackColor = Color.DarkRed;
-                    //    DGVC.Style.ForeColor = Color.White;
-                    //}
                 }
                 else
                 {
@@ -389,6 +411,9 @@ namespace Контроль_запросов_ТКП
                 AddNewZad(LZG.drSel, "1");
         }
 
+        /// <summary>
+        /// Открыть карточку запроса ТКП
+        /// </summary>
         private void OpenCard()
         {
             if (DGV.SelectedRows.Count == 0) return;
@@ -413,14 +438,19 @@ namespace Контроль_запросов_ТКП
                 DGV.SelectedRows[0].Cells["ShOl"].Value = c.OlSh.Text;
                 DGV.SelectedRows[0].Cells["Equip"].Value = c.Equipment.Text;
 
-                int CntDocOut = c.CntDocOut;
-                int CntDocInp = c.CntDocInp;
 
-                DGV.SelectedRows[0].Cells["Status"].Value = GetStatus(c.Status.Tag.ToString(),
-                                                                      CntDocOut.ToString(),
-                                                                      CntDocInp.ToString());
+                GetCountStatus(DGV.SelectedRows[0].Cells["Status"],
+                    Convert.ToInt32(c.CntDocOut),
+                    Convert.ToInt32(c.CntDocInp),
+                    Convert.ToInt32(c.CntCancelDoc),
+                    Convert.ToInt32(c.CntTrueDoc),
+                    Convert.ToInt32(c.CntRecDoc)
+                    );
+
+                DGV.SelectedRows[0].Cells["DateFinish"].Value = GetStatus(c.Status.Tag.ToString());
+
                 if (c.Status.Tag.ToString() == "1")
-                    DGV.SelectedRows[0].Cells["DateFinish"].Value = c.DateEnd.Text;
+                    DGV.SelectedRows[0].Cells["DateFinish"].Value += "\n" + c.DateEnd.Text;
 
                 if (c.CntUseTKP > 0)
                     SetStatusUseTKP(DGV.SelectedRows[0]);
@@ -436,8 +466,13 @@ namespace Контроль_запросов_ТКП
                     {
                         dr["OlSh"] = c.OlSh.Text;
                         dr["Equipment"] = c.Equipment.Text;
-                        dr["CntOutDoc"] = CntDocOut;
-                        dr["CntInpDoc"] = CntDocInp;
+                        dr["CntOutDoc"] = c.CntDocOut;
+                        dr["CntInpDoc"] = c.CntDocInp;
+
+                        dr["CntTrueDoc"] = c.CntDocInp;
+                        dr["CntCancelDoc"] = c.CntDocInp;
+                        dr["CntRecDoc"] = c.CntDocInp;
+
                         dr["Status"] = c.Status.Tag.ToString();
 
                         if (c.DateOut.Text != "")
@@ -836,6 +871,13 @@ namespace Контроль_запросов_ТКП
             expFrm.DGV = DGV;
             expFrm.ShowDialog();
 
+        }
+
+        private void МенюЭкспортТКП_Click(object sender, EventArgs e)
+        {
+            ExportTKP ExpTKP = new ExportTKP();
+            ExpTKP.DGV = this.DGV;
+            ExpTKP.ShowDialog();
         }
 
     }
