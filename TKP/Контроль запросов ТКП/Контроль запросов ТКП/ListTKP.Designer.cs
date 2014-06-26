@@ -39,6 +39,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListTKP));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюЭкспортТКП = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюЭкспортДокументов = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюЭкспортВExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -74,6 +75,10 @@
             this.ФОрг = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОргВсе = new System.Windows.Forms.ToolStripMenuItem();
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФОтдел = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.ФОтделВсе = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОтсутствует = new System.Windows.Forms.ToolStripMenuItem();
             this.реестрМТР = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +99,6 @@
             this.DateOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.МенюЭкспортТКП = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -126,6 +130,13 @@
             this.операцииToolStripMenuItem.Name = "операцииToolStripMenuItem";
             this.операцииToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.операцииToolStripMenuItem.Text = "Операции";
+            // 
+            // МенюЭкспортТКП
+            // 
+            this.МенюЭкспортТКП.Name = "МенюЭкспортТКП";
+            this.МенюЭкспортТКП.Size = new System.Drawing.Size(191, 22);
+            this.МенюЭкспортТКП.Text = "Экспорт ТКП";
+            this.МенюЭкспортТКП.Click += new System.EventHandler(this.МенюЭкспортТКП_Click);
             // 
             // МенюЭкспортДокументов
             // 
@@ -165,14 +176,14 @@
             // МенюДобавитьЗаданиеОтОтдела
             // 
             this.МенюДобавитьЗаданиеОтОтдела.Name = "МенюДобавитьЗаданиеОтОтдела";
-            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(139, 22);
             this.МенюДобавитьЗаданиеОтОтдела.Text = "От отдела";
             this.МенюДобавитьЗаданиеОтОтдела.Click += new System.EventHandler(this.добавитьЗаданиеОтОтделаToolStripMenuItem_Click);
             // 
             // МенюДобавитьЗаданиеОтБГИП
             // 
             this.МенюДобавитьЗаданиеОтБГИП.Name = "МенюДобавитьЗаданиеОтБГИП";
-            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(139, 22);
             this.МенюДобавитьЗаданиеОтБГИП.Text = "От ГИПа";
             this.МенюДобавитьЗаданиеОтБГИП.Click += new System.EventHandler(this.добавитьЗаданиеОтГИПаToolStripMenuItem_Click);
             // 
@@ -213,6 +224,7 @@
             this.поПроектуToolStripMenuItem,
             this.поГИПуToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem,
             this.toolStripSeparator2,
             this.ФОтсутствует});
             this.Фильтр.Name = "Фильтр";
@@ -229,7 +241,7 @@
             this.toolStripSeparator1,
             this.ФСтатусВсе});
             this.ФПоСтатусу.Name = "ФПоСтатусу";
-            this.ФПоСтатусу.Size = new System.Drawing.Size(177, 22);
+            this.ФПоСтатусу.Size = new System.Drawing.Size(244, 22);
             this.ФПоСтатусу.Text = "По статусу";
             // 
             // ФСтатусВработе
@@ -281,7 +293,7 @@
             this.toolStripSeparator3,
             this.ФОборудованиеВсе});
             this.ФПоОборудованию.Name = "ФПоОборудованию";
-            this.ФПоОборудованию.Size = new System.Drawing.Size(177, 22);
+            this.ФПоОборудованию.Size = new System.Drawing.Size(244, 22);
             this.ФПоОборудованию.Text = "По оборудованию";
             // 
             // ФОборудование
@@ -312,27 +324,27 @@
             this.toolStripSeparator4,
             this.ФПроектВсе});
             this.поПроектуToolStripMenuItem.Name = "поПроектуToolStripMenuItem";
-            this.поПроектуToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.поПроектуToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.поПроектуToolStripMenuItem.Text = "По проекту";
             // 
             // ФПроект
             // 
             this.ФПроект.Name = "ФПроект";
-            this.ФПроект.Size = new System.Drawing.Size(144, 22);
+            this.ФПроект.Size = new System.Drawing.Size(152, 22);
             this.ФПроект.Text = "Проект - ...";
             this.ФПроект.Click += new System.EventHandler(this.ФПроект_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // ФПроектВсе
             // 
             this.ФПроектВсе.Checked = true;
             this.ФПроектВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФПроектВсе.Name = "ФПроектВсе";
-            this.ФПроектВсе.Size = new System.Drawing.Size(144, 22);
+            this.ФПроектВсе.Size = new System.Drawing.Size(152, 22);
             this.ФПроектВсе.Text = "Все";
             this.ФПроектВсе.Click += new System.EventHandler(this.ФПроектВсе_Click);
             // 
@@ -343,27 +355,28 @@
             this.toolStripSeparator5,
             this.ФГИПВсе});
             this.поГИПуToolStripMenuItem.Name = "поГИПуToolStripMenuItem";
-            this.поГИПуToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.поГИПуToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.поГИПуToolStripMenuItem.Text = "По ГИПу";
             this.поГИПуToolStripMenuItem.Visible = false;
             // 
             // ФГИП
             // 
             this.ФГИП.Name = "ФГИП";
-            this.ФГИП.Size = new System.Drawing.Size(127, 22);
+            this.ФГИП.Size = new System.Drawing.Size(152, 22);
             this.ФГИП.Text = "ГИП - ...";
+            this.ФГИП.Click += new System.EventHandler(this.ФГИП_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // ФГИПВсе
             // 
             this.ФГИПВсе.Checked = true;
             this.ФГИПВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФГИПВсе.Name = "ФГИПВсе";
-            this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
+            this.ФГИПВсе.Size = new System.Drawing.Size(152, 22);
             this.ФГИПВсе.Text = "Все";
             // 
             // toolStripMenuItem1
@@ -373,7 +386,7 @@
             this.toolStripSeparator8,
             this.ФОргВсе});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
             this.toolStripMenuItem1.Text = "По организации";
             // 
             // ФОрг
@@ -397,15 +410,46 @@
             this.ФОргВсе.Text = "Все";
             this.ФОргВсе.Click += new System.EventHandler(this.ФОргВсе_Click);
             // 
+            // поОтделуВыдавшегоЗаданиеToolStripMenuItem
+            // 
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ФОтдел,
+            this.toolStripSeparator9,
+            this.ФОтделВсе});
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Name = "поОтделуВыдавшегоЗаданиеToolStripMenuItem";
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Text = "По отделу выдавшего задание";
+            // 
+            // ФОтдел
+            // 
+            this.ФОтдел.Name = "ФОтдел";
+            this.ФОтдел.Size = new System.Drawing.Size(152, 22);
+            this.ФОтдел.Text = "Отдел - ...";
+            this.ФОтдел.Click += new System.EventHandler(this.ФОтдел_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
+            // 
+            // ФОтделВсе
+            // 
+            this.ФОтделВсе.Checked = true;
+            this.ФОтделВсе.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ФОтделВсе.Name = "ФОтделВсе";
+            this.ФОтделВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФОтделВсе.Text = "Все";
+            this.ФОтделВсе.Click += new System.EventHandler(this.ФОтделВсе_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(241, 6);
             // 
             // ФОтсутствует
             // 
             this.ФОтсутствует.Name = "ФОтсутствует";
-            this.ФОтсутствует.Size = new System.Drawing.Size(177, 22);
+            this.ФОтсутствует.Size = new System.Drawing.Size(244, 22);
             this.ФОтсутствует.Text = "Отсутствует";
             this.ФОтсутствует.Click += new System.EventHandler(this.ФОтсутствует_Click);
             // 
@@ -580,13 +624,6 @@
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
             // 
-            // МенюЭкспортТКП
-            // 
-            this.МенюЭкспортТКП.Name = "МенюЭкспортТКП";
-            this.МенюЭкспортТКП.Size = new System.Drawing.Size(191, 22);
-            this.МенюЭкспортТКП.Text = "Экспорт ТКП";
-            this.МенюЭкспортТКП.Click += new System.EventHandler(this.МенюЭкспортТКП_Click);
-            // 
             // ListTKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -673,6 +710,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateFinish;
         private System.Windows.Forms.ToolStripMenuItem МенюЭкспортТКП;
+        private System.Windows.Forms.ToolStripMenuItem поОтделуВыдавшегоЗаданиеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ФОтдел;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem ФОтделВсе;
     }
 }
 

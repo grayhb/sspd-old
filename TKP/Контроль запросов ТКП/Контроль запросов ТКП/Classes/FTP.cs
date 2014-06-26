@@ -38,9 +38,10 @@ namespace Контроль_запросов_ТКП
                     tmpFile = sFile;
 
                 FTPClient request = new FTPClient();
-                request.Credentials = new System.Net.NetworkCredential(Params.ServerFTP.UserNameRead, Params.ServerFTP.PasswordRead);
+                request.Credentials = new System.Net.NetworkCredential(Config.ServerFTP.UserNameRead, Config.ServerFTP.PasswordRead);
                 request.Proxy = null;
-                request.DownloadFile("ftp://" + Params.ServerFTP.Adress + "/" + path, tmpFile);
+                request.DownloadFile("ftp://" + Config.ServerFTP.Adress + "/" + path, tmpFile);
+                
 
                 if (Nzad != "") SetNumZadInPDF(tmpFile, Nzad);
 

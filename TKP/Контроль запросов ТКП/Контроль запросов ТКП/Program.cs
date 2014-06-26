@@ -15,17 +15,25 @@ namespace Контроль_запросов_ТКП
         static void Main()
         {
 
-            //загружаем параметры конфигурации
+            Config.Mask = Params.Mask;
+            Config.CfgPath = Params.CfgPath;
+
+            //загрузка параметров конфигурации
             Config.ReadCFG();
 
-
+            //определение параметров подключения к БД
+            DB.InitDB();
+            
             string UName = Environment.UserName;
 
             //UName = "AbrashkinaKP";
-            UName = "TafincevNA";
+            //UName = "TafincevDA";
 
             //загружаем данные пользователя
-            Config.LoadDataUser(Application.ProductName, UName);
+            //Config.LoadDataUser(Application.ProductName, UName);
+            User.LoadUserInfo(UName);
+
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
