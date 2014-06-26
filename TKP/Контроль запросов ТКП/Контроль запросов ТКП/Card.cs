@@ -759,7 +759,8 @@ namespace Контроль_запросов_ТКП
                 LoadDataDocs();
                 if (DGV.Rows.Count > 0)
                     foreach (DataGridViewRow dgvr in DGV.Rows)
-                        if (ID_DocTkp == dgvr.Tag.ToString())
+                        //if (ID_DocTkp == dgvr.Tag.ToString())
+                        if (ID_DocTkp == ((DataRow)dgvr.Tag)["ID"].ToString())
                         {
                             DGV.ClearSelection();
                             dgvr.Selected = true;

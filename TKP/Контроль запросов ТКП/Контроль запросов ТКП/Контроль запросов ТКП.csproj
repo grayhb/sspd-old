@@ -41,8 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\PdfSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SSPD">
-      <HintPath>..\..\dllSSPD\dllSSPD\bin\Release\SSPD.dll</HintPath>
+    <Reference Include="SSPD_DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\SSPD_DB.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -168,6 +169,12 @@
     </Compile>
     <Compile Include="Classes\TKP_Conf.cs" />
     <Compile Include="Classes\UI.cs" />
+    <Compile Include="SelectForm\SelectOtdel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\SelectOtdel.Designer.cs">
+      <DependentUpon>SelectOtdel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm\SelectDate.resx">
       <DependentUpon>SelectDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\SelectOtdel.resx">
+      <DependentUpon>SelectOtdel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

@@ -50,6 +50,12 @@ namespace Контроль_запросов_ТКП
             if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel && Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
             {
                 МенюЭкспортДокументов.Visible = false;
+
+                //показывать запросы только отдела - ставим фильтр по отделу
+                ФОтдел.Tag = Params.UserInfo.NBMOtdel;
+                ФОтдел.Text = "Отдел - " + Params.UserInfo.NBMOtdel;
+                ФОтдел.Checked = true;
+                ФОтделВсе.Checked = false;
             }
 
             
@@ -158,6 +164,7 @@ namespace Контроль_запросов_ТКП
             Detail.Add("ID_TKP", drZad["ID_TKP"].ToString());
             Detail.Add("FPath", drSSPD["PathFiles"].ToString());
             Detail.Add("Sh_project", drSSPD["Sh_project"].ToString());
+            Detail.Add("ID_Otdel", drSSPD["Sh_project"].ToString());
 
             if (drZad["DateOut"].ToString() != "")
                 DGVR.Cells["DateOut"].Value = UI.GetDate(drZad["DateOut"].ToString());
@@ -538,6 +545,14 @@ namespace Контроль_запросов_ТКП
                     ret = false;
             }
 
+            //по отделу
+            if (ФОтделВсе.Checked == false && ret == true)
+            {
+                //OtdelZad
+                if (ФОтдел.Tag != null && drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(ФОтдел.Tag.ToString().ToLower()) == -1)
+                    ret = false;
+            }
+
             return ret;
         }
         
@@ -559,12 +574,14 @@ namespace Контроль_запросов_ТКП
                     }
                 }
             }
+
             ФГИПВсе.Checked = true;
             ФСтатусВсе.Checked = true;
             ФПроектВсе.Checked = true;
             ФОборудованиеВсе.Checked = true;
             ФОтсутствует.Checked = true;
             ФОргВсе.Checked = true;
+            ФОтделВсе.Checked = true;
 
             ФОборудование.Text = "Оборудование - ...";
             ФОборудование.Tag = null;
@@ -574,6 +591,9 @@ namespace Контроль_запросов_ТКП
 
             ФОрг.Tag = null;
             ФОрг.Text = "Организация - ...";
+
+            ФОтдел.Tag = null;
+            ФОтдел.Text = "Отдел - ...";
 
             GetListTKP();
         }
@@ -848,6 +868,14 @@ namespace Контроль_запросов_ТКП
                     if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
                     LabelFilter += ФОрг.Text;
                 }
+
+
+                if (ФОтдел.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += ФОтдел.Text;
+                }
+
             }
 
            CountRowLabel.Text += LabelFilter; 
@@ -878,6 +906,32 @@ namespace Контроль_запросов_ТКП
             ExportTKP ExpTKP = new ExportTKP();
             ExpTKP.DGV = this.DGV;
             ExpTKP.ShowDialog();
+        }
+
+        private void ФОтделВсе_Click(object sender, EventArgs e)
+        {
+            ФОтдел.Text = "Отдел - ...";
+            ФОтдел.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФОтдел_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectOtdel SelOtdel = new SelectForm.SelectOtdel();
+            SelOtdel.ShowDialog();
+            if (SelOtdel.SelNBOtdel != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФОтдел.Text = "Отдел - " + SelOtdel.SelNBOtdel;
+                ФОтдел.Tag = SelOtdel.SelNBOtdel;
+                GetListTKP();
+            }
+        }
+
+        private void ФГИП_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
