@@ -65,36 +65,50 @@ namespace Контроль_запросов_ТКП
 
                         h = this.getDataMail(idInp);
 
-                        string FName = textPath.Text;
+                        string FName = textPath.Text + "\\";
                         string FNameInp = "";
 
                         //группировка по проектам
-                        //if (checkProject.Checked)
-                        //{
-                            FName += "\\" + ConvertFileName(((Hashtable)DGVR.Tag)["Sh_project"].ToString()) + "\\";
+                        if (checkProject.Checked)
+                        {
+                            FName += ConvertFileName(((Hashtable)DGVR.Tag)["Sh_project"].ToString()) + "\\";
                             createPath(FName);
-                        //}
+                        }
+
+                        Dictionary<string, string> DictUserInfo = getInfoAuthorZad(DGVR.Cells["NZ"].Value.ToString());
+
+                        //группировка по отделу
+                        if (checkOtdel.Checked && DictUserInfo.Count > 0 )
+                        {
+                            //DictUserInfo["NB_Otdel"]
+                            //DictUserInfo["F_Worker"]
+                            FName += ConvertFileName(DictUserInfo["NB_Otdel"]) + "\\";
+                            createPath(FName);
+                        }
 
 
                         //скачиваем входящий документ
                         if (h.Contains("rn_DocInp"))
                         {
-                            //FNameInp = FName + "Входящие\\";
-                            //createPath(FNameInp);
-
                             FNameInp = FName;
 
                             //КодМТР в начале файла
                             string CodeMTR = getCodeMTR(((Hashtable)DGVR.Tag)["ID_TKP"].ToString());
                             FNameInp += string.Format("{0}_",CodeMTR);
 
-                            string AuthorInfo = getInfoAuthorZad(DGVR.Cells["NZ"].Value.ToString());
-                            FNameInp += string.Format("{0}_", AuthorInfo);
+                            if (DictUserInfo.Count > 0 )
+                                FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
+                            //string AuthorInfo = getInfoAuthorZad(DGVR.Cells["NZ"].Value.ToString());
+                            
 
                             FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(h["date_DocInp"])) + " №" + ConvertFileName(h["rn_DocInp"].ToString()) + ".pdf";
 
-                            FTP.DonwloadFile(h["PathToImg_DocInp"].ToString(), "", FNameInp, false);
-                            countDocInp++;
+                            //если файла нет, копируем
+                            if (!File.Exists(FNameInp))
+                            {
+                                FTP.DonwloadFile(h["PathToImg_DocInp"].ToString(), "", FNameInp, false);
+                                countDocInp++;
+                            }
                         }
 
                         h = null;
@@ -154,6 +168,8 @@ namespace Контроль_запросов_ТКП
                 System.Diagnostics.Process.Start("explorer", textPath.Text);
             }
 
+            this.Text = "Экспорт ТКП";
+
         }
 
         private void cmdClose_Click(object sender, EventArgs e)
@@ -178,9 +194,11 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         /// <param name="NZ">Номер задания</param>
         /// <returns>Фамилия_Отдел</returns>
-        private string getInfoAuthorZad(string NZ)
+        private Dictionary<string, string> getInfoAuthorZad(string NZ)
         {
-            string InfoAuthor = "";
+            //string InfoAuthor = "";
+            Dictionary<string, string> DictInfo = new Dictionary<string, string>();
+
 
             string sql = "SELECT Workers.F_Worker, Otdels.NB_Otdel, ExchandeZadReestr.ID_Rec ";
             sql += " FROM Otdels INNER JOIN";
@@ -191,10 +209,12 @@ namespace Контроль_запросов_ТКП
             var rs = SSPD.DB.GetFields(sql);
             if (rs != null && rs.Count > 0)
             {
-                InfoAuthor = string.Format("{0}_{1}", rs[0]["F_Worker"].ToString(), rs[0]["NB_Otdel"].ToString());
+                DictInfo.Add("NB_Otdel", rs[0]["NB_Otdel"].ToString());
+                DictInfo.Add("F_Worker", rs[0]["F_Worker"].ToString());
+                //InfoAuthor = string.Format("{0}_{1}", rs[0]["F_Worker"].ToString(), rs[0]["NB_Otdel"].ToString());
             }
 
-            return InfoAuthor;
+            return DictInfo;
         }
 
 
@@ -230,22 +250,6 @@ namespace Контроль_запросов_ТКП
         {
             Hashtable h = new Hashtable();
             string sql = "";
-
-            ////данные исходящего письма
-            //if (id_DocOut > 0)
-            //{
-            //    sql = "SELECT RN_DocOut,  Date_DocOut, PathToImage ";
-            //    sql += " FROM DocsOutput ";
-            //    sql += " WHERE  ID_DocOut = " + id_DocOut.ToString();
-            //    var rs = SSPD.DB.GetFields(sql);
-            //    if (rs != null && rs.Count > 0)
-            //    {
-            //        h.Add("rn_DocOut", rs[0]["RN_DocOut"].ToString());
-            //        h.Add("date_DocOut", rs[0]["Date_DocOut"].ToString());
-            //        h.Add("PathToImg_DocOut", rs[0]["PathToImage"].ToString());
-            //    }
-            //    rs = null;
-            //}
 
             //данные входящего письма
             if (id_DocInp > 0)
@@ -289,6 +293,7 @@ namespace Контроль_запросов_ТКП
                 Directory.CreateDirectory(PathOut);
             }
         }
+
 
 
     }

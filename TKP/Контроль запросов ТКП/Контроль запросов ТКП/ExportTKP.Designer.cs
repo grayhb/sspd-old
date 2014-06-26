@@ -35,6 +35,9 @@
             this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.textPath = new System.Windows.Forms.TextBox();
             this.fBDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkProject = new System.Windows.Forms.CheckBox();
+            this.checkOtdel = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdExport
@@ -102,11 +105,45 @@
             // 
             this.fBDialog.Description = "Папка для экспорта документов";
             // 
+            // checkProject
+            // 
+            this.checkProject.AutoSize = true;
+            this.checkProject.Checked = true;
+            this.checkProject.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkProject.Location = new System.Drawing.Point(113, 72);
+            this.checkProject.Name = "checkProject";
+            this.checkProject.Size = new System.Drawing.Size(66, 17);
+            this.checkProject.TabIndex = 14;
+            this.checkProject.Text = "проекту";
+            this.checkProject.UseVisualStyleBackColor = true;
+            // 
+            // checkOtdel
+            // 
+            this.checkOtdel.AutoSize = true;
+            this.checkOtdel.Location = new System.Drawing.Point(197, 72);
+            this.checkOtdel.Name = "checkOtdel";
+            this.checkOtdel.Size = new System.Drawing.Size(60, 17);
+            this.checkOtdel.TabIndex = 14;
+            this.checkOtdel.Text = "отделу";
+            this.checkOtdel.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Группировать по:";
+            // 
             // ExportTKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 138);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.checkOtdel);
+            this.Controls.Add(this.checkProject);
             this.Controls.Add(this.cmdExport);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.PB);
@@ -137,5 +174,8 @@
         private System.Windows.Forms.Button cmdOpenFolder;
         private System.Windows.Forms.TextBox textPath;
         private System.Windows.Forms.FolderBrowserDialog fBDialog;
+        private System.Windows.Forms.CheckBox checkProject;
+        private System.Windows.Forms.CheckBox checkOtdel;
+        private System.Windows.Forms.Label label1;
     }
 }
