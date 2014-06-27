@@ -176,14 +176,14 @@
             // МенюДобавитьЗаданиеОтОтдела
             // 
             this.МенюДобавитьЗаданиеОтОтдела.Name = "МенюДобавитьЗаданиеОтОтдела";
-            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(139, 22);
+            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(152, 22);
             this.МенюДобавитьЗаданиеОтОтдела.Text = "От отдела";
             this.МенюДобавитьЗаданиеОтОтдела.Click += new System.EventHandler(this.добавитьЗаданиеОтОтделаToolStripMenuItem_Click);
             // 
             // МенюДобавитьЗаданиеОтБГИП
             // 
             this.МенюДобавитьЗаданиеОтБГИП.Name = "МенюДобавитьЗаданиеОтБГИП";
-            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(139, 22);
+            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(152, 22);
             this.МенюДобавитьЗаданиеОтБГИП.Text = "От ГИПа";
             this.МенюДобавитьЗаданиеОтБГИП.Click += new System.EventHandler(this.добавитьЗаданиеОтГИПаToolStripMenuItem_Click);
             // 
@@ -241,7 +241,7 @@
             this.toolStripSeparator1,
             this.ФСтатусВсе});
             this.ФПоСтатусу.Name = "ФПоСтатусу";
-            this.ФПоСтатусу.Size = new System.Drawing.Size(244, 22);
+            this.ФПоСтатусу.Size = new System.Drawing.Size(245, 22);
             this.ФПоСтатусу.Text = "По статусу";
             // 
             // ФСтатусВработе
@@ -293,7 +293,7 @@
             this.toolStripSeparator3,
             this.ФОборудованиеВсе});
             this.ФПоОборудованию.Name = "ФПоОборудованию";
-            this.ФПоОборудованию.Size = new System.Drawing.Size(244, 22);
+            this.ФПоОборудованию.Size = new System.Drawing.Size(245, 22);
             this.ФПоОборудованию.Text = "По оборудованию";
             // 
             // ФОборудование
@@ -324,27 +324,27 @@
             this.toolStripSeparator4,
             this.ФПроектВсе});
             this.поПроектуToolStripMenuItem.Name = "поПроектуToolStripMenuItem";
-            this.поПроектуToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.поПроектуToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.поПроектуToolStripMenuItem.Text = "По проекту";
             // 
             // ФПроект
             // 
             this.ФПроект.Name = "ФПроект";
-            this.ФПроект.Size = new System.Drawing.Size(152, 22);
+            this.ФПроект.Size = new System.Drawing.Size(144, 22);
             this.ФПроект.Text = "Проект - ...";
             this.ФПроект.Click += new System.EventHandler(this.ФПроект_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
             // 
             // ФПроектВсе
             // 
             this.ФПроектВсе.Checked = true;
             this.ФПроектВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФПроектВсе.Name = "ФПроектВсе";
-            this.ФПроектВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФПроектВсе.Size = new System.Drawing.Size(144, 22);
             this.ФПроектВсе.Text = "Все";
             this.ФПроектВсе.Click += new System.EventHandler(this.ФПроектВсе_Click);
             // 
@@ -355,28 +355,27 @@
             this.toolStripSeparator5,
             this.ФГИПВсе});
             this.поГИПуToolStripMenuItem.Name = "поГИПуToolStripMenuItem";
-            this.поГИПуToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.поГИПуToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.поГИПуToolStripMenuItem.Text = "По ГИПу";
             this.поГИПуToolStripMenuItem.Visible = false;
             // 
             // ФГИП
             // 
             this.ФГИП.Name = "ФГИП";
-            this.ФГИП.Size = new System.Drawing.Size(152, 22);
+            this.ФГИП.Size = new System.Drawing.Size(127, 22);
             this.ФГИП.Text = "ГИП - ...";
-            this.ФГИП.Click += new System.EventHandler(this.ФГИП_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
             // 
             // ФГИПВсе
             // 
             this.ФГИПВсе.Checked = true;
             this.ФГИПВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФГИПВсе.Name = "ФГИПВсе";
-            this.ФГИПВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
             this.ФГИПВсе.Text = "Все";
             // 
             // toolStripMenuItem1
@@ -386,7 +385,7 @@
             this.toolStripSeparator8,
             this.ФОргВсе});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(244, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(245, 22);
             this.toolStripMenuItem1.Text = "По организации";
             // 
             // ФОрг
@@ -417,8 +416,8 @@
             this.toolStripSeparator9,
             this.ФОтделВсе});
             this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Name = "поОтделуВыдавшегоЗаданиеToolStripMenuItem";
-            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Text = "По отделу выдавшего задание";
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.поОтделуВыдавшегоЗаданиеToolStripMenuItem.Text = "По отделу выдавшему задание";
             // 
             // ФОтдел
             // 
@@ -444,12 +443,12 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(241, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(242, 6);
             // 
             // ФОтсутствует
             // 
             this.ФОтсутствует.Name = "ФОтсутствует";
-            this.ФОтсутствует.Size = new System.Drawing.Size(244, 22);
+            this.ФОтсутствует.Size = new System.Drawing.Size(245, 22);
             this.ФОтсутствует.Text = "Отсутствует";
             this.ФОтсутствует.Click += new System.EventHandler(this.ФОтсутствует_Click);
             // 
