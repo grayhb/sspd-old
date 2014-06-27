@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SSPD;
 using System.Collections;
+using System.IO;
 
 namespace Контроль_запросов_ТКП
 {
@@ -259,7 +260,7 @@ namespace Контроль_запросов_ТКП
               SqlStr += " WHERE (ExchandeZadReestr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") AND (ExchandeZadReestr.Status = 1) "; 
             }
             else {
-              SqlStr = "SELECT      ZadFromGIPReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
+              SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
               SqlStr += " PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
               SqlStr += " FROM          Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
@@ -268,7 +269,7 @@ namespace Контроль_запросов_ТКП
               SqlStr += " ZadFromGIPReestrAdr ON ZadFromGIPReestr.ID_Rec = ZadFromGIPReestrAdr.ID_RecZadGip INNER JOIN";
               SqlStr += " Projects ON ZadFromGIPReestr.ID_Project = Projects.ID_Project INNER JOIN";
               SqlStr += " Workers ON Projects.ID_GIP = Workers.ID_Worker ON DogovorsProjects.ID_Project = Projects.ID_Project";
-              SqlStr += " WHERE      (ZadFromGIPReestrAdr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") "; 
+              SqlStr += " WHERE  (ZadFromGIPReestrAdr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") "; 
             }
 
             var rs = SSPD.DB.GetFields(SqlStr);
@@ -392,6 +393,10 @@ namespace Контроль_запросов_ТКП
 
             DataRow drSSPD = GetDataZP(Convert.ToByte(drZad["TypeZad"]), drZad["ID_Zad"].ToString());
 
+            //создаем папку на L
+            setPathOnL(drSSPD["Sh_project"].ToString(), drSSPD["NB_Otdel"].ToString());
+
+            //добавляем строку в Дата Грид Вью
             SetDataInRow(DGVR, drZad, drSSPD);
 
             UI.SetBgRowInDGV(DGV);
@@ -929,10 +934,54 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-        private void ФГИП_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Формирование структуры папок на диске L в каталоке ТКП
+        /// </summary>
+        /// <param name="ShPrj">Шифр проекта</param>
+        /// <param name="NBOtdel">Сокращенное наименование отдела</param>
+        private void setPathOnL(string ShPrj, string NBOtdel = "")
         {
+            string Lpath = @"\\10.105.21.53\Проекты\ТКП";
+
+            if (!Directory.Exists(Lpath))
+                return;
+
+            if (ShPrj != "")
+                createPath(string.Format("{0}\\{1}", Lpath, ConvertFileName(ShPrj)));
+
+            if (NBOtdel != "")
+                createPath(string.Format("{0}\\{1}\\{2}", Lpath, ConvertFileName(ShPrj), ConvertFileName(NBOtdel)));
 
         }
+
+
+        /// <summary>
+        /// Конвертация символов
+        /// </summary>
+        /// <param name="FName">Наименование папки</param>
+        private string ConvertFileName(string FName)
+        {
+            FName = FName.Replace("/", "_");
+            FName = FName.Replace(@"\", "_");
+
+            return FName;
+        }
+
+        /// <summary>
+        /// Создание папки
+        /// </summary>
+        /// <param name="PathOut">Путь до папки</param>
+        private void createPath(string PathOut)
+        {
+            //PathOut = ConvertFileName(PathOut);
+            if (!Directory.Exists(PathOut)) // "!" забыл поставить
+            {
+                Directory.CreateDirectory(PathOut);
+            }
+        }
+
+
 
     }
 }

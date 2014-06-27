@@ -160,6 +160,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Экспорт ТКП";
             this.Load += new System.EventHandler(this.ExportTKP_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ExportTKP_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

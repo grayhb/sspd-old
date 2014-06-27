@@ -80,8 +80,6 @@ namespace Контроль_запросов_ТКП
                         //группировка по отделу
                         if (checkOtdel.Checked && DictUserInfo.Count > 0 )
                         {
-                            //DictUserInfo["NB_Otdel"]
-                            //DictUserInfo["F_Worker"]
                             FName += ConvertFileName(DictUserInfo["NB_Otdel"]) + "\\";
                             createPath(FName);
                         }
@@ -98,7 +96,6 @@ namespace Контроль_запросов_ТКП
 
                             if (DictUserInfo.Count > 0 )
                                 FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
-                            //string AuthorInfo = getInfoAuthorZad(DGVR.Cells["NZ"].Value.ToString());
                             
 
                             FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(h["date_DocInp"])) + " №" + ConvertFileName(h["rn_DocInp"].ToString()) + ".pdf";
@@ -117,7 +114,14 @@ namespace Контроль_запросов_ТКП
 
 
 
-                if (flStop) break;
+                if (flStop)
+                {
+                    if (MessageBox.Show("Прервать экспорт ТКП?", "Экспорт ТКП", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                        break;
+                    else
+                        flStop = false;
+                }
+
                 PB.Value++;
                 TimeSpan ts = DateTime.Now - dt_start;
                 this.Text = "Время выполнения: " + ts.ToString(@"hh\:mm\:ss");  //string.Format("{0:hh:mm:ss}", DateTime.Now - dt_start);
@@ -292,6 +296,11 @@ namespace Контроль_запросов_ТКП
             {
                 Directory.CreateDirectory(PathOut);
             }
+        }
+
+        private void ExportTKP_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) flStop = true;
         }
 
 
