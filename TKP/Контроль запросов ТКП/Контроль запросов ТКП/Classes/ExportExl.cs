@@ -59,8 +59,9 @@ namespace Контроль_запросов_ТКП
                 (range.Cells[1, 14] as Excel.Range).Value = "Орг. получатель";
                 (range.Cells[1, 15] as Excel.Range).Value = "Р/Н вх.";
                 (range.Cells[1, 16] as Excel.Range).Value = "Дата вх.";
-                (range.Cells[1, 17] as Excel.Range).Value = "Примечание";
-                (range.Cells[1, 18] as Excel.Range).Value = "Контакты";
+                (range.Cells[1, 17] as Excel.Range).Value = "Статус документа";
+                (range.Cells[1, 18] as Excel.Range).Value = "Примечание";
+                (range.Cells[1, 19] as Excel.Range).Value = "Контакты";
 
                 int rowout = 2;
                 int numTKP = 0;
@@ -135,7 +136,7 @@ namespace Контроль_запросов_ТКП
                 wbs.Range[wbs.Cells[rowout - countMail + 1, 1], wbs.Cells[rowout - 1, 11]].Font.Colorindex = 2;
             //else if (countMail == 0) 
             //   rowout--;
-            int CountCol = 18;
+            int CountCol = 19;
 
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = 1;
             (wbs.Range[wbs.Cells[rowout - countMail , 1], wbs.Cells[rowout - countMail , 11]].Borders as Excel.Borders).Item[Excel.XlBordersIndex.xlEdgeTop].LineStyle = 1;
@@ -207,7 +208,8 @@ namespace Контроль_запросов_ТКП
             (range.Columns[15] as Excel.Range).ColumnWidth = 8;
             (range.Columns[16] as Excel.Range).ColumnWidth = 8;
             (range.Columns[17] as Excel.Range).ColumnWidth = 13;
-            (range.Columns[18] as Excel.Range).ColumnWidth = 20;
+            (range.Columns[18] as Excel.Range).ColumnWidth = 13;
+            (range.Columns[19] as Excel.Range).ColumnWidth = 20;
         }
 
         private void WriteInExcelMailZadTKP(Hashtable mail, Excel.Range range, int rowout)
@@ -228,7 +230,7 @@ namespace Контроль_запросов_ТКП
                     (range.Cells[rowout, 14] as Excel.Range).Value = mail["org_DocOut"].ToString();
 
                 if (mail["contacts_DocOut"] != null)
-                    (range.Cells[rowout, 18] as Excel.Range).Value = mail["contacts_DocOut"].ToString();
+                    (range.Cells[rowout, 19] as Excel.Range).Value = mail["contacts_DocOut"].ToString();
                 
             }
 
@@ -246,8 +248,20 @@ namespace Контроль_запросов_ТКП
 
             }
 
+
+            if (mail["StatusDoc"] != null)
+            {
+                if (mail["StatusDoc"].ToString() == "0")
+                    (range.Cells[rowout, 17] as Excel.Range).Value = "Отказ";
+                else if (mail["StatusDoc"].ToString() == "1")
+                    (range.Cells[rowout, 17] as Excel.Range).Value = "Положительный";
+                else if (mail["StatusDoc"].ToString() == "2")
+                    (range.Cells[rowout, 17] as Excel.Range).Value = "Уточнение";
+            }
+
+
             if (mail["Mail_Note"] != null)
-                (range.Cells[rowout, 17] as Excel.Range).Value = mail["Mail_Note"].ToString();
+                (range.Cells[rowout, 18] as Excel.Range).Value = mail["Mail_Note"].ToString();
 
         }
 
@@ -327,7 +341,7 @@ namespace Контроль_запросов_ТКП
                 zadTKP.Add("Status", DGVR.Cells["Status"].Value);
                 zadTKP.Add("DateFinish", DGVR.Cells["DateFinish"].Value);
 
-                var rs = LocalDB.LoadData("SELECT ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP FROM КонтрольТКП_Письма WHERE ID_TKP = " + ((Hashtable)DGVR.Tag)["ID_TKP"].ToString() + " ORDER BY ID_OutDoc ASC");
+                var rs = LocalDB.LoadData("SELECT ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, StatusDoc FROM КонтрольТКП_Письма WHERE ID_TKP = " + ((Hashtable)DGVR.Tag)["ID_TKP"].ToString() + " ORDER BY ID_OutDoc ASC");
                 if (rs != null && rs.Count > 0)
                 {
                     List<Hashtable> arrMail = new List<Hashtable>();
@@ -343,6 +357,7 @@ namespace Контроль_запросов_ТКП
 
                         h = this.getDataMail(idOut, idInp);
                         h.Add("Mail_Note", dr["Mail_Note"].ToString());
+                        h.Add("StatusDoc", dr["StatusDoc"].ToString());
                         //h.Add("DateStartTKP", dr["DateStartTKP"].ToString());
                         //h.Add("DateFinishTKP", dr["DateFinishTKP"].ToString());
 

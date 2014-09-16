@@ -164,6 +164,7 @@ namespace Контроль_запросов_ТКП
             Hashtable Detail = new Hashtable();
             Detail.Add("ID_TKP", drZad["ID_TKP"].ToString());
             Detail.Add("FPath", drSSPD["PathFiles"].ToString());
+            Detail.Add("PathFilesPril", drSSPD["PathFilesPril"].ToString());
             Detail.Add("Sh_project", drSSPD["Sh_project"].ToString());
             Detail.Add("ID_Otdel", drSSPD["Sh_project"].ToString());
 
@@ -182,12 +183,17 @@ namespace Контроль_запросов_ТКП
 
             //выставляем цветовой статус
             if (drZad["Status"].ToString() == "0")
-                GetColorStatus(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
+                GetColorStatusDate(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
 
             //красим статус если ткп используется в сметах
             if (drZad["CntUseTKP"].ToString() != "0")
                 SetStatusUseTKP(DGVR);
+
+            if (drSSPD["DatePZakPlan"].ToString() !="")
+                GetColorPIRStatus(DGVR.Cells[0], Convert.ToInt32(drSSPD["Status"]));
+
         }
+        
 
         /// <summary>
         /// Загрузка данных по ТКП
@@ -247,9 +253,9 @@ namespace Контроль_запросов_ТКП
         {
             string SqlStr = "";
             if (TypeZP == 0) {
-              SqlStr = " SELECT ExchandeZadReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
+                SqlStr = " SELECT ExchandeZadReestr.ID_Rec, ExchandeZadReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
               SqlStr += " ExchandeZadReestr.Node, ExchandeZadReestr.PathFiles, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP";
+              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP";
               SqlStr += " FROM Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -260,8 +266,8 @@ namespace Контроль_запросов_ТКП
               SqlStr += " WHERE (ExchandeZadReestr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") AND (ExchandeZadReestr.Status = 1) "; 
             }
             else {
-              SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
+                SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, ZadFromGIPReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
+              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
               SqlStr += " FROM          Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -327,7 +333,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="DGVC">Ячейка для закраски</param>
         /// <param name="DateOut">Дата выдачи задания</param>
         /// <param name="DatePrj">Дата выпуска проекта</param>
-        private void GetColorStatus(DataGridViewCell DGVC, string DateOut, string DatePrj)
+        private void GetColorStatusDate(DataGridViewCell DGVC, string DateOut, string DatePrj)
         {
             DateTime DO = Convert.ToDateTime(DateOut);
             if (DatePrj != "")
@@ -362,6 +368,17 @@ namespace Контроль_запросов_ТКП
                     DGVC.Style.BackColor = Color.Khaki;
                 }
             }
+        }
+
+        /// <summary>
+        /// Закрашивает ячейку в соответствии со статусом объекта в Плане ПИР
+        /// </summary>
+        /// <param name="DGVC">Ячейка для закраски</param>
+        /// <param name="Status">Статус объекта в Плане ПИР</param>
+        private void GetColorPIRStatus(DataGridViewCell DGVC, int Status)
+        {
+            if (Status == 1 || Status == 2)
+                DGVC.Style.BackColor = Color.DimGray;
         }
 
         private void AddNewZad(DataRow dr, string TypeZad)
@@ -558,6 +575,29 @@ namespace Контроль_запросов_ТКП
                     ret = false;
             }
 
+
+            //по дате выдачи задания
+            if (ФДатаВыдачиЗаданияПериод.Checked && ret == true)
+            {
+                if (ФДатаВыдачиЗаданияПериод.Tag != null)
+                {
+                    DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
+                    DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
+
+                    if (D1 == D2) D2.AddHours(23);
+
+                    DateTime D_ZP = Convert.ToDateTime(drSSPD["DT_Out"]).Date;
+
+                    //если дата начала больше 
+                    if (D1 > D_ZP)
+                        ret = false;
+                    else
+                        if (D2 < D_ZP)
+                            ret = false;
+                }
+            }
+
+
             return ret;
         }
         
@@ -587,6 +627,7 @@ namespace Контроль_запросов_ТКП
             ФОтсутствует.Checked = true;
             ФОргВсе.Checked = true;
             ФОтделВсе.Checked = true;
+            ФДатаВыдачиЗаданияВсе.Checked = true;
 
             ФОборудование.Text = "Оборудование - ...";
             ФОборудование.Tag = null;
@@ -599,6 +640,9 @@ namespace Контроль_запросов_ТКП
 
             ФОтдел.Tag = null;
             ФОтдел.Text = "Отдел - ...";
+
+            ФДатаВыдачиЗаданияПериод.Tag = null;
+            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
 
             GetListTKP();
         }
@@ -768,12 +812,10 @@ namespace Контроль_запросов_ТКП
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DGV.SelectedRows.Count > 0)
-            {
-                FTP.DonwloadFile(((Hashtable)DGV.SelectedRows[0].Tag)["FPath"].ToString(),
-                             DGV.SelectedRows[0].Cells[0].Value.ToString());
-            }
+            OpenFileZadTKP();
         }
+
+
 
         #endregion
 
@@ -881,6 +923,12 @@ namespace Контроль_запросов_ТКП
                     LabelFilter += ФОтдел.Text;
                 }
 
+                if (ФДатаВыдачиЗаданияПериод.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += string.Format("По дате выдачи задания: {0}", ФДатаВыдачиЗаданияПериод.Text);
+                }
+
             }
 
            CountRowLabel.Text += LabelFilter; 
@@ -981,6 +1029,96 @@ namespace Контроль_запросов_ТКП
             }
         }
 
+
+        private void поДатеВыдачиЗаданияПериод_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ФДатаВыдачиЗаданияВсе_Click(object sender, EventArgs e)
+        {
+            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
+            ФДатаВыдачиЗаданияПериод.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФДатаВыдачиЗаданияПериод_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectPeriod SP = new SelectForm.SelectPeriod();
+
+            if (ФДатаВыдачиЗаданияПериод.Tag != null)
+            {
+                DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
+                DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
+                SP.D1 = D1;
+                SP.D2 = D2;
+            }
+
+            SP.ShowDialog();
+
+            if (SP.flSel)
+            {
+                List<DateTime> FDateZad = new List<DateTime>();
+                FDateZad.Add(SP.D1);
+                FDateZad.Add(SP.D2);
+                ФДатаВыдачиЗаданияПериод.Tag = FDateZad;
+                ФДатаВыдачиЗаданияПериод.Text = string.Format("c {0} по {1}", UI.GetDate(FDateZad[0].ToString()), UI.GetDate(FDateZad[1].ToString()));
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                GetListTKP();
+            }
+
+            SP.Dispose();
+        }
+
+        private void DGV_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex != -1)
+            {
+                КонтекстноеМенюЗапросТКП.Show(new Point(MousePosition.X, MousePosition.Y));
+                //New System.Drawing.Point(MousePosition.X, MousePosition.Y)
+            }
+        }
+
+        /// <summary>
+        /// Открыть файл задания
+        /// </summary>
+        private void OpenFileZadTKP()
+        {
+            if (DGV.SelectedRows.Count > 0)
+            {
+                FTP.DonwloadFile(((Hashtable)DGV.SelectedRows[0].Tag)["FPath"].ToString(),
+                             DGV.SelectedRows[0].Cells[0].Value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Открыть файл задания
+        /// </summary>
+        private void OpenFilePrilZadTKP()
+        {
+            if (DGV.SelectedRows.Count > 0)
+            {
+                if (((Hashtable)DGV.SelectedRows[0].Tag)["PathFilesPril"].ToString() !="")
+                    FTP.DonwloadFile(((Hashtable)DGV.SelectedRows[0].Tag)["PathFilesPril"].ToString(),
+                                 DGV.SelectedRows[0].Cells[0].Value.ToString());
+            }
+        }
+
+        private void открытьЗаданиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileZadTKP();
+        }
+
+        private void открытьКарточкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCard();
+        }
+
+        private void открытьПриложениеКЗаданиюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFilePrilZadTKP();
+        }
 
 
     }

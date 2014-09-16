@@ -17,9 +17,12 @@ namespace Контроль_запросов_ТКП.SelectForm
         public string IDDoc = "";
         public string IDOrg = "";
 
+        public string SqlFastSearch = "";
+
         private DataRowCollection dra = null;
 
         Timer tm = new Timer();
+        bool flLoadList = false;
         
 
         public ListDocsInp()
@@ -34,13 +37,25 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void ListDocsInp_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void ListDocsInp_Shown(object sender, EventArgs e)
+        {
+            SqlFastSearch = string.Format(" AND DocsInput.Date_DocInp >= '{0}'", DateTime.Now.AddDays(-30).Date);
+            
             Application.DoEvents();
             LoadData();
+
             GetListDoc();
+
+            CountRowLabel.Text += " (За последние 30 дней)";
+
 
             DGV.Columns["Note"].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
             DGV.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         }
+
 
         private void LoadData()
         {
@@ -51,11 +66,10 @@ namespace Контроль_запросов_ТКП.SelectForm
             SqlStr += " DocsInputExec ON DocsInput.ID_DocInp = DocsInputExec.ID_DocInp INNER JOIN";
             SqlStr += " Orgs ON DocsInput.ID_Org = Orgs.ID_Org INNER JOIN";
             SqlStr += " Workers ON Workers.ID_Worker = DocsInputExec.ID_WorkerInput";
-            SqlStr += " WHERE Workers.ID_Otdel = " + TKP_Conf.AdminIDOtdel;
+            SqlStr += " WHERE Workers.ID_Otdel = " + TKP_Conf.AdminIDOtdel + SqlFastSearch;
             SqlStr += " ORDER BY DocsInput.ID_DocInp DESC";
 
             dra = DB.GetFields(SqlStr);
-            
         }
 
         private void GetListDoc()
@@ -67,45 +81,81 @@ namespace Контроль_запросов_ТКП.SelectForm
                 DGV.Rows.Clear();
                 foreach (DataRow dr in dra)
                 {
-                    if (CheckFilter(dr))
-                    {
-                        DGV.Rows.Add();
-                        DataGridViewRow DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
+                    //if (CheckFilter(dr))
+                    //{
+                    DGV.Rows.Add();
+                    DataGridViewRow DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
 
-                        DGVR.Cells["RNDoc"].Value = string.Format("{0:000000}", dr["RN_DocInp"]); 
-                        DGVR.Cells["RNDoc"].Tag = dr["ID_DocInp"].ToString();
+                    DGVR.Cells["RNDoc"].Value = string.Format("{0:000000}", dr["RN_DocInp"]); 
+                    DGVR.Cells["RNDoc"].Tag = dr["ID_DocInp"].ToString();
 
-                        DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocInp"].ToString());
-                        DGVR.Cells["Note"].Value = dr["Note_DocInp"].ToString();
-                        DGVR.Cells["Org"].Value = dr["Name"].ToString();
-                        DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
-                        DGVR.Cells["Adr"].Value = dr["Aut_Org"].ToString();
+                    DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocInp"].ToString());
+                    DGVR.Cells["Note"].Value = dr["Note_DocInp"].ToString();
+                    DGVR.Cells["Org"].Value = dr["Name"].ToString();
+                    DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
+                    DGVR.Cells["Adr"].Value = dr["Aut_Org"].ToString();
 
-                        DGVR.Tag = dr["PathToImage"].ToString();
-                    }
+                    DGVR.Tag = dr["PathToImage"].ToString();
+
+                    //}
                 }
                 UI.SetBgRowInDGV(DGV);
             }
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
+
+            flLoadList = true;
         }
 
-        private bool CheckFilter(DataRow dr)
+
+        private void setFastSearch(string txt)
         {
-            bool ret = true;
+            if (flLoadList == false) return;
 
-            if (ФОтсутствует.Checked == true) return true;
+            string sfs = "";
 
-            if (ФМесяц.Checked)
+            txt = LocalDB.SetQuotes(txt);
+
+            if (txt.Length > 2)
             {
-                if (Convert.ToDateTime(dr["Date_DocInp"]).Date >= DateTime.Now.AddDays(-30).Date)
-                    ret = true;
-                else
-                    ret = false;
+                sfs = string.Format(" AND (CHARINDEX('{0}',DocsInput.RN_DocInp)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DocsInput.Date_DocInp)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DocsInput.Note_DocInp)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',Orgs.Name)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DocsInput.Aut_Org)<>0", txt);
+                sfs += ")";
             }
 
-            return ret;
+
+            if (sfs != SqlFastSearch)
+            {
+                flLoadList = false;
+                SqlFastSearch = sfs;
+                LoadData();
+                GetListDoc();
+            }
+            
         }
+
+
+
+
+        //private bool CheckFilter(DataRow dr)
+        //{
+        //    bool ret = true;
+
+        //    if (ФОтсутствует.Checked == true) return true;
+
+        //    if (ФМесяц.Checked)
+        //    {
+        //        if (Convert.ToDateTime(dr["Date_DocInp"]).Date >= DateTime.Now.AddDays(-30).Date)
+        //            ret = true;
+        //        else
+        //            ret = false;
+        //    }
+
+        //    return ret;
+        //}
 
         private void doSelect()
         {
@@ -178,8 +228,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         {
             tm.Enabled = false;
             Cursor.Current = Cursors.WaitCursor;
-            UI.FilterInDGV(DGV, Filter.Text, true);
-            CountRowLabel.Text = UI.GetCountRow(DGV);
+            //UI.FilterInDGV(DGV, Filter.Text, true);
+            setFastSearch(Filter.Text);
             Cursor.Current = Cursors.Default;
         }
 
@@ -214,6 +264,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         {
             if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
         }
+
+
         
 
     }

@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListTKP));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +80,10 @@
             this.ФОтдел = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОтделВсе = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФДатаВыдачиЗадания = new System.Windows.Forms.ToolStripMenuItem();
+            this.ФДатаВыдачиЗаданияПериод = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.ФДатаВыдачиЗаданияВсе = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ФОтсутствует = new System.Windows.Forms.ToolStripMenuItem();
             this.реестрМТР = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,9 +104,15 @@
             this.DateOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.КонтекстноеМенюЗапросТКП = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.открытьЗаданиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьПриложениеКЗаданиюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
+            this.КонтекстноеМенюЗапросТКП.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -176,14 +187,14 @@
             // МенюДобавитьЗаданиеОтОтдела
             // 
             this.МенюДобавитьЗаданиеОтОтдела.Name = "МенюДобавитьЗаданиеОтОтдела";
-            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтОтдела.Size = new System.Drawing.Size(139, 22);
             this.МенюДобавитьЗаданиеОтОтдела.Text = "От отдела";
             this.МенюДобавитьЗаданиеОтОтдела.Click += new System.EventHandler(this.добавитьЗаданиеОтОтделаToolStripMenuItem_Click);
             // 
             // МенюДобавитьЗаданиеОтБГИП
             // 
             this.МенюДобавитьЗаданиеОтБГИП.Name = "МенюДобавитьЗаданиеОтБГИП";
-            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(152, 22);
+            this.МенюДобавитьЗаданиеОтБГИП.Size = new System.Drawing.Size(139, 22);
             this.МенюДобавитьЗаданиеОтБГИП.Text = "От ГИПа";
             this.МенюДобавитьЗаданиеОтБГИП.Click += new System.EventHandler(this.добавитьЗаданиеОтГИПаToolStripMenuItem_Click);
             // 
@@ -225,6 +236,7 @@
             this.поГИПуToolStripMenuItem,
             this.toolStripMenuItem1,
             this.поОтделуВыдавшегоЗаданиеToolStripMenuItem,
+            this.ФДатаВыдачиЗадания,
             this.toolStripSeparator2,
             this.ФОтсутствует});
             this.Фильтр.Name = "Фильтр";
@@ -422,23 +434,54 @@
             // ФОтдел
             // 
             this.ФОтдел.Name = "ФОтдел";
-            this.ФОтдел.Size = new System.Drawing.Size(152, 22);
+            this.ФОтдел.Size = new System.Drawing.Size(140, 22);
             this.ФОтдел.Text = "Отдел - ...";
             this.ФОтдел.Click += new System.EventHandler(this.ФОтдел_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(137, 6);
             // 
             // ФОтделВсе
             // 
             this.ФОтделВсе.Checked = true;
             this.ФОтделВсе.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ФОтделВсе.Name = "ФОтделВсе";
-            this.ФОтделВсе.Size = new System.Drawing.Size(152, 22);
+            this.ФОтделВсе.Size = new System.Drawing.Size(140, 22);
             this.ФОтделВсе.Text = "Все";
             this.ФОтделВсе.Click += new System.EventHandler(this.ФОтделВсе_Click);
+            // 
+            // ФДатаВыдачиЗадания
+            // 
+            this.ФДатаВыдачиЗадания.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ФДатаВыдачиЗаданияПериод,
+            this.toolStripSeparator10,
+            this.ФДатаВыдачиЗаданияВсе});
+            this.ФДатаВыдачиЗадания.Name = "ФДатаВыдачиЗадания";
+            this.ФДатаВыдачиЗадания.Size = new System.Drawing.Size(245, 22);
+            this.ФДатаВыдачиЗадания.Text = "По дате выдачи задания";
+            // 
+            // ФДатаВыдачиЗаданияПериод
+            // 
+            this.ФДатаВыдачиЗаданияПериод.Name = "ФДатаВыдачиЗаданияПериод";
+            this.ФДатаВыдачиЗаданияПериод.Size = new System.Drawing.Size(145, 22);
+            this.ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
+            this.ФДатаВыдачиЗаданияПериод.Click += new System.EventHandler(this.ФДатаВыдачиЗаданияПериод_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(142, 6);
+            // 
+            // ФДатаВыдачиЗаданияВсе
+            // 
+            this.ФДатаВыдачиЗаданияВсе.Checked = true;
+            this.ФДатаВыдачиЗаданияВсе.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ФДатаВыдачиЗаданияВсе.Name = "ФДатаВыдачиЗаданияВсе";
+            this.ФДатаВыдачиЗаданияВсе.Size = new System.Drawing.Size(145, 22);
+            this.ФДатаВыдачиЗаданияВсе.Text = "Все";
+            this.ФДатаВыдачиЗаданияВсе.Click += new System.EventHandler(this.ФДатаВыдачиЗаданияВсе_Click);
             // 
             // toolStripSeparator2
             // 
@@ -527,14 +570,15 @@
             this.DGV.TabIndex = 6;
             this.DGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellContentClick);
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
+            this.DGV.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGV_CellMouseClick);
             this.DGV.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGV_CellPainting);
             this.DGV.Sorted += new System.EventHandler(this.DGV_Sorted);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
             // 
             // NZ
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NZ.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NZ.DefaultCellStyle = dataGridViewCellStyle25;
             this.NZ.HeaderText = "№/З";
             this.NZ.Name = "NZ";
             this.NZ.ReadOnly = true;
@@ -542,8 +586,8 @@
             // 
             // ShOl
             // 
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShOl.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShOl.DefaultCellStyle = dataGridViewCellStyle26;
             this.ShOl.HeaderText = "Шифр ОЛ / ТЗ";
             this.ShOl.Name = "ShOl";
             this.ShOl.ReadOnly = true;
@@ -565,8 +609,8 @@
             // 
             // DatePrj
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DatePrj.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DatePrj.DefaultCellStyle = dataGridViewCellStyle27;
             this.DatePrj.HeaderText = "Сдача пр.";
             this.DatePrj.Name = "DatePrj";
             this.DatePrj.ReadOnly = true;
@@ -574,8 +618,8 @@
             // 
             // OtdelZad
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.OtdelZad.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.OtdelZad.DefaultCellStyle = dataGridViewCellStyle28;
             this.OtdelZad.HeaderText = "Выдал";
             this.OtdelZad.Name = "OtdelZad";
             this.OtdelZad.ReadOnly = true;
@@ -583,8 +627,8 @@
             // 
             // DateZad
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateZad.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateZad.DefaultCellStyle = dataGridViewCellStyle29;
             this.DateZad.HeaderText = "Дата выдачи";
             this.DateZad.Name = "DateZad";
             this.DateZad.ReadOnly = true;
@@ -597,8 +641,8 @@
             // 
             // DateOut
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateOut.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateOut.DefaultCellStyle = dataGridViewCellStyle30;
             this.DateOut.HeaderText = "Сдача ТКП";
             this.DateOut.Name = "DateOut";
             this.DateOut.ReadOnly = true;
@@ -606,22 +650,58 @@
             // 
             // Status
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.DefaultCellStyle = dataGridViewCellStyle31;
             this.Status.HeaderText = "Статус";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
             // DateFinish
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle32;
             this.DateFinish.HeaderText = "Выполнено";
             this.DateFinish.Name = "DateFinish";
             this.DateFinish.ReadOnly = true;
             this.DateFinish.Width = 85;
+            // 
+            // КонтекстноеМенюЗапросТКП
+            // 
+            this.КонтекстноеМенюЗапросТКП.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьЗаданиеToolStripMenuItem,
+            this.открытьПриложениеКЗаданиюToolStripMenuItem,
+            this.toolStripSeparator11,
+            this.открытьКарточкуToolStripMenuItem});
+            this.КонтекстноеМенюЗапросТКП.Name = "КонтекстноеМенюЗапросТКП";
+            this.КонтекстноеМенюЗапросТКП.Size = new System.Drawing.Size(254, 98);
+            // 
+            // открытьКарточкуToolStripMenuItem
+            // 
+            this.открытьКарточкуToolStripMenuItem.Name = "открытьКарточкуToolStripMenuItem";
+            this.открытьКарточкуToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.открытьКарточкуToolStripMenuItem.Text = "Открыть карточку";
+            this.открытьКарточкуToolStripMenuItem.Click += new System.EventHandler(this.открытьКарточкуToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(250, 6);
+            // 
+            // открытьЗаданиеToolStripMenuItem
+            // 
+            this.открытьЗаданиеToolStripMenuItem.Name = "открытьЗаданиеToolStripMenuItem";
+            this.открытьЗаданиеToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.открытьЗаданиеToolStripMenuItem.Text = "Открыть задание";
+            this.открытьЗаданиеToolStripMenuItem.Click += new System.EventHandler(this.открытьЗаданиеToolStripMenuItem_Click);
+            // 
+            // открытьПриложениеКЗаданиюToolStripMenuItem
+            // 
+            this.открытьПриложениеКЗаданиюToolStripMenuItem.Name = "открытьПриложениеКЗаданиюToolStripMenuItem";
+            this.открытьПриложениеКЗаданиюToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.открытьПриложениеКЗаданиюToolStripMenuItem.Text = "Открыть приложение к заданию";
+            this.открытьПриложениеКЗаданиюToolStripMenuItem.Click += new System.EventHandler(this.открытьПриложениеКЗаданиюToolStripMenuItem_Click);
             // 
             // ListTKP
             // 
@@ -644,6 +724,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
+            this.КонтекстноеМенюЗапросТКП.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -713,6 +794,15 @@
         private System.Windows.Forms.ToolStripMenuItem ФОтдел;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem ФОтделВсе;
+        private System.Windows.Forms.ToolStripMenuItem ФДатаВыдачиЗадания;
+        private System.Windows.Forms.ToolStripMenuItem ФДатаВыдачиЗаданияПериод;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem ФДатаВыдачиЗаданияВсе;
+        private System.Windows.Forms.ContextMenuStrip КонтекстноеМенюЗапросТКП;
+        private System.Windows.Forms.ToolStripMenuItem открытьЗаданиеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьПриложениеКЗаданиюToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem открытьКарточкуToolStripMenuItem;
     }
 }
 
