@@ -184,6 +184,7 @@
             this.Фильтр.Name = "Фильтр";
             this.Фильтр.Size = new System.Drawing.Size(57, 20);
             this.Фильтр.Text = "Фильтр";
+            this.Фильтр.Visible = false;
             // 
             // ФМесяц
             // 
@@ -244,6 +245,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Список входящих документов";
             this.Load += new System.EventHandler(this.ListDocsInp_Load);
+            this.Shown += new System.EventHandler(this.ListDocsInp_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListDocsInp_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.menuStrip1.ResumeLayout(false);

@@ -35,11 +35,14 @@
             this.Label6 = new System.Windows.Forms.Label();
             this.Label5 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Button1
             // 
-            this.Button1.Location = new System.Drawing.Point(280, 127);
+            this.Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button1.Location = new System.Drawing.Point(280, 156);
             this.Button1.Name = "Button1";
             this.Button1.Size = new System.Drawing.Size(75, 23);
             this.Button1.TabIndex = 9;
@@ -98,12 +101,31 @@
             this.Label1.TabIndex = 5;
             this.Label1.Text = "- осталось меньше 1 дня до сдачи ТКП";
             // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.DimGray;
+            this.label7.Location = new System.Drawing.Point(12, 121);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 20);
+            this.label7.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(88, 125);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(257, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "- выполненные/отмененные объекты плана ПИР";
+            // 
             // Help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 160);
+            this.ClientSize = new System.Drawing.Size(359, 181);
             this.ControlBox = false;
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.Button1);
             this.Controls.Add(this.Label4);
             this.Controls.Add(this.Label3);
@@ -134,5 +156,7 @@
         internal System.Windows.Forms.Label Label6;
         internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.Label Label1;
+        internal System.Windows.Forms.Label label7;
+        internal System.Windows.Forms.Label label8;
     }
 }

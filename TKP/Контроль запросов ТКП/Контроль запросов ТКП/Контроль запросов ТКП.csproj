@@ -175,6 +175,12 @@
     <Compile Include="SelectForm\SelectOtdel.Designer.cs">
       <DependentUpon>SelectOtdel.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectForm\SelectPeriod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\SelectPeriod.Designer.cs">
+      <DependentUpon>SelectPeriod.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm\SelectOtdel.resx">
       <DependentUpon>SelectOtdel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\SelectPeriod.resx">
+      <DependentUpon>SelectPeriod.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

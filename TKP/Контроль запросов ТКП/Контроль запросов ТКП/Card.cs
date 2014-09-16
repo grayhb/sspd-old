@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SSPD;
 using System.Collections;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace Контроль_запросов_ТКП
 {
@@ -282,7 +283,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="IDDoc">ID исходящего документа</param>
         private void LoaDataOutDoc(DataGridViewRow DGVR, string IDDoc)
         {
-            string SqlStr = "SELECT DocsOutput.Date_DocOut,  Orgs.Name AS Org,  DocsOutput.RN_DocOut, Orgs.Name_Br AS NB_Org, DocsOutput.PathToImage, DocsOutputRec.ID_Org";
+            string SqlStr = "SELECT DocsOutput.Date_DocOut,  Orgs.Name AS Org, DocsOutput.RN_DocOut, DocsOutput.Note_DocOut, Orgs.Name_Br AS NB_Org, DocsOutput.PathToImage, DocsOutputRec.ID_Org";
             SqlStr += " FROM DocsOutput INNER JOIN DocsOutputRec ON  DocsOutput.ID_DocOut =  DocsOutputRec.ID_DocOut INNER JOIN";
             SqlStr += " Orgs ON  DocsOutputRec.ID_Org =  Orgs.ID_Org WHERE DocsOutput.ID_DocOut = " + IDDoc;
 
@@ -299,6 +300,7 @@ namespace Контроль_запросов_ТКП
                     Hashtable Detail = new Hashtable();
                     Detail.Add("IDDoc", IDDoc);
                     Detail.Add("PathToImage", dr["PathToImage"].ToString());
+                    Detail.Add("Note_DocOut", dr["Note_DocOut"].ToString());
                     DGVR.Cells["RNDocOut"].Tag = Detail;
 
                     DGVR.Cells["Contacts"].Value = LoadDataOrg(dr["ID_Org"].ToString());
@@ -423,9 +425,16 @@ namespace Контроль_запросов_ТКП
         {
             if (DGV.SelectedRows.Count == 0) return;
 
-            if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag != null)
+
+
+            if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag != null) {
+                string FNameOut = Path.GetTempPath();
+                FNameOut += ConvertFileName(string.Format("{1}_{0}.pdf", DGV.SelectedRows[0].Cells["RNDocOut"].Value.ToString(),
+                    ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["Note_DocOut"].ToString()));
+
                 FTP.DonwloadFile(
-                    ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["PathToImage"].ToString());
+                    ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["PathToImage"].ToString(), "", FNameOut);
+            }
         }
 
         /// <summary>
@@ -435,9 +444,23 @@ namespace Контроль_запросов_ТКП
         {
             if (DGV.SelectedRows.Count == 0) return;
 
-            if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag != null)
-                FTP.DonwloadFile(
-                    ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString());
+            if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null) return;
+
+            //наименование файла:
+            string FNameInp = Path.GetTempPath();
+            FNameInp += string.Format("{0}_", MTRCode.Text);
+
+            Dictionary<string, string> DictUserInfo = getInfoAuthorZad(FIOZad.Tag.ToString());
+            
+            if (DictUserInfo.Count > 0)
+                FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
+
+
+            FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(DGV.SelectedRows[0].Cells["DateDocInp"].Value.ToString())) 
+                + " №" + ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
+
+            FTP.DonwloadFile(
+                    ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString(),"",FNameInp);
         }
 
         /// <summary>
@@ -1396,6 +1419,44 @@ namespace Контроль_запросов_ТКП
             UpdateStatusDocMenu(DGV.Rows[e.RowIndex]);
         }
 
+
+        /// <summary>
+        /// Возвращает данные пользователя выдавшего задания
+        /// </summary>
+        /// <param name="IDW">ID сотрудника</param>
+        /// <returns>Фамилия_Отдел</returns>
+        private Dictionary<string, string> getInfoAuthorZad(string IDW)
+        {
+            //string InfoAuthor = "";
+            Dictionary<string, string> DictInfo = new Dictionary<string, string>();
+
+
+            string sql = "SELECT Workers.F_Worker, Otdels.NB_Otdel";
+            sql += " FROM Otdels INNER JOIN";
+            sql += " Workers ON Otdels.ID_Otdel = dbo.MainOtdel(Workers.ID_Otdel) ";
+            sql += " WHERE Workers.ID_Worker = " + Convert.ToInt32(IDW).ToString();
+
+            var rs = SSPD.DB.GetFields(sql);
+            if (rs != null && rs.Count > 0)
+            {
+                DictInfo.Add("NB_Otdel", rs[0]["NB_Otdel"].ToString());
+                DictInfo.Add("F_Worker", rs[0]["F_Worker"].ToString());
+            }
+
+            return DictInfo;
+        }
+
+        /// <summary>
+        /// Конвертация символов
+        /// </summary>
+        /// <param name="FName">Наименование папки</param>
+        private string ConvertFileName(string FName)
+        {
+            FName = FName.Replace("/", "_");
+            FName = FName.Replace(@"\", "_");
+
+            return FName;
+        }
 
     }
 }
