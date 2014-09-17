@@ -1446,6 +1446,7 @@ namespace Контроль_запросов_ТКП
             return DictInfo;
         }
 
+
         /// <summary>
         /// Конвертация символов
         /// </summary>
@@ -1456,6 +1457,28 @@ namespace Контроль_запросов_ТКП
             FName = FName.Replace(@"\", "_");
 
             return FName;
+        }
+
+
+        private void DGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                if (e.ColumnIndex == 6)
+                {
+                    ToolTip tt = new ToolTip();
+                    var cell = DGV.CurrentCell;
+                    if (cell.Value != null)
+                    {
+                        var cellDisplayRect = DGV.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                        tt.Show(cell.Value.ToString(),
+                                      DGV,
+                                      cellDisplayRect.X + cell.Size.Width / 2,
+                                      cellDisplayRect.Y + cell.Size.Height / 2,
+                                      2500);
+                    }
+                }
+            }
         }
 
     }
