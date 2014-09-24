@@ -42,6 +42,7 @@
             this.Contact.Location = new System.Drawing.Point(12, 12);
             this.Contact.Multiline = true;
             this.Contact.Name = "Contact";
+            this.Contact.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.Contact.Size = new System.Drawing.Size(418, 195);
             this.Contact.TabIndex = 0;
             // 
