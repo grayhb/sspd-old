@@ -66,6 +66,7 @@
             this.NoteTxt.Location = new System.Drawing.Point(12, 12);
             this.NoteTxt.Multiline = true;
             this.NoteTxt.Name = "NoteTxt";
+            this.NoteTxt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.NoteTxt.Size = new System.Drawing.Size(418, 195);
             this.NoteTxt.TabIndex = 33;
             // 
