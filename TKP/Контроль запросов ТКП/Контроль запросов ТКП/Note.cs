@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SSPD;
 
 namespace Контроль_запросов_ТКП
 {
@@ -24,6 +25,13 @@ namespace Контроль_запросов_ТКП
             LoadData();
             NoteTxt.SelectionStart = 0;
             NoteTxt.SelectionLength = 0;
+
+            //проверка привелегий
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
+            {
+                btnSave.Enabled = false;
+                NoteTxt.ReadOnly = true;    
+            }
         }
 
         private void LoadData()
