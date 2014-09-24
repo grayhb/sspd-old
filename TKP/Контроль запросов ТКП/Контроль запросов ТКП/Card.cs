@@ -51,13 +51,13 @@ namespace Контроль_запросов_ТКП
                 Equipment.ReadOnly = true;
                 SelMTR.Visible = false;
                 ReadOnly = true;
-                pПримечание.Visible = false;
-                pКонтакты.Visible = false;
+                //pПримечание.Visible = false;
+                //pКонтакты.Visible = false;
+                toolStripSeparator10.Visible = true;
                 btnSelEq.Visible = false;
                 toolStripSeparator9.Visible = false;
                 статусВходящего.Visible = false;
             }
-
         }
 
         private void Card_Load(object sender, EventArgs e)
@@ -1464,7 +1464,7 @@ namespace Контроль_запросов_ТКП
         {
             if (e.RowIndex != -1)
             {
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 6 || e.ColumnIndex == 5)
                 {
                     ToolTip tt = new ToolTip();
                     var cell = DGV.CurrentCell;
