@@ -163,7 +163,7 @@ namespace Контроль_запросов_ТКП
 
         private void WriteInExcelSetBodyFormat(Excel.Worksheet wbs, int rowout)
         {
-            int CountCol = 18;
+            int CountCol = 19;
             wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].Font.Name = "Franklin Gothic Book";
             wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].Font.Size = 8;
             wbs.Range[wbs.Cells[1, 1], wbs.Cells[rowout, CountCol]].WrapText = true;
@@ -230,7 +230,7 @@ namespace Контроль_запросов_ТКП
                     (range.Cells[rowout, 14] as Excel.Range).Value = mail["org_DocOut"].ToString();
 
                 if (mail["contacts_DocOut"] != null)
-                    (range.Cells[rowout, 19] as Excel.Range).Value = mail["contacts_DocOut"].ToString();
+                    (range.Cells[rowout, 19] as Excel.Range).Value = convertReturnStr(mail["contacts_DocOut"].ToString());
                 
             }
 
@@ -261,7 +261,7 @@ namespace Контроль_запросов_ТКП
 
 
             if (mail["Mail_Note"] != null)
-                (range.Cells[rowout, 18] as Excel.Range).Value = mail["Mail_Note"].ToString();
+                (range.Cells[rowout, 18] as Excel.Range).Value = convertReturnStr(mail["Mail_Note"].ToString());
 
         }
 
@@ -274,6 +274,9 @@ namespace Контроль_запросов_ТКП
             
             if (zadTKP["ShOl"] != null) 
                 (range.Cells[rowout, 3] as Excel.Range).Value = zadTKP["ShOl"].ToString();
+
+            //шифр проекта - для макаровой
+            //(range.Cells[rowout, 3] as Excel.Range).Value = zadTKP["Sh_project"].ToString();
 
             if (zadTKP["NamePrj"] != null) 
                 (range.Cells[rowout, 4] as Excel.Range).Value = zadTKP["NamePrj"].ToString();
@@ -340,6 +343,7 @@ namespace Контроль_запросов_ТКП
                 zadTKP.Add("GIP", DGVR.Cells["GIP"].Value);
                 zadTKP.Add("Status", DGVR.Cells["Status"].Value);
                 zadTKP.Add("DateFinish", DGVR.Cells["DateFinish"].Value);
+                zadTKP.Add("Sh_project", ((Hashtable)DGVR.Tag)["Sh_project"].ToString());
 
                 var rs = LocalDB.LoadData("SELECT ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, StatusDoc FROM КонтрольТКП_Письма WHERE ID_TKP = " + ((Hashtable)DGVR.Tag)["ID_TKP"].ToString() + " ORDER BY ID_OutDoc ASC");
                 if (rs != null && rs.Count > 0)
@@ -466,6 +470,16 @@ namespace Контроль_запросов_ТКП
             if (rs != null)
                 if (rs.Count > 0) return rs[0]["Contacts"].ToString();
             return "";
+        }
+
+        /// <summary>
+        /// Конвертация символа переноса строки для Excel
+        /// </summary>
+        /// <param name="s">Строка</param>
+        /// <returns></returns>
+        private string convertReturnStr(string s)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(s, "[" + ((char)13).ToString()  + "]", ((char)10).ToString());
         }
     }
 }

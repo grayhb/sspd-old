@@ -1,6 +1,6 @@
 ﻿namespace Контроль_запросов_ТКП.SelectForm
 {
-    partial class ListOrg
+    partial class SelectWorker
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,13 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV = new System.Windows.Forms.DataGridView();
-            this.NameBr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFull = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Filter = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выбратьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Filter = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,8 +60,7 @@
             this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NameBr,
-            this.NameFull});
+            this.FIO});
             this.DGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGV.Location = new System.Drawing.Point(0, 44);
             this.DGV.MultiSelect = false;
@@ -70,26 +68,28 @@
             this.DGV.ReadOnly = true;
             this.DGV.RowHeadersVisible = false;
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGV.Size = new System.Drawing.Size(672, 437);
+            this.DGV.Size = new System.Drawing.Size(452, 437);
             this.DGV.TabIndex = 10;
-            this.DGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellContentClick);
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGV_CellPainting);
             this.DGV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGV_KeyDown);
             // 
-            // NameBr
+            // FIO
             // 
-            this.NameBr.HeaderText = "Сокращенное наименование";
-            this.NameBr.Name = "NameBr";
-            this.NameBr.ReadOnly = true;
-            this.NameBr.Width = 200;
+            this.FIO.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FIO.HeaderText = "ФИО";
+            this.FIO.Name = "FIO";
+            this.FIO.ReadOnly = true;
             // 
-            // NameFull
+            // Filter
             // 
-            this.NameFull.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NameFull.HeaderText = "Наименование организации";
-            this.NameFull.Name = "NameFull";
-            this.NameFull.ReadOnly = true;
+            this.Filter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Filter.Location = new System.Drawing.Point(0, 24);
+            this.Filter.Name = "Filter";
+            this.Filter.Size = new System.Drawing.Size(452, 20);
+            this.Filter.TabIndex = 11;
+            this.Filter.TextChanged += new System.EventHandler(this.Filter_TextChanged);
+            this.Filter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Filter_KeyDown);
             // 
             // menuStrip1
             // 
@@ -97,7 +97,7 @@
             this.операцииToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(672, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(452, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -130,32 +130,21 @@
             this.закрытьToolStripMenuItem.Text = "Закрыть";
             this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.закрытьToolStripMenuItem_Click);
             // 
-            // Filter
-            // 
-            this.Filter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Filter.Location = new System.Drawing.Point(0, 24);
-            this.Filter.Name = "Filter";
-            this.Filter.Size = new System.Drawing.Size(672, 20);
-            this.Filter.TabIndex = 11;
-            this.Filter.TextChanged += new System.EventHandler(this.Filter_TextChanged);
-            this.Filter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Filter_KeyDown);
-            // 
-            // ListOrg
+            // SelectWorker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(672, 481);
+            this.ClientSize = new System.Drawing.Size(452, 481);
             this.Controls.Add(this.DGV);
             this.Controls.Add(this.Filter);
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
-            this.Name = "ListOrg";
+            this.Name = "SelectWorker";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Список организаций";
-            this.Load += new System.EventHandler(this.ListOrg_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListOrg_KeyDown);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Выбор ГИПа";
+            this.Load += new System.EventHandler(this.SelectOtdel_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectOtdel_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -167,13 +156,12 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGV;
+        private System.Windows.Forms.TextBox Filter;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem операцииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выбратьToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
-        private System.Windows.Forms.TextBox Filter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameBr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameFull;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FIO;
     }
 }

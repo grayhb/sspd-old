@@ -23,6 +23,11 @@ namespace Контроль_запросов_ТКП.SelectForm
             InitializeComponent();
             
         }
+
+        private void SelectDate_Load(object sender, EventArgs e)
+        {
+            
+        }
        
 
         private void SelectDate_KeyDown(object sender, KeyEventArgs e)
@@ -71,5 +76,17 @@ namespace Контроль_запросов_ТКП.SelectForm
                     numClick++;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            doSelectDate();
+        }
+
+
     }
 }

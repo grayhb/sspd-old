@@ -93,6 +93,12 @@
       <DependentUpon>CardWorker.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Orgs.cs" />
+    <Compile Include="ReportForOST.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportForOST.Designer.cs">
+      <DependentUpon>ReportForOST.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectForm\ListOrg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,12 @@
     <Compile Include="SelectForm\SelectPeriod.Designer.cs">
       <DependentUpon>SelectPeriod.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectForm\SelectWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectForm\SelectWorker.Designer.cs">
+      <DependentUpon>SelectWorker.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
     </EmbeddedResource>
@@ -219,6 +231,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReportForOST.resx">
+      <DependentUpon>ReportForOST.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectForm\ListDocsInp.resx">
       <DependentUpon>ListDocsInp.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm\SelectPeriod.resx">
       <DependentUpon>SelectPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectForm\SelectWorker.resx">
+      <DependentUpon>SelectWorker.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

@@ -34,5 +34,77 @@ namespace Контроль_запросов_ТКП.Properties {
                 this["PathExportTKP"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportSaveDoc {
+            get {
+                return ((string)(this["ReportSaveDoc"]));
+            }
+            set {
+                this["ReportSaveDoc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportDateFrom {
+            get {
+                return ((string)(this["ReportDateFrom"]));
+            }
+            set {
+                this["ReportDateFrom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportDateTo {
+            get {
+                return ((string)(this["ReportDateTo"]));
+            }
+            set {
+                this["ReportDateTo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportIDOrg {
+            get {
+                return ((string)(this["ReportIDOrg"]));
+            }
+            set {
+                this["ReportIDOrg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportNameOrg {
+            get {
+                return ((string)(this["ReportNameOrg"]));
+            }
+            set {
+                this["ReportNameOrg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportFullNameOrg {
+            get {
+                return ((string)(this["ReportFullNameOrg"]));
+            }
+            set {
+                this["ReportFullNameOrg"] = value;
+            }
+        }
     }
 }

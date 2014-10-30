@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV = new System.Windows.Forms.DataGridView();
             this.NumZad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShPrj = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,8 +66,16 @@
             this.DGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGV.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.DGV.ColumnHeadersHeight = 20;
-            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NumZad,
             this.ShPrj,
@@ -89,8 +98,8 @@
             // 
             // NumZad
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NumZad.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NumZad.DefaultCellStyle = dataGridViewCellStyle2;
             this.NumZad.HeaderText = "№ Зад.";
             this.NumZad.Name = "NumZad";
             this.NumZad.ReadOnly = true;
@@ -98,8 +107,8 @@
             // 
             // ShPrj
             // 
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShPrj.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShPrj.DefaultCellStyle = dataGridViewCellStyle3;
             this.ShPrj.HeaderText = "Шифр проекта";
             this.ShPrj.Name = "ShPrj";
             this.ShPrj.ReadOnly = true;
@@ -107,8 +116,8 @@
             // 
             // NamePrj
             // 
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.NamePrj.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.NamePrj.DefaultCellStyle = dataGridViewCellStyle4;
             this.NamePrj.HeaderText = "Наименование проекта";
             this.NamePrj.Name = "NamePrj";
             this.NamePrj.ReadOnly = true;
@@ -116,16 +125,16 @@
             // 
             // OtdelOut
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.OtdelOut.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.OtdelOut.DefaultCellStyle = dataGridViewCellStyle5;
             this.OtdelOut.HeaderText = "Отдел выдал";
             this.OtdelOut.Name = "OtdelOut";
             this.OtdelOut.ReadOnly = true;
             // 
             // DateOut
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateOut.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateOut.DefaultCellStyle = dataGridViewCellStyle6;
             this.DateOut.HeaderText = "Дата выдачи";
             this.DateOut.Name = "DateOut";
             this.DateOut.ReadOnly = true;
@@ -133,8 +142,8 @@
             // Note
             // 
             this.Note.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Note.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Note.DefaultCellStyle = dataGridViewCellStyle7;
             this.Note.HeaderText = "Краткое содержание";
             this.Note.Name = "Note";
             this.Note.ReadOnly = true;
