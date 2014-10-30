@@ -14,6 +14,14 @@ namespace Контроль_запросов_ТКП
         //Сметный отдел
         public static string SMIDOtdel = "7"; 
 
+        //Бюро ГИП
+        public static string BGIPIDOtdel = "9";
+
+        //ID_Post Главного инженера проекта
+        public static string GIPIDPost = "3"; 
+
+
+
         //Группа аналитического учета для связки документов
         public static string ID_GAU = "900";
     }

@@ -47,8 +47,12 @@ namespace Контроль_запросов_ТКП
                 //МенюЭкспортТКП
             }
 
+
+
             //если обычный отдел
-            if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel && Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel && 
+                Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel &&
+                Params.UserInfo.ID_Otdel != TKP_Conf.BGIPIDOtdel)
             {
                 МенюЭкспортДокументов.Visible = false;
 
@@ -59,6 +63,40 @@ namespace Контроль_запросов_ТКП
                 ФОтделВсе.Checked = false;
             }
 
+            //Если ГИП
+            if (Params.UserInfo.ID_Post == TKP_Conf.GIPIDPost)
+            {
+                ФГИП.Tag = Params.UserInfo.FIO;
+                ФГИП.Text = "ГИП - " + Params.UserInfo.FIO;
+                ФГИП.Checked = true;
+                ФГИПВсе.Checked = false;
+            }
+
+
+            //test
+            //Params.UserInfo.ID_Worker = "5196";
+
+            //индивидуальная настройка фильтра для сотрудников
+            if (Params.UserInfo.ID_Worker == "5196")  //Постников - задания за последние два месяца
+            {
+                List<DateTime> FDateZad = new List<DateTime>();
+                FDateZad.Add(DateTime.Now.AddMonths(-2));
+                FDateZad.Add(DateTime.Now);
+                ФДатаВыдачиЗаданияПериод.Tag = FDateZad;
+                ФДатаВыдачиЗаданияПериод.Text = string.Format("c {0} по {1}", UI.GetDate(FDateZad[0].ToString()), UI.GetDate(FDateZad[1].ToString()));
+                ФДатаВыдачиЗаданияПериод.Checked = true;
+                ФДатаВыдачиЗаданияВсе.Checked = false;
+            }
+            else if (Params.UserInfo.ID_Worker == "6774")  //Шадров - задания за последний месяц
+            {
+                List<DateTime> FDateZad = new List<DateTime>();
+                FDateZad.Add(DateTime.Now.AddMonths(-1));
+                FDateZad.Add(DateTime.Now);
+                ФДатаВыдачиЗаданияПериод.Tag = FDateZad;
+                ФДатаВыдачиЗаданияПериод.Text = string.Format("c {0} по {1}", UI.GetDate(FDateZad[0].ToString()), UI.GetDate(FDateZad[1].ToString()));
+                ФДатаВыдачиЗаданияПериод.Checked = true;
+                ФДатаВыдачиЗаданияВсе.Checked = false;
+            }
             
         }
 
@@ -182,14 +220,14 @@ namespace Контроль_запросов_ТКП
             DGVR.Tag = Detail;
 
             //выставляем цветовой статус
-            if (drZad["Status"].ToString() == "0")
-                GetColorStatusDate(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
+            //if (drZad["Status"].ToString() == "0")
+            //    GetColorStatusDate(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
 
-            //красим статус если ткп используется в сметах
-            if (drZad["CntUseTKP"].ToString() != "0")
-                SetStatusUseTKP(DGVR);
+            ////красим статус если ткп используется в сметах
+            //if (drZad["CntUseTKP"].ToString() != "0")
+            //    SetStatusUseTKP(DGVR);
 
-            if (drSSPD["DatePZakPlan"].ToString() !="")
+            if (drSSPD["Status"].ToString() != "")
                 GetColorPIRStatus(DGVR.Cells[0], Convert.ToInt32(drSSPD["Status"]));
 
         }
@@ -560,9 +598,6 @@ namespace Контроль_запросов_ТКП
             //по организации
             if (ФОргВсе.Checked == false && ret == true)
             {
-                //Console.WriteLine(drTKP["ID_TKP"].ToString());
-                //Console.WriteLine(((List<string>)ФОрг.Tag).Count);
-
                 if (ФОрг.Tag != null && ((List<string>)ФОрг.Tag).IndexOf(drTKP["ID_TKP"].ToString()) == -1)
                     ret = false;
             }
@@ -598,9 +633,49 @@ namespace Контроль_запросов_ТКП
             }
 
 
+            //по гипу
+            if (ФГИПВсе.Checked == false && ret == true)
+            {
+                if (ФГИП.Tag != null && drSSPD["GIP"].ToString().ToLower().IndexOf(ФГИП.Tag.ToString().ToLower()) == -1)
+                    ret = false;
+            }
+
+
+            //быстрый поиск
+            if (FastSearch.Text.Trim() != "" && ret)
+            {
+                string fs = FastSearch.Text.Trim().ToLower();
+
+                ret = false;
+
+                if (drTKP["ID_Zad"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+                if (drTKP["Equipment"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+                if (drTKP["OlSh"].ToString() == "")
+                    if (drTKP["OlSh"].ToString().ToLower().IndexOf(fs) != -1)
+                        ret = true;
+
+                if (drSSPD["Sh_project"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+                if (drSSPD["Name_Project"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+                if (drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+                if (drSSPD["GIP"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+            }
+
             return ret;
         }
         
+
         private void ФОтсутствует_Click(object sender, EventArgs e)
         {
             foreach (object obj in Фильтр.DropDownItems)
@@ -1118,6 +1193,51 @@ namespace Контроль_запросов_ТКП
         private void открытьПриложениеКЗаданиюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFilePrilZadTKP();
+        }
+
+        private void FastSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetListTKP();
+            }
+        }
+
+        private void FastSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ФГИП_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
+            SW.ShowDialog();
+            if (SW.SelIDWorker != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФГИП.Text = "ГИП - " + SW.SelNBFIO;
+                ФГИП.Tag = SW.SelNBFIO;
+                GetListTKP();
+            }
+        }
+
+        private void ФГИПВсе_Click(object sender, EventArgs e)
+        {
+            ФГИП.Text = "ГИП - ...";
+            ФГИП.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void приложениеКПисьмуВОСТToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportForOST RFO = new ReportForOST();
+
+            //RFO.dra = this.dra;
+            //RFO.draZP = this.draZP;
+            //RFO.draZPGIP = this.draZPGIP;
+            
+            RFO.ShowDialog();
         }
 
 

@@ -28,6 +28,7 @@ namespace Контроль_запросов_ТКП
 
             //UName = "AbrashkinaKP";
             //UName = "TafincevDA";
+            //UName = "SerovAV";
 
             //загружаем данные пользователя
             //Config.LoadDataUser(Application.ProductName, UName);

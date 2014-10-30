@@ -58,21 +58,21 @@
             // 
             // DFrom
             // 
-            this.DFrom.Location = new System.Drawing.Point(54, 15);
+            this.DFrom.Location = new System.Drawing.Point(62, 15);
             this.DFrom.Name = "DFrom";
             this.DFrom.Size = new System.Drawing.Size(109, 20);
             this.DFrom.TabIndex = 2;
             // 
             // DTo
             // 
-            this.DTo.Location = new System.Drawing.Point(54, 44);
+            this.DTo.Location = new System.Drawing.Point(62, 44);
             this.DTo.Name = "DTo";
             this.DTo.Size = new System.Drawing.Size(109, 20);
             this.DTo.TabIndex = 3;
             // 
             // btnSelDate1
             // 
-            this.btnSelDate1.Location = new System.Drawing.Point(169, 13);
+            this.btnSelDate1.Location = new System.Drawing.Point(177, 13);
             this.btnSelDate1.Name = "btnSelDate1";
             this.btnSelDate1.Size = new System.Drawing.Size(25, 23);
             this.btnSelDate1.TabIndex = 4;
@@ -82,7 +82,7 @@
             // 
             // btnSelDate2
             // 
-            this.btnSelDate2.Location = new System.Drawing.Point(169, 42);
+            this.btnSelDate2.Location = new System.Drawing.Point(177, 42);
             this.btnSelDate2.Name = "btnSelDate2";
             this.btnSelDate2.Size = new System.Drawing.Size(25, 23);
             this.btnSelDate2.TabIndex = 5;
@@ -92,7 +92,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(12, 88);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.Location = new System.Drawing.Point(12, 77);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
             this.btnCancel.TabIndex = 6;
@@ -102,7 +103,8 @@
             // 
             // butOK
             // 
-            this.butOK.Location = new System.Drawing.Point(108, 88);
+            this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butOK.Location = new System.Drawing.Point(116, 77);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(88, 23);
             this.butOK.TabIndex = 7;
@@ -114,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 123);
+            this.ClientSize = new System.Drawing.Size(214, 112);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSelDate2);

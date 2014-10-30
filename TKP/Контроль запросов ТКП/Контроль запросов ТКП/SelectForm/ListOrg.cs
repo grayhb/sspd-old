@@ -14,6 +14,7 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         public string SelIDOrg = "";
         public string SelNameOrg = "";
+        public string SelFullNameOrg = "";
 
         public ListOrg()
         {
@@ -34,6 +35,7 @@ namespace Контроль_запросов_ТКП.SelectForm
                 //SelEq = DGV.SelectedRows[0].Cells[0].Value.ToString();
                 SelIDOrg = DGV.SelectedRows[0].Tag.ToString();
                 SelNameOrg = DGV.SelectedRows[0].Cells[0].Value.ToString();
+                SelFullNameOrg = DGV.SelectedRows[0].Cells[1].Value.ToString();
             }
 
             this.Close();

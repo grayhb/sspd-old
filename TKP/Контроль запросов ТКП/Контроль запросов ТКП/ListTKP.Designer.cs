@@ -29,19 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListTKP));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюЭкспортТКП = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюЭкспортДокументов = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.МенюЭкспортВExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.МенюВыход = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,6 +90,8 @@
             this.ФОтсутствует = new System.Windows.Forms.ToolStripMenuItem();
             this.реестрМТР = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.приложениеКПисьмуВОСТToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.CountRowLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.PlaceHolder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -105,14 +109,17 @@
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinish = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.КонтекстноеМенюЗапросТКП = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.открытьЗаданиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьПриложениеКЗаданиюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.открытьКарточкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelFastSearch = new System.Windows.Forms.Panel();
+            this.FastSearch = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
             this.КонтекстноеМенюЗапросТКП.SuspendLayout();
+            this.panelFastSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -123,7 +130,8 @@
             this.МенюЗапросТКП,
             this.Фильтр,
             this.реестрМТР,
-            this.справкаToolStripMenuItem});
+            this.справкаToolStripMenuItem,
+            this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1165, 24);
@@ -135,6 +143,7 @@
             this.операцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.МенюЭкспортТКП,
             this.МенюЭкспортДокументов,
+            this.toolStripSeparator12,
             this.МенюЭкспортВExcel,
             this.toolStripSeparator7,
             this.МенюВыход});
@@ -155,6 +164,11 @@
             this.МенюЭкспортДокументов.Size = new System.Drawing.Size(191, 22);
             this.МенюЭкспортДокументов.Text = "Экспорт документов";
             this.МенюЭкспортДокументов.Click += new System.EventHandler(this.экспортДокументовToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(188, 6);
             // 
             // МенюЭкспортВExcel
             // 
@@ -369,13 +383,13 @@
             this.поГИПуToolStripMenuItem.Name = "поГИПуToolStripMenuItem";
             this.поГИПуToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.поГИПуToolStripMenuItem.Text = "По ГИПу";
-            this.поГИПуToolStripMenuItem.Visible = false;
             // 
             // ФГИП
             // 
             this.ФГИП.Name = "ФГИП";
             this.ФГИП.Size = new System.Drawing.Size(127, 22);
             this.ФГИП.Text = "ГИП - ...";
+            this.ФГИП.Click += new System.EventHandler(this.ФГИП_Click);
             // 
             // toolStripSeparator5
             // 
@@ -389,6 +403,7 @@
             this.ФГИПВсе.Name = "ФГИПВсе";
             this.ФГИПВсе.Size = new System.Drawing.Size(127, 22);
             this.ФГИПВсе.Text = "Все";
+            this.ФГИПВсе.Click += new System.EventHandler(this.ФГИПВсе_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -509,6 +524,21 @@
             this.справкаToolStripMenuItem.Text = "Справка";
             this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
+            // отчетыToolStripMenuItem
+            // 
+            this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.приложениеКПисьмуВОСТToolStripMenuItem});
+            this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.отчетыToolStripMenuItem.Text = "Отчеты";
+            // 
+            // приложениеКПисьмуВОСТToolStripMenuItem
+            // 
+            this.приложениеКПисьмуВОСТToolStripMenuItem.Name = "приложениеКПисьмуВОСТToolStripMenuItem";
+            this.приложениеКПисьмуВОСТToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.приложениеКПисьмуВОСТToolStripMenuItem.Text = "Приложение к письму в ОСТ";
+            this.приложениеКПисьмуВОСТToolStripMenuItem.Click += new System.EventHandler(this.приложениеКПисьмуВОСТToolStripMenuItem_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -545,8 +575,16 @@
             this.DGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DGV.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.DGV.ColumnHeadersHeight = 20;
-            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NZ,
             this.ShOl,
@@ -560,13 +598,13 @@
             this.Status,
             this.DateFinish});
             this.DGV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGV.Location = new System.Drawing.Point(0, 24);
+            this.DGV.Location = new System.Drawing.Point(0, 56);
             this.DGV.MultiSelect = false;
             this.DGV.Name = "DGV";
             this.DGV.ReadOnly = true;
             this.DGV.RowHeadersVisible = false;
             this.DGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGV.Size = new System.Drawing.Size(1165, 526);
+            this.DGV.Size = new System.Drawing.Size(1165, 494);
             this.DGV.TabIndex = 6;
             this.DGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellContentClick);
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
@@ -577,8 +615,8 @@
             // 
             // NZ
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NZ.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NZ.DefaultCellStyle = dataGridViewCellStyle2;
             this.NZ.HeaderText = "№/З";
             this.NZ.Name = "NZ";
             this.NZ.ReadOnly = true;
@@ -586,8 +624,8 @@
             // 
             // ShOl
             // 
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShOl.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShOl.DefaultCellStyle = dataGridViewCellStyle3;
             this.ShOl.HeaderText = "Шифр ОЛ / ТЗ";
             this.ShOl.Name = "ShOl";
             this.ShOl.ReadOnly = true;
@@ -609,8 +647,8 @@
             // 
             // DatePrj
             // 
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DatePrj.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DatePrj.DefaultCellStyle = dataGridViewCellStyle4;
             this.DatePrj.HeaderText = "Сдача пр.";
             this.DatePrj.Name = "DatePrj";
             this.DatePrj.ReadOnly = true;
@@ -618,8 +656,8 @@
             // 
             // OtdelZad
             // 
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.OtdelZad.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.OtdelZad.DefaultCellStyle = dataGridViewCellStyle5;
             this.OtdelZad.HeaderText = "Выдал";
             this.OtdelZad.Name = "OtdelZad";
             this.OtdelZad.ReadOnly = true;
@@ -627,8 +665,8 @@
             // 
             // DateZad
             // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateZad.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateZad.DefaultCellStyle = dataGridViewCellStyle6;
             this.DateZad.HeaderText = "Дата выдачи";
             this.DateZad.Name = "DateZad";
             this.DateZad.ReadOnly = true;
@@ -641,8 +679,8 @@
             // 
             // DateOut
             // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateOut.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateOut.DefaultCellStyle = dataGridViewCellStyle7;
             this.DateOut.HeaderText = "Сдача ТКП";
             this.DateOut.Name = "DateOut";
             this.DateOut.ReadOnly = true;
@@ -650,18 +688,18 @@
             // 
             // Status
             // 
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Status.DefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.DefaultCellStyle = dataGridViewCellStyle8;
             this.Status.HeaderText = "Статус";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
             // DateFinish
             // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DateFinish.DefaultCellStyle = dataGridViewCellStyle9;
             this.DateFinish.HeaderText = "Выполнено";
             this.DateFinish.Name = "DateFinish";
             this.DateFinish.ReadOnly = true;
@@ -675,19 +713,7 @@
             this.toolStripSeparator11,
             this.открытьКарточкуToolStripMenuItem});
             this.КонтекстноеМенюЗапросТКП.Name = "КонтекстноеМенюЗапросТКП";
-            this.КонтекстноеМенюЗапросТКП.Size = new System.Drawing.Size(254, 98);
-            // 
-            // открытьКарточкуToolStripMenuItem
-            // 
-            this.открытьКарточкуToolStripMenuItem.Name = "открытьКарточкуToolStripMenuItem";
-            this.открытьКарточкуToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.открытьКарточкуToolStripMenuItem.Text = "Открыть карточку";
-            this.открытьКарточкуToolStripMenuItem.Click += new System.EventHandler(this.открытьКарточкуToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(250, 6);
+            this.КонтекстноеМенюЗапросТКП.Size = new System.Drawing.Size(254, 76);
             // 
             // открытьЗаданиеToolStripMenuItem
             // 
@@ -703,12 +729,45 @@
             this.открытьПриложениеКЗаданиюToolStripMenuItem.Text = "Открыть приложение к заданию";
             this.открытьПриложениеКЗаданиюToolStripMenuItem.Click += new System.EventHandler(this.открытьПриложениеКЗаданиюToolStripMenuItem_Click);
             // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(250, 6);
+            // 
+            // открытьКарточкуToolStripMenuItem
+            // 
+            this.открытьКарточкуToolStripMenuItem.Name = "открытьКарточкуToolStripMenuItem";
+            this.открытьКарточкуToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.открытьКарточкуToolStripMenuItem.Text = "Открыть карточку";
+            this.открытьКарточкуToolStripMenuItem.Click += new System.EventHandler(this.открытьКарточкуToolStripMenuItem_Click);
+            // 
+            // panelFastSearch
+            // 
+            this.panelFastSearch.Controls.Add(this.FastSearch);
+            this.panelFastSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFastSearch.Location = new System.Drawing.Point(0, 24);
+            this.panelFastSearch.Name = "panelFastSearch";
+            this.panelFastSearch.Size = new System.Drawing.Size(1165, 32);
+            this.panelFastSearch.TabIndex = 7;
+            // 
+            // FastSearch
+            // 
+            this.FastSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.FastSearch.Location = new System.Drawing.Point(12, 6);
+            this.FastSearch.Name = "FastSearch";
+            this.FastSearch.Size = new System.Drawing.Size(1141, 20);
+            this.FastSearch.TabIndex = 0;
+            this.FastSearch.TextChanged += new System.EventHandler(this.FastSearch_TextChanged);
+            this.FastSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FastSearch_KeyDown);
+            // 
             // ListTKP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 572);
             this.Controls.Add(this.DGV);
+            this.Controls.Add(this.panelFastSearch);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -725,6 +784,8 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
             this.КонтекстноеМенюЗапросТКП.ResumeLayout(false);
+            this.panelFastSearch.ResumeLayout(false);
+            this.panelFastSearch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -803,6 +864,11 @@
         private System.Windows.Forms.ToolStripMenuItem открытьПриложениеКЗаданиюToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem открытьКарточкуToolStripMenuItem;
+        private System.Windows.Forms.Panel panelFastSearch;
+        private System.Windows.Forms.TextBox FastSearch;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem отчетыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem приложениеКПисьмуВОСТToolStripMenuItem;
     }
 }
 
