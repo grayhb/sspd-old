@@ -106,5 +106,29 @@ namespace Контроль_запросов_ТКП.Properties {
                 this["ReportFullNameOrg"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportIDP {
+            get {
+                return ((string)(this["ReportIDP"]));
+            }
+            set {
+                this["ReportIDP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ReportPrjSh {
+            get {
+                return ((string)(this["ReportPrjSh"]));
+            }
+            set {
+                this["ReportPrjSh"] = value;
+            }
+        }
     }
 }

@@ -41,12 +41,15 @@
             this.cmdSelPath = new System.Windows.Forms.Button();
             this.fBDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.flExpDoc = new System.Windows.Forms.CheckBox();
+            this.PrjSh = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmdSelProject = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdApply
             // 
             this.cmdApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdApply.Location = new System.Drawing.Point(162, 136);
+            this.cmdApply.Location = new System.Drawing.Point(162, 169);
             this.cmdApply.Name = "cmdApply";
             this.cmdApply.Size = new System.Drawing.Size(161, 26);
             this.cmdApply.TabIndex = 0;
@@ -57,7 +60,7 @@
             // cmdCancel
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdCancel.Location = new System.Drawing.Point(54, 136);
+            this.cmdCancel.Location = new System.Drawing.Point(54, 169);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(102, 26);
             this.cmdCancel.TabIndex = 0;
@@ -129,9 +132,8 @@
             // 
             // textPath
             // 
-            this.textPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textPath.BackColor = System.Drawing.Color.White;
-            this.textPath.Location = new System.Drawing.Point(108, 78);
+            this.textPath.Location = new System.Drawing.Point(108, 117);
             this.textPath.Name = "textPath";
             this.textPath.ReadOnly = true;
             this.textPath.Size = new System.Drawing.Size(182, 20);
@@ -141,7 +143,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 81);
+            this.label3.Location = new System.Drawing.Point(12, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 8;
@@ -149,8 +151,7 @@
             // 
             // cmdSelPath
             // 
-            this.cmdSelPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSelPath.Location = new System.Drawing.Point(297, 76);
+            this.cmdSelPath.Location = new System.Drawing.Point(297, 115);
             this.cmdSelPath.Name = "cmdSelPath";
             this.cmdSelPath.Size = new System.Drawing.Size(26, 22);
             this.cmdSelPath.TabIndex = 7;
@@ -164,8 +165,9 @@
             // 
             // flExpDoc
             // 
+            this.flExpDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.flExpDoc.AutoSize = true;
-            this.flExpDoc.Location = new System.Drawing.Point(108, 104);
+            this.flExpDoc.Location = new System.Drawing.Point(108, 140);
             this.flExpDoc.Name = "flExpDoc";
             this.flExpDoc.Size = new System.Drawing.Size(145, 17);
             this.flExpDoc.TabIndex = 10;
@@ -173,12 +175,44 @@
             this.flExpDoc.UseVisualStyleBackColor = true;
             this.flExpDoc.CheckedChanged += new System.EventHandler(this.flExpDoc_CheckedChanged);
             // 
+            // PrjSh
+            // 
+            this.PrjSh.BackColor = System.Drawing.Color.White;
+            this.PrjSh.Location = new System.Drawing.Point(108, 78);
+            this.PrjSh.Name = "PrjSh";
+            this.PrjSh.ReadOnly = true;
+            this.PrjSh.Size = new System.Drawing.Size(182, 20);
+            this.PrjSh.TabIndex = 13;
+            this.PrjSh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 81);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Проект";
+            // 
+            // cmdSelProject
+            // 
+            this.cmdSelProject.Location = new System.Drawing.Point(297, 76);
+            this.cmdSelProject.Name = "cmdSelProject";
+            this.cmdSelProject.Size = new System.Drawing.Size(26, 22);
+            this.cmdSelProject.TabIndex = 11;
+            this.cmdSelProject.Text = "...";
+            this.cmdSelProject.UseVisualStyleBackColor = true;
+            this.cmdSelProject.Click += new System.EventHandler(this.cmdSelProject_Click);
+            // 
             // ReportForOST
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 174);
+            this.ClientSize = new System.Drawing.Size(335, 207);
             this.ControlBox = false;
+            this.Controls.Add(this.PrjSh);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cmdSelProject);
             this.Controls.Add(this.flExpDoc);
             this.Controls.Add(this.textPath);
             this.Controls.Add(this.label3);
@@ -219,5 +253,8 @@
         private System.Windows.Forms.Button cmdSelPath;
         private System.Windows.Forms.FolderBrowserDialog fBDialog;
         private System.Windows.Forms.CheckBox flExpDoc;
+        private System.Windows.Forms.TextBox PrjSh;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button cmdSelProject;
     }
 }
