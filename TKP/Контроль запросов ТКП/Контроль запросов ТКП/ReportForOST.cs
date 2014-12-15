@@ -59,6 +59,15 @@ namespace Контроль_запросов_ТКП
                 Period.Tag = 1;
             }
 
+
+            //Проект
+            if (Properties.Settings.Default.ReportIDP.Length != 0)
+            {
+                PrjSh.Text = Properties.Settings.Default.ReportPrjSh;
+                PrjSh.Tag = Properties.Settings.Default.ReportIDP;
+                cmdSelProject.Text = "X";
+            }
+
             textPath.Enabled = false;
             cmdSelPath.Enabled = false;
 
@@ -148,6 +157,9 @@ namespace Контроль_запросов_ТКП
             sql += string.Format(" AND (DocsOutput.Date_DocOut <= CONVERT(DATETIME, '{0} 00:00:00', 102))", UI.GetDate(DateTo.ToString()));
             sql += " ORDER BY DocsOutput.ID_DocOut";
 
+            //Clipboard.Clear();
+            //Clipboard.SetText(sql);
+
             DataRowCollection draAllDocOut = DB.GetFields(sql);
 
             //перечень всех исходящих писем на контроле в работе
@@ -155,11 +167,13 @@ namespace Контроль_запросов_ТКП
             sql += " КонтрольТКП.ID_Zad, КонтрольТКП_Организации.ID_Org";
             sql += " FROM (КонтрольТКП_Письма INNER JOIN КонтрольТКП ON КонтрольТКП_Письма.ID_TKP = КонтрольТКП.ID_TKP) INNER JOIN ";
             sql += " КонтрольТКП_Организации ON КонтрольТКП_Письма.ID_OrgOut = КонтрольТКП_Организации.ID_Org";
-            sql += " WHERE (((КонтрольТКП_Письма.ID_InpDoc) Is Null) AND ((КонтрольТКП_Письма.StatusDoc) Is Null) ";
-            sql += " AND ((КонтрольТКП.Status)=0))";
+            sql += " WHERE (КонтрольТКП_Письма.ID_InpDoc Is Null OR КонтрольТКП_Письма.ID_InpDoc = -1) AND КонтрольТКП_Письма.StatusDoc Is Null ";
+            sql += " AND КонтрольТКП.Status <= 0 ";
             sql += " ORDER BY КонтрольТКП_Письма.ID_OutDoc";
 
             DataRowCollection draAllDocOutTKP = LocalDB.LoadData(sql);
+            Clipboard.Clear();
+            Clipboard.SetText(sql);
 
 
             //перечень проектов по указанной организации
@@ -178,6 +192,8 @@ namespace Контроль_запросов_ТКП
 
             foreach(DataRow dr in draAllDocOut)
             {
+
+                //возвращать список если было несколько видов оборудования
                 DataRow drDocTKP = getDataRowDocTKP(dr["ID_DocOut"].ToString(), draAllDocOutTKP);
 
                 //ищем письмо
@@ -277,10 +293,26 @@ namespace Контроль_запросов_ТКП
         /// <returns>строка письма</returns>
         private DataRow getDataRowDocTKP(string IDDocOut, DataRowCollection dra)
         {
+            if (IDDocOut == "85675")
+                Console.WriteLine("HERE");
+
+            DataRow dr_ret = null;
+
             foreach (DataRow dr in dra)
+            {
                 if (IDDocOut == dr["ID_OutDoc"].ToString())
-                    return dr;
-            return null;
+                {
+                    if (dr_ret == null)
+                        dr_ret = dr;
+                    else
+                    {
+                        dr_ret["Equipment"] += string.Format("\n{0}", dr["Equipment"]);
+                    }
+
+
+                }
+            }
+            return dr_ret;
         }
 
         /// <summary>
@@ -326,13 +358,21 @@ namespace Контроль_запросов_ТКП
                 rowout++;
                 //int doc_rowout = 0;
                 //int numTKP = 0;
+                
 
                 foreach (Hashtable prjOut in ListPrj)
                 {
-                    WriteInExcelSetFormatTKP(wbs, rowout);
-                    rowout = WriteInExcelOnPrj(range, rowout, prjOut["ID_Project"].ToString(), ListDoc);
+                    bool flWrite = true;
 
+                    if (PrjSh.Text != "")
+                        if (PrjSh.Tag.ToString() != prjOut["ID_Project"].ToString())
+                            flWrite = false;
 
+                    if (flWrite)
+                    {
+                        WriteInExcelSetFormatTKP(wbs, rowout);
+                        rowout = WriteInExcelOnPrj(range, rowout, prjOut["ID_Project"].ToString(), ListDoc);
+                    }
 
                     PB.Value++;
                 }
@@ -534,6 +574,54 @@ namespace Контроль_запросов_ТКП
             {
                 textPath.Enabled = false;
                 cmdSelPath.Enabled = false;
+            }
+        }
+
+        private void cmdSelProject_Click(object sender, EventArgs e)
+        {
+            if (cmdSelProject.Text == "X")
+            {
+                PrjSh.Text = "";
+                PrjSh.Tag = null;
+                cmdSelProject.Text = "...";
+
+                Properties.Settings.Default.ReportIDP = "";
+                Properties.Settings.Default.ReportPrjSh = "";
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                SelectForm.ListProject LP = new SelectForm.ListProject();
+                LP.ShowDialog();
+                if (LP.SelID != "")
+                {
+                    PrjSh.Text = LP.SelShPrj;
+                    PrjSh.Tag = LP.SelID;
+                    cmdSelProject.Text = "X";
+
+                    Properties.Settings.Default.ReportIDP = LP.SelID;
+                    Properties.Settings.Default.ReportPrjSh = LP.SelShPrj;
+
+
+                    string sql = "SELECT Orgs.ID_Org, Orgs.Name_Br, Orgs.Name ";
+                    sql += "FROM Orgs INNER JOIN Projects ON Projects.ID_Zak = Orgs.ID_Org ";
+                    sql += string.Format(" WHERE Projects.ID_Project = {0}", LP.SelID);
+
+                    DataRowCollection draOrgs = DB.GetFields(sql);
+                    if (draOrgs.Count > 0)
+                    {
+                        OST.Tag = draOrgs[0]["ID_Org"].ToString();
+                        OST.Text = draOrgs[0]["Name_Br"].ToString();
+                        OSTFullName = draOrgs[0]["Name"].ToString();
+
+                        Properties.Settings.Default.ReportIDOrg = OST.Tag.ToString();
+                        Properties.Settings.Default.ReportNameOrg = OST.Text;
+                        Properties.Settings.Default.ReportFullNameOrg = OSTFullName;
+                    }
+
+                    Properties.Settings.Default.Save();
+                }
+                LP.Dispose();
             }
         }
 
