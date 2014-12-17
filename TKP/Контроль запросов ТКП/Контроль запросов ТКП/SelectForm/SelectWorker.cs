@@ -16,6 +16,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         public string SelNBFIO="";
         public string SelFIO = "";
 
+        public string SqlQuery = "";
+
         public SelectWorker()
         {
             InitializeComponent();
@@ -77,6 +79,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         private void LoadData()
         {
             string SqlStr = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 AND ID_Post = " + TKP_Conf.GIPIDPost;
+
+            if (SqlQuery != "") SqlStr = SqlQuery;
 
             DataRowCollection dra = SSPD.DB.GetFields(SqlStr);
 
