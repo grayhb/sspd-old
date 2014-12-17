@@ -61,6 +61,7 @@
     <Compile Include="Classes\FTP.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\ReportTable.cs" />
     <Compile Include="ExportScanDoc.cs">
       <SubType>Form</SubType>
     </Compile>

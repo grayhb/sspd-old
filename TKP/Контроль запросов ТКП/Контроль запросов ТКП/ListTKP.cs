@@ -22,6 +22,8 @@ namespace Контроль_запросов_ТКП
         DataRowCollection draZP = null;
         DataRowCollection draZPGIP = null;
 
+        bool flPOtdel; // флаг производственного отдела
+
         #endregion
 
         public ListTKP()
@@ -54,6 +56,8 @@ namespace Контроль_запросов_ТКП
                 Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel &&
                 Params.UserInfo.ID_Otdel != TKP_Conf.BGIPIDOtdel)
             {
+                flPOtdel = true;
+
                 МенюЭкспортДокументов.Visible = false;
 
                 //показывать запросы только отдела - ставим фильтр по отделу
@@ -61,6 +65,15 @@ namespace Контроль_запросов_ТКП
                 ФОтдел.Text = "Отдел - " + Params.UserInfo.NBMOtdel;
                 ФОтдел.Checked = true;
                 ФОтделВсе.Checked = false;
+
+                //если не начальник отдела - показываем только задания автора
+                if (Params.UserInfo.ID_Post != "2")
+                {
+                    //показывать только запросы автора
+                    ФАвтор.Text = "Автор - " + Params.UserInfo.FIO;
+                    ФАвтор.Tag = Params.UserInfo.ID_Worker;
+                    ФАвторВсе.Checked = false;
+                }
             }
 
             //Если ГИП
@@ -98,6 +111,11 @@ namespace Контроль_запросов_ТКП
                 ФДатаВыдачиЗаданияВсе.Checked = false;
             }
             
+        }
+
+        private void ListTKP_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void ListTKP_Shown(object sender, EventArgs e)
@@ -291,9 +309,9 @@ namespace Контроль_запросов_ТКП
         {
             string SqlStr = "";
             if (TypeZP == 0) {
-                SqlStr = " SELECT ExchandeZadReestr.ID_Rec, ExchandeZadReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
+              SqlStr = " SELECT ExchandeZadReestr.ID_Rec, ExchandeZadReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
               SqlStr += " ExchandeZadReestr.Node, ExchandeZadReestr.PathFiles, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP";
+              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP, ExchandeZadReestr.ID_WorkerOut as IDW_Autor ";
               SqlStr += " FROM Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -304,8 +322,9 @@ namespace Контроль_запросов_ТКП
               SqlStr += " WHERE (ExchandeZadReestr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") AND (ExchandeZadReestr.Status = 1) "; 
             }
             else {
-                SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, ZadFromGIPReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles";
+              SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, ZadFromGIPReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
+              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles, ";
+              SqlStr += " ZadFromGIPReestr.ID_GIP as IDW_Autor";
               SqlStr += " FROM          Dogovors LEFT OUTER JOIN";
               SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
               SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
@@ -640,6 +659,13 @@ namespace Контроль_запросов_ТКП
                     ret = false;
             }
 
+            //по автору задания
+            if (ФАвторВсе.Checked == false && ret == true)
+            {
+                if (ФАвтор.Tag != null && drSSPD["IDW_Autor"].ToString() != ФАвтор.Tag.ToString())
+                    ret = false;
+            }
+
 
             //быстрый поиск
             if (FastSearch.Text.Trim() != "" && ret)
@@ -703,6 +729,7 @@ namespace Контроль_запросов_ТКП
             ФОргВсе.Checked = true;
             ФОтделВсе.Checked = true;
             ФДатаВыдачиЗаданияВсе.Checked = true;
+            ФАвторВсе.Checked = true;
 
             ФОборудование.Text = "Оборудование - ...";
             ФОборудование.Tag = null;
@@ -718,6 +745,10 @@ namespace Контроль_запросов_ТКП
 
             ФДатаВыдачиЗаданияПериод.Tag = null;
             ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
+
+            ФАвтор.Tag = null;
+            ФАвтор.Text = "Автор - ...";
+                
 
             GetListTKP();
         }
@@ -894,10 +925,7 @@ namespace Контроль_запросов_ТКП
 
         #endregion
 
-        private void ListTKP_Load(object sender, EventArgs e)
-        {
 
-        }
 
         
         private void ФОргВсе_Click(object sender, EventArgs e)
@@ -1002,6 +1030,12 @@ namespace Контроль_запросов_ТКП
                 {
                     if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
                     LabelFilter += string.Format("По дате выдачи задания: {0}", ФДатаВыдачиЗаданияПериод.Text);
+                }
+
+                if (ФАвтор.Checked)
+                {
+                    if (LabelFilter.LastIndexOf("; ") != LabelFilter.Length - 2) LabelFilter += "; ";
+                    LabelFilter += string.Format("По автору задания: {0}", ФАвтор.Text.Substring(8,ФАвтор.Text.Length - 8));
                 }
 
             }
@@ -1238,6 +1272,56 @@ namespace Контроль_запросов_ТКП
             //RFO.draZPGIP = this.draZPGIP;
             
             RFO.ShowDialog();
+        }
+
+        private void ListTKP_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (LocalDB.LocalConn.State == ConnectionState.Open)
+                LocalDB.LocalConn.Close();
+
+        }
+
+        private void таблицаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectForm.ListProject LP = new SelectForm.ListProject();
+            LP.ShowDialog();
+            if (LP.SelID != "")
+            {
+                ReportTable rt = new ReportTable(LP.SelID , LP.SelNamePrj, LP.SelShPrj);
+                rt.ExportReportTable();
+
+                //PrjSh.Text = LP.SelShPrj;
+                //PrjSh.Tag = LP.SelID;
+            }
+        }
+
+        private void ФАвторВсе_Click(object sender, EventArgs e)
+        {
+            ФАвтор.Text = "Автор - ...";
+            ФАвтор.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФАвтор_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
+            
+            SW.Text = "Выбор автора задания";    
+
+            if (flPOtdel)
+                SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 AND ID_Otdel = " + Params.UserInfo.ID_MOtdel;
+            else
+                SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 ";
+            
+            SW.ShowDialog();
+            if (SW.SelIDWorker != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФАвтор.Text = "Автор - " + SW.SelNBFIO;
+                ФАвтор.Tag = SW.SelIDWorker;
+                GetListTKP();
+            }
         }
 
 

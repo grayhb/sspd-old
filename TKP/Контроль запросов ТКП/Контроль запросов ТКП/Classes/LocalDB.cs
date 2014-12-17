@@ -12,22 +12,26 @@ namespace Контроль_запросов_ТКП
     {
 
         private static string ConStr = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\10.105.21.69\share\SSPD_TO\StaticDB.mde";
+        public static OleDbConnection LocalConn = new OleDbConnection(ConStr);
+
 
         public static DataRowCollection LoadData(string Sql)
         {
             DataRowCollection dra = null;
 
-            OleDbConnection Conn = new OleDbConnection(ConStr);
+            //OleDbConnection Conn = new OleDbConnection(ConStr);
 
             try
             {
 
                 DataSet myDataSet = new DataSet();
 
-                OleDbCommand myAccessCommand = new OleDbCommand(Sql, Conn);
+                OleDbCommand myAccessCommand = new OleDbCommand(Sql, LocalConn);
                 OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
 
-                Conn.Open();
+                if (LocalConn.State == ConnectionState.Closed)
+                    LocalConn.Open();
+
                 myDataAdapter.Fill(myDataSet, "Data");
 
                 dra = myDataSet.Tables["Data"].Rows;
@@ -38,10 +42,10 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex);
                 dra = null;
             }
-            finally
-            {
-                Conn.Close();
-            }
+            //finally
+            //{
+            //    //Conn.Close();
+            //}
 
             return dra;
         }
@@ -72,11 +76,15 @@ namespace Контроль_запросов_ТКП
 
             try
             {
-                OleDbConnection Conn = new OleDbConnection(ConStr);
-                OleDbCommand dbCommand = new OleDbCommand(SqlStr, Conn);
-                Conn.Open();
+                //OleDbConnection Conn = new OleDbConnection(ConStr);
+                OleDbCommand dbCommand = new OleDbCommand(SqlStr, LocalConn);
+
+                if (LocalConn.State == ConnectionState.Closed)
+                    LocalConn.Open();
+                
                 dbCommand.ExecuteNonQuery();
-                Conn.Close();
+
+                //Conn.Close();
             }
             catch (OleDbException ex)
             {
@@ -106,12 +114,17 @@ namespace Контроль_запросов_ТКП
             }
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
 
-            OleDbConnection Conn = new OleDbConnection(ConStr);
+            //OleDbConnection Conn = new OleDbConnection(ConStr);
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-            Conn.Open();
+            
+            //Conn.Open();
+
+            if (LocalConn.State == ConnectionState.Closed)
+                LocalConn.Open();
+
             try
             {
-                oledbAdapter.UpdateCommand = Conn.CreateCommand();
+                oledbAdapter.UpdateCommand = LocalConn.CreateCommand();
                 oledbAdapter.UpdateCommand.CommandText = SqlStr;
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
             }
@@ -120,10 +133,10 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex.StackTrace);
                 MessageBox.Show(ex.Message, "Обновление записи в БД");
             }
-            finally
-            {
-                Conn.Close();
-            }
+            //finally
+            //{
+            //    Conn.Close();
+            //}
         }
 
         public static void DeleteData(string TableName, string WhereValue)
@@ -131,12 +144,17 @@ namespace Контроль_запросов_ТКП
             string SqlStr = "DELETE FROM " + TableName;
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
 
-            OleDbConnection Conn = new OleDbConnection(ConStr);
+            //OleDbConnection Conn = new OleDbConnection(ConStr);
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-            Conn.Open();
+            
+            //Conn.Open();
+            if (LocalConn.State == ConnectionState.Closed)
+                LocalConn.Open();
+
+
             try
             {
-                oledbAdapter.UpdateCommand = Conn.CreateCommand();
+                oledbAdapter.UpdateCommand = LocalConn.CreateCommand();
                 oledbAdapter.UpdateCommand.CommandText = SqlStr;
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
             }
@@ -145,10 +163,10 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex.StackTrace);
                 MessageBox.Show(ex.Message, "Удаление записи в БД");
             }
-            finally
-            {
-                Conn.Close();
-            }
+            //finally
+            //{
+            //    Conn.Close();
+            //}
         }
 
         /// <summary>
