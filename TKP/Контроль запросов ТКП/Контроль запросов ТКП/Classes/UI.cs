@@ -16,6 +16,7 @@ namespace Контроль_запросов_ТКП
         public static Color bgStatusDocInp2 = Color.FromArgb(240, 240, 240);  //светло серый  
 
         public static Color bgUseTKP = Color.SkyBlue;
+        public static Color bgFailPir = Color.DimGray;
         
 
         /// <summary>

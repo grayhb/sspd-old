@@ -64,8 +64,46 @@ namespace Контроль_запросов_ТКП
         {
             LoadData();
             LoadDataEq();
+
+            checkUserRight();
         }
 
+        /// <summary>
+        /// проверка прав пользователя и выставление соответствующих настроек
+        /// </summary>
+        private void checkUserRight()
+        {
+            btnUseTKP.Visible = false;
+            //btnCheckDoc.Enabled = false;
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
+            {
+                btnCheckFalse.Enabled = false;
+                btnCheckPart.Enabled = false;
+                btnCheckTrue.Enabled = false;
+            }
+
+            //Если сметный отдел
+            if (Params.UserInfo.ID_Otdel == TKP_Conf.SMIDOtdel)
+            {
+                btnUseTKP.Visible = true;
+            }
+
+            //Если автор задания или начальник/рук-ля группы отдела автора
+            if (FIOZad.Tag.ToString() == Params.UserInfo.ID_Worker || 
+                (OtdelZad.Tag.ToString() == Params.UserInfo.ID_MOtdel && 
+                (TKP_Conf.IDPostHeadGroup == Params.UserInfo.ID_Post || 
+                TKP_Conf.IDPostHeadOtdel == Params.UserInfo.ID_Post)))
+            {
+                //btnCheckDoc.Enabled = true;
+                btnCheckFalse.Enabled = true;
+                btnCheckPart.Enabled = true;
+                btnCheckTrue.Enabled = true;
+            }
+
+            //FIOZad.Tag --ID_Worker
+            //OtdelZad.Tag - ID_Otdel main
+
+        }
 
         /// <summary>
         /// Общая процедура загрузки данных
@@ -92,7 +130,7 @@ namespace Контроль_запросов_ТКП
         private void LoadDataTKP()
         {
             string SqlStr = "SELECT КонтрольТКП.ID_Zad, КонтрольТКП.TypeZad, КонтрольТКП.Status, КонтрольТКП.DateStart, КонтрольТКП.DateEnd, ";
-            SqlStr += " КонтрольТКП.Equipment, КонтрольТКП.OlSh, ГруппыМТР.Code, КонтрольТКП.DateOut ";
+            SqlStr += " КонтрольТКП.Equipment, КонтрольТКП.OlSh, ГруппыМТР.Code, КонтрольТКП.DateOut, КонтрольТКП.flConAnal ";
             SqlStr += " FROM КонтрольТКП LEFT OUTER JOIN ГруппыМТР ON ГруппыМТР.ID_REC = КонтрольТКП.ID_MTR";
             SqlStr += " WHERE КонтрольТКП.ID_TKP = " + ID_TKP;
 
@@ -167,6 +205,13 @@ namespace Контроль_запросов_ТКП
                     DateOut.Text = UI.GetDate(dr["DateOut"].ToString());
                     DateOut.Tag = DateOut.Text;
                 }
+
+
+                if (dr["flConAnal"].ToString() != "")
+                {
+                    if (dr["flConAnal"].ToString() == "1")
+                        СтатусКонАнал.Checked = true;
+                }
                 
             }
         }
@@ -181,7 +226,7 @@ namespace Контроль_запросов_ТКП
             if (TypeZad == "0") {
                 SqlStr = "SELECT ExchandeZadReestr.ID_Rec,  Projects.Sh_project,  Projects.Name_Project,  Otdels.Name_Otdel,  ExchandeZadReestr.DT_Out, ExchandeZadReestr.Node";
                 SqlStr += " , ExchandeZadReestr.PathFiles, ExchandeZadReestr.PathFilesPril, Workers.F_Worker + ' ' + Workers.I_Worker as WorkerOut, Workers.ID_Worker";
-                SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project";
+                SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project, dbo.MainOtdel(Otdels.ID_Otdel) as IDO";
                 SqlStr += " FROM ExchandeZadReestr INNER JOIN ";
                 SqlStr += " Projects ON  ExchandeZadReestr.ID_Project =  Projects.ID_Project INNER JOIN ";
                 SqlStr += " Otdels ON  ExchandeZadReestr.ID_OtdelOut =  Otdels.ID_Otdel INNER JOIN";
@@ -192,7 +237,7 @@ namespace Контроль_запросов_ТКП
             else 
             {
                 SqlStr = " SELECT ZadFromGIPReestr.ID_Rec, Workers.F_Worker + ' ' + Workers.I_Worker AS WorkerOut, Projects.Sh_project, Projects.Name_Project, ";
-                SqlStr += " ZadFromGIPReestr.PathFiles, ZadFromGIPReestr.PathFilesPril, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out, 'Бюро главных инженеров проектов' as Name_Otdel ";
+                SqlStr += " ZadFromGIPReestr.PathFiles, ZadFromGIPReestr.PathFilesPril, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out, 'Бюро главных инженеров проектов' as Name_Otdel, '" + TKP_Conf.BGIPIDOtdel + "' as IDO ";
                 SqlStr += " , W2.F_Worker + ' ' + W2.I_Worker as GIP, Projects.ID_Project, Workers.ID_Worker";
                 SqlStr += " FROM  ZadFromGIPReestr INNER JOIN";
                 SqlStr += " ZadFromGIPReestrAdr ON ZadFromGIPReestr.ID_Rec = ZadFromGIPReestrAdr.ID_RecZadGip INNER JOIN";
@@ -212,6 +257,7 @@ namespace Контроль_запросов_ТКП
                 ShPrj.Tag = dr["ID_Project"].ToString();
                 NamePrj.Text = dr["Name_Project"].ToString();
                 OtdelZad.Text = dr["Name_Otdel"].ToString();
+                OtdelZad.Tag = dr["IDO"].ToString();
                 ZadDate.Text = UI.GetDate(dr["DT_Out"].ToString());
                 ZadNote.Text = dr["Node"].ToString();
                 FIOZad.Text = dr["WorkerOut"].ToString();
@@ -234,7 +280,7 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         private void LoadDataDocs()
         {
-            var rs = LocalDB.LoadData("SELECT ID, ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, UseTKP, StatusDoc "
+            var rs = LocalDB.LoadData("SELECT ID, ID_OutDoc, ID_InpDoc, Mail_Note, DateStartTKP, DateFinishTKP, UseTKP, StatusDoc, AuthorChecked "
                                      +"FROM КонтрольТКП_Письма WHERE ID_TKP = " + ID_TKP+ " ORDER BY ID DESC");
             DGV.Rows.Clear();
             if (rs != null)
@@ -263,6 +309,15 @@ namespace Контроль_запросов_ТКП
 
                     //красим если получили ответ
                     SetSelBG(DGVR);
+
+                    //доработать этот момент. показывать кто и когда проверил
+                    if (dr["AuthorChecked"].ToString() == "0")
+                        DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
+                    else if (dr["AuthorChecked"].ToString() == "1")
+                        DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
+                    else if (dr["AuthorChecked"].ToString() == "2")
+                        DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
+                        
 
                     if (dr["UseTKP"].ToString() == "1")
                     {
@@ -408,13 +463,13 @@ namespace Контроль_запросов_ТКП
         {
             if (mean == 0)
             {
-                DGVR.Cells[3].Style.BackColor = UI.bgUseTKP;
-                DGVR.Cells[3].Style.SelectionBackColor = UI.bgUseTKP;
+                DGVR.Cells["RNDocInp"].Style.BackColor = UI.bgUseTKP;
+                DGVR.Cells["RNDocInp"].Style.SelectionBackColor = UI.bgUseTKP;
             }
             else
             {
-                DGVR.Cells[3].Style.BackColor = DGVR.Cells[1].Style.BackColor;
-                DGVR.Cells[3].Style.SelectionBackColor = DGVR.Cells[1].Style.SelectionBackColor;
+                DGVR.Cells["RNDocInp"].Style.BackColor = DGVR.Cells["RNDocOut"].Style.BackColor;
+                DGVR.Cells["RNDocInp"].Style.SelectionBackColor = DGVR.Cells["RNDocOut"].Style.SelectionBackColor;
             }
         }
 
@@ -424,8 +479,6 @@ namespace Контроль_запросов_ТКП
         private void OpenOutDoc()
         {
             if (DGV.SelectedRows.Count == 0) return;
-
-
 
             if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag != null) {
                 string FNameOut = Path.GetTempPath();
@@ -688,6 +741,14 @@ namespace Контроль_запросов_ТКП
 
             LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
             FlSave = true;
+        }
+
+
+        private void setConAnal(int flConAnal)
+        {
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("flConAnal", flConAnal.ToString());
+            LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
         }
 
         /// <summary>
@@ -994,7 +1055,7 @@ namespace Контроль_запросов_ТКП
         private bool LoadUseTKP(string ID)
         {
             var rs = LocalDB.LoadData("SELECT UseTKP FROM КонтрольТКП_Письма WHERE ID = " + ID);
-            if (rs != null)
+            if (rs != null && rs.Count > 0)
                 if (rs[0][0].ToString() == "1")
                     return true;
             return false;
@@ -1331,16 +1392,7 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-            if (DGV.SelectedRows.Count != 0 && Params.UserInfo.ID_Otdel == TKP_Conf.SMIDOtdel)
-            {
-                btnUseTKP.Checked = LoadUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString()); //DGV.SelectedRows[0].Tag.ToString()
-                btnUseTKP.Visible=true;
-            } 
-            else 
-                btnUseTKP.Visible = false;
-        }
+
 
         private void btnCardWorker_Click(object sender, EventArgs e)
         {
@@ -1479,6 +1531,166 @@ namespace Контроль_запросов_ТКП
                     }
                 }
             }
+        }
+
+        private void contextMenuStrip1_Opened(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0)
+                contextMenuStrip1.Enabled = false;
+            else
+            {
+                contextMenuStrip1.Enabled = true;
+
+                //проврека исходящего
+                if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag == null)
+                    КМенюИсходящий.Enabled = false;
+                else
+                    КМенюИсходящий.Enabled = true;
+
+                //проврека входящего
+                if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null)
+                    КМенюВходящий.Enabled = false;
+                else
+                    КМенюВходящий.Enabled = true;
+
+            }
+
+            //флаг использования в сметах
+            if (btnUseTKP.Visible)
+                btnUseTKP.Checked = LoadUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
+
+            //статус проверки
+            LoadCheckDoc(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
+
+        }
+
+
+        private void DGV_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex > -1)
+            {
+                DGV.Rows[e.RowIndex].Selected = true;
+                DGV.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+            }
+        }
+
+        private void СтатусКонАнал_Click(object sender, EventArgs e)
+        {
+            if (СтатусКонАнал.Checked)
+            {
+                setConAnal(0);
+                СтатусКонАнал.Checked = false;
+            }
+            else
+            {
+                setConAnal(1);
+                СтатусКонАнал.Checked = true;
+            }
+        }
+
+        /// <summary>
+        /// Выставляет статус проверки документа
+        /// </summary>
+        /// <param name="ID_Mail">ID выбранной записи</param>
+        private void LoadCheckDoc(string ID_Mail)
+        {
+            btnCheckFalse.Checked = false;
+            btnCheckPart.Checked = false;
+            btnCheckTrue.Checked =false;
+
+            var rs = LocalDB.LoadData("SELECT AuthorChecked FROM КонтрольТКП_Письма WHERE ID = " + ID_Mail);
+
+            if (rs != null && rs.Count > 0)
+
+                if (rs[0][0].ToString() == "0")       //не соответствует
+                    btnCheckFalse.Checked = true;
+                else if (rs[0][0].ToString() == "1")  //соответствует
+                    btnCheckTrue.Checked = true;
+                else if (rs[0][0].ToString() == "2")  //соответствует частично
+                    btnCheckPart.Checked = true;
+               
+        }
+
+
+        private void btnCheckTrue_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+
+            if (((ToolStripMenuItem)sender).Checked)
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+            else
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "1");
+        }
+
+        private void btnCheckPart_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+
+            if (((ToolStripMenuItem)sender).Checked)
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+            else
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "2");
+        }
+
+        private void btnCheckFalse_Click(object sender, EventArgs e)
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+
+            if (((ToolStripMenuItem)sender).Checked)
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+            else
+                setAuthorCheckedDoc(DGV.SelectedRows[0], "0");
+        }
+
+        /// <summary>
+        /// Установка статуса проверки документа автором задания
+        /// </summary>
+        /// <param name="DGVR">Строка из DGV</param>
+        /// <param name="status">флаг проверки</param>
+        private void setAuthorCheckedDoc(DataGridViewRow DGVR, string status)
+        {
+            //if (status == "") status = "-1";
+            Dictionary<string, string> DS = new Dictionary<string, string>();
+            DS.Add("AuthorChecked", status);
+
+            //обновляем базу
+            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
+
+
+            if (status == "0")
+                DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
+            else if (status == "1")
+                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
+            else if (status == "2")
+                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
+            else
+                DGVR.Cells["CheckedAuthor"].Value = "";
+
+            //обновляем статус в деталях письма
+            //((DataRow)DGVR.Tag)["StatusDoc"] = status;
+            //UpdateStatusDocMenu(DGVR);
+
+            //обновляем фон
+            //SetSelBG(DGVR);
+
+            FlSave = true;
+        }
+
+
+
+        private void МенюДокументы_DropDownOpened(object sender, EventArgs e)
+        {
+            //проврека исходящего
+            if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag == null)
+                МенюДокументыИсх.Enabled = false;
+            else
+                МенюДокументыИсх.Enabled = true;
+
+            //проврека входящего
+            if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null)
+                МенюДокументыВх.Enabled = false;
+            else
+                МенюДокументыВх.Enabled = true;
         }
 
     }

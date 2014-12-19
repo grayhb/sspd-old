@@ -115,7 +115,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="dtkp">Структура данных карточки ТКП</param>
         private void getDataMail(ref DataTKP dtkp)
         {
-            string sql = "SELECT КонтрольТКП_Письма.ID_OutDoc, КонтрольТКП_Организации.Name_Br, КонтрольТКП_Организации.Name_Full, ";
+            string sql = "SELECT DISTINCT КонтрольТКП_Письма.ID_OutDoc, КонтрольТКП_Организации.Name_Br, КонтрольТКП_Организации.Name_Full, ";
             sql += " КонтрольТКП_Письма.ID_InpDoc, КонтрольТКП_Письма.StatusDoc";
             sql += " FROM КонтрольТКП_Письма INNER JOIN ";
             sql += " КонтрольТКП_Организации ON КонтрольТКП_Письма.ID_OrgOut = КонтрольТКП_Организации.ID_Org";
@@ -128,9 +128,15 @@ namespace Контроль_запросов_ТКП
                 ///есть запрос
                 if (dr["ID_OutDoc"].ToString() != "")
                 {
-                    if (dtkp.Orgs != null) dtkp.Orgs += "\n";
-                    dtkp.Orgs += dr["Name_Br"].ToString();
-                    dtkp.CountDocOut++;
+                    if (dtkp.Orgs == null || dtkp.Orgs.IndexOf(dr["Name_Br"].ToString()) == -1)
+                    {
+                        if (dtkp.Orgs != null) dtkp.Orgs += "\n";
+                        dtkp.Orgs += dr["Name_Br"].ToString();
+                        dtkp.CountDocOut++;
+
+                        if (dr["ID_InpDoc"].ToString() != "")
+                            dtkp.Orgs += " (v)";
+                    }
                 }
 
                 ///есть ответ
@@ -257,7 +263,7 @@ namespace Контроль_запросов_ТКП
             try
             {
                 (range.Cells[1, 1] as Excel.Range).Value = "№ п/п";
-                (range.Cells[1, 2] as Excel.Range).Value = "Ноименование оборудования (материала)";
+                (range.Cells[1, 2] as Excel.Range).Value = "Наименование оборудования (материала)";
                 (range.Cells[1, 3] as Excel.Range).Value = "Номер ЛСР";
                 (range.Cells[1, 4] as Excel.Range).Value = "Номер пункта ЛСР";
                 (range.Cells[1, 5] as Excel.Range).Value = "Кол-во";

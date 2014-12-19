@@ -18,8 +18,16 @@ namespace Контроль_запросов_ТКП
         public static string BGIPIDOtdel = "9";
 
         //ID_Post Главного инженера проекта
-        public static string GIPIDPost = "3"; 
+        public static string GIPIDPost = "3";
 
+        //Руководство
+        public static string RukIDOtdel = "20";
+
+        //ID_Post Начальника отдела
+        public static string IDPostHeadOtdel = "2";
+
+        //ID_Post Руководителя группы
+        public static string IDPostHeadGroup = "19";
 
 
         //Группа аналитического учета для связки документов
