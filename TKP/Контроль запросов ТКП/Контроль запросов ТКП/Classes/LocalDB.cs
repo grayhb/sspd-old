@@ -19,8 +19,6 @@ namespace Контроль_запросов_ТКП
         {
             DataRowCollection dra = null;
 
-            //OleDbConnection Conn = new OleDbConnection(ConStr);
-
             try
             {
 
@@ -42,10 +40,6 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex);
                 dra = null;
             }
-            //finally
-            //{
-            //    //Conn.Close();
-            //}
 
             return dra;
         }
@@ -76,15 +70,12 @@ namespace Контроль_запросов_ТКП
 
             try
             {
-                //OleDbConnection Conn = new OleDbConnection(ConStr);
                 OleDbCommand dbCommand = new OleDbCommand(SqlStr, LocalConn);
 
                 if (LocalConn.State == ConnectionState.Closed)
                     LocalConn.Open();
                 
                 dbCommand.ExecuteNonQuery();
-
-                //Conn.Close();
             }
             catch (OleDbException ex)
             {
@@ -114,11 +105,8 @@ namespace Контроль_запросов_ТКП
             }
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
 
-            //OleDbConnection Conn = new OleDbConnection(ConStr);
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
             
-            //Conn.Open();
-
             if (LocalConn.State == ConnectionState.Closed)
                 LocalConn.Open();
 
@@ -133,10 +121,6 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex.StackTrace);
                 MessageBox.Show(ex.Message, "Обновление записи в БД");
             }
-            //finally
-            //{
-            //    Conn.Close();
-            //}
         }
 
         public static void DeleteData(string TableName, string WhereValue)
@@ -144,10 +128,8 @@ namespace Контроль_запросов_ТКП
             string SqlStr = "DELETE FROM " + TableName;
             if (WhereValue.Length > 0) SqlStr += " WHERE " + WhereValue;
 
-            //OleDbConnection Conn = new OleDbConnection(ConStr);
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
             
-            //Conn.Open();
             if (LocalConn.State == ConnectionState.Closed)
                 LocalConn.Open();
 

@@ -22,13 +22,20 @@ namespace Контроль_запросов_ТКП
         DataRowCollection draZP = null;
         DataRowCollection draZPGIP = null;
 
-        bool flPOtdel; // флаг производственного отдела
+        //bool flPOtdel; // флаг производственного отдела
+        bool flAdmin;   //флаг привелегий администратора
 
         #endregion
 
         public ListTKP()
         {
             InitializeComponent();
+
+            InitForm();
+        }
+
+        private void InitForm()
+        {
 
             //размер окна:
             //this.Width = Convert.ToInt32(Screen.PrimaryScreen.WorkingArea.Width / 1.1);
@@ -38,41 +45,50 @@ namespace Контроль_запросов_ТКП
             this.Width = 1380;
             this.Height = 1024;
 
-            this.Text += " (" + Params.UserInfo.FIO + ")";
+            this.Text = string.Format("Контроль запросов ТКП ({0})", Params.UserInfo.FIO);
 
+            ФОтсутствует.Checked = false;
+            ФСтатусВсе.Checked = false;
+            ФСтатусВработе.Checked = true;
 
             //проверка привелегий
-            if (Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel)
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel && !flAdmin)
             {
                 МенюЗадания.Visible = false;
                 реестрМТР.Visible = false;
+                МенюАдмин.Visible = false;
                 //МенюЭкспортТКП
             }
-
-
+            else
+                flAdmin = true;
 
             //если обычный отдел
-            if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel && 
+            if (Params.UserInfo.ID_Otdel != TKP_Conf.SMIDOtdel &&
                 Params.UserInfo.ID_Otdel != TKP_Conf.AdminIDOtdel &&
-                Params.UserInfo.ID_Otdel != TKP_Conf.BGIPIDOtdel)
+                Params.UserInfo.ID_Otdel != TKP_Conf.BGIPIDOtdel &&
+                Params.UserInfo.ID_Otdel != TKP_Conf.RukIDOtdel)
             {
-                flPOtdel = true;
+                //flPOtdel = true;
 
                 МенюЭкспортДокументов.Visible = false;
 
-                //показывать запросы только отдела - ставим фильтр по отделу
-                ФОтдел.Tag = Params.UserInfo.NBMOtdel;
-                ФОтдел.Text = "Отдел - " + Params.UserInfo.NBMOtdel;
-                ФОтдел.Checked = true;
-                ФОтделВсе.Checked = false;
-
-                //если не начальник отдела - показываем только задания автора
-                if (Params.UserInfo.ID_Post != "2")
+                if (checkExchangeZad(Params.UserInfo.ID_MOtdel, "ID_OtdelOut"))
                 {
-                    //показывать только запросы автора
-                    ФАвтор.Text = "Автор - " + Params.UserInfo.FIO;
-                    ФАвтор.Tag = Params.UserInfo.ID_Worker;
-                    ФАвторВсе.Checked = false;
+                    //показывать запросы только отдела - ставим фильтр по отделу
+                    ФОтдел.Tag = Params.UserInfo.NBMOtdel;
+                    ФОтдел.Text = "Отдел - " + Params.UserInfo.NBMOtdel;
+                    ФОтдел.Checked = true;
+                    ФОтделВсе.Checked = false;
+
+                    //если не начальник отдела - показываем только задания автора
+                    if (Params.UserInfo.ID_Post != TKP_Conf.IDPostHeadOtdel && checkExchangeZad(Params.UserInfo.ID_Worker, "ID_WorkerOut"))
+                    {
+                        //показывать только запросы автора
+                        ФАвтор.Text = "Автор - " + Params.UserInfo.FIO;
+                        ФАвтор.Tag = Params.UserInfo.ID_Worker;
+                        ФАвтор.Checked = true;
+                        ФАвторВсе.Checked = false;
+                    }
                 }
             }
 
@@ -84,10 +100,6 @@ namespace Контроль_запросов_ТКП
                 ФГИП.Checked = true;
                 ФГИПВсе.Checked = false;
             }
-
-
-            //test
-            //Params.UserInfo.ID_Worker = "5196";
 
             //индивидуальная настройка фильтра для сотрудников
             if (Params.UserInfo.ID_Worker == "5196")  //Постников - задания за последние два месяца
@@ -110,7 +122,6 @@ namespace Контроль_запросов_ТКП
                 ФДатаВыдачиЗаданияПериод.Checked = true;
                 ФДатаВыдачиЗаданияВсе.Checked = false;
             }
-            
         }
 
         private void ListTKP_Load(object sender, EventArgs e)
@@ -173,8 +184,6 @@ namespace Контроль_запросов_ТКП
             Cursor.Current = Cursors.Default;
         }
 
-
-
         /// <summary>
         /// Заполняем строку (DataGridViewRow) данными
         /// </summary>
@@ -209,7 +218,7 @@ namespace Контроль_запросов_ТКП
             if (drZad["DateEnd"].ToString() != "")
                 DGVR.Cells["DateFinish"].Value += "\n" + UI.GetDate(drZad["DateEnd"].ToString());
 
-            GetCountStatus(DGVR.Cells["Status"],
+            setCountStatus(DGVR.Cells["Status"],
                 Convert.ToInt32(drZad["CntOutDoc"]),
                 Convert.ToInt32(drZad["CntInpDoc"]),
                 Convert.ToInt32(drZad["CntCancelDoc"]),
@@ -242,14 +251,13 @@ namespace Контроль_запросов_ТКП
             //    GetColorStatusDate(DGVR.Cells[0], drSSPD["DT_Out"].ToString(), drZad["DateOut"].ToString());
 
             ////красим статус если ткп используется в сметах
-            //if (drZad["CntUseTKP"].ToString() != "0")
-            //    SetStatusUseTKP(DGVR);
+            if (drZad["CntUseTKP"].ToString() != "0")
+                SetStatusUseTKP(DGVR);
 
             if (drSSPD["Status"].ToString() != "")
-                GetColorPIRStatus(DGVR.Cells[0], Convert.ToInt32(drSSPD["Status"]));
+                setColorPIRStatus(DGVR.Cells[0], Convert.ToInt32(drSSPD["Status"]));
 
         }
-        
 
         /// <summary>
         /// Загрузка данных по ТКП
@@ -308,31 +316,38 @@ namespace Контроль_запросов_ТКП
         private DataRowCollection LoadDataSSPD(byte TypeZP) //, string ID_Zad)
         {
             string SqlStr = "";
-            if (TypeZP == 0) {
-              SqlStr = " SELECT ExchandeZadReestr.ID_Rec, ExchandeZadReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ExchandeZadReestr.DT_Out as DT_Out, ";
-              SqlStr += " ExchandeZadReestr.Node, ExchandeZadReestr.PathFiles, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, Projects.ID_GIP, ExchandeZadReestr.ID_WorkerOut as IDW_Autor ";
-              SqlStr += " FROM Dogovors LEFT OUTER JOIN";
-              SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
-              SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
-              SqlStr += " Workers RIGHT OUTER JOIN";
-              SqlStr += " Projects ON Workers.ID_Worker = Projects.ID_GIP RIGHT OUTER JOIN";
-              SqlStr += " ExchandeZadReestr LEFT OUTER JOIN";
-              SqlStr += " Otdels ON ExchandeZadReestr.ID_OtdelOut = Otdels.ID_Otdel ON Projects.ID_Project = ExchandeZadReestr.ID_Project ON DogovorsProjects.ID_Project = Projects.ID_Project";
-              SqlStr += " WHERE (ExchandeZadReestr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") AND (ExchandeZadReestr.Status = 1) "; 
+            if (TypeZP == 0) 
+            {
+                SqlStr = "SELECT ExchandeZadReestr.ID_Rec, ExchandeZadReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Otdels.NB_Otdel, ";
+                SqlStr += " ExchandeZadReestr.DT_Out AS DT_Out, ExchandeZadReestr.Node, ExchandeZadReestr.PathFiles, ";
+                SqlStr += " Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ";
+                SqlStr += " Projects.ID_GIP, ExchandeZadReestr.ID_WorkerOut AS IDW_Autor, Workers_1.F_Worker + ' ' + Workers_1.I_Worker AS AutorFIO";
+                SqlStr += " FROM Workers RIGHT OUTER JOIN";
+                SqlStr += " Projects ON Workers.ID_Worker = Projects.ID_GIP RIGHT OUTER JOIN";
+                SqlStr += " Otdels RIGHT OUTER JOIN";
+                SqlStr += " ExchandeZadReestr INNER JOIN";
+                SqlStr += " Workers Workers_1 ON ExchandeZadReestr.ID_WorkerOut = Workers_1.ID_Worker ON ";
+                SqlStr += " Otdels.ID_Otdel = ExchandeZadReestr.ID_OtdelOut ON Projects.ID_Project = ExchandeZadReestr.ID_Project LEFT OUTER JOIN";
+                SqlStr += " Dogovors LEFT OUTER JOIN";
+                SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
+                SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog ON ";
+                SqlStr += " Projects.ID_Project = DogovorsProjects.ID_Project";
+                SqlStr += " WHERE (ExchandeZadReestr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") AND (ExchandeZadReestr.Status = 1)";
             }
-            else {
-              SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, ZadFromGIPReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
-              SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles, ";
-              SqlStr += " ZadFromGIPReestr.ID_GIP as IDW_Autor";
-              SqlStr += " FROM          Dogovors LEFT OUTER JOIN";
-              SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
-              SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
-              SqlStr += " ZadFromGIPReestr INNER JOIN";
-              SqlStr += " ZadFromGIPReestrAdr ON ZadFromGIPReestr.ID_Rec = ZadFromGIPReestrAdr.ID_RecZadGip INNER JOIN";
-              SqlStr += " Projects ON ZadFromGIPReestr.ID_Project = Projects.ID_Project INNER JOIN";
-              SqlStr += " Workers ON Projects.ID_GIP = Workers.ID_Worker ON DogovorsProjects.ID_Project = Projects.ID_Project";
-              SqlStr += " WHERE  (ZadFromGIPReestrAdr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") "; 
+            else 
+            {
+                SqlStr = "SELECT ZadFromGIPReestr.ID_Rec, ZadFromGIPReestr.PathFilesPril, Projects.Sh_project, Projects.Name_Project, Workers.F_Worker + ' ' + Workers.I_Worker AS GIP, ";
+                SqlStr += " PIRPlan.Status, PIRPlan.DateExpPlan, PIRPlan.DatePZakPlan, ZadFromGIPReestr.Node, ZadFromGIPReestr.DT_Out as DT_Out, 'БГИП' AS NB_Otdel, ZadFromGIPReestr.PathFiles, ";
+                SqlStr += " ZadFromGIPReestr.ID_GIP as IDW_Autor, Workers_1.F_Worker + ' ' + Workers_1.I_Worker AS AutorFIO";
+                SqlStr += " FROM Dogovors LEFT OUTER JOIN";
+                SqlStr += " PIRPlan ON Dogovors.ID_RecPIRPlan = PIRPlan.ID_Rec RIGHT OUTER JOIN";
+                SqlStr += " DogovorsProjects ON Dogovors.ID_Dog = DogovorsProjects.ID_Dog RIGHT OUTER JOIN";
+                SqlStr += " ZadFromGIPReestr INNER JOIN";
+                SqlStr += " ZadFromGIPReestrAdr ON ZadFromGIPReestr.ID_Rec = ZadFromGIPReestrAdr.ID_RecZadGip INNER JOIN";
+                SqlStr += " Projects ON ZadFromGIPReestr.ID_Project = Projects.ID_Project INNER JOIN";
+                SqlStr += " Workers ON Projects.ID_GIP = Workers.ID_Worker ON DogovorsProjects.ID_Project = Projects.ID_Project ";
+                SqlStr += " INNER JOIN Workers Workers_1 ON ZadFromGIPReestr.ID_GIP = Workers_1.ID_Worker ";
+                SqlStr += " WHERE  (ZadFromGIPReestrAdr.ID_OtdelInp = " + TKP_Conf.AdminIDOtdel + ") "; 
             }
 
             var rs = SSPD.DB.GetFields(SqlStr);
@@ -341,103 +356,10 @@ namespace Контроль_запросов_ТКП
         }
 
         /// <summary>
-        /// Возвращает статус запроса ТКП
+        /// Добавить новое задание
         /// </summary>
-        /// <param name="Status">Параметр статуса</param>
-        /// <returns></returns>
-        private string GetStatus(string Status)
-        {
-            string retStatus = "";
-
-            switch (Convert.ToInt32(Status))
-            {
-                case 0:
-                    retStatus = "В работе";
-                    break;
-                case 1:
-                    retStatus = "Выполнено";
-                    break;
-                case 2:
-                    retStatus = "Отменено";
-                    break;
-                case 3:
-                    retStatus = "Не актуально";
-                    break;
-            }
-
-            return retStatus;
-        }
-
-        private void GetCountStatus(DataGridViewCell dgvc, int cntOut, int cntInp, int cntCancel, int cntTrue, int cntRec)
-        {
-            string s = "Полож-ых: " + cntTrue.ToString() + " из " + cntOut.ToString();
-            s += "\n";
-            s += "Отказов: " + cntCancel.ToString();
-            dgvc.Value = s;
-
-            string t = "Отправлено: " + cntOut.ToString() + "\n";
-            t += "Всего получено: " + cntInp.ToString() + "\n\n";
-            t += "из них: \n";
-            t += "Положительных: " + cntTrue.ToString() + "\n";
-            t += "Отказов: " + cntCancel.ToString() + "\n";
-            t += "Уточнений: " + cntRec.ToString() ;
-            dgvc.ToolTipText = t;
-        }
-
-        /// <summary>
-        /// Закрашивает ячейку в соответствии с датами
-        /// </summary>
-        /// <param name="DGVC">Ячейка для закраски</param>
-        /// <param name="DateOut">Дата выдачи задания</param>
-        /// <param name="DatePrj">Дата выпуска проекта</param>
-        private void GetColorStatusDate(DataGridViewCell DGVC, string DateOut, string DatePrj)
-        {
-            DateTime DO = Convert.ToDateTime(DateOut);
-            if (DatePrj != "")
-            {
-                DateTime DP = Convert.ToDateTime(DatePrj);
-
-                //прошло 5 дней с даты выдачи задания 
-                if (DP.AddDays(-5) < DateTime.Now)
-                {
-                    if (DP.AddDays(-1) < DateTime.Now)
-                    {
-                        DGVC.Style.BackColor = Color.DarkRed;
-                        DGVC.Style.ForeColor = Color.White;
-                    } 
-                    else
-                        DGVC.Style.BackColor = Color.LightCoral;
-                }
-                else
-                {
-                    //прошло 5 дней с даты выдачи задания 
-                    if (DO.AddDays(5) < DateTime.Now)
-                    {
-                        DGVC.Style.BackColor = Color.Khaki;
-                    }
-                }
-            }
-            else
-            {
-                //прошло 5 дней с даты выдачи задания 
-                if (DO.AddDays(5) < DateTime.Now)
-                {
-                    DGVC.Style.BackColor = Color.Khaki;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Закрашивает ячейку в соответствии со статусом объекта в Плане ПИР
-        /// </summary>
-        /// <param name="DGVC">Ячейка для закраски</param>
-        /// <param name="Status">Статус объекта в Плане ПИР</param>
-        private void GetColorPIRStatus(DataGridViewCell DGVC, int Status)
-        {
-            if (Status == 1 || Status == 2)
-                DGVC.Style.BackColor = Color.DimGray;
-        }
-
+        /// <param name="dr">Строка данных</param>
+        /// <param name="TypeZad">Тип задания</param>
         private void AddNewZad(DataRow dr, string TypeZad)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -481,22 +403,6 @@ namespace Контроль_запросов_ТКП
             Cursor.Current = Cursors.Default;
         }
 
-        private void добавитьЗаданиеОтОтделаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectForm.ListZadOtdels LZO = new SelectForm.ListZadOtdels();
-            LZO.ShowDialog();
-            if (LZO.flSel)
-                AddNewZad(LZO.drSel,"0");
-        }
-
-        private void добавитьЗаданиеОтГИПаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectForm.ListZadGip LZG = new SelectForm.ListZadGip();
-            LZG.ShowDialog();
-            if (LZG.flSel)
-                AddNewZad(LZG.drSel, "1");
-        }
-
         /// <summary>
         /// Открыть карточку запроса ТКП
         /// </summary>
@@ -525,7 +431,7 @@ namespace Контроль_запросов_ТКП
                 DGV.SelectedRows[0].Cells["Equip"].Value = c.Equipment.Text;
 
 
-                GetCountStatus(DGV.SelectedRows[0].Cells["Status"],
+                setCountStatus(DGV.SelectedRows[0].Cells["Status"],
                     Convert.ToInt32(c.CntDocOut),
                     Convert.ToInt32(c.CntDocInp),
                     Convert.ToInt32(c.CntCancelDoc),
@@ -696,6 +602,9 @@ namespace Контроль_запросов_ТКП
                 if (drSSPD["GIP"].ToString().ToLower().IndexOf(fs) != -1)
                     ret = true;
 
+                if (drSSPD["AutorFIO"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
             }
 
             return ret;
@@ -704,53 +613,7 @@ namespace Контроль_запросов_ТКП
 
         private void ФОтсутствует_Click(object sender, EventArgs e)
         {
-            foreach (object obj in Фильтр.DropDownItems)
-            {
-                if (obj.GetType() == ФОтсутствует.GetType())
-                {
-                    if (((ToolStripMenuItem)obj).DropDownItems.Count > 0)
-                    {
-                        foreach (object subobj in ((ToolStripMenuItem)obj).DropDownItems)
-                        {
-                            if (subobj.GetType() == ФОтсутствует.GetType())
-                            {
-                                ((ToolStripMenuItem)subobj).Checked = false;
-                            }
-                        }
-                    }
-                }
-            }
-
-            ФГИПВсе.Checked = true;
-            ФСтатусВсе.Checked = true;
-            ФПроектВсе.Checked = true;
-            ФОборудованиеВсе.Checked = true;
-            ФОтсутствует.Checked = true;
-            ФОргВсе.Checked = true;
-            ФОтделВсе.Checked = true;
-            ФДатаВыдачиЗаданияВсе.Checked = true;
-            ФАвторВсе.Checked = true;
-
-            ФОборудование.Text = "Оборудование - ...";
-            ФОборудование.Tag = null;
-
-            ФПроект.Tag = null;
-            ФПроект.Text = "Проект - ...";
-
-            ФОрг.Tag = null;
-            ФОрг.Text = "Организация - ...";
-
-            ФОтдел.Tag = null;
-            ФОтдел.Text = "Отдел - ...";
-
-            ФДатаВыдачиЗаданияПериод.Tag = null;
-            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
-
-            ФАвтор.Tag = null;
-            ФАвтор.Text = "Автор - ...";
-                
-
-            GetListTKP();
+            ФильтрОтсутствует();
         }
 
         private void ФСтатусВработе_Click(object sender, EventArgs e)
@@ -830,6 +693,7 @@ namespace Контроль_запросов_ТКП
 
         #region [События]
 
+
         private void DGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -862,23 +726,6 @@ namespace Контроль_запросов_ТКП
         {
             Application.DoEvents();
             ExportExl.ExportTKP(DGV);
-        }
-
-        //подсвечиваем статус если ткп в работе 
-        private void SetStatusUseTKP(DataGridViewRow DGVR, byte mean = 0 )
-        {
-            if (mean == 0)
-            {
-                DGVR.Cells["Status"].Style.BackColor = UI.bgUseTKP;
-                DGVR.Cells["Status"].Style.SelectionBackColor = UI.bgUseTKP;
-                DGVR.Cells["Status"].Style.SelectionForeColor = Color.Black;
-            }
-            else
-            {
-                DGVR.Cells["Status"].Style.BackColor = DGVR.Cells[2].Style.BackColor;
-                DGVR.Cells["Status"].Style.SelectionBackColor = DGVR.Cells[2].Style.SelectionBackColor;
-                DGVR.Cells["Status"].Style.SelectionForeColor = DGVR.Cells[2].Style.SelectionForeColor;
-            }
         }
 
         private void DGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -921,12 +768,21 @@ namespace Контроль_запросов_ТКП
             OpenFileZadTKP();
         }
 
+        private void добавитьЗаданиеОтОтделаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectForm.ListZadOtdels LZO = new SelectForm.ListZadOtdels();
+            LZO.ShowDialog();
+            if (LZO.flSel)
+                AddNewZad(LZO.drSel, "0");
+        }
 
-
-        #endregion
-
-
-
+        private void добавитьЗаданиеОтГИПаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectForm.ListZadGip LZG = new SelectForm.ListZadGip();
+            LZG.ShowDialog();
+            if (LZG.flSel)
+                AddNewZad(LZG.drSel, "1");
+        }
         
         private void ФОргВсе_Click(object sender, EventArgs e)
         {
@@ -935,7 +791,6 @@ namespace Контроль_запросов_ТКП
             doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
             GetListTKP();
         }
-
 
         private void ФОрг_Click(object sender, EventArgs e)
         {
@@ -969,6 +824,371 @@ namespace Контроль_запросов_ТКП
                 GetListTKP();
             }
         }
+
+        private void ФСтатусНеАктуально_Click(object sender, EventArgs e)
+        {
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void МенюЭкспортТКП_Click(object sender, EventArgs e)
+        {
+            ExportTKP ExpTKP = new ExportTKP();
+            ExpTKP.DGV = this.DGV;
+            ExpTKP.ShowDialog();
+        }
+
+        private void ФОтделВсе_Click(object sender, EventArgs e)
+        {
+            ФОтдел.Text = "Отдел - ...";
+            ФОтдел.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФОтдел_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectOtdel SelOtdel = new SelectForm.SelectOtdel();
+            SelOtdel.ShowDialog();
+            if (SelOtdel.SelNBOtdel != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФОтдел.Text = "Отдел - " + SelOtdel.SelNBOtdel;
+                ФОтдел.Tag = SelOtdel.SelNBOtdel;
+                GetListTKP();
+            }
+        }
+        
+        private void экспортДокументовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            ExportScanDoc expFrm = new ExportScanDoc();
+            expFrm.DGV = DGV;
+            expFrm.ShowDialog();
+
+        }
+
+        private void ФДатаВыдачиЗаданияВсе_Click(object sender, EventArgs e)
+        {
+            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
+            ФДатаВыдачиЗаданияПериод.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФДатаВыдачиЗаданияПериод_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectPeriod SP = new SelectForm.SelectPeriod();
+
+            if (ФДатаВыдачиЗаданияПериод.Tag != null)
+            {
+                DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
+                DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
+                SP.D1 = D1;
+                SP.D2 = D2;
+            }
+
+            SP.ShowDialog();
+
+            if (SP.flSel)
+            {
+                List<DateTime> FDateZad = new List<DateTime>();
+                FDateZad.Add(SP.D1);
+                FDateZad.Add(SP.D2);
+                ФДатаВыдачиЗаданияПериод.Tag = FDateZad;
+                ФДатаВыдачиЗаданияПериод.Text = string.Format("c {0} по {1}", UI.GetDate(FDateZad[0].ToString()), UI.GetDate(FDateZad[1].ToString()));
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                GetListTKP();
+            }
+
+            SP.Dispose();
+        }
+
+        private void открытьЗаданиеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileZadTKP();
+        }
+
+        private void открытьКарточкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenCard();
+        }
+
+        private void открытьПриложениеКЗаданиюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFilePrilZadTKP();
+        }
+
+        private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
+        }
+
+        private void DGV_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex != -1)
+            {
+                КонтекстноеМенюЗапросТКП.Show(new Point(MousePosition.X, MousePosition.Y));
+            }
+        }
+
+        private void таблицаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectForm.ListProject LP = new SelectForm.ListProject();
+            LP.ShowDialog();
+            if (LP.SelID != "")
+            {
+                ReportTable rt = new ReportTable(LP.SelID, LP.SelNamePrj, LP.SelShPrj);
+                rt.ExportReportTable();
+
+                //PrjSh.Text = LP.SelShPrj;
+                //PrjSh.Tag = LP.SelID;
+            }
+        }
+
+        private void ФАвторВсе_Click(object sender, EventArgs e)
+        {
+            ФАвтор.Text = "Автор - ...";
+            ФАвтор.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void ФАвтор_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
+
+            SW.Text = "Выбор автора задания";
+
+            //if (flPOtdel)
+            //    SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 AND ID_Otdel = " + Params.UserInfo.ID_MOtdel;
+            //else
+            //SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 ";
+            SW.SqlQuery = "SELECT DISTINCT Workers.ID_Worker, Workers.F_Worker, Workers.I_Worker, Workers.N_Worker, Workers.P_Worker FROM Workers INNER JOIN";
+            SW.SqlQuery += " ExchandeZadReestr ON ExchandeZadReestr.ID_WorkerOut = Workers.ID_Worker";
+            SW.SqlQuery += string.Format(" WHERE Workers.Fl_Rel = 0 AND ExchandeZadReestr.ID_OtdelInp = {0}", TKP_Conf.AdminIDOtdel);
+
+            SW.ShowDialog();
+
+            if (SW.SelIDWorker != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФАвтор.Text = "Автор - " + SW.SelNBFIO;
+                ФАвтор.Tag = SW.SelIDWorker;
+                GetListTKP();
+            }
+        }
+
+        private void запускСИнтерфейсомПользователяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
+            SW.Text = "Выбор пользователя";
+            SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 ";
+
+            SW.ShowDialog();
+            if (SW.SelIDWorker != "")
+            {
+                string sql = string.Format("SELECT Login FROM Workers WHERE ID_Worker = {0}", SW.SelIDWorker);
+                string Login = DB.GetFields(sql)[0][0].ToString();
+
+                User.LoadUserInfo(Login);
+
+
+                ФильтрОтсутствует(false);
+                InitForm();
+
+                GetListTKP();
+
+                //doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                //ФАвтор.Text = "Автор - " + SW.SelNBFIO;
+                //ФАвтор.Tag = SW.SelIDWorker;
+
+            }
+        }
+
+        private void ФГИП_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
+            SW.ShowDialog();
+            if (SW.SelIDWorker != "")
+            {
+                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+                ФГИП.Text = "ГИП - " + SW.SelNBFIO;
+                ФГИП.Tag = SW.SelNBFIO;
+                GetListTKP();
+            }
+        }
+
+        private void ФГИПВсе_Click(object sender, EventArgs e)
+        {
+            ФГИП.Text = "ГИП - ...";
+            ФГИП.Tag = null;
+            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
+            GetListTKP();
+        }
+
+        private void приложениеКПисьмуВОСТToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReportForOST RFO = new ReportForOST();
+
+            //RFO.dra = this.dra;
+            //RFO.draZP = this.draZP;
+            //RFO.draZPGIP = this.draZPGIP;
+
+            RFO.ShowDialog();
+        }
+
+        private void FastSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetListTKP();
+            }
+        }
+
+        private void FastSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListTKP_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (LocalDB.LocalConn.State == ConnectionState.Open)
+                LocalDB.LocalConn.Close();
+
+        }
+
+
+        #endregion
+
+        #region [Вспомогательные процедуры]
+
+
+        /// <summary>
+        /// Возвращает статус запроса ТКП
+        /// </summary>
+        /// <param name="Status">Параметр статуса</param>
+        /// <returns>Возвращает статус</returns>
+        private string GetStatus(string Status)
+        {
+            string retStatus = "";
+
+            switch (Convert.ToInt32(Status))
+            {
+                case 0:
+                    retStatus = "В работе";
+                    break;
+                case 1:
+                    retStatus = "Выполнено";
+                    break;
+                case 2:
+                    retStatus = "Отменено";
+                    break;
+                case 3:
+                    retStatus = "Не актуально";
+                    break;
+            }
+
+            return retStatus;
+        }
+
+        /// <summary>
+        /// Статус запроса ТКП по кол-ву
+        /// </summary>
+        /// <param name="dgvc">Ячейка</param>
+        /// <param name="cntOut">Кол-во входящих</param>
+        /// <param name="cntInp">Кол-во исхдящих</param>
+        /// <param name="cntCancel">Кол-во отмененных</param>
+        /// <param name="cntTrue">Кол-во положительных</param>
+        /// <param name="cntRec">Всего записей</param>
+        private void setCountStatus(DataGridViewCell dgvc, int cntOut, int cntInp, int cntCancel, int cntTrue, int cntRec)
+        {
+            string s = "Полож-ых: " + cntTrue.ToString() + " из " + cntOut.ToString();
+            s += "\n";
+            s += "Отказов: " + cntCancel.ToString();
+            dgvc.Value = s;
+
+            string t = "Отправлено: " + cntOut.ToString() + "\n";
+            t += "Всего получено: " + cntInp.ToString() + "\n\n";
+            t += "из них: \n";
+            t += "Положительных: " + cntTrue.ToString() + "\n";
+            t += "Отказов: " + cntCancel.ToString() + "\n";
+            t += "Уточнений: " + cntRec.ToString();
+            dgvc.ToolTipText = t;
+        }
+
+        /// <summary>
+        /// Закрашивает ячейку в соответствии с датами
+        /// </summary>
+        /// <param name="DGVC">Ячейка для закраски</param>
+        /// <param name="DateOut">Дата выдачи задания</param>
+        /// <param name="DatePrj">Дата выпуска проекта</param>
+        private void setColorStatusDate(DataGridViewCell DGVC, string DateOut, string DatePrj)
+        {
+            DateTime DO = Convert.ToDateTime(DateOut);
+            if (DatePrj != "")
+            {
+                DateTime DP = Convert.ToDateTime(DatePrj);
+
+                //прошло 5 дней с даты выдачи задания 
+                if (DP.AddDays(-5) < DateTime.Now)
+                {
+                    if (DP.AddDays(-1) < DateTime.Now)
+                    {
+                        DGVC.Style.BackColor = Color.DarkRed;
+                        DGVC.Style.ForeColor = Color.White;
+                    }
+                    else
+                        DGVC.Style.BackColor = Color.LightCoral;
+                }
+                else
+                {
+                    //прошло 5 дней с даты выдачи задания 
+                    if (DO.AddDays(5) < DateTime.Now)
+                    {
+                        DGVC.Style.BackColor = Color.Khaki;
+                    }
+                }
+            }
+            else
+            {
+                //прошло 5 дней с даты выдачи задания 
+                if (DO.AddDays(5) < DateTime.Now)
+                {
+                    DGVC.Style.BackColor = Color.Khaki;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Закрашивает ячейку в соответствии со статусом объекта в Плане ПИР
+        /// </summary>
+        /// <param name="DGVC">Ячейка для закраски</param>
+        /// <param name="Status">Статус объекта в Плане ПИР</param>
+        private void setColorPIRStatus(DataGridViewCell DGVC, int Status)
+        {
+            if (Status == 1 || Status == 2)
+                DGVC.Style.BackColor = UI.bgFailPir;
+        }
+
+
+        //подсвечиваем статус если ткп в работе 
+        private void SetStatusUseTKP(DataGridViewRow DGVR, byte mean = 0)
+        {
+            if (mean == 0)
+            {
+                DGVR.Cells["Status"].Style.BackColor = UI.bgUseTKP;
+                DGVR.Cells["Status"].Style.SelectionBackColor = UI.bgUseTKP;
+                DGVR.Cells["Status"].Style.SelectionForeColor = Color.Black;
+            }
+            else
+            {
+                DGVR.Cells["Status"].Style.BackColor = DGVR.Cells[2].Style.BackColor;
+                DGVR.Cells["Status"].Style.SelectionBackColor = DGVR.Cells[2].Style.SelectionBackColor;
+                DGVR.Cells["Status"].Style.SelectionForeColor = DGVR.Cells[2].Style.SelectionForeColor;
+            }
+        }
+
 
         /// <summary>
         /// Выводит информацию о выбранных фильтрах
@@ -1043,55 +1263,6 @@ namespace Контроль_запросов_ТКП
            CountRowLabel.Text += LabelFilter; 
         }
 
-        private void ФСтатусНеАктуально_Click(object sender, EventArgs e)
-        {
-            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-            GetListTKP();
-        }
-
-        private void DGV_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
-        }
-
-        private void экспортДокументовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            ExportScanDoc expFrm = new ExportScanDoc();
-            expFrm.DGV = DGV;
-            expFrm.ShowDialog();
-
-        }
-
-        private void МенюЭкспортТКП_Click(object sender, EventArgs e)
-        {
-            ExportTKP ExpTKP = new ExportTKP();
-            ExpTKP.DGV = this.DGV;
-            ExpTKP.ShowDialog();
-        }
-
-        private void ФОтделВсе_Click(object sender, EventArgs e)
-        {
-            ФОтдел.Text = "Отдел - ...";
-            ФОтдел.Tag = null;
-            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-            GetListTKP();
-        }
-
-        private void ФОтдел_Click(object sender, EventArgs e)
-        {
-            SelectForm.SelectOtdel SelOtdel = new SelectForm.SelectOtdel();
-            SelOtdel.ShowDialog();
-            if (SelOtdel.SelNBOtdel != "")
-            {
-                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-                ФОтдел.Text = "Отдел - " + SelOtdel.SelNBOtdel;
-                ФОтдел.Tag = SelOtdel.SelNBOtdel;
-                GetListTKP();
-            }
-        }
-
-
         /// <summary>
         /// Формирование структуры папок на диске L в каталоке ТКП
         /// </summary>
@@ -1111,7 +1282,6 @@ namespace Контроль_запросов_ТКП
                 createPath(string.Format("{0}\\{1}\\{2}", Lpath, ConvertFileName(ShPrj), ConvertFileName(NBOtdel)));
 
         }
-
 
         /// <summary>
         /// Конвертация символов
@@ -1135,57 +1305,6 @@ namespace Контроль_запросов_ТКП
             if (!Directory.Exists(PathOut)) // "!" забыл поставить
             {
                 Directory.CreateDirectory(PathOut);
-            }
-        }
-
-
-        private void поДатеВыдачиЗаданияПериод_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ФДатаВыдачиЗаданияВсе_Click(object sender, EventArgs e)
-        {
-            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
-            ФДатаВыдачиЗаданияПериод.Tag = null;
-            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-            GetListTKP();
-        }
-
-        private void ФДатаВыдачиЗаданияПериод_Click(object sender, EventArgs e)
-        {
-            SelectForm.SelectPeriod SP = new SelectForm.SelectPeriod();
-
-            if (ФДатаВыдачиЗаданияПериод.Tag != null)
-            {
-                DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
-                DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
-                SP.D1 = D1;
-                SP.D2 = D2;
-            }
-
-            SP.ShowDialog();
-
-            if (SP.flSel)
-            {
-                List<DateTime> FDateZad = new List<DateTime>();
-                FDateZad.Add(SP.D1);
-                FDateZad.Add(SP.D2);
-                ФДатаВыдачиЗаданияПериод.Tag = FDateZad;
-                ФДатаВыдачиЗаданияПериод.Text = string.Format("c {0} по {1}", UI.GetDate(FDateZad[0].ToString()), UI.GetDate(FDateZad[1].ToString()));
-                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-                GetListTKP();
-            }
-
-            SP.Dispose();
-        }
-
-        private void DGV_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right && e.RowIndex != -1)
-            {
-                КонтекстноеМенюЗапросТКП.Show(new Point(MousePosition.X, MousePosition.Y));
-                //New System.Drawing.Point(MousePosition.X, MousePosition.Y)
             }
         }
 
@@ -1214,117 +1333,77 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-        private void открытьЗаданиеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ФильтрОтсутствует(bool flUpdateList = true)
         {
-            OpenFileZadTKP();
-        }
-
-        private void открытьКарточкуToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenCard();
-        }
-
-        private void открытьПриложениеКЗаданиюToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFilePrilZadTKP();
-        }
-
-        private void FastSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            foreach (object obj in Фильтр.DropDownItems)
             {
-                GetListTKP();
+                if (obj.GetType() == ФОтсутствует.GetType())
+                {
+                    if (((ToolStripMenuItem)obj).DropDownItems.Count > 0)
+                    {
+                        foreach (object subobj in ((ToolStripMenuItem)obj).DropDownItems)
+                        {
+                            if (subobj.GetType() == ФОтсутствует.GetType())
+                            {
+                                ((ToolStripMenuItem)subobj).Checked = false;
+                            }
+                        }
+                    }
+                }
             }
-        }
 
-        private void FastSearch_TextChanged(object sender, EventArgs e)
-        {
+            ФГИПВсе.Checked = true;
+            ФСтатусВсе.Checked = true;
+            ФПроектВсе.Checked = true;
+            ФОборудованиеВсе.Checked = true;
+            ФОтсутствует.Checked = true;
+            ФОргВсе.Checked = true;
+            ФОтделВсе.Checked = true;
+            ФДатаВыдачиЗаданияВсе.Checked = true;
+            ФАвторВсе.Checked = true;
 
-        }
+            ФОборудование.Text = "Оборудование - ...";
+            ФОборудование.Tag = null;
 
-        private void ФГИП_Click(object sender, EventArgs e)
-        {
-            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
-            SW.ShowDialog();
-            if (SW.SelIDWorker != "")
-            {
-                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-                ФГИП.Text = "ГИП - " + SW.SelNBFIO;
-                ФГИП.Tag = SW.SelNBFIO;
-                GetListTKP();
-            }
-        }
+            ФПроект.Tag = null;
+            ФПроект.Text = "Проект - ...";
 
-        private void ФГИПВсе_Click(object sender, EventArgs e)
-        {
-            ФГИП.Text = "ГИП - ...";
-            ФГИП.Tag = null;
-            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-            GetListTKP();
-        }
+            ФОрг.Tag = null;
+            ФОрг.Text = "Организация - ...";
 
-        private void приложениеКПисьмуВОСТToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReportForOST RFO = new ReportForOST();
+            ФОтдел.Tag = null;
+            ФОтдел.Text = "Отдел - ...";
 
-            //RFO.dra = this.dra;
-            //RFO.draZP = this.draZP;
-            //RFO.draZPGIP = this.draZPGIP;
-            
-            RFO.ShowDialog();
-        }
+            ФДатаВыдачиЗаданияПериод.Tag = null;
+            ФДатаВыдачиЗаданияПериод.Text = "Период - ...";
 
-        private void ListTKP_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (LocalDB.LocalConn.State == ConnectionState.Open)
-                LocalDB.LocalConn.Close();
-
-        }
-
-        private void таблицаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectForm.ListProject LP = new SelectForm.ListProject();
-            LP.ShowDialog();
-            if (LP.SelID != "")
-            {
-                ReportTable rt = new ReportTable(LP.SelID , LP.SelNamePrj, LP.SelShPrj);
-                rt.ExportReportTable();
-
-                //PrjSh.Text = LP.SelShPrj;
-                //PrjSh.Tag = LP.SelID;
-            }
-        }
-
-        private void ФАвторВсе_Click(object sender, EventArgs e)
-        {
-            ФАвтор.Text = "Автор - ...";
             ФАвтор.Tag = null;
-            doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-            GetListTKP();
-        }
+            ФАвтор.Text = "Автор - ...";
 
-        private void ФАвтор_Click(object sender, EventArgs e)
-        {
-            SelectForm.SelectWorker SW = new SelectForm.SelectWorker();
-            
-            SW.Text = "Выбор автора задания";    
-
-            if (flPOtdel)
-                SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 AND ID_Otdel = " + Params.UserInfo.ID_MOtdel;
-            else
-                SW.SqlQuery = "SELECT ID_Worker, F_Worker, I_Worker, N_Worker, P_Worker FROM Workers WHERE Fl_Rel = 0 ";
-            
-            SW.ShowDialog();
-            if (SW.SelIDWorker != "")
-            {
-                doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
-                ФАвтор.Text = "Автор - " + SW.SelNBFIO;
-                ФАвтор.Tag = SW.SelIDWorker;
+            //если стоит флаг обновления списка (по умолчанию)
+            if (flUpdateList)
                 GetListTKP();
-            }
         }
 
+        /// <summary>
+        /// Возвращает флаг наличия записей в таблице заданий
+        /// </summary>
+        /// <param name="ID">Параметр</param>
+        /// <param name="NameField">Наименование поля</param>
+        /// <returns></returns>
+        private bool checkExchangeZad(string ID, string NameField)
+        {
+            string sql = string.Format("SELECT TOP 1 ID_Rec FROM ExchandeZadReestr WHERE {0} = {1} AND ID_OtdelInp = {2}", NameField, ID, TKP_Conf.AdminIDOtdel);
+
+            if (DB.GetFields(sql).Count == 0)
+                return false;
+            else
+                return true;
+            //if (TypeField == "ID_WorkerOut")
+        }
+
+
+        #endregion
 
     }
 }
-

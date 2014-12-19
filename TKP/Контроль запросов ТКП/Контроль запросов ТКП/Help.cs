@@ -16,7 +16,19 @@ namespace Контроль_запросов_ТКП
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+
+
+        private void Help_Load(object sender, EventArgs e)
+        {
+            LabelBG1.BackColor = UI.bgUseTKP;
+            Label1.Text = "- отметка о использовании данных в сметах";
+
+            LabelBG2.BackColor = UI.bgFailPir;
+            Label2.Text = "- выполненные/отмененные объекты плана ПИР";
+
+        }
+
+        private void cmdClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }

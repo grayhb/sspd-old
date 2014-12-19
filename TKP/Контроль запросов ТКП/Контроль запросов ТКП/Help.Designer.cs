@@ -28,119 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Button1 = new System.Windows.Forms.Button();
-            this.Label4 = new System.Windows.Forms.Label();
-            this.Label3 = new System.Windows.Forms.Label();
+            this.cmdClose = new System.Windows.Forms.Button();
+            this.LabelBG1 = new System.Windows.Forms.Label();
+            this.LabelBG2 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.Label5 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Button1
+            // cmdClose
             // 
-            this.Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button1.Location = new System.Drawing.Point(280, 156);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 23);
-            this.Button1.TabIndex = 9;
-            this.Button1.Text = "Закрыть";
-            this.Button1.UseVisualStyleBackColor = true;
-            this.Button1.Click += new System.EventHandler(this.Button1_Click);
+            this.cmdClose.Location = new System.Drawing.Point(277, 97);
+            this.cmdClose.Name = "cmdClose";
+            this.cmdClose.Size = new System.Drawing.Size(75, 23);
+            this.cmdClose.TabIndex = 9;
+            this.cmdClose.Text = "Закрыть";
+            this.cmdClose.UseVisualStyleBackColor = true;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
             // 
-            // Label4
+            // LabelBG1
             // 
-            this.Label4.BackColor = System.Drawing.Color.Khaki;
-            this.Label4.Location = new System.Drawing.Point(12, 21);
-            this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(70, 20);
-            this.Label4.TabIndex = 7;
+            this.LabelBG1.BackColor = System.Drawing.Color.Khaki;
+            this.LabelBG1.Location = new System.Drawing.Point(21, 21);
+            this.LabelBG1.Name = "LabelBG1";
+            this.LabelBG1.Size = new System.Drawing.Size(70, 20);
+            this.LabelBG1.TabIndex = 7;
             // 
-            // Label3
+            // LabelBG2
             // 
-            this.Label3.BackColor = System.Drawing.Color.LightCoral;
-            this.Label3.Location = new System.Drawing.Point(12, 53);
-            this.Label3.Name = "Label3";
-            this.Label3.Size = new System.Drawing.Size(70, 20);
-            this.Label3.TabIndex = 8;
+            this.LabelBG2.BackColor = System.Drawing.Color.DimGray;
+            this.LabelBG2.Location = new System.Drawing.Point(19, 59);
+            this.LabelBG2.Name = "LabelBG2";
+            this.LabelBG2.Size = new System.Drawing.Size(70, 20);
+            this.LabelBG2.TabIndex = 11;
             // 
             // Label2
             // 
-            this.Label2.BackColor = System.Drawing.Color.DarkRed;
-            this.Label2.Location = new System.Drawing.Point(12, 88);
+            this.Label2.AutoSize = true;
+            this.Label2.Location = new System.Drawing.Point(95, 63);
             this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(70, 20);
-            this.Label2.TabIndex = 6;
-            // 
-            // Label6
-            // 
-            this.Label6.Location = new System.Drawing.Point(88, 21);
-            this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(267, 20);
-            this.Label6.TabIndex = 3;
-            this.Label6.Text = "- прошло 5 дней с момента отправления ТКП";
-            this.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // Label5
-            // 
-            this.Label5.Location = new System.Drawing.Point(88, 53);
-            this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(267, 20);
-            this.Label5.TabIndex = 4;
-            this.Label5.Text = "- осталось меньше 5 дней до сдачи ТКП";
-            this.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Label2.Size = new System.Drawing.Size(10, 13);
+            this.Label2.TabIndex = 10;
+            this.Label2.Text = "-";
             // 
             // Label1
             // 
-            this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(88, 92);
+            this.Label1.Location = new System.Drawing.Point(97, 21);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(205, 13);
-            this.Label1.TabIndex = 5;
-            this.Label1.Text = "- осталось меньше 1 дня до сдачи ТКП";
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.DimGray;
-            this.label7.Location = new System.Drawing.Point(12, 121);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 20);
-            this.label7.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(88, 125);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(257, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "- выполненные/отмененные объекты плана ПИР";
+            this.Label1.Size = new System.Drawing.Size(267, 20);
+            this.Label1.TabIndex = 3;
+            this.Label1.Text = "-";
+            this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 181);
-            this.ControlBox = false;
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.Button1);
-            this.Controls.Add(this.Label4);
-            this.Controls.Add(this.Label3);
+            this.ClientSize = new System.Drawing.Size(376, 150);
+            this.Controls.Add(this.LabelBG2);
             this.Controls.Add(this.Label2);
-            this.Controls.Add(this.Label6);
-            this.Controls.Add(this.Label5);
+            this.Controls.Add(this.cmdClose);
+            this.Controls.Add(this.LabelBG1);
             this.Controls.Add(this.Label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Help";
             this.Opacity = 0.97D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справка";
+            this.Load += new System.EventHandler(this.Help_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Help_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -149,14 +108,10 @@
 
         #endregion
 
-        internal System.Windows.Forms.Button Button1;
-        internal System.Windows.Forms.Label Label4;
-        internal System.Windows.Forms.Label Label3;
+        internal System.Windows.Forms.Button cmdClose;
+        internal System.Windows.Forms.Label LabelBG1;
+        internal System.Windows.Forms.Label LabelBG2;
         internal System.Windows.Forms.Label Label2;
-        internal System.Windows.Forms.Label Label6;
-        internal System.Windows.Forms.Label Label5;
         internal System.Windows.Forms.Label Label1;
-        internal System.Windows.Forms.Label label7;
-        internal System.Windows.Forms.Label label8;
     }
 }

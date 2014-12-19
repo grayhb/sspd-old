@@ -193,6 +193,7 @@
             this.Фильтр.Name = "Фильтр";
             this.Фильтр.Size = new System.Drawing.Size(57, 20);
             this.Фильтр.Text = "Фильтр";
+            this.Фильтр.Visible = false;
             // 
             // ФМесяц
             // 

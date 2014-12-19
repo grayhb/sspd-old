@@ -21,6 +21,9 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         Timer tm = new Timer();
 
+        public string SqlFastSearch = "";
+        bool flLoadList = false;
+
         public ListDocsOut()
         {
             InitializeComponent();
@@ -35,6 +38,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         private void ListDocsOut_Load(object sender, EventArgs e)
         {
             Application.DoEvents();
+
+            SqlFastSearch = string.Format(" DocsOutput.Date_DocOut >= '{0}'", DateTime.Now.AddDays(-30).Date);
             LoadData();
             GetListDoc();
 
@@ -44,38 +49,23 @@ namespace Контроль_запросов_ТКП.SelectForm
 
         private void LoadData()
         {
-            //string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut,";
-            //SqlStr += " DocsOutput.Note_DocOut, DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
-            //SqlStr += " FROM DocsOutput LEFT OUTER JOIN";
-            //SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name as Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
-            //SqlStr += " FROM DocsOutputRec INNER JOIN";
-            //SqlStr += " Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
-            //SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut INNER JOIN";
-            //SqlStr += " Workers ON DocsOutput.ID_Worker = Workers.ID_Worker INNER JOIN";
-            //SqlStr += " Otdels ON Workers.ID_Otdel = Otdels.ID_Otdel";
-            //SqlStr += " WHERE      (Otdels.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
-            //SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
-
             string SqlStr = "SELECT DocsOutput.ID_DocOut, DocsOutput.PathToImage, DocsOutput.RN_DocOut, DocsOutput.Date_DocOut, DocsOutput.Note_DocOut, ";
-                   SqlStr += " DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
-                   SqlStr += " FROM DocsOutput INNER JOIN";
-                   SqlStr += " (SELECT DISTINCT * FROM (SELECT      ID_DocOut AS IDO";
-                   SqlStr += " FROM DocsOutput INNER JOIN Workers ON Workers.ID_Worker = DocsOutput.ID_Worker";
-                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") UNION SELECT      ID_DocOut AS IDO";
-                   SqlStr += " FROM ImageDocOutAc INNER JOIN Workers ON Workers.ID_Worker = ImageDocOutAc.ID_Worker";
-                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") GROUP BY ID_DocOut UNION SELECT      DocsOutput.ID_DocOut AS IDO";
-                   SqlStr += " FROM DocsOutput INNER JOIN DocsInputExec ON DocsOutput.ID_DocInp = DocsInputExec.ID_DocInp INNER JOIN";
-                   SqlStr += " Workers ON Workers.ID_Worker = DocsInputExec.ID_WorkerInput";
-                   SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
-                   SqlStr += " GROUP BY ID_DocOut) t) Isp ON DocsOutput.ID_DocOut = Isp.IDO LEFT OUTER JOIN";
-                   SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name AS Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
-                   SqlStr += " FROM DocsOutputRec INNER JOIN Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
-                   SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut";
-                   SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
-
-
-            //Clipboard.Clear();
-            //Clipboard.SetText(SqlStr);
+            SqlStr += " DOutRec.Org, DOutRec.Rec_Org, DOutRec.ID_Org";
+            SqlStr += " FROM DocsOutput INNER JOIN";
+            SqlStr += " (SELECT DISTINCT * FROM (SELECT      ID_DocOut AS IDO";
+            SqlStr += " FROM DocsOutput INNER JOIN Workers ON Workers.ID_Worker = DocsOutput.ID_Worker";
+            SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") UNION SELECT      ID_DocOut AS IDO";
+            SqlStr += " FROM ImageDocOutAc INNER JOIN Workers ON Workers.ID_Worker = ImageDocOutAc.ID_Worker";
+            SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ") GROUP BY ID_DocOut UNION SELECT      DocsOutput.ID_DocOut AS IDO";
+            SqlStr += " FROM DocsOutput INNER JOIN DocsInputExec ON DocsOutput.ID_DocInp = DocsInputExec.ID_DocInp INNER JOIN";
+            SqlStr += " Workers ON Workers.ID_Worker = DocsInputExec.ID_WorkerInput";
+            SqlStr += " WHERE (Workers.ID_Otdel = "+ TKP_Conf.AdminIDOtdel + ")";
+            SqlStr += " GROUP BY ID_DocOut) t) Isp ON DocsOutput.ID_DocOut = Isp.IDO LEFT OUTER JOIN";
+            SqlStr += " (SELECT DocsOutputRec.ID_DocOut, Orgs.Name AS Org, DocsOutputRec.Rec_Org, Orgs.ID_Org";
+            SqlStr += " FROM DocsOutputRec INNER JOIN Orgs ON DocsOutputRec.ID_Org = Orgs.ID_Org";
+            SqlStr += " WHERE (DocsOutputRec.RecOrd = 1)) DOutRec ON DocsOutput.ID_DocOut = DOutRec.ID_DocOut";
+            if (SqlFastSearch.Length > 0) SqlStr += string.Format(" WHERE {0}", SqlFastSearch); 
+            SqlStr += " ORDER BY DocsOutput.ID_DocOut DESC";
 
             dra = DB.GetFields(SqlStr);
         }
@@ -83,33 +73,32 @@ namespace Контроль_запросов_ТКП.SelectForm
         private void GetListDoc()
         {
             Application.DoEvents();
+            DGV.Rows.Clear();
             Cursor.Current = Cursors.WaitCursor;
             if (dra != null)
             {
-                DGV.Rows.Clear();
                 foreach (DataRow dr in dra)
                 {
-                    if (CheckFilter(dr))
-                    {
-                        DGV.Rows.Add();
-                        DataGridViewRow DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
+                    DGV.Rows.Add();
+                    DataGridViewRow DGVR = DGV.Rows[DGV.Rows.GetLastRow(DataGridViewElementStates.Visible)];
 
-                        DGVR.Cells["RNDoc"].Value = dr["RN_DocOut"].ToString();
-                        DGVR.Cells["RNDoc"].Tag = dr["ID_DocOut"].ToString();
+                    DGVR.Cells["RNDoc"].Value = dr["RN_DocOut"].ToString();
+                    DGVR.Cells["RNDoc"].Tag = dr["ID_DocOut"].ToString();
 
-                        DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocOut"].ToString());
-                        DGVR.Cells["Note"].Value = dr["Note_DocOut"].ToString();
-                        DGVR.Cells["Org"].Value = dr["Org"].ToString();
-                        DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
-                        DGVR.Cells["Adr"].Value = dr["Rec_Org"].ToString();
+                    DGVR.Cells["DateDoc"].Value = UI.GetDate(dr["Date_DocOut"].ToString());
+                    DGVR.Cells["Note"].Value = dr["Note_DocOut"].ToString();
+                    DGVR.Cells["Org"].Value = dr["Org"].ToString();
+                    DGVR.Cells["Org"].Tag = dr["ID_Org"].ToString();
+                    DGVR.Cells["Adr"].Value = dr["Rec_Org"].ToString();
 
-                        DGVR.Tag = dr["PathToImage"].ToString();
-                    }
+                    DGVR.Tag = dr["PathToImage"].ToString();
                 }
                 UI.SetBgRowInDGV(DGV);
             }
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
+
+            flLoadList = true;
         }
 
         private bool CheckFilter(DataRow dr)
@@ -157,7 +146,8 @@ namespace Контроль_запросов_ТКП.SelectForm
         {
             tm.Enabled = false;
             Cursor.Current = Cursors.WaitCursor;
-            UI.FilterInDGV(DGV, Filter.Text, true);
+            //UI.FilterInDGV(DGV, Filter.Text, true);
+            setFastSearch(Filter.Text);
             CountRowLabel.Text = UI.GetCountRow(DGV);
             Cursor.Current = Cursors.Default;
         }
@@ -212,6 +202,10 @@ namespace Контроль_запросов_ТКП.SelectForm
         {
             doCheck((ToolStripMenuItem)((ToolStripMenuItem)sender).OwnerItem, (ToolStripMenuItem)sender);
             ФМесяц.Checked = true;
+
+            flLoadList = false;
+            SqlFastSearch = string.Format(" DocsOutput.Date_DocOut >= '{0}'", DateTime.Now.AddDays(-30).Date);
+            LoadData();
             GetListDoc();
         }
 
@@ -236,6 +230,37 @@ namespace Контроль_запросов_ТКП.SelectForm
         {
             if (e.RowIndex == -1 && DGV.Rows.Count > 0) UI.SetBgRowInDGV(DGV);
         }
+
+
+        private void setFastSearch(string txt)
+        {
+            if (flLoadList == false) return;
+
+            string sfs = "";
+
+            txt = LocalDB.SetQuotes(txt);
+
+            if (txt.Length > 2)
+            {
+                sfs = string.Format(" (CHARINDEX('{0}',DocsOutput.RN_DocOut)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DocsOutput.Date_DocOut)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DocsOutput.Note_DocOut)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DOutRec.Org)<>0", txt);
+                sfs += string.Format(" OR CHARINDEX('{0}',DOutRec.Rec_Org)<>0", txt);
+                sfs += ")";
+            }
+
+            if (sfs != SqlFastSearch)
+            {
+                flLoadList = false;
+                SqlFastSearch = sfs;
+                LoadData();
+                GetListDoc();
+            }
+
+        }
+
+
 
     }
 }
