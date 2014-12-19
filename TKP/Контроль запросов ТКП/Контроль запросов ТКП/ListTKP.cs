@@ -363,7 +363,7 @@ namespace Контроль_запросов_ТКП
         private void AddNewZad(DataRow dr, string TypeZad)
         {
             Cursor.Current = Cursors.WaitCursor;
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("ID_ZAD", dr["ID_Rec"].ToString());
             DS.Add("TypeZad", TypeZad);
             DS.Add("Status", "0");
