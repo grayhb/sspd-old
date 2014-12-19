@@ -552,7 +552,7 @@ namespace Контроль_запросов_ТКП
         {
             if (ReadOnly) return;
 
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
 
             if (OlSh.Tag != null)
             {
@@ -700,7 +700,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="status">статус запроса</param>
         private void setStatus(string status)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("Status", status);
 
             СтатусВРаботе.Checked = false;
@@ -746,7 +746,7 @@ namespace Контроль_запросов_ТКП
 
         private void setConAnal(int flConAnal)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("flConAnal", flConAnal.ToString());
             LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
         }
@@ -759,7 +759,7 @@ namespace Контроль_запросов_ТКП
         private void setStatusDoc(DataGridViewRow DGVR, string status)
         {
             if (status == "") status = "-1";
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("StatusDoc", status);
 
             //обновляем базу
@@ -812,7 +812,7 @@ namespace Контроль_запросов_ТКП
         /// </param>
         private void AddDoc(string IDDoc, byte TypeDoc, string IDOrg)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             if (TypeDoc != 1)
             {
                 DS.Add("ID_TKP", ID_TKP);
@@ -910,7 +910,7 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         private void SelectMTR()
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             if (SelMTR.Text != "очистить")
             {
                 ListMTR MTR = new ListMTR();
@@ -1042,7 +1042,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="FinishDate">Дата окончания действия</param>
         private void saveDateEndTKP(string IDDoc, string FinishDate)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("DateFinishTKP", FinishDate);
             LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
         }
@@ -1068,7 +1068,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="FlUseTKP">Отметка</param>
         private void saveUseTKP(string IDDoc, byte FlUseTKP)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("UseTKP", FlUseTKP.ToString());
             LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
         }
@@ -1468,7 +1468,7 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         private void DGV_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            UpdateStatusDocMenu(DGV.Rows[e.RowIndex]);
+            
         }
 
 
@@ -1562,6 +1562,9 @@ namespace Контроль_запросов_ТКП
             //статус проверки
             LoadCheckDoc(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
 
+            //статус документа
+            UpdateStatusDocMenu(DGV.SelectedRows[0]);
+
         }
 
 
@@ -1617,9 +1620,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], null);
             else
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "1");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], 1);
         }
 
         private void btnCheckPart_Click(object sender, EventArgs e)
@@ -1627,9 +1630,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], null);
             else
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "2");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], 2);
         }
 
         private void btnCheckFalse_Click(object sender, EventArgs e)
@@ -1637,9 +1640,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "-1");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], null);
             else
-                setAuthorCheckedDoc(DGV.SelectedRows[0], "0");
+                setAuthorCheckedDoc(DGV.SelectedRows[0], 0);
         }
 
         /// <summary>
@@ -1647,21 +1650,21 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         /// <param name="DGVR">Строка из DGV</param>
         /// <param name="status">флаг проверки</param>
-        private void setAuthorCheckedDoc(DataGridViewRow DGVR, string status)
+        private void setAuthorCheckedDoc(DataGridViewRow DGVR, object status)
         {
             //if (status == "") status = "-1";
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("AuthorChecked", status);
 
             //обновляем базу
             LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
 
 
-            if (status == "0")
+            if ((int)status == 0)
                 DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
-            else if (status == "1")
+            else if ((int)status == 1)
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
-            else if (status == "2")
+            else if ((int)status == 2)
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
             else
                 DGVR.Cells["CheckedAuthor"].Value = "";
@@ -1680,17 +1683,15 @@ namespace Контроль_запросов_ТКП
 
         private void МенюДокументы_DropDownOpened(object sender, EventArgs e)
         {
-            //проврека исходящего
-            if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag == null)
-                МенюДокументыИсх.Enabled = false;
-            else
-                МенюДокументыИсх.Enabled = true;
-
-            //проврека входящего
-            if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null)
-                МенюДокументыВх.Enabled = false;
-            else
-                МенюДокументыВх.Enabled = true;
+            if (DGV.SelectedRows.Count == 0)
+            {
+                МенюДокументыПримечание.Enabled = false;
+                МенюДокументыКонтакты.Enabled = false;
+            } else
+            {
+                МенюДокументыПримечание.Enabled = true;
+                МенюДокументыКонтакты.Enabled = true;
+            }
         }
 
     }

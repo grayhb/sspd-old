@@ -50,7 +50,7 @@ namespace Контроль_запросов_ТКП
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("Contacts", Contact.Text);
             if (iNew)
             {

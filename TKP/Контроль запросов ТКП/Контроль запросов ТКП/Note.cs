@@ -44,7 +44,7 @@ namespace Контроль_запросов_ТКП
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("Mail_Note", NoteTxt.Text);
             LocalDB.UpdateData(DS, "КонтрольТКП_Письма", "ID = " + ID_Doc);
             flSave = true;

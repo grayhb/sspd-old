@@ -204,7 +204,7 @@ namespace Контроль_запросов_ТКП
                 return;
             }
 
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("NameMTR", NameMTR.Text);
             DS.Add("Code", Code.Text);
 

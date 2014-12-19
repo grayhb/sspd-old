@@ -29,7 +29,7 @@ namespace Контроль_запросов_ТКП
 
 
                 //запись данных в локальную базу ТКП
-                Dictionary<string, string> DS = new Dictionary<string, string>();
+                Dictionary<string, object> DS = new Dictionary<string, object>();
                 DS.Add("ID_Org", IDOrg);
                 DS.Add("Name_Br",rs[0]["Name_br"].ToString() );
                 DS.Add("Name_Full", rs[0]["Name"].ToString());
@@ -77,7 +77,7 @@ namespace Контроль_запросов_ТКП
                     orgOut = getDataOrgFromIDOut(dr["ID_OutDoc"].ToString());
 
 
-                Dictionary<string, string> DS = new Dictionary<string, string>();
+                Dictionary<string, object> DS = new Dictionary<string, object>();
                 
                 if (orgInp != "0" && orgInp != null)
                     addOrg(orgInp);
