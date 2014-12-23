@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.операцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортДанныхВExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,6 +78,17 @@
             this.lbEq = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.DGV = new System.Windows.Forms.DataGridView();
+            this.IconDoc = new System.Windows.Forms.DataGridViewImageColumn();
+            this.RNDocOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateDocOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Org = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RNDocInp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateDocInp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Contacts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateStartTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateFinishTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckedAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.КМенюИсходящий = new System.Windows.Forms.ToolStripMenuItem();
             this.КМенюВходящий = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +102,7 @@
             this.pКонтакты = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnUseTKP = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCheckDoc = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckTrue = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckPart = new System.Windows.Forms.ToolStripMenuItem();
@@ -135,17 +147,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.NumZad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.RNDocOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateDocOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Org = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNDocInp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateDocInp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Contacts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateStartTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateFinishTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CheckedAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
@@ -413,6 +414,7 @@
             this.помощьToolStripMenuItem.Name = "помощьToolStripMenuItem";
             this.помощьToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.помощьToolStripMenuItem.Text = "Помощь";
+            this.помощьToolStripMenuItem.Click += new System.EventHandler(this.помощьToolStripMenuItem_Click);
             // 
             // MainPanel
             // 
@@ -436,9 +438,9 @@
             // lbEq
             // 
             this.lbEq.FormattingEnabled = true;
-            this.lbEq.Location = new System.Drawing.Point(153, 360);
+            this.lbEq.Location = new System.Drawing.Point(159, 358);
             this.lbEq.Name = "lbEq";
-            this.lbEq.Size = new System.Drawing.Size(528, 95);
+            this.lbEq.Size = new System.Drawing.Size(418, 95);
             this.lbEq.TabIndex = 36;
             this.lbEq.Visible = false;
             this.lbEq.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbEq_KeyDown);
@@ -462,17 +464,18 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IconDoc,
             this.RNDocOut,
             this.DateDocOut,
             this.Org,
@@ -484,26 +487,26 @@
             this.DateFinishTKP,
             this.CheckedAuthor});
             this.DGV.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGV.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGV.DefaultCellStyle = dataGridViewCellStyle10;
             this.DGV.Location = new System.Drawing.Point(0, 376);
             this.DGV.MultiSelect = false;
             this.DGV.Name = "DGV";
             this.DGV.ReadOnly = true;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.DGV.RowHeadersVisible = false;
             this.DGV.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DGV.RowTemplate.Height = 44;
@@ -515,8 +518,105 @@
             this.DGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_CellDoubleClick);
             this.DGV.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGV_CellMouseDown);
             this.DGV.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_RowEnter);
+            this.DGV.RowHeightChanged += new System.Windows.Forms.DataGridViewRowEventHandler(this.DGV_RowHeightChanged);
             this.DGV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGV_RowPostPaint);
             this.DGV.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DGV_Scroll);
+            // 
+            // IconDoc
+            // 
+            this.IconDoc.HeaderText = "";
+            this.IconDoc.MinimumWidth = 32;
+            this.IconDoc.Name = "IconDoc";
+            this.IconDoc.ReadOnly = true;
+            this.IconDoc.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.IconDoc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IconDoc.Width = 32;
+            // 
+            // RNDocOut
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RNDocOut.DefaultCellStyle = dataGridViewCellStyle2;
+            this.RNDocOut.HeaderText = "Р/Н исх.";
+            this.RNDocOut.Name = "RNDocOut";
+            this.RNDocOut.ReadOnly = true;
+            this.RNDocOut.Width = 75;
+            // 
+            // DateDocOut
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateDocOut.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DateDocOut.HeaderText = "Дата исх.";
+            this.DateDocOut.Name = "DateDocOut";
+            this.DateDocOut.ReadOnly = true;
+            this.DateDocOut.Width = 75;
+            // 
+            // Org
+            // 
+            this.Org.HeaderText = "Организация-получатель";
+            this.Org.Name = "Org";
+            this.Org.ReadOnly = true;
+            this.Org.Width = 240;
+            // 
+            // RNDocInp
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RNDocInp.DefaultCellStyle = dataGridViewCellStyle4;
+            this.RNDocInp.HeaderText = "Р/Н вход.";
+            this.RNDocInp.Name = "RNDocInp";
+            this.RNDocInp.ReadOnly = true;
+            this.RNDocInp.Width = 75;
+            // 
+            // DateDocInp
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateDocInp.DefaultCellStyle = dataGridViewCellStyle5;
+            this.DateDocInp.HeaderText = "Дата вход.";
+            this.DateDocInp.Name = "DateDocInp";
+            this.DateDocInp.ReadOnly = true;
+            this.DateDocInp.Width = 75;
+            // 
+            // Note
+            // 
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Note.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Note.HeaderText = "Примечание";
+            this.Note.Name = "Note";
+            this.Note.ReadOnly = true;
+            this.Note.Width = 215;
+            // 
+            // Contacts
+            // 
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Contacts.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Contacts.HeaderText = "Контакты";
+            this.Contacts.Name = "Contacts";
+            this.Contacts.ReadOnly = true;
+            this.Contacts.Width = 214;
+            // 
+            // DateStartTKP
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DateStartTKP.DefaultCellStyle = dataGridViewCellStyle8;
+            this.DateStartTKP.HeaderText = "Начало действия ТКП";
+            this.DateStartTKP.Name = "DateStartTKP";
+            this.DateStartTKP.ReadOnly = true;
+            this.DateStartTKP.Width = 125;
+            // 
+            // DateFinishTKP
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DateFinishTKP.DefaultCellStyle = dataGridViewCellStyle9;
+            this.DateFinishTKP.HeaderText = "Окончание действия";
+            this.DateFinishTKP.Name = "DateFinishTKP";
+            this.DateFinishTKP.ReadOnly = true;
+            this.DateFinishTKP.Width = 125;
+            // 
+            // CheckedAuthor
+            // 
+            this.CheckedAuthor.HeaderText = "Проверено автором";
+            this.CheckedAuthor.Name = "CheckedAuthor";
+            this.CheckedAuthor.ReadOnly = true;
             // 
             // contextMenuStrip1
             // 
@@ -617,6 +717,11 @@
             this.btnUseTKP.Size = new System.Drawing.Size(205, 22);
             this.btnUseTKP.Text = "Использовано в сметах";
             this.btnUseTKP.Click += new System.EventHandler(this.btnUseTKP_Click);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(202, 6);
             // 
             // btnCheckDoc
             // 
@@ -746,6 +851,7 @@
             this.Equipment.Name = "Equipment";
             this.Equipment.Size = new System.Drawing.Size(418, 20);
             this.Equipment.TabIndex = 9;
+            this.Equipment.TextChanged += new System.EventHandler(this.Equipment_TextChanged);
             // 
             // TableLayoutPanel6
             // 
@@ -1119,96 +1225,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Номер задания";
             // 
-            // toolStripSeparator12
-            // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(202, 6);
-            // 
-            // RNDocOut
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RNDocOut.DefaultCellStyle = dataGridViewCellStyle13;
-            this.RNDocOut.HeaderText = "Р/Н исходящий";
-            this.RNDocOut.Name = "RNDocOut";
-            this.RNDocOut.ReadOnly = true;
-            // 
-            // DateDocOut
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateDocOut.DefaultCellStyle = dataGridViewCellStyle14;
-            this.DateDocOut.HeaderText = "Дата исход.";
-            this.DateDocOut.Name = "DateDocOut";
-            this.DateDocOut.ReadOnly = true;
-            this.DateDocOut.Width = 75;
-            // 
-            // Org
-            // 
-            this.Org.HeaderText = "Организация-получатель";
-            this.Org.Name = "Org";
-            this.Org.ReadOnly = true;
-            this.Org.Width = 240;
-            // 
-            // RNDocInp
-            // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RNDocInp.DefaultCellStyle = dataGridViewCellStyle15;
-            this.RNDocInp.HeaderText = "Р/Н вход.";
-            this.RNDocInp.Name = "RNDocInp";
-            this.RNDocInp.ReadOnly = true;
-            this.RNDocInp.Width = 75;
-            // 
-            // DateDocInp
-            // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateDocInp.DefaultCellStyle = dataGridViewCellStyle16;
-            this.DateDocInp.HeaderText = "Дата вход.";
-            this.DateDocInp.Name = "DateDocInp";
-            this.DateDocInp.ReadOnly = true;
-            this.DateDocInp.Width = 75;
-            // 
-            // Note
-            // 
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Note.DefaultCellStyle = dataGridViewCellStyle17;
-            this.Note.HeaderText = "Примечание";
-            this.Note.Name = "Note";
-            this.Note.ReadOnly = true;
-            this.Note.Width = 215;
-            // 
-            // Contacts
-            // 
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Contacts.DefaultCellStyle = dataGridViewCellStyle18;
-            this.Contacts.HeaderText = "Контакты";
-            this.Contacts.Name = "Contacts";
-            this.Contacts.ReadOnly = true;
-            this.Contacts.Width = 214;
-            // 
-            // DateStartTKP
-            // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DateStartTKP.DefaultCellStyle = dataGridViewCellStyle19;
-            this.DateStartTKP.HeaderText = "Начало действия ТКП";
-            this.DateStartTKP.Name = "DateStartTKP";
-            this.DateStartTKP.ReadOnly = true;
-            this.DateStartTKP.Width = 125;
-            // 
-            // DateFinishTKP
-            // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DateFinishTKP.DefaultCellStyle = dataGridViewCellStyle20;
-            this.DateFinishTKP.HeaderText = "Окончание действия";
-            this.DateFinishTKP.Name = "DateFinishTKP";
-            this.DateFinishTKP.ReadOnly = true;
-            this.DateFinishTKP.Width = 125;
-            // 
-            // CheckedAuthor
-            // 
-            this.CheckedAuthor.HeaderText = "Проверено автором";
-            this.CheckedAuthor.Name = "CheckedAuthor";
-            this.CheckedAuthor.ReadOnly = true;
-            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1346,6 +1362,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem СтатусКонАнал;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.DataGridViewImageColumn IconDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn RNDocOut;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateDocOut;
         private System.Windows.Forms.DataGridViewTextBoxColumn Org;

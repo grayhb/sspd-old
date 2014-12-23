@@ -81,6 +81,12 @@
     <Compile Include="Help.Designer.cs">
       <DependentUpon>Help.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelpCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpCard.Designer.cs">
+      <DependentUpon>HelpCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListMTR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +219,9 @@
     <EmbeddedResource Include="Help.resx">
       <DependentUpon>Help.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HelpCard.resx">
+      <DependentUpon>HelpCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListMTR.resx">
       <DependentUpon>ListMTR.cs</DependentUpon>
     </EmbeddedResource>
@@ -285,6 +294,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\card-address.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

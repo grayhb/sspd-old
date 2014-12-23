@@ -145,7 +145,6 @@ namespace Контроль_запросов_ТКП
 
                 TypeZad = dr["TypeZad"].ToString();
 
-                //Status.Text = dr["Status"].ToString() == "0" ? "В работе" : "Выполнен";
                 СтатусВРаботе.Checked = false;
                 СтатусВыполнено.Checked = false;
                 if (dr["Status"].ToString() == "0") 
@@ -310,14 +309,8 @@ namespace Контроль_запросов_ТКП
                     //красим если получили ответ
                     SetSelBG(DGVR);
 
-                    //доработать этот момент. показывать кто и когда проверил
-                    if (dr["AuthorChecked"].ToString() == "0")
-                        DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
-                    else if (dr["AuthorChecked"].ToString() == "1")
-                        DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
-                    else if (dr["AuthorChecked"].ToString() == "2")
-                        DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
-                        
+                    //выставляем статус проверки автора
+                    setAuthorCheckedDoc(DGVR, dr["AuthorChecked"], false);
 
                     if (dr["UseTKP"].ToString() == "1")
                     {
@@ -756,9 +749,9 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         /// <param name="DGVR">Строка из DGV</param>
         /// <param name="status">статус документа</param>
-        private void setStatusDoc(DataGridViewRow DGVR, string status)
+        private void setStatusDoc(DataGridViewRow DGVR, object status)
         {
-            if (status == "") status = "-1";
+            //if (status == "") status = "-1";
             Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("StatusDoc", status);
 
@@ -873,6 +866,7 @@ namespace Контроль_запросов_ТКП
         /// <param name="fValue"></param>
         private void doFilterEq(string fValue)
         {
+            //lbEq.Left = Equipment.
             lbEq.Items.Clear();
 
             if (drEq == null) return;
@@ -1168,6 +1162,8 @@ namespace Контроль_запросов_ТКП
                     e.Graphics.DrawRectangle(pen, x, y, width, height);
                 }
             }
+
+
         }
 
         #region [Фикс отображения выделения строки]
@@ -1437,9 +1433,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setStatusDoc(DGV.SelectedRows[0], "");
+                setStatusDoc(DGV.SelectedRows[0], DBNull.Value);
             else
-                setStatusDoc(DGV.SelectedRows[0], "1");
+                setStatusDoc(DGV.SelectedRows[0], 1);
         }
 
         private void статусПисьмаУточнение_Click(object sender, EventArgs e)
@@ -1447,9 +1443,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setStatusDoc(DGV.SelectedRows[0], "");
+                setStatusDoc(DGV.SelectedRows[0], DBNull.Value);
             else
-                setStatusDoc(DGV.SelectedRows[0], "2");
+                setStatusDoc(DGV.SelectedRows[0], 2);
         }
 
         private void статусПисьмаОтказ_Click(object sender, EventArgs e)
@@ -1457,9 +1453,9 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
 
             if (((ToolStripMenuItem)sender).Checked)
-                setStatusDoc(DGV.SelectedRows[0], "");
+                setStatusDoc(DGV.SelectedRows[0], DBNull.Value);
             else
-                setStatusDoc(DGV.SelectedRows[0], "0");
+                setStatusDoc(DGV.SelectedRows[0], 0);
             
         }
 
@@ -1650,33 +1646,44 @@ namespace Контроль_запросов_ТКП
         /// </summary>
         /// <param name="DGVR">Строка из DGV</param>
         /// <param name="status">флаг проверки</param>
-        private void setAuthorCheckedDoc(DataGridViewRow DGVR, object status)
+        /// <param name="flSaveInBd">флаг сохранения значения в БД (по умолчанию - да)</param>
+        private void setAuthorCheckedDoc(DataGridViewRow DGVR, object status, bool flSaveInBd = true)
         {
-            //if (status == "") status = "-1";
-            Dictionary<string, object> DS = new Dictionary<string, object>();
-            DS.Add("AuthorChecked", status);
+            if (flSaveInBd)
+            {
+                Dictionary<string, object> DS = new Dictionary<string, object>();
+                DS.Add("AuthorChecked", status);
+                //обновляем базу
+                LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
+                FlSave = true;
+            }
 
-            //обновляем базу
-            LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
 
-
-            if ((int)status == 0)
-                DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
-            else if ((int)status == 1)
-                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
-            else if ((int)status == 2)
-                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
-            else
+            if (status == null || status.ToString() == "")
+            {
                 DGVR.Cells["CheckedAuthor"].Value = "";
+                DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_gray;
+                DGVR.Cells["IconDoc"].ToolTipText = "Соответствие не проверено";
+            }
+            else if ((int)status == 0)
+            {
+                DGVR.Cells["CheckedAuthor"].Value = "Не соответствует";
+                DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_red;
+                DGVR.Cells["IconDoc"].ToolTipText = "Ответ не соответствует заданию";
+            }
+            else if ((int)status == 1)
+            {
+                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
+                DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_green;
+                DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию";
+            }
+            else if ((int)status == 2)
+            {
+                DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
+                DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_yellow;
+                DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию частично";
+            }
 
-            //обновляем статус в деталях письма
-            //((DataRow)DGVR.Tag)["StatusDoc"] = status;
-            //UpdateStatusDocMenu(DGVR);
-
-            //обновляем фон
-            //SetSelBG(DGVR);
-
-            FlSave = true;
         }
 
 
@@ -1692,6 +1699,20 @@ namespace Контроль_запросов_ТКП
                 МенюДокументыПримечание.Enabled = true;
                 МенюДокументыКонтакты.Enabled = true;
             }
+        }
+
+
+        private void DGV_RowHeightChanged(object sender, DataGridViewRowEventArgs e)
+        {
+            if (e.Row.Height < 44)
+                e.Row.Height = 44;
+        }
+
+        private void помощьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HelpCard hc = new HelpCard();
+            hc.ShowDialog();
+            hc.Dispose();
         }
 
     }
