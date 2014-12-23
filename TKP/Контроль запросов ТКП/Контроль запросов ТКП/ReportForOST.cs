@@ -447,7 +447,7 @@ namespace Контроль_запросов_ТКП
 
                         string FNameOut = textPath.Text + @"\";
 
-                        FNameOut += ConvertFileName(string.Format("{0}_{1}_{2}.pdf", Doc["RN_DocOut"],
+                        FNameOut += lib.ConvertFileName(string.Format("{0}_{1}_{2}.pdf", Doc["RN_DocOut"],
                             UI.GetDate(Doc["Date_DocOut"].ToString()),
                             Doc["Note_DocOut"]));
 
@@ -549,17 +549,7 @@ namespace Контроль_запросов_ТКП
         }
 
 
-        /// <summary>
-        /// Конвертация символов
-        /// </summary>
-        /// <param name="FName">Наименование папки</param>
-        private string ConvertFileName(string FName)
-        {
-            FName = FName.Replace("/", "_");
-            FName = FName.Replace(@"\", "_");
 
-            return FName;
-        }
 
 
 

@@ -98,6 +98,8 @@ namespace Контроль_запросов_ТКП
                 btnCheckFalse.Enabled = true;
                 btnCheckPart.Enabled = true;
                 btnCheckTrue.Enabled = true;
+
+                toolStripSeparator12.Visible = false;
             }
 
             //FIOZad.Tag --ID_Worker
@@ -475,7 +477,7 @@ namespace Контроль_запросов_ТКП
 
             if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag != null) {
                 string FNameOut = Path.GetTempPath();
-                FNameOut += ConvertFileName(string.Format("{1}_{0}.pdf", DGV.SelectedRows[0].Cells["RNDocOut"].Value.ToString(),
+                FNameOut += lib.ConvertFileName(string.Format("{1}_{0}.pdf", DGV.SelectedRows[0].Cells["RNDocOut"].Value.ToString(),
                     ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["Note_DocOut"].ToString()));
 
                 FTP.DonwloadFile(
@@ -496,14 +498,14 @@ namespace Контроль_запросов_ТКП
             string FNameInp = Path.GetTempPath();
             FNameInp += string.Format("{0}_", MTRCode.Text);
 
-            Dictionary<string, string> DictUserInfo = getInfoAuthorZad(FIOZad.Tag.ToString());
+            Dictionary<string, string> DictUserInfo = lib.getInfoAuthorZad(FIOZad.Tag.ToString());
             
             if (DictUserInfo.Count > 0)
                 FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
 
 
             FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(DGV.SelectedRows[0].Cells["DateDocInp"].Value.ToString())) 
-                + " №" + ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
+                + " №" + lib.ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
 
             FTP.DonwloadFile(
                     ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString(),"",FNameInp);
@@ -780,6 +782,8 @@ namespace Контроль_запросов_ТКП
             статусПисьмаПоложительный.Checked = false;
             статусПисьмаУточнение.Checked = false;
 
+            btnCheckDoc.Enabled = false;
+
             switch (((DataRow)DGVR.Tag)["StatusDoc"].ToString())
             {
                 case "0":
@@ -787,6 +791,7 @@ namespace Контроль_запросов_ТКП
                     break;
                 case "1":
                     статусПисьмаПоложительный.Checked = true;
+                    btnCheckDoc.Enabled = true;
                     break;
                 case "2":
                     статусПисьмаУточнение.Checked = true;
@@ -876,6 +881,7 @@ namespace Контроль_запросов_ТКП
                 if (dr[0].ToString().ToLower().IndexOf(fValue) > -1)
                     lbEq.Items.Add(dr[0].ToString());
             }
+
             if (lbEq.Items.Count > 0)
             {
                 if (lbEq.Items.Count < 16)
@@ -1468,44 +1474,7 @@ namespace Контроль_запросов_ТКП
         }
 
 
-        /// <summary>
-        /// Возвращает данные пользователя выдавшего задания
-        /// </summary>
-        /// <param name="IDW">ID сотрудника</param>
-        /// <returns>Фамилия_Отдел</returns>
-        private Dictionary<string, string> getInfoAuthorZad(string IDW)
-        {
-            //string InfoAuthor = "";
-            Dictionary<string, string> DictInfo = new Dictionary<string, string>();
 
-
-            string sql = "SELECT Workers.F_Worker, Otdels.NB_Otdel";
-            sql += " FROM Otdels INNER JOIN";
-            sql += " Workers ON Otdels.ID_Otdel = dbo.MainOtdel(Workers.ID_Otdel) ";
-            sql += " WHERE Workers.ID_Worker = " + Convert.ToInt32(IDW).ToString();
-
-            var rs = SSPD.DB.GetFields(sql);
-            if (rs != null && rs.Count > 0)
-            {
-                DictInfo.Add("NB_Otdel", rs[0]["NB_Otdel"].ToString());
-                DictInfo.Add("F_Worker", rs[0]["F_Worker"].ToString());
-            }
-
-            return DictInfo;
-        }
-
-
-        /// <summary>
-        /// Конвертация символов
-        /// </summary>
-        /// <param name="FName">Наименование папки</param>
-        private string ConvertFileName(string FName)
-        {
-            FName = FName.Replace("/", "_");
-            FName = FName.Replace(@"\", "_");
-
-            return FName;
-        }
 
 
         private void DGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1545,22 +1514,28 @@ namespace Контроль_запросов_ТКП
 
                 //проврека входящего
                 if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null)
+                {
                     КМенюВходящий.Enabled = false;
+                    статусПисьмаПоложительный.Enabled = false;
+                    статусПисьмаУточнение.Enabled = false;
+                }
                 else
+                {
                     КМенюВходящий.Enabled = true;
+                    статусПисьмаПоложительный.Enabled = true;
+                    статусПисьмаУточнение.Enabled = true;
+                }
 
+                //флаг использования в сметах
+                if (btnUseTKP.Visible)
+                    btnUseTKP.Checked = LoadUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
+
+                //статус проверки
+                LoadCheckDoc(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
+
+                //статус документа
+                UpdateStatusDocMenu(DGV.SelectedRows[0]);
             }
-
-            //флаг использования в сметах
-            if (btnUseTKP.Visible)
-                btnUseTKP.Checked = LoadUseTKP(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
-
-            //статус проверки
-            LoadCheckDoc(((DataRow)DGV.SelectedRows[0].Tag)["ID"].ToString());
-
-            //статус документа
-            UpdateStatusDocMenu(DGV.SelectedRows[0]);
-
         }
 
 
@@ -1662,8 +1637,17 @@ namespace Контроль_запросов_ТКП
             if (status == null || status.ToString() == "")
             {
                 DGVR.Cells["CheckedAuthor"].Value = "";
-                DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_gray;
-                DGVR.Cells["IconDoc"].ToolTipText = "Соответствие не проверено";
+
+                if (DGVR.Cells["RNDocInp"].Tag != null)
+                {
+                    DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_gray;
+                    DGVR.Cells["IconDoc"].ToolTipText = "Соответствие не проверено";
+                }
+                else
+                {
+                    DGVR.Cells["IconDoc"].Value = Properties.Resources.empty;
+                    DGVR.Cells["IconDoc"].ToolTipText = "";
+                }
             }
             else if ((int)status == 0)
             {
@@ -1676,12 +1660,14 @@ namespace Контроль_запросов_ТКП
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
                 DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_green;
                 DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию";
+                LoadOnDiskL(); // выгрузка на диск L
             }
             else if ((int)status == 2)
             {
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
                 DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_yellow;
                 DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию частично";
+                LoadOnDiskL(); // выгрузка на диск L
             }
 
         }
@@ -1713,6 +1699,45 @@ namespace Контроль_запросов_ТКП
             HelpCard hc = new HelpCard();
             hc.ShowDialog();
             hc.Dispose();
+        }
+
+
+        /// <summary>
+        /// Сохранить выбранный документ на диск L
+        /// </summary>
+        private void LoadOnDiskL()
+        {
+            if (DGV.SelectedRows.Count == 0) return;
+
+            if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null) return;
+
+            Dictionary<string, string> DictUserInfo = lib.getInfoAuthorZad(FIOZad.Tag.ToString());
+
+            string FPathInp = string.Format("L:\\ТКП\\{0}\\{1}\\", lib.ConvertFileName(ShPrj.Text), DictUserInfo["NB_Otdel"]);
+            string FNameInp = FPathInp;
+
+            string smsg = string.Format("Сохранить документ на сетевом ресурсе: \n{0} ?", FNameInp);
+
+            if (MessageBox.Show(smsg, "Сохранение ТКП на диске L",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                //наименование файла:
+               
+                if (MTRCode.Text != "")
+                    FNameInp += string.Format("{0}_", MTRCode.Text);
+
+                if (DictUserInfo.Count > 0)
+                    FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
+
+
+                FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(DGV.SelectedRows[0].Cells["DateDocInp"].Value.ToString()))
+                    + " №" + lib.ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
+
+                FTP.DonwloadFile(
+                        ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString(), "", FNameInp, false);
+
+                //для тестов
+                System.Diagnostics.Process.Start("explorer", FPathInp);
+            }
         }
 
     }

@@ -157,5 +157,7 @@ namespace Контроль_запросов_ТКП
                 return this.Name;
             }
         }
+
+
     }
 }
