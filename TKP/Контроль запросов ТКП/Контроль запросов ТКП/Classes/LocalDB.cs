@@ -116,7 +116,10 @@ namespace Контроль_запросов_ТКП
                 SqlNameParColumns += string.Format("{0} = {1}", kvp.Key, "@" + kvp.Key);
 
                 if (kvp.Value != null)
-                    cmd.Parameters.AddWithValue("@" + kvp.Key, kvp.Value);
+                    if (kvp.Value.ToString() != "")
+                        cmd.Parameters.AddWithValue("@" + kvp.Key, kvp.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
                 else
                     cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
                     //DBNull.Value

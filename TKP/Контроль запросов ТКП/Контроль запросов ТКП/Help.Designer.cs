@@ -30,9 +30,9 @@
         {
             this.cmdClose = new System.Windows.Forms.Button();
             this.LabelBG1 = new System.Windows.Forms.Label();
-            this.LabelBG2 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
+            this.LabelBG2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdClose
@@ -53,14 +53,6 @@
             this.LabelBG1.Size = new System.Drawing.Size(70, 20);
             this.LabelBG1.TabIndex = 7;
             // 
-            // LabelBG2
-            // 
-            this.LabelBG2.BackColor = System.Drawing.Color.DimGray;
-            this.LabelBG2.Location = new System.Drawing.Point(19, 59);
-            this.LabelBG2.Name = "LabelBG2";
-            this.LabelBG2.Size = new System.Drawing.Size(70, 20);
-            this.LabelBG2.TabIndex = 11;
-            // 
             // Label2
             // 
             this.Label2.AutoSize = true;
@@ -78,6 +70,14 @@
             this.Label1.TabIndex = 3;
             this.Label1.Text = "-";
             this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LabelBG2
+            // 
+            this.LabelBG2.BackColor = System.Drawing.Color.DimGray;
+            this.LabelBG2.Location = new System.Drawing.Point(19, 59);
+            this.LabelBG2.Name = "LabelBG2";
+            this.LabelBG2.Size = new System.Drawing.Size(70, 20);
+            this.LabelBG2.TabIndex = 11;
             // 
             // Help
             // 
