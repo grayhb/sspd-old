@@ -40,6 +40,7 @@ namespace Контроль_запросов_ТКП
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new ListTKP());
+            //Application.Run(new LogViewer());
 
         }
     }

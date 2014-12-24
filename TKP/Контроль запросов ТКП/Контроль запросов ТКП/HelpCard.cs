@@ -56,19 +56,19 @@ namespace Контроль_запросов_ТКП
             dgvr = DGV.Rows[DGV.Rows.Count - 1];
             dgvr.Cells["Par"].Value = Properties.Resources.tag_green;
             setSelectionCellBg(ref dgvr);
-            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП соответствует";
+            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП соответствует заданию";
 
             DGV.Rows.Add();
             dgvr = DGV.Rows[DGV.Rows.Count - 1];
             dgvr.Cells["Par"].Value = Properties.Resources.tag_yellow;
             setSelectionCellBg(ref dgvr);
-            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП соответствует частично";
+            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП соответствует частично заданию";
 
             DGV.Rows.Add();
             dgvr = DGV.Rows[DGV.Rows.Count - 1];
             dgvr.Cells["Par"].Value = Properties.Resources.tag_red;
             setSelectionCellBg(ref dgvr);
-            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП не соответствует";
+            dgvr.Cells["Note"].Value = "Проверено автором задания - ТКП не соответствует заданию";
 
             DGV.Rows.Add();
             dgvr = DGV.Rows[DGV.Rows.Count - 1];
