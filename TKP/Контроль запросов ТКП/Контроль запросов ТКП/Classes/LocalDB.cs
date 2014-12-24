@@ -46,7 +46,7 @@ namespace Контроль_запросов_ТКП
 
         public static void InsertData(Dictionary<string, object> DataSet, string TableName)
         {
-            string SqlStr = string.Format("INSERT INTO [{0}] ", TableName);
+            string SqlStr = string.Format("INSERT INTO {0} ", TableName);
             string SqlNameColumns = "";
             string SqlParValues = "";
 
@@ -54,7 +54,6 @@ namespace Контроль_запросов_ТКП
 
             //создание части SQL запроса по наименованиям полей с использованием параметров
 
-            //foreach (KeyValuePair<string, object> kvp in DataSet) - для добавление данных кроме строк
             foreach (KeyValuePair<string, object> kvp in DataSet)
             {
                 if (!string.IsNullOrEmpty(SqlNameColumns))
@@ -65,17 +64,26 @@ namespace Контроль_запросов_ТКП
 
                 SqlNameColumns += kvp.Key;
                 SqlParValues += "@" + kvp.Key;
-                cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, kvp.Value));
+
+
+                if (kvp.Value != null)
+                    if (kvp.Value.ToString() != "")
+                        cmd.Parameters.AddWithValue("@" + kvp.Key, kvp.Value);
+                        //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, kvp.Value));
+                    else
+                        cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
+                        //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, DBNull.Value));
+                else
+                    cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
+                    //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, DBNull.Value));
+
+                //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, kvp.Value));
             }
 
             if (string.IsNullOrEmpty(SqlNameColumns))
-            {
                 return;
-            }
             else
-            {
                 SqlStr += string.Format(" ({0}) VALUES ({1})", SqlNameColumns, SqlParValues);
-            }
 
             //выполнение SQL конструкции
 

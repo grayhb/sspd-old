@@ -735,6 +735,7 @@ namespace Контроль_запросов_ТКП
             }
 
             LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
+            TKP_Log.add(string.Format("Status = {0}", status), "КонтрольТКП", ID_TKP);
             FlSave = true;
         }
 
@@ -1630,6 +1631,7 @@ namespace Контроль_запросов_ТКП
                 DS.Add("AuthorChecked", status);
                 //обновляем базу
                 LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + ((DataRow)DGVR.Tag)["ID"].ToString());
+                TKP_Log.add(string.Format("AuthorChecked = {0}", status), "КонтрольТКП", ID_TKP);
                 FlSave = true;
             }
 
@@ -1660,14 +1662,16 @@ namespace Контроль_запросов_ТКП
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует";
                 DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_green;
                 DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию";
-                LoadOnDiskL(); // выгрузка на диск L
+                if (FlSave)
+                    LoadOnDiskL(); // выгрузка на диск L
             }
             else if ((int)status == 2)
             {
                 DGVR.Cells["CheckedAuthor"].Value = "Cоответствует частично";
                 DGVR.Cells["IconDoc"].Value = Properties.Resources.tag_yellow;
                 DGVR.Cells["IconDoc"].ToolTipText = "Ответ соответствует заданию частично";
-                LoadOnDiskL(); // выгрузка на диск L
+                if (FlSave)
+                    LoadOnDiskL(); // выгрузка на диск L
             }
 
         }
@@ -1716,24 +1720,29 @@ namespace Контроль_запросов_ТКП
             string FPathInp = string.Format("L:\\ТКП\\{0}\\{1}\\", lib.ConvertFileName(ShPrj.Text), DictUserInfo["NB_Otdel"]);
             string FNameInp = FPathInp;
 
+            
             string smsg = string.Format("Сохранить документ на сетевом ресурсе: \n{0} ?", FNameInp);
+
+            //наименование файла:
+
+            if (MTRCode.Text != "")
+                FNameInp += string.Format("{0}_", MTRCode.Text);
+
+            if (DictUserInfo.Count > 0)
+                FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
+
+
+            FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(DGV.SelectedRows[0].Cells["DateDocInp"].Value.ToString()))
+                + " №" + lib.ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
+
+            if (File.Exists(FNameInp)) return;
 
             if (MessageBox.Show(smsg, "Сохранение ТКП на диске L",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                //наименование файла:
-               
-                if (MTRCode.Text != "")
-                    FNameInp += string.Format("{0}_", MTRCode.Text);
-
-                if (DictUserInfo.Count > 0)
-                    FNameInp += string.Format("{0}_", string.Format("{0}_{1}", DictUserInfo["F_Worker"], DictUserInfo["NB_Otdel"]));
-
-
-                FNameInp += string.Format("вх. от {0:yyyy.MM.dd}", Convert.ToDateTime(DGV.SelectedRows[0].Cells["DateDocInp"].Value.ToString()))
-                    + " №" + lib.ConvertFileName(DGV.SelectedRows[0].Cells["RNDocInp"].Value.ToString()) + ".pdf";
-
                 FTP.DonwloadFile(
                         ((Hashtable)DGV.SelectedRows[0].Cells["RNDocInp"].Tag)["PathToImage"].ToString(), "", FNameInp, false);
+
+                TKP_Log.add(string.Format("LoadOnDiskL = {0}", FNameInp), "КонтрольТКП", ID_TKP);
 
                 //для тестов
                 System.Diagnostics.Process.Start("explorer", FPathInp);

@@ -59,6 +59,7 @@ namespace Контроль_запросов_ТКП
             }
         }
 
+
         private static string GetExt(string fname)
         {
             string ext = "";
@@ -78,6 +79,7 @@ namespace Контроль_запросов_ТКП
             return ext;
         }
 
+        
         private static void SetNumZadInPDF(string FPath, string Nzad)
         {
             try
@@ -100,6 +102,7 @@ namespace Контроль_запросов_ТКП
                 Console.WriteLine(ex.Message);
             }
         }
+        
 
     }
 }

@@ -31,6 +31,8 @@ namespace Контроль_запросов_ТКП
         {
             InitializeComponent();
 
+            TKP_Log.add("Login", "Workers", Params.UserInfo.ID_Worker);
+
             InitForm();
         }
 
@@ -1404,6 +1406,13 @@ namespace Контроль_запросов_ТКП
 
 
         #endregion
+
+        private void просмотрЛогаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LogViewer lv = new LogViewer();
+            lv.ShowDialog();
+            lv.Dispose();
+        }
 
     }
 }
