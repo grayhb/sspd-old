@@ -51,7 +51,7 @@ namespace Контроль_запросов_ТКП
             }
 
             UI.SetBgRowInDGV(DGV);
-            DGVCount.Text = string.Format("Найдено записей: {0}", DGV.Rows.Count);
+            DGVCount.Text = string.Format("Найдено записей: {0} | Обновлено: {1}", DGV.Rows.Count, DateTime.Now);
         }
 
 

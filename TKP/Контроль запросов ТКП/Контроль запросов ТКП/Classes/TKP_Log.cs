@@ -46,7 +46,11 @@ namespace Контроль_запросов_ТКП
                 ret = "Запуск программы";
             else if (EventType.ToLower().IndexOf("loadondiskl") > -1)
                 ret = "Выгрузка входящего документа на диск L";
-
+            else if (EventType.IndexOf("flConAnal") > -1)
+                ret = "Установка флага Коньюктурного анализа в карточке задания";
+            else if (EventType.ToLower().IndexOf("usetkp") > -1)
+                ret = "Установка флага использования ТКП в сметах в карточке задания";
+            
             ret += string.Format(" [{0}  -  {1}]", Params.UserInfo.FIO, Params.UserInfo.NBMOtdel);
 
             return ret;
