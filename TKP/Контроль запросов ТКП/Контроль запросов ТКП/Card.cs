@@ -740,12 +740,18 @@ namespace Контроль_запросов_ТКП
         }
 
 
+        /// <summary>
+        /// Установка флага Конъюктурного анализа
+        /// </summary>
+        /// <param name="flConAnal">Флаг</param>
         private void setConAnal(int flConAnal)
         {
             Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("flConAnal", flConAnal.ToString());
             LocalDB.UpdateData(DS, "КонтрольТКП", " ID_TKP = " + ID_TKP);
+            TKP_Log.add(string.Format("flConAnal = {0}", flConAnal),"КонтрольТКП", ID_TKP);
         }
+
 
         /// <summary>
         /// Установка статуса документа
@@ -1072,6 +1078,7 @@ namespace Контроль_запросов_ТКП
             Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("UseTKP", FlUseTKP.ToString());
             LocalDB.UpdateData(DS, "КонтрольТКП_Письма", " ID = " + IDDoc);
+            TKP_Log.add(string.Format("UseTKP = {0} | ID_TKP = {1}", FlUseTKP, ID_TKP), "КонтрольТКП_Письма", IDDoc);
         }
 
         /// <summary>
