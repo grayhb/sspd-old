@@ -56,8 +56,8 @@
             this.МенюДокументыПримечание = new System.Windows.Forms.ToolStripMenuItem();
             this.МенюДокументыКонтакты = new System.Windows.Forms.ToolStripMenuItem();
             this.элВерсияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.исходящегоПисьмаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.входящегоПисьмаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюИсходящий = new System.Windows.Forms.ToolStripMenuItem();
+            this.МенюВходящий = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.заданияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.приложениеКЗаданиюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +89,7 @@
             this.DateStartTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateFinishTKP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckedAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.КМеню = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.КМенюИсходящий = new System.Windows.Forms.ToolStripMenuItem();
             this.КМенюВходящий = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -150,7 +150,7 @@
             this.menuStrip1.SuspendLayout();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.КМеню.SuspendLayout();
             this.TableLayoutPanel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.TableLayoutPanel6.SuspendLayout();
@@ -279,8 +279,8 @@
             // элВерсияToolStripMenuItem
             // 
             this.элВерсияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.исходящегоПисьмаToolStripMenuItem,
-            this.входящегоПисьмаToolStripMenuItem,
+            this.МенюИсходящий,
+            this.МенюВходящий,
             this.toolStripSeparator1,
             this.заданияToolStripMenuItem,
             this.приложениеКЗаданиюToolStripMenuItem});
@@ -288,19 +288,19 @@
             this.элВерсияToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.элВерсияToolStripMenuItem.Text = "Эл. версия";
             // 
-            // исходящегоПисьмаToolStripMenuItem
+            // МенюИсходящий
             // 
-            this.исходящегоПисьмаToolStripMenuItem.Name = "исходящегоПисьмаToolStripMenuItem";
-            this.исходящегоПисьмаToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.исходящегоПисьмаToolStripMenuItem.Text = "Исходящего письма";
-            this.исходящегоПисьмаToolStripMenuItem.Click += new System.EventHandler(this.исходящегоПисьмаToolStripMenuItem_Click);
+            this.МенюИсходящий.Name = "МенюИсходящий";
+            this.МенюИсходящий.Size = new System.Drawing.Size(205, 22);
+            this.МенюИсходящий.Text = "Исходящего письма";
+            this.МенюИсходящий.Click += new System.EventHandler(this.исходящегоПисьмаToolStripMenuItem_Click);
             // 
-            // входящегоПисьмаToolStripMenuItem
+            // МенюВходящий
             // 
-            this.входящегоПисьмаToolStripMenuItem.Name = "входящегоПисьмаToolStripMenuItem";
-            this.входящегоПисьмаToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.входящегоПисьмаToolStripMenuItem.Text = "Входящего письма";
-            this.входящегоПисьмаToolStripMenuItem.Click += new System.EventHandler(this.входящегоПисьмаToolStripMenuItem_Click);
+            this.МенюВходящий.Name = "МенюВходящий";
+            this.МенюВходящий.Size = new System.Drawing.Size(205, 22);
+            this.МенюВходящий.Text = "Входящего письма";
+            this.МенюВходящий.Click += new System.EventHandler(this.входящегоПисьмаToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -486,7 +486,7 @@
             this.DateStartTKP,
             this.DateFinishTKP,
             this.CheckedAuthor});
-            this.DGV.ContextMenuStrip = this.contextMenuStrip1;
+            this.DGV.ContextMenuStrip = this.КМеню;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -618,9 +618,9 @@
             this.CheckedAuthor.Name = "CheckedAuthor";
             this.CheckedAuthor.ReadOnly = true;
             // 
-            // contextMenuStrip1
+            // КМеню
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.КМеню.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.КМенюИсходящий,
             this.КМенюВходящий,
             this.toolStripSeparator6,
@@ -632,9 +632,9 @@
             this.btnUseTKP,
             this.toolStripSeparator12,
             this.btnCheckDoc});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(206, 182);
-            this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
+            this.КМеню.Name = "contextMenuStrip1";
+            this.КМеню.Size = new System.Drawing.Size(206, 204);
+            this.КМеню.Opened += new System.EventHandler(this.КМеню_Opened);
             // 
             // КМенюИсходящий
             // 
@@ -1248,7 +1248,7 @@
             this.menuStrip1.PerformLayout();
             this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.КМеню.ResumeLayout(false);
             this.TableLayoutPanel5.ResumeLayout(false);
             this.TableLayoutPanel5.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1313,8 +1313,8 @@
         private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem заданияToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem исходящегоПисьмаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem входящегоПисьмаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem МенюИсходящий;
+        private System.Windows.Forms.ToolStripMenuItem МенюВходящий;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem МенюДокументыИсх;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -1329,7 +1329,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem удалитьКарточкуТКПToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem приложениеКЗаданиюToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip КМеню;
         private System.Windows.Forms.ToolStripMenuItem КМенюИсходящий;
         private System.Windows.Forms.ToolStripMenuItem КМенюВходящий;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;

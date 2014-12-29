@@ -21,7 +21,6 @@ namespace Контроль_запросов_ТКП
 
             try
             {
-
                 DataSet myDataSet = new DataSet();
 
                 OleDbCommand myAccessCommand = new OleDbCommand(Sql, LocalConn);
@@ -65,19 +64,13 @@ namespace Контроль_запросов_ТКП
                 SqlNameColumns += kvp.Key;
                 SqlParValues += "@" + kvp.Key;
 
-
                 if (kvp.Value != null)
                     if (kvp.Value.ToString() != "")
                         cmd.Parameters.AddWithValue("@" + kvp.Key, kvp.Value);
-                        //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, kvp.Value));
                     else
                         cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
-                        //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, DBNull.Value));
                 else
                     cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
-                    //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, DBNull.Value));
-
-                //cmd.Parameters.Add(new OleDbParameter("@" + kvp.Key, kvp.Value));
             }
 
             if (string.IsNullOrEmpty(SqlNameColumns))
@@ -89,8 +82,6 @@ namespace Контроль_запросов_ТКП
 
             try
             {
-                //Console.WriteLine(SqlStr);
-
                 if (LocalConn.State == ConnectionState.Closed)
                     LocalConn.Open();
 
@@ -130,8 +121,6 @@ namespace Контроль_запросов_ТКП
                         cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
                 else
                     cmd.Parameters.AddWithValue("@" + kvp.Key, DBNull.Value);
-                    //DBNull.Value
-
             }
 
             SqlStr += SqlNameParColumns;

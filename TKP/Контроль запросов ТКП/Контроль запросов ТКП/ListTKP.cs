@@ -392,7 +392,8 @@ namespace Контроль_запросов_ТКП
             DataRow drSSPD = GetDataZP(Convert.ToByte(drZad["TypeZad"]), drZad["ID_Zad"].ToString());
 
             //создаем папку на L
-            setPathOnL(drSSPD["Sh_project"].ToString(), drSSPD["NB_Otdel"].ToString());
+            bool flCreateDir = false;
+            lib.createDirResource(ref flCreateDir, drSSPD["Sh_project"].ToString(), drSSPD["NB_Otdel"].ToString());
 
             //добавляем строку в Дата Грид Вью
             SetDataInRow(DGVR, drZad, drSSPD);
@@ -497,117 +498,149 @@ namespace Контроль_запросов_ТКП
         {
             bool ret = true;
 
-            if (ФОтсутствует.Checked == true) return true;
-
-            //По статусу
-            if (ФСтатусВсе.Checked == false)
+            if (!ФОтсутствует.Checked)
             {
-                if (ФСтатусВработе.Checked == true && drTKP["Status"].ToString() != "0") ret =  false;
-                if (ФСтатусВыполненные.Checked == true && drTKP["Status"].ToString() != "1") ret = false;
-                if (ФСтатусОтмененные.Checked == true && drTKP["Status"].ToString() != "2") ret = false;
-                if (ФСтатусНеАктуально.Checked == true && drTKP["Status"].ToString() != "3") ret = false;
-            }
 
-            //по оборудованию
-            if (ФОборудованиеВсе.Checked == false && ret == true)
-            {
-                if (ФОборудование.Tag != null && drTKP["Equipment"].ToString().ToLower().IndexOf(ФОборудование.Tag.ToString().ToLower()) == -1) 
-                    ret = false;
-            }
-
-            //по проекту
-            if (ФПроектВсе.Checked == false && ret == true)
-            {
-                if (ФПроект.Tag != null && drSSPD["Sh_project"].ToString().ToLower().IndexOf(ФПроект.Tag.ToString().ToLower()) ==-1)
-                    ret = false;
-            }
-
-            //по организации
-            if (ФОргВсе.Checked == false && ret == true)
-            {
-                if (ФОрг.Tag != null && ((List<string>)ФОрг.Tag).IndexOf(drTKP["ID_TKP"].ToString()) == -1)
-                    ret = false;
-            }
-
-            //по отделу
-            if (ФОтделВсе.Checked == false && ret == true)
-            {
-                //OtdelZad
-                if (ФОтдел.Tag != null && drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(ФОтдел.Tag.ToString().ToLower()) == -1)
-                    ret = false;
-            }
-
-
-            //по дате выдачи задания
-            if (ФДатаВыдачиЗаданияПериод.Checked && ret == true)
-            {
-                if (ФДатаВыдачиЗаданияПериод.Tag != null)
+                //По статусу
+                if (ФСтатусВсе.Checked == false)
                 {
-                    DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
-                    DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
+                    if (ФСтатусВработе.Checked == true && drTKP["Status"].ToString() != "0") ret = false;
+                    if (ФСтатусВыполненные.Checked == true && drTKP["Status"].ToString() != "1") ret = false;
+                    if (ФСтатусОтмененные.Checked == true && drTKP["Status"].ToString() != "2") ret = false;
+                    if (ФСтатусНеАктуально.Checked == true && drTKP["Status"].ToString() != "3") ret = false;
+                }
 
-                    if (D1 == D2) D2.AddHours(23);
-
-                    DateTime D_ZP = Convert.ToDateTime(drSSPD["DT_Out"]).Date;
-
-                    //если дата начала больше 
-                    if (D1 > D_ZP)
+                //по оборудованию
+                if (ФОборудованиеВсе.Checked == false && ret == true)
+                {
+                    if (ФОборудование.Tag != null && drTKP["Equipment"].ToString().ToLower().IndexOf(ФОборудование.Tag.ToString().ToLower()) == -1)
                         ret = false;
-                    else
-                        if (D2 < D_ZP)
+                }
+
+                //по проекту
+                if (ФПроектВсе.Checked == false && ret == true)
+                {
+                    if (ФПроект.Tag != null && drSSPD["Sh_project"].ToString().ToLower().IndexOf(ФПроект.Tag.ToString().ToLower()) == -1)
+                        ret = false;
+                }
+
+                //по организации
+                if (ФОргВсе.Checked == false && ret == true)
+                {
+                    if (ФОрг.Tag != null && ((List<string>)ФОрг.Tag).IndexOf(drTKP["ID_TKP"].ToString()) == -1)
+                        ret = false;
+                }
+
+                //по отделу
+                if (ФОтделВсе.Checked == false && ret == true)
+                {
+                    //OtdelZad
+                    if (ФОтдел.Tag != null && drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(ФОтдел.Tag.ToString().ToLower()) == -1)
+                        ret = false;
+                }
+
+
+                //по дате выдачи задания
+                if (ФДатаВыдачиЗаданияПериод.Checked && ret == true)
+                {
+                    if (ФДатаВыдачиЗаданияПериод.Tag != null)
+                    {
+                        DateTime D1 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[0];
+                        DateTime D2 = (DateTime)((List<DateTime>)ФДатаВыдачиЗаданияПериод.Tag)[1];
+
+                        if (D1 == D2) D2.AddHours(23);
+
+                        DateTime D_ZP = Convert.ToDateTime(drSSPD["DT_Out"]).Date;
+
+                        //если дата начала больше 
+                        if (D1 > D_ZP)
                             ret = false;
+                        else
+                            if (D2 < D_ZP)
+                                ret = false;
+                    }
+                }
+
+
+                //по гипу
+                if (ФГИПВсе.Checked == false && ret)
+                {
+                    if (ФГИП.Tag != null && drSSPD["GIP"].ToString().ToLower().IndexOf(ФГИП.Tag.ToString().ToLower()) == -1)
+                        ret = false;
+                }
+
+                //по автору задания
+                if (ФАвторВсе.Checked == false && ret)
+                {
+                    if (ФАвтор.Tag != null && drSSPD["IDW_Autor"].ToString() != ФАвтор.Tag.ToString())
+                        ret = false;
                 }
             }
-
-
-            //по гипу
-            if (ФГИПВсе.Checked == false && ret == true)
-            {
-                if (ФГИП.Tag != null && drSSPD["GIP"].ToString().ToLower().IndexOf(ФГИП.Tag.ToString().ToLower()) == -1)
-                    ret = false;
-            }
-
-            //по автору задания
-            if (ФАвторВсе.Checked == false && ret == true)
-            {
-                if (ФАвтор.Tag != null && drSSPD["IDW_Autor"].ToString() != ФАвтор.Tag.ToString())
-                    ret = false;
-            }
-
 
             //быстрый поиск
             if (FastSearch.Text.Trim() != "" && ret)
             {
                 string fs = FastSearch.Text.Trim().ToLower();
 
-                ret = false;
+                //если есть условия множественного поиска
+                if (fs.IndexOf("+") > -1 || fs.IndexOf("&") > -1 || fs.IndexOf("|") > -1)
+                {
+                    string[] fsArr = fs.Split(new Char[] { '+', '&', '|' });
+                    
+                    ret = false;
 
-                if (drTKP["ID_Zad"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
+                    foreach (string s in fsArr)
+                    {
+                        if (s.Trim().Length > 0)
+                            ret = CheckFastFilter(s.Trim(), ref drTKP, ref drSSPD);
 
-                if (drTKP["Equipment"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
-
-                if (drTKP["OlSh"].ToString() == "")
-                    if (drTKP["OlSh"].ToString().ToLower().IndexOf(fs) != -1)
-                        ret = true;
-
-                if (drSSPD["Sh_project"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
-
-                if (drSSPD["Name_Project"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
-
-                if (drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
-
-                if (drSSPD["GIP"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
-
-                if (drSSPD["AutorFIO"].ToString().ToLower().IndexOf(fs) != -1)
-                    ret = true;
+                        if (!ret) break;
+                    }
+                }
+                else
+                    ret = CheckFastFilter(fs, ref drTKP, ref drSSPD);
 
             }
+
+            return ret;
+        }
+
+
+        /// <summary>
+        /// Быстрый поиск
+        /// </summary>
+        /// <param name="fs">искомое значение</param>
+        /// <param name="drTKP">данные ТКП</param>
+        /// <param name="drSSPD">данные задания</param>
+        /// <returns>true - есть совпадения / false - нет совпадений</returns>
+        private bool CheckFastFilter(string fs, ref DataRow drTKP, ref DataRow drSSPD)
+        {
+            bool ret = false;
+
+            if (drTKP["ID_Zad"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drTKP["Equipment"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drTKP["OlSh"].ToString() == "")
+                if (drTKP["OlSh"].ToString().ToLower().IndexOf(fs) != -1)
+                    ret = true;
+
+            if (drSSPD["Sh_project"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drSSPD["Name_Project"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drSSPD["NB_Otdel"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drSSPD["GIP"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
+
+            if (drSSPD["AutorFIO"].ToString().ToLower().IndexOf(fs) != -1)
+                ret = true;
 
             return ret;
         }
@@ -1265,25 +1298,7 @@ namespace Контроль_запросов_ТКП
            CountRowLabel.Text += LabelFilter; 
         }
 
-        /// <summary>
-        /// Формирование структуры папок на диске L в каталоке ТКП
-        /// </summary>
-        /// <param name="ShPrj">Шифр проекта</param>
-        /// <param name="NBOtdel">Сокращенное наименование отдела</param>
-        private void setPathOnL(string ShPrj, string NBOtdel = "")
-        {
-            string Lpath = @"\\10.105.21.53\Проекты\ТКП";
 
-            if (!Directory.Exists(Lpath))
-                return;
-
-            if (ShPrj != "")
-                createPath(string.Format("{0}\\{1}", Lpath, ConvertFileName(ShPrj)));
-
-            if (NBOtdel != "")
-                createPath(string.Format("{0}\\{1}\\{2}", Lpath, ConvertFileName(ShPrj), ConvertFileName(NBOtdel)));
-
-        }
 
         /// <summary>
         /// Конвертация символов
@@ -1297,18 +1312,7 @@ namespace Контроль_запросов_ТКП
             return FName;
         }
 
-        /// <summary>
-        /// Создание папки
-        /// </summary>
-        /// <param name="PathOut">Путь до папки</param>
-        private void createPath(string PathOut)
-        {
-            //PathOut = ConvertFileName(PathOut);
-            if (!Directory.Exists(PathOut)) // "!" забыл поставить
-            {
-                Directory.CreateDirectory(PathOut);
-            }
-        }
+
 
         /// <summary>
         /// Открыть файл задания

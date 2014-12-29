@@ -610,7 +610,7 @@ namespace Контроль_запросов_ТКП
             if (rs != null)
                 if (rs[0][0].ToString() == "0")
                 {
-                    Dictionary<string, string> DS = new Dictionary<string, string>();
+                    Dictionary<string, object> DS = new Dictionary<string, object>();
                     DS.Add("TDoc", TypeDoc.ToString());
                     DS.Add("ID_CA", TKP_Conf.ID_GAU);
                     DS.Add("ID_Doc", IDDOc);
@@ -633,7 +633,7 @@ namespace Контроль_запросов_ТКП
             if (rs != null)
                 if (rs[0][0].ToString() == "0")
                 {
-                    Dictionary<string, string> DS = new Dictionary<string, string>();
+                    Dictionary<string, object> DS = new Dictionary<string, object>();
                     DS.Add("TDoc", TypeDoc.ToString());
                     DS.Add("ID_Project", ShPrj.Tag.ToString());
                     DS.Add("ID_Doc", IDDOc);
@@ -653,7 +653,7 @@ namespace Контроль_запросов_ТКП
             if (DGV.SelectedRows.Count == 0) return;
             if (DGV.SelectedRows[0].Cells["RNDocOut"].Value == null) return;
 
-            Dictionary<string, string> DS = new Dictionary<string, string>();
+            Dictionary<string, object> DS = new Dictionary<string, object>();
             string IDDocOut = ((Hashtable)DGV.SelectedRows[0].Cells["RNDocOut"].Tag)["IDDoc"].ToString();
 
             //привязка исходящего к входящему!
@@ -677,7 +677,7 @@ namespace Контроль_запросов_ТКП
             if (rs != null)
                 if (rs[0][0].ToString() == "0")
                 {
-                    DS = new Dictionary<string, string>();
+                    DS = new Dictionary<string, object>();
                     DS.Add("ID_DocOut", IDDocOut);
                     DS.Add("TDoc", "1");
                     DS.Add("ID_Doc", IDDocInp);
@@ -1506,30 +1506,38 @@ namespace Контроль_запросов_ТКП
             }
         }
 
-        private void contextMenuStrip1_Opened(object sender, EventArgs e)
+        private void КМеню_Opened(object sender, EventArgs e)
         {
             if (DGV.SelectedRows.Count == 0)
-                contextMenuStrip1.Enabled = false;
+                КМеню.Enabled = false;
             else
             {
-                contextMenuStrip1.Enabled = true;
+                КМеню.Enabled = true;
 
                 //проврека исходящего
                 if (DGV.SelectedRows[0].Cells["RNDocOut"].Tag == null)
+                {
                     КМенюИсходящий.Enabled = false;
+                    МенюИсходящий.Enabled = false;
+                }
                 else
+                {
                     КМенюИсходящий.Enabled = true;
+                    МенюИсходящий.Enabled = true;
+                }
 
                 //проврека входящего
                 if (DGV.SelectedRows[0].Cells["RNDocInp"].Tag == null)
                 {
                     КМенюВходящий.Enabled = false;
+                    МенюВходящий.Enabled = false;
                     статусПисьмаПоложительный.Enabled = false;
                     статусПисьмаУточнение.Enabled = false;
                 }
                 else
                 {
                     КМенюВходящий.Enabled = true;
+                    МенюВходящий.Enabled = true;
                     статусПисьмаПоложительный.Enabled = true;
                     статусПисьмаУточнение.Enabled = true;
                 }
@@ -1724,9 +1732,13 @@ namespace Контроль_запросов_ТКП
 
             Dictionary<string, string> DictUserInfo = lib.getInfoAuthorZad(FIOZad.Tag.ToString());
 
-            string FPathInp = string.Format("L:\\ТКП\\{0}\\{1}\\", lib.ConvertFileName(ShPrj.Text), DictUserInfo["NB_Otdel"]);
+            string FPathInp = string.Format("{2}\\{0}\\{1}\\", lib.ConvertFileName(ShPrj.Text), DictUserInfo["NB_Otdel"], TKP_Conf.ResourceTKP);
             string FNameInp = FPathInp;
 
+            //if (
+            //создаем папку на L
+            bool flCreateDir = false ;
+            lib.createDirResource(ref flCreateDir, ShPrj.Text, DictUserInfo["NB_Otdel"]);
             
             string smsg = string.Format("Сохранить документ на сетевом ресурсе: \n{0} ?", FNameInp);
 

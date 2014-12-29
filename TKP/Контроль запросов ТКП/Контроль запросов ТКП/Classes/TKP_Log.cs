@@ -17,6 +17,8 @@ namespace Контроль_запросов_ТКП
         /// <param name="IDRec">Имя поля</param>
         public static void add(string EventType, string TableName, object IDRec)
         {
+            //if (!flAddLog()) return;
+
             Dictionary<string, object> DS = new Dictionary<string, object>();
             DS.Add("ID_Worker", Params.UserInfo.ID_Worker);
             DS.Add("DateTimeLog", DateTime.Now.ToString());
@@ -56,6 +58,18 @@ namespace Контроль_запросов_ТКП
             return ret;
         }
 
+        /// <summary>
+        /// Флаг добавления лога
+        /// </summary>
+        /// <returns></returns>
+        private static bool flAddLog()
+        {
+            if (Params.UserInfo.ID_Worker == "6774")
+                return false;
+
+
+            return true;
+        }
 
     }
 }
