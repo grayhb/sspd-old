@@ -14,6 +14,10 @@ namespace Контроль_запросов_ТКП
     {
         DataRowCollection drcWorkers;
 
+        //период
+        DateTime PDate1 = DateTime.Now;
+        DateTime PDate2 = DateTime.Now;
+
         public LogViewer()
         {
             InitializeComponent();
@@ -32,6 +36,9 @@ namespace Контроль_запросов_ТКП
             DGV.Rows.Clear();
 
             string sql = "SELECT * FROM КонтрольТКП_Лог ";
+            sql += " WHERE ID_Worker <> 6774 ";
+            sql += getSqlFilter();
+            
             sql += " ORDER BY DateTimeLog DESC";
             var drc = LocalDB.LoadData(sql);
 
@@ -41,7 +48,7 @@ namespace Контроль_запросов_ТКП
             {
                 DGV.Rows.Add();
                 DataGridViewRow dgvr = DGV.Rows[DGV.Rows.Count - 1];
-                dgvr.Cells["DateTimeLog"].Value = dr["DateTimeLog"].ToString();
+                dgvr.Cells["DateTimeLog"].Value = string.Format("{0:yyyy-MM-dd HH:mm:ss}",dr["DateTimeLog"]);
                 dgvr.Cells["Worker"].Value = getFIO(dr["ID_Worker"].ToString());
                 dgvr.Cells["TableName"].Value = dr["TableName"].ToString();
                 dgvr.Cells["EventLog"].Value = dr["EventLog"].ToString();
@@ -54,6 +61,21 @@ namespace Контроль_запросов_ТКП
             DGVCount.Text = string.Format("Найдено записей: {0} | Обновлено: {1}", DGV.Rows.Count, DateTime.Now);
         }
 
+
+        /// <summary>
+        /// Установка фильтров
+        /// </summary>
+        /// <returns>Строка с условием</returns>
+        private string getSqlFilter()
+        {
+            string sql;
+
+            sql = string.Format(" AND (((DateTimeLog)>=#{0}#) AND ((DateTimeLog)<=#{1}#))",
+                string.Format("{0:MM}/{0:dd}/{0:yyyy} 0:00:00", PDate1), string.Format("{0:MM}/{0:dd}/{0:yyyy} 23:59:59", PDate2));
+
+            
+            return sql;
+        }
 
         /// <summary>
         /// Возвращает ФИО сотрудника по ID
@@ -91,6 +113,28 @@ namespace Контроль_запросов_ТКП
         private void cmdUpdate_Click(object sender, EventArgs e)
         {
             LoadLogList();
+        }
+
+        
+        private void cmdSelPeriod_Click(object sender, EventArgs e)
+        {
+            SelectForm.SelectPeriod sp = new SelectForm.SelectPeriod();
+            sp.D1 = PDate1;
+            sp.D2 = PDate2;
+            sp.ShowDialog();
+
+            if (sp.flSel)
+            {
+                PDate1 = sp.D1;
+                PDate2 = sp.D2;
+
+                if (PDate1 == PDate2 && PDate1 == DateTime.Now)
+                    LabelPeriod.Text = "Период: за сегодня";
+                else
+                    LabelPeriod.Text = string.Format("Период: с {0} по {1}", PDate1.ToShortDateString(), PDate2.ToShortDateString());
+
+                LoadLogList();
+            }
         }
 
     }

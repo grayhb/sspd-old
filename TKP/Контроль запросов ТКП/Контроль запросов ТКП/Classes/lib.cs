@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Контроль_запросов_ТКП
 {
@@ -63,6 +64,51 @@ namespace Контроль_запросов_ТКП
             drc = null;
 
             return ret;
+        }
+
+        /// <summary>
+        /// Формирование структуры папок на диске L в каталоке ТКП
+        /// </summary>
+        /// <param name="ShPrj">Шифр проекта</param>
+        /// <param name="NBOtdel">Сокращенное наименование отдела</param>
+        public static void createDirResource(ref bool flCreate, string ShPrj, string NBOtdel = "")
+        {
+            string Lpath = TKP_Conf.ResourceTKP;
+
+            flCreate = false;
+
+            if (!Directory.Exists(Lpath))
+                return;
+
+            try
+            {
+                if (ShPrj != "")
+                    createPath(string.Format("{0}\\{1}", Lpath, ConvertFileName(ShPrj)));
+
+                if (NBOtdel != "")
+                    createPath(string.Format("{0}\\{1}\\{2}", Lpath, ConvertFileName(ShPrj), ConvertFileName(NBOtdel)));
+            }
+            catch
+            {
+                flCreate = false;
+            }
+            finally
+            {
+                flCreate = true;
+            }
+        }
+
+        /// <summary>
+        /// Создание папки
+        /// </summary>
+        /// <param name="PathOut">Путь до папки</param>
+        private static void createPath(string PathOut)
+        {
+            //PathOut = ConvertFileName(PathOut);
+            if (!Directory.Exists(PathOut)) // "!" забыл поставить
+            {
+                Directory.CreateDirectory(PathOut);
+            }
         }
 
 
